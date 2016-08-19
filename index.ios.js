@@ -1,5 +1,8 @@
 import React, {
-  Component, AppRegistry, StyleSheet, Text, View
+  Component
+} from 'react';
+import {
+  AppRegistry, View, Text, StyleSheet
 } from 'react-native';
 
 // components
@@ -13,4 +16,4 @@ class Omakase extends Component {
   }
 }
 
-AppRegistry.registerComponent('Omakase', () => Omakase);
+AppRegistry.registerComponent('omakase', () => Omakase);

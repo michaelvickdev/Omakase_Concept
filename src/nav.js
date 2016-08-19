@@ -1,6 +1,6 @@
 import React, {
   Component
-} from 'react-native';
+} from 'react';
 import {
   Router, Scene
 } from 'react-native-router-flux';

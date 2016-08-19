@@ -1,5 +1,8 @@
 import React, {
-  Component, View, Text, StyleSheet
+  Component
+} from 'react';
+import {
+  View, Text, StyleSheet
 } from 'react-native';
 
 export default class Navigation extends Component {
