@@ -15,7 +15,6 @@ export default class Navigation extends Component {
         <Scene key="root" hideNavBar={true}>
           <Scene
             key="loader"
-            type="replace"
             initial={true}
             component={Loader} />
         </Scene>
