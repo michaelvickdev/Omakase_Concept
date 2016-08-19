@@ -5,9 +5,6 @@ import {
   View, Text, StyleSheet
 } from 'react-native';
 import {
-  Actions
-} from 'react-native-router-flux';
-import {
   Colors
 } from '../../res/Constants';
 
