@@ -8,6 +8,10 @@ import {
   Colors
 } from '../../res/Constants';
 
+/**
+ * Handles logging in and redirection to an appropriate View
+ * either on app launch or after a login/registration was processed.
+ */
 export default class Loader extends Component {
   render() {
     return (

@@ -8,6 +8,10 @@ import {
 // components
 import Loader from './views/Loader';
 
+/**
+ * Registers Views for the global Router, where `loader` is always
+ * the initial View displayed.
+ */
 export default class Navigation extends Component {
   render() {
     return (
