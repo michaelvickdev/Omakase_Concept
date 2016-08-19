@@ -11,7 +11,7 @@ import {
   Colors
 } from '../../res/Constants';
 
-export default class Navigation extends Component {
+export default class Loader extends Component {
   render() {
     return (
       <View style={styles.container}>
