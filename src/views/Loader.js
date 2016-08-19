@@ -7,7 +7,9 @@ import {
 import {
   Actions
 } from 'react-native-router-flux';
-import Colors from '../../res/Colors';
+import {
+  Colors
+} from '../../res/Constants';
 
 export default class Navigation extends Component {
   render() {
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
+    textAlign: 'right',
     fontSize: 89,
     color: Colors.AlternateText
   }
