@@ -1,6 +1,7 @@
-import Colors from './Colors.js';
-import Strings from './Strings.js';
+import Colors from './Colors';
+import Strings from './Strings';
+import Sizes from './Sizes';
 
 export {
-  Colors, Strings
+  Colors, Strings, Sizes
 };
