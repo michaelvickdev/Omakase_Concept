@@ -128,7 +128,7 @@ export default class Button extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Transparent,
-    borderRadius: 50,
+    borderRadius: 2,
     alignItems: 'center',
     height: 35,
     width: 100
