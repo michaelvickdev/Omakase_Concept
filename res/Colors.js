@@ -6,6 +6,7 @@ export const Colors = {
   Text: '#9E9E9E',
   AlternateText: '#FFFFFF',
   EmphasizedText: '#6D6C6C',
+  Disabled: '#9E9E9E',
 
   // colors below are depreciated, please use above
   White: '#FFFFFF',

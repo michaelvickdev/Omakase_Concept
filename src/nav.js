@@ -7,6 +7,8 @@ import {
 
 // components
 import Loader from './views/Loader';
+import Login from './views/Login';
+
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -20,7 +22,7 @@ export default class Navigation extends Component {
           <Scene
             key="loader"
             initial={true}
-            component={Loader} />
+            component={Login} />
         </Scene>
       </Router>
     );
