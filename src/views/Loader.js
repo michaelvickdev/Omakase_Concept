@@ -2,11 +2,14 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet
+  View, TouchableOpacity, Text, StyleSheet
 } from 'react-native';
 import {
   Colors
 } from '../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux';
 
 /**
  * Handles logging in and redirection to an appropriate View
@@ -16,9 +19,12 @@ export default class Loader extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          Hello, Omakase
-        </Text>
+        <TouchableOpacity
+          onPress={Actions.login}>
+          <Text style={styles.text}>
+            Omakase
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -27,14 +33,14 @@ export default class Loader extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.Primary
   },
 
   text: {
     textAlign: 'right',
-    fontSize: 89,
+    fontSize: 30,
     color: Colors.AlternateText
   }
 });

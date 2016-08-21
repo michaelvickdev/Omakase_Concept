@@ -7,24 +7,33 @@ import {
 import {
   Colors
 } from '../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux';
 
 // components
-import
+import {
   Button
-from '../components/common/Button';
+} from '../components/common/Buttons';
 
 /**
- * Handles logging in and redirection to an appropriate View
- * either on app launch or after a login/registration was processed.
+ * If fetching user is unsuccessful, allow logging with existing acct
+ * or register for a new one
  */
 export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
-          Hello, Omakase
+          Omakase
         </Text>
-        <Button style={[{width:100}]} label={"Login"} color={Colors.Green} shouldBlur={true}/>
+        <Text style={[styles.text, {fontSize: 14,}]}>
+          planning your ultimate experience
+        </Text>
+        <Button style={[{width:100, marginTop:10}]}
+          label={"Login"} color={Colors.Green} shouldBlur={true}/>
+        <Button style={[{width:100, marginTop:10}]}
+          label={"Sign Up"} color={Colors.Primary} onPress={Actions.register}/>
       </View>
     );
   }
@@ -35,12 +44,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.Primary
+    backgroundColor: Colors.Background
   },
 
   text: {
-    textAlign: 'right',
+    textAlign: 'center',
     fontSize: 20,
-    color: Colors.AlternateText
+    color: Colors.Primary
   }
 });

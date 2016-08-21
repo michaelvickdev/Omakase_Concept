@@ -15,7 +15,7 @@ const DEFAULT_FONT_SIZE = 12;
 /**
  * Displays a Button.
  */
-export default class Button extends Component {
+export class Button extends Component {
 
   /**
    * Creates a new Button.
@@ -125,10 +125,36 @@ export default class Button extends Component {
   }
 }
 
+export class ArrowButton extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <TouchableOpacity style={[{marginLeft: 5, marginRight: 5}]}
+        onPress={() => {
+            this.props.onPress && !this.props.hide && !this.props.disabled
+            && this.props.onPress();
+          }
+        }>
+        <Text style={[
+          styles.arrow,
+          this.props.color && {color: this.props.color},
+          this.props.hide && {color: Colors.Transparent},
+        ]}>
+          {">"}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+}
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Transparent,
-    borderRadius: 2,
+    borderRadius: 5,
     alignItems: 'center',
     height: 35,
     width: 100
@@ -146,4 +172,11 @@ const styles = StyleSheet.create({
     color: DEFAULT_FONT_COLOR,
     fontWeight: '500'
   },
+
+  arrow: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: Colors.Primary
+  }
+
 });
