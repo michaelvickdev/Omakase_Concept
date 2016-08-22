@@ -5,12 +5,8 @@ import {
   View, Text, TouchableOpacity, StyleSheet, ActivityIndicator
 } from 'react-native';
 import {
-  Colors
-} from '../../../res/Colors';
-
-// constants
-const DEFAULT_FONT_COLOR = Colors.AlternateText;
-const DEFAULT_FONT_SIZE = 12;
+  Colors, Sizes
+} from '../../../res/Constants';
 
 /**
  * Displays a Button.
@@ -43,6 +39,7 @@ export class Button extends Component {
   }
 
   componentDidMount() {
+
     // bind methods
     this.reset = this.reset.bind(this);
   }
@@ -92,7 +89,7 @@ export class Button extends Component {
                 color={
                   this.props.disabledFontColor
                   || this.props.fontColor
-                  || styles.text.color
+                  || Colors.AlternateText
                 }
                 animating={true} />
             </View>
@@ -100,6 +97,7 @@ export class Button extends Component {
           ): (
             <View style={styles.textContainer}>
               {
+
                 // the label
                 this.props.label
                 && (
@@ -110,7 +108,7 @@ export class Button extends Component {
                     this.props.isDisabled && {
                       color: this.props.disabledFontColor
                         || this.props.fontColor
-                        || DEFAULT_FONT_COLOR
+                        || Colors.AlternateText
                     }
                   ]}>
                     {this.props.label}
@@ -125,61 +123,29 @@ export class Button extends Component {
   }
 }
 
-/**
- * Displays an Arrow Button like ">".
- */
-export class ArrowButton extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <TouchableOpacity style={[{marginLeft: 5, marginRight: 5}]}
-        onPress={() => {
-            this.props.onPress && !this.props.hide && !this.props.disabled
-            && this.props.onPress();
-          }
-        }>
-        <Text style={[
-          styles.arrow,
-          this.props.color && {color: this.props.color},
-          this.props.hide && {color: Colors.Transparent},
-        ]}>
-          {">"}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Transparent,
-    borderRadius: 5,
-    alignItems: 'center',
-    height: 35,
-    width: 70
+    borderRadius: 50,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingRight: 20,
+    paddingLeft: 20
+  },
+
+  spacer: {
+    marginLeft: 5
   },
 
   textContainer: {
-    flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
   },
 
   text: {
-    fontSize: DEFAULT_FONT_SIZE,
-    color: DEFAULT_FONT_COLOR,
+    fontSize: Sizes.Text,
+    color: Colors.Text,
     fontWeight: '500'
-  },
-
-  arrow: {
-    textAlign: 'center',
-    fontSize: 20,
-    color: Colors.Primary
   }
-
 });
