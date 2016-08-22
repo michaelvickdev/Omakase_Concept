@@ -4,16 +4,18 @@ import React, {
 import {
   View, Text, StyleSheet, TextInput
 } from 'react-native';
-import {
-  Button
-} from '../../components/common/Button'
 import{
   Colors
 } from '../../../res/Colors';
+import {
+  Actions
+} from 'react-native-router-flux';
 
 //components
 import OrderTitle from '../../components/clientorder/OrderTitle';
-
+import {
+  Button
+} from '../../components/common/Button';
 /**
   * The screen of client filling exclusions
   * for their order in the TextInput. E.g. Veggies only
@@ -38,7 +40,8 @@ export default class ClientException extends Component {
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
-            size={14} />
+            size={14}
+            onPress={Actions.clientBudget} />
           </View>
         </View>
       </View>

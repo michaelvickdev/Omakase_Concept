@@ -5,46 +5,41 @@ import {
   View, Text, StyleSheet
 } from 'react-native';
 import {
-  Actions
-} from 'react-native-router-flux';
+  Sizes
+} from '../../../res/Sizes';
 import {
   Colors
-} from '../../../res/Constants';
+} from '../../../res/Colors';
 
-// components
+//components
+import OrderTitle from '../../components/clientorder/OrderTitle';
 import {
   Button
 } from '../../components/common/Button';
 
-import OrderTitle from '../../components/clientorder/OrderTitle';
-
 /**
- * First screen of creating an event
- * client to enter basic info:
- * date, # of people, time, area, budget, occasion
+ * Thrid screen of creating an event
+ * client to enter: Budget, Number of People
  */
-export default class ClientCreate extends Component {
-
-  constructor(props){
-    super(props);
-  }
-
+export default class ClientBudget extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
         <OrderTitle />
-        <View style={styles.titleContainer}>
+        <View style={styles.topContainer}>
           <Text style={styles.text}>
-            Create new event
+            Numbers of People
+          </Text>
+          <Text style={styles.text}>
+            Budget
           </Text>
         </View>
-        <View style={styles.bottomContainer}>
+        <View style={styles.botContainer}>
           <Button
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
-            size={14}
-            onPress={Actions.clientException} />
+            size={Sizes.H2} />
         </View>
       </View>
     );
@@ -52,24 +47,20 @@ export default class ClientCreate extends Component {
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  topContainer: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: Colors.Background,
-    marginTop: 100
+    marginTop: 70
   },
-
-  bottomContainer: {
-    flex: 1,
-    top: 0,
+  botContainer: {
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
-
   text: {
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: Sizes.H2,
     color: Colors.Primary
   }
 });

@@ -18,6 +18,7 @@ import Tutorial from './views/Tutorial';
 import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
 import ClientException from './views/client/ClientException';
+import ClientBudget from './views/client/ClientBudget';
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -63,6 +64,10 @@ export default class Navigation extends Component {
             key="clientException"
             component={ClientException}
             hidNavBar={false} />
+          <Scene
+            key="clientBudget"
+            component={ClientBudget}
+            hidNavBar={false}/>
         </Scene>
       </Router>
     );
