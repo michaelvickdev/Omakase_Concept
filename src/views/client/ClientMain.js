@@ -16,6 +16,8 @@ import {
   Button
 } from '../../components/common/Button';
 import FacebookButton from '../../components/account/FacebookButton';
+import SingleLineInput from '../../components/common/SingleLineInput';
+import InputSectionHeader from '../../components/common/InputSectionHeader';
 
 /**
  * Main screen for general users (Client)
@@ -35,6 +37,12 @@ export default class ClientMain extends Component {
           </Text>
         </View>
         <View style={styles.buttonContainer}>
+          <InputSectionHeader
+            label="Testing Component" />
+          <SingleLineInput
+            label="Something"
+            isTop={true}
+            isBottom={true} />
           <Button
             label={"New Event"}
             color={Colors.Primary}
@@ -66,6 +74,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
+    alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center'
   },
