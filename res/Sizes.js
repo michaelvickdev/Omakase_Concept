@@ -1,12 +1,14 @@
 export const Sizes = {
 
   // text sizes
-  h1: 20,
-  h2: 14,
-  text: 12,
+  H1: 20,
+  H2: 14,
+  Text: 12,
+  SmallText: 10,
 
   // padding sizes
-  outerFrame: 30
+  OuterFrame: 30,
+  InnerFrame: 15
 };
 
 export default Sizes;

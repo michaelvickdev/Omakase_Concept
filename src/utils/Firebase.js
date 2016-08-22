@@ -7,5 +7,5 @@ const config = {
   storageBucket: "omakase-3868d.appspot.com",
 };
 export const Firebase = firebase.initializeApp(config);
-export const Database = Firebase.database().ref();
+export const Database = Firebase.database();
 export default Database;
