@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, TouchableOpacity, Text, StyleSheet, StatusBar
+  View, ActivityIndicator, StyleSheet, StatusBar
 } from 'react-native';
 import {
   Actions
@@ -29,12 +29,10 @@ export default class Loader extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={Actions.login}>
-          <Text style={styles.text}>
-            Omakase
-          </Text>
-        </TouchableOpacity>
+        <ActivityIndicator
+          size={'large'}
+          color={Colors.AlternateText}
+          animating={true} />
       </View>
     );
   }
@@ -46,11 +44,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.Primary
-  },
-
-  text: {
-    textAlign: 'right',
-    fontSize: 30,
-    color: Colors.AlternateText
   }
 });
