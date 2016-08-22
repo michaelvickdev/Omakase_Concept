@@ -40,9 +40,9 @@ export default class Login extends Component {
             } else {
               AccessToken.getCurrentAccessToken().then(
                 data => {
-                  console.log(data.accessToken.toString();
+                  console.log(data.accessToken.toString());
                   Actions.tutorial;
-                })
+                }
               );
             }
           }} />
