@@ -16,6 +16,8 @@ import Loader from './views/Loader';
 import Login from './views/Login';
 import Tutorial from './views/Tutorial';
 import ClientMain from './views/client/ClientMain';
+import ClientCreate from './views/client/ClientCreate';
+
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -29,7 +31,9 @@ export default class Navigation extends Component {
         <Scene key="root"
           hideNavBar={true}
           navigationBarStyle={{backgroundColor: Colors.Primary}}
-          titleStyle={{color: Colors.AlternateText}}>
+          titleStyle={{color: Colors.AlternateText}}
+          leftButtonIconStyle = {{tintColor: Colors.AlternateText}}
+          rightButtonIconStyle = {{tintColor: Colors.AlternateText}}>
           <Scene
             key="loader"
             initial={true}
@@ -47,6 +51,10 @@ export default class Navigation extends Component {
             key="clientMain"
             component={ClientMain}
             type='replace'
+            hideNavBar={false} />
+          <Scene
+            key="clientCreate"
+            component={ClientCreate}
             hideNavBar={false} />
         </Scene>
       </Router>
