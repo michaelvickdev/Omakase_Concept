@@ -2,8 +2,9 @@ import React, {
   Component
 } from 'react';
 import {
-  AppRegistry, View, Text, StyleSheet
+  AppRegistry
 } from 'react-native';
+import Database from './src/utils/Firebase';
 
 // components
 import Navigation from './src/nav';

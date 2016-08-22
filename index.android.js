@@ -1,20 +1,19 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+  AppRegistry
 } from 'react-native';
+import Database from './src/utils/Firebase';
 
 // components
 import Navigation from './src/nav';
 
+/**
+ * Android specific things should probably only go in this file, and
+ * not in any of the files inside /src (which should be platform
+ * agnostic).
+ */
 class Omakase extends Component {
   render() {
     return (
@@ -22,24 +21,5 @@ class Omakase extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('omakase', () => Omakase);

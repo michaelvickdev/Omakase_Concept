@@ -10,6 +10,7 @@ import {
 import {
   Colors
 } from '../../res/Constants';
+import * as firebase from 'firebase';
 
 // components
 import {
@@ -36,10 +37,19 @@ export default class Login extends Component {
           readPermissions={["public_profile"]}
           onLoginFinished={(error, result) => {
             if (error || result.isCancelled) {
-              console.log('failed');
+              _handleError(error || result.isCancelled);
             } else {
               AccessToken.getCurrentAccessToken().then(
-                data => console.log(data.accessToken.toString())
+                data => {
+                  firebase.auth().signInWithCredential(
+                    firebase.auth.FacebookAuthProvider.credential(
+                      data.accessToken.toString()
+                    )
+                  ).catch(_handleError);
+
+                  // login successful, push back to Loader to handle routing
+                  Actions.loader();
+                }
               );
             }
           }} />
@@ -70,3 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
+
+function _handleError(error=null) {
+  console.log(`Login failed: ${error}`);
+}
