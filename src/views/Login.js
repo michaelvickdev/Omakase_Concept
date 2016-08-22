@@ -48,7 +48,7 @@ export default class Login extends Component {
                   ).catch(_handleError);
 
                   // login successful, push back to Loader to handle routing
-                  Actions.loader();
+                  Actions.tutorial();
                 }
               );
             }

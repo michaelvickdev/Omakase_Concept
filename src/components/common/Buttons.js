@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     height: 35,
-    width: 100
+    width: 70
   },
 
   textContainer: {
