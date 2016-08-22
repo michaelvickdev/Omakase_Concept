@@ -36,7 +36,12 @@ export default class ClientCreate extends Component {
           </Text>
         </View>
         <View style={styles.bottomContainer}>
-          
+          <Button 
+            label={"Next"}
+            color={Colors.Transparent}
+            fontColor={Colors.Primary}
+            size={14}
+          />
         </View>
       </View>
     );
@@ -56,8 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 0,
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    alignSelf: 'center',
+    alignItems: 'flex-end',
   },
 
   text: {
