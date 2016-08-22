@@ -18,6 +18,7 @@ import {
 import FacebookButton from '../../components/account/FacebookButton';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
+import DatePicker from '../../components/common/DatePicker';
 
 /**
  * Main screen for general users (Client)
@@ -41,7 +42,13 @@ export default class ClientMain extends Component {
             label="Testing Component" />
           <SingleLineInput
             label="Something"
-            isTop={true}
+            isTop={true} />
+            <SingleLineInput
+              label="message" />
+              <SingleLineInput
+                label="Something2" />
+          <DatePicker
+            label="Date"
             isBottom={true} />
           <Button
             label={"New Event"}

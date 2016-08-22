@@ -7,7 +7,7 @@ export const Sizes = {
   SmallText: 10,
 
   // padding sizes
-  OuterFrame: 30,
+  OuterFrame: 25,
   InnerFrame: 15
 };
 
