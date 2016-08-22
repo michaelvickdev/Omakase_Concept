@@ -1,11 +1,31 @@
 # Omakase Client
 React Native client for Project Omakase.
 
+## Build Instructions after a Fresh Clone
+As always, `npm install` and the following manual steps:
+
+### react-native-fbsdk (Facebook Integration)
+Download https://origincache.facebook.com/developers/resources/?id=facebook-ios-sdk-current.zip and unzip all contents into `~/Documents/FacebookSDK`.
+
 ## Style Guide
 The guidelines below should be observed for the project.
 
 ### File Structure
-TBA
+```
+android
+ios
+res
+  - img
+src (platform agnostic)
+  - components (reusable components)
+  - views (entire views)
+  - utils
+  - stores
+  - actions
+  nav.js
+index.ios.js (ios-specific modules/etc)
+index.android.js (android-specific modules/etc)
+```
 
 ### Code Style
 #### General
@@ -17,7 +37,14 @@ TBA
 
 #### Imports/Exports
 * All imports should be declared at the top, separated by utilities and Component imports with a comment line above indicating the type of import.
-* Exports should be done at the declaration (like `export default class Something extends Component`) and not through `module.exports`..
+* Importing from a module should be contained in a single instruction and named imports should look as follows (with tabbing):
+```
+import DefaultImport, {
+  FirstImport, SecondImport, ThirdImport, FourthImport,
+  FifthImport
+} from 'SomeModule';
+```
+* Exports should be done at the declaration (like `export default class Something extends Component`) and not through `module.exports`.
 * If a module only contains a single export, then use `default`.
 
 #### Commenting
