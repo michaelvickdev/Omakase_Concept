@@ -9,24 +9,21 @@ import {
 } from 'react-native-router-flux';
 import {
   Colors
-} from '../../res/Constants';
+} from '../../../res/Constants';
 
 // components
 import {
   Button
-} from '../components/common/Buttons';
+} from '../../components/common/Buttons';
 
 /**
- * If fetching user is unsuccessful, allow logging with existing acct
- * or register for a new one
+ * Main screen for general users (Client)
+ * can toggle to Planners view for registered planners
  */
-export default class Login extends Component {
+export default class ClientMain extends Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      getStarted: false,
-    };
   }
 
   render() {
@@ -34,30 +31,14 @@ export default class Login extends Component {
       <View style={[{flex: 1}]}>
         <View style={styles.titleContainer}>
           <Text style={styles.text}>
-            Omakase
+            Client Main Screen
           </Text>
-          <Text style={[styles.text, {fontSize: 14,}]}>
-            planning your ultimate experience
-          </Text>
-
-
         </View>
         <View style={styles.bottomContainer}>
-          {this.state.getStarted ?
-  // replace with implementation of react-native-fbsdk
           <Button style={[{width:150}]}
-            label={"Sign in with Facebook"}
-            color={Colors.Facebook}
-            shouldBlur={true}
-            onPress={Actions.tutorial}
-          />
-          :
-          <Button style={[{width:150}]}
-            label={"Get Started"}
+            label={"New Event"}
             color={Colors.Primary}
-            onPress={() => this.setState({getStarted: true})}
           />
-          }
         </View>
       </View>
     );

@@ -17,8 +17,7 @@ import {
 } from '../components/common/Buttons';
 
 /**
- * If fetching user is unsuccessful, allow logging with existing acct
- * or register for a new one
+ * Brief tutorial of the solution, next next next done
  */
 export default class Tutorial extends Component {
 
@@ -57,6 +56,7 @@ export default class Tutorial extends Component {
             label={"Done"}
             color={Colors.Transparent}
             fontColor={Colors.AlternateText}
+            onPress={Actions.clientMain}
             size={14}
           />
           :

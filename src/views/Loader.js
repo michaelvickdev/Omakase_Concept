@@ -5,11 +5,11 @@ import {
   View, TouchableOpacity, Text, StyleSheet
 } from 'react-native';
 import {
-  Colors
-} from '../../res/Constants';
-import {
   Actions
 } from 'react-native-router-flux';
+import {
+  Colors
+} from '../../res/Constants';
 
 /**
  * Handles logging in and redirection to an appropriate View

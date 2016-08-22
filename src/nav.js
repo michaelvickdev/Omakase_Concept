@@ -9,6 +9,7 @@ import {
 import Loader from './views/Loader';
 import Login from './views/Login';
 import Tutorial from './views/Tutorial';
+import ClientMain from './views/client/ClientMain';
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -29,6 +30,10 @@ export default class Navigation extends Component {
           <Scene
             key="tutorial"
             component={Tutorial} />
+          <Scene
+            key="clientMain"
+            component={ClientMain}
+            hideNavBar={false} />
         </Scene>
       </Router>
     );
