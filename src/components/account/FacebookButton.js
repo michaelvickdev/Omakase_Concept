@@ -2,10 +2,11 @@ import React, {
   Component
 } from 'react';
 import * as firebase from 'firebase';
+import Database from '../../utils/Firebase';
 
 // components
 import {
-  LoginButton, AccessToken
+  LoginButton, AccessToken, GraphRequest, GraphRequestManager
 } from 'react-native-fbsdk';
 
 /**
@@ -37,13 +38,33 @@ export default class FacebookButton extends Component {
                   firebase.auth.FacebookAuthProvider.credential(
                     data.accessToken.toString()
                   )
-                ).catch(error => this.props.onLoginFailed
+                ).then(user => {
+
+                  // update profile
+                  Database.ref(
+                    `profiles/${user.uid}`
+                  ).set({
+                    displayName: user.displayName,
+                    email: user.email,
+                  }).then(result => {
+
+                    // now store the photo
+                    let photoId = Database.ref(`photos`).push().key;
+                    Database.ref().update({
+                      [`photos/${photoId}`]: {
+                        createdBy: user.uid,
+                        url: user.photoURL
+                      }, [`profiles/${user.uid}/photo`]: photoId
+                    });
+                  });
+
+                  // perform `onLoginFinished`
+                  this.props.onLoginFinished
+                    && this.props.onLoginFinished();
+
+                }).catch(error => this.props.onLoginFailed
                   && this.props.onLoginFailed(error)
                 );
-
-                // login successful, perform `onLoginFinished`
-                this.props.onLoginFinished
-                  && this.props.onLoginFinished();
               }
             );
           }
