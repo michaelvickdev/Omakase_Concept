@@ -2,8 +2,14 @@ import React, {
   Component
 } from 'react';
 import {
+  StatusBar
+} from 'react-native';
+import {
   Router, Scene
 } from 'react-native-router-flux';
+import {
+  Colors
+} from '../res/Constants';
 
 // components
 import Loader from './views/Loader';
@@ -17,22 +23,30 @@ import ClientMain from './views/client/ClientMain';
  */
 export default class Navigation extends Component {
   render() {
+    StatusBar.setBarStyle('light-content', true);
     return (
       <Router>
-        <Scene key="root" hideNavBar={true}>
+        <Scene key="root"
+          hideNavBar={true}
+          navigationBarStyle={{backgroundColor: Colors.Primary}}
+          titleStyle={{color: Colors.AlternateText}}>
           <Scene
             key="loader"
             initial={true}
-            component={Loader} />
+            component={Loader}
+            type='replace' />
           <Scene
             key="login"
-            component={Login} />
+            component={Login}
+            type='replace'/>
           <Scene
             key="tutorial"
-            component={Tutorial} />
+            component={Tutorial}
+            type='replace' />
           <Scene
             key="clientMain"
             component={ClientMain}
+            type='replace'
             hideNavBar={false} />
         </Scene>
       </Router>

@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet, StatusBar
 } from 'react-native';
 import {
   Actions
@@ -27,6 +27,7 @@ export default class ClientMain extends Component {
   }
 
   render() {
+    StatusBar.setHidden(false, 'slide');
     return (
       <View style={[{flex: 1}]}>
         <View style={styles.titleContainer}>

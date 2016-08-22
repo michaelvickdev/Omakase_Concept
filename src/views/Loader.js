@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, TouchableOpacity, Text, StyleSheet
+  View, TouchableOpacity, Text, StyleSheet, StatusBar
 } from 'react-native';
 import {
   Actions
@@ -17,6 +17,7 @@ import {
  */
 export default class Loader extends Component {
   render() {
+    StatusBar.setHidden(true, 'slide');
     return (
       <View style={styles.container}>
         <TouchableOpacity
