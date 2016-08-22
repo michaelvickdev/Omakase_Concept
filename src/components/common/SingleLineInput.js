@@ -2,15 +2,14 @@ import React, {
   Component
 } from 'react';
 import {
-  View, StyleSheet, TextInput, Text
+  StyleSheet, TextInput
 } from 'react-native';
 import {
-  Colors, Sizes
+  Sizes
 } from '../../../res/Constants';
 
 // components
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Divider from './Divider';
+import InputField from './InputField';
 
 /**
  * Displays a Input box for text entry.
@@ -29,22 +28,9 @@ export default class SingleLineInput extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.props.isTop && (<Divider />)}
-        <View style={styles.innerContainer}>
-          {
-            this.props.icon
-            && <Icon
-              style={[
-                styles.label,
-                styles.icon
-              ]}
-              name={this.props.icon} />
-          }
-          <Text
-            style={styles.label}>
-            {this.props.label || this.props.placeholder}
-          </Text>
+      <InputField
+        {...this.props}
+        field={(
           <TextInput
             {...this.props}
             clearButtonMode='always'
@@ -57,44 +43,12 @@ export default class SingleLineInput extends Component {
               this.setState({value: text});
             }}
             style={styles.input} />
-        </View>
-        <Divider
-          style={
-            !this.props.isBottom && {marginLeft: Sizes.InnerFrame}
-          } />
-      </View>
+        )} />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.Background,
-    flexDirection: 'column',
-    alignSelf: 'stretch'
-  },
-
-  innerContainer: {
-    paddingLeft: Sizes.InnerFrame,
-    paddingTop: Sizes.InnerFrame,
-    paddingBottom: Sizes.InnerFrame,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-
-  label: {
-    color: Colors.Text,
-    fontSize: Sizes.Text,
-    fontWeight: '500',
-    alignSelf: 'flex-start'
-  },
-
-  icon: {
-    marginTop: 1,
-    marginRight: 5
-  },
-
   input: {
     fontSize: Sizes.Text,
     textAlign: 'right',
