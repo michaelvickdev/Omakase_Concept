@@ -19,6 +19,14 @@ import FacebookButton from '../components/account/FacebookButton';
  * or register for a new one
  */
 export default class Login extends Component {
+  componentDidMount() {
+
+    // override default logged in route
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) Actions.tutorial(); else Actions.login();
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
