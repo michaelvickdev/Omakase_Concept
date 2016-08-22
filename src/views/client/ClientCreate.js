@@ -14,7 +14,7 @@ import {
 // components
 import {
   Button
-} from '../../components/common/Buttons';
+} from '../../components/common/Button';
 
 /**
  * First screen of creating an event
@@ -36,7 +36,7 @@ export default class ClientCreate extends Component {
           </Text>
         </View>
         <View style={styles.bottomContainer}>
-          <Button 
+          <Button
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}

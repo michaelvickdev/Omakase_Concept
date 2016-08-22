@@ -14,7 +14,7 @@ import {
 // components
 import {
   Button
-} from '../components/common/Buttons';
+} from '../components/common/Button';
 
 /**
  * Brief tutorial of the solution, next next next done

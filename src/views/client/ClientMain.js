@@ -14,7 +14,7 @@ import {
 // components
 import {
   Button
-} from '../../components/common/Buttons';
+} from '../../components/common/Button';
 import FacebookButton from '../../components/account/FacebookButton';
 
 /**
