@@ -45,14 +45,14 @@ export default class Login extends Component {
         <View style={styles.bottomContainer}>
           {this.state.getStarted ?
   // replace with implementation of react-native-fbsdk
-          <Button style={[{width:150}]}
+          <Button style={[{width:150, marginBottom: 100}]}
             label={"Sign in with Facebook"}
             color={Colors.Facebook}
             shouldBlur={true}
             onPress={Actions.tutorial}
           />
           :
-          <Button style={[{width:150}]}
+          <Button style={[{width:150, marginBottom: 100}]}
             label={"Get Started"}
             color={Colors.Primary}
             onPress={() => this.setState({getStarted: true})}
@@ -76,8 +76,9 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1,
     top: 0,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    alignSelf: 'center',
   },
 
   text: {

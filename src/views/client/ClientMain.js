@@ -36,7 +36,7 @@ export default class ClientMain extends Component {
           </Text>
         </View>
         <View style={styles.bottomContainer}>
-          <Button style={[{width:150}]}
+          <Button style={[{width:150, marginBottom: 50}]}
             label={"New Event"}
             color={Colors.Primary}
           />
@@ -58,8 +58,9 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1,
     top: 0,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    alignSelf: 'center',
   },
 
   text: {
