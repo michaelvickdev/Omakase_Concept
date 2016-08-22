@@ -24,7 +24,8 @@ TBA
 #### Imports/Exports
 * All imports should be declared at the top, separated by utilities and Component imports with a comment line above indicating the type of import.
 * Importing from a module should be contained in a single instruction and named imports should look as follows (with tabbing):
-``` import DefaultImport, {
+```
+import DefaultImport, {
   FirstImport, SecondImport, ThirdImport, FourthImport,
   FifthImport
 } from 'SomeModule';
