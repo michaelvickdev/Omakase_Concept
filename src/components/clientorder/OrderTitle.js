@@ -12,7 +12,7 @@ import {
 export default class OrderTitle extends Component{
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.titlecontainer}>
         <Text style={styles.text}>
           Personalized Order
         </Text>
@@ -23,14 +23,14 @@ export default class OrderTitle extends Component{
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+  titlecontainer: {
+    flexDirection: 'column',
     alignItems: 'center',
-    padding: Sizes.outerFrame
+    paddingTop: 80
   },
   text: {
-    fontSize: Sizes.h1,
+    textAlign: 'center',
+    fontSize: Sizes.H1,
     color: Colors.Primary
   }
 });
