@@ -1,7 +1,7 @@
 export const Sizes = {
 
   // text sizes
-  h1: 16,
+  h1: 20,
   h2: 14,
   text: 12,
 

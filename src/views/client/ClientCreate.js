@@ -16,6 +16,8 @@ import {
   Button
 } from '../../components/common/Button';
 
+import OrderTitle from '../../components/clientorder/OrderTitle';
+
 /**
  * First screen of creating an event
  * client to enter basic info:
@@ -30,6 +32,7 @@ export default class ClientCreate extends Component {
   render() {
     return (
       <View style={[{flex: 1}]}>
+        <OrderTitle />
         <View style={styles.titleContainer}>
           <Text style={styles.text}>
             Create new event
