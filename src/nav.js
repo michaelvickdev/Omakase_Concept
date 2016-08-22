@@ -18,14 +18,16 @@ import Tutorial from './views/Tutorial';
 import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
 
-
 /**
  * Registers Views for the global Router, where `loader` is always
  * the initial View displayed.
  */
 export default class Navigation extends Component {
-  render() {
+  componentDidLoad() {
     StatusBar.setBarStyle('light-content', true);
+  }
+
+  render() {
     return (
       <Router>
         <Scene key="root"

@@ -10,14 +10,23 @@ import {
 import {
   Colors
 } from '../../res/Constants';
+import * as firebase from 'firebase';
 
 /**
  * Handles logging in and redirection to an appropriate View
  * either on app launch or after a login/registration was processed.
  */
 export default class Loader extends Component {
-  render() {
+  componentDidMount() {
     StatusBar.setHidden(true, 'slide');
+
+    // handle currently logged in user
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) Actions.clientMain(); else Actions.login();
+    });
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity
