@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar
+  View, Text, StyleSheet
 } from 'react-native';
 import {
   Actions
@@ -17,30 +17,26 @@ import {
 } from '../../components/common/Buttons';
 
 /**
- * Main screen for general users (Client)
- * can toggle to Planners view for registered planners
+ * First screen of creating an event
+ * client to enter basic info:
+ * date, # of people, time, area, budget, occasion
  */
-export default class ClientMain extends Component {
+export default class ClientCreate extends Component {
 
   constructor(props){
     super(props);
   }
 
   render() {
-    StatusBar.setHidden(false, 'slide');
     return (
       <View style={[{flex: 1}]}>
         <View style={styles.titleContainer}>
           <Text style={styles.text}>
-            You have no pending events
+            Create new event
           </Text>
         </View>
         <View style={styles.bottomContainer}>
-          <Button style={[{width:150, marginBottom: 50}]}
-            label={"New Event"}
-            color={Colors.Primary}
-            onPress={Actions.clientCreate}
-          />
+          
         </View>
       </View>
     );
