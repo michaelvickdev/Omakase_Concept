@@ -8,7 +8,7 @@ import {
   Actions
 } from 'react-native-router-flux';
 import {
-  Colors
+  Colors, Sizes
 } from '../../../res/Constants';
 
 // components
@@ -28,14 +28,14 @@ export default class ClientMain extends Component {
 
   render() {
     return (
-      <View style={[{flex: 1}]}>
-        <View style={styles.titleContainer}>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
           <Text style={styles.text}>
-            You have no pending events
+              You have no pending events
           </Text>
         </View>
-        <View style={styles.bottomContainer}>
-          <Button style={[{width:150, marginBottom: 50}]}
+        <View style={styles.buttonContainer}>
+          <Button
             label={"New Event"}
             color={Colors.Primary}
             onPress={Actions.clientCreate} />
@@ -47,25 +47,26 @@ export default class ClientMain extends Component {
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.Background,
-    marginTop: 100
+    padding: Sizes.outerFrame
   },
 
-  bottomContainer: {
+  contentContainer: {
     flex: 1,
-    top: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   text: {
-    textAlign: 'center',
-    fontSize: 16,
+    fontSize: Sizes.text,
     color: Colors.Primary
-  }
+  },
+
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 });
