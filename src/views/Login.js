@@ -10,12 +10,9 @@ import {
 import {
   Colors
 } from '../../res/Constants';
-import * as firebase from 'firebase';
 
 // components
-import {
-  LoginButton, AccessToken
-} from 'react-native-fbsdk';
+import FacebookButton from '../components/account/FacebookButton';
 
 /**
  * If fetching user is unsuccessful, allow logging with existing acct
@@ -33,26 +30,7 @@ export default class Login extends Component {
             planning your ultimate experience
           </Text>
         </View>
-        <LoginButton
-          readPermissions={["public_profile"]}
-          onLoginFinished={(error, result) => {
-            if (error || result.isCancelled) {
-              _handleError(error || result.isCancelled);
-            } else {
-              AccessToken.getCurrentAccessToken().then(
-                data => {
-                  firebase.auth().signInWithCredential(
-                    firebase.auth.FacebookAuthProvider.credential(
-                      data.accessToken.toString()
-                    )
-                  ).catch(_handleError);
-
-                  // login successful, push back to Loader to handle routing
-                  Actions.tutorial();
-                }
-              );
-            }
-          }} />
+        <FacebookButton />
       </View>
     );
   }
@@ -80,7 +58,3 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
-
-function _handleError(error=null) {
-  console.log(`Login failed: ${error}`);
-}

@@ -15,19 +15,18 @@ import {
 import {
   Button
 } from '../../components/common/Buttons';
+import FacebookButton from '../../components/account/FacebookButton';
 
 /**
  * Main screen for general users (Client)
  * can toggle to Planners view for registered planners
  */
 export default class ClientMain extends Component {
-
-  constructor(props){
-    super(props);
+  componentDidMount() {
+    StatusBar.setHidden(false, 'slide');
   }
 
   render() {
-    StatusBar.setHidden(false, 'slide');
     return (
       <View style={[{flex: 1}]}>
         <View style={styles.titleContainer}>
@@ -39,8 +38,8 @@ export default class ClientMain extends Component {
           <Button style={[{width:150, marginBottom: 50}]}
             label={"New Event"}
             color={Colors.Primary}
-            onPress={Actions.clientCreate}
-          />
+            onPress={Actions.clientCreate} />
+          <FacebookButton />
         </View>
       </View>
     );
