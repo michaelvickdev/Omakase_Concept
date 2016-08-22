@@ -21,30 +21,63 @@ import {
  * or register for a new one
  */
 export default class Login extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      getStarted: false,
+    };
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>
-          Omakase
-        </Text>
-        <Text style={[styles.text, {fontSize: 14,}]}>
-          planning your ultimate experience
-        </Text>
-        <Button style={[{width:100, marginTop:10}]}
-          label={"Login"} color={Colors.Green} shouldBlur={true}/>
-        <Button style={[{width:100, marginTop:10}]}
-          label={"Sign Up"} color={Colors.Primary} onPress={Actions.register}/>
+      <View style={[{flex: 1}]}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.text}>
+            Omakase
+          </Text>
+          <Text style={[styles.text, {fontSize: 14,}]}>
+            planning your ultimate experience
+          </Text>
+
+
+        </View>
+        <View style={styles.bottomContainer}>
+          {this.state.getStarted ?
+  // replace with implementation of react-native-fbsdk
+          <Button style={[{width:150}]}
+            label={"Sign in with Facebook"}
+            color={Colors.Facebook}
+            shouldBlur={true}
+            onPress={Actions.tutorial}
+          />
+          :
+          <Button style={[{width:150}]}
+            label={"Get Started"}
+            color={Colors.Primary}
+            onPress={() => this.setState({getStarted: true})}
+          />
+          }
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  titleContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Background,
+    paddingTop: 100
+  },
+
+  bottomContainer: {
+    flex: 1,
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   text: {

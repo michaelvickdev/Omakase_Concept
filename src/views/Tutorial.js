@@ -41,11 +41,11 @@ export default class Tutorial extends Component {
             'Simply let us know when you need the event...'
             : this.state.step == 1 ?
             'Whether it is for a special occasion and' +
-            ' how many people do we need to plan for...'
+            ' how many people we need to plan for...'
             : this.state.step == 2 ?
-            'Select one of the planners we have selected for you..'
+            'Select one of the planners we have chosen for you..'
             :
-            '..and we will plan the event for you and let you know' +
+            '..sit back, we will plan the event for you and let you know' +
             ' when its time to leave home'
             }
           </Text>

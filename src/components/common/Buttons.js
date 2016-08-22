@@ -125,6 +125,9 @@ export class Button extends Component {
   }
 }
 
+/**
+ * Displays an Arrow Button like ">".
+ */
 export class ArrowButton extends Component {
 
   constructor(props) {
