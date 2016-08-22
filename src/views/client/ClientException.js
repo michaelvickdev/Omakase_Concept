@@ -28,16 +28,18 @@ export default class ClientException extends Component {
             To ensure your better experience. Please tell
             us if you have any exclusions.(e.g. Veggies only)
           </Text>
-        </View>
-        <View style={styles.bottomContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Tell us your exclusions" />
+          <View style={styles.midContainer}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Tell us your exclusions" />
+          </View>
+          <View style={styles.bottomContainer}>
           <Button
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
             size={14} />
+          </View>
         </View>
       </View>
     );
@@ -52,15 +54,16 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.Background,
       marginTop: 60
     },
-    bottomContainer: {
-      flex: 1,
+    midContainer: {
       top: 5,
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
       borderWidth: 1
     },
+    bottomContainer: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end'
+    },
     textInput: {
-      width: 80,
-      height: 120
+      width: 300,
+      height: 320
     }
 });
