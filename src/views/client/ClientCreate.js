@@ -8,7 +8,7 @@ import {
   Actions
 } from 'react-native-router-flux';
 import {
-  Colors
+  Colors, Sizes
 } from '../../../res/Constants';
 
 // components
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
   text: {
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: Sizes.H2,
     color: Colors.Primary
   }
 });

@@ -9,7 +9,7 @@ import {
 } from '../../../res/Sizes';
 import {
   Colors
-} from '../../../res/Colors';
+} from '../../../res/Constants';
 
 // components
 import {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1
   },
-  
+
   topContainer: {
     flex: 1,
     justifyContent: 'flex-start',

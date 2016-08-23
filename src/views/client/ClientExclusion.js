@@ -5,8 +5,8 @@ import {
   View, Text, StyleSheet, TextInput
 } from 'react-native';
 import{
-  Colors
-} from '../../../res/Colors';
+  Colors, Sizes
+} from '../../../res/Constants';
 import {
   Actions
 } from 'react-native-router-flux';
@@ -32,6 +32,7 @@ export default class ClientExclusion extends Component {
         <View style={styles.midContainer}>
           <TextInput
             style={styles.textInput}
+            multiline={true}
             placeholder="Tell us your exclusions" />
         </View>
         <View style={styles.bottomContainer}>
@@ -39,7 +40,7 @@ export default class ClientExclusion extends Component {
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
-            size={14}
+            size={Sizes.TextButton}
             onPress={Actions.clientBudget} />
         </View>
       </View>
@@ -64,7 +65,9 @@ const styles = StyleSheet.create({
 
     midContainer: {
       margin: 10,
+      padding: 5,
       borderWidth: 1,
+      borderColor: Colors.Text
     },
 
     bottomContainer: {
@@ -76,11 +79,13 @@ const styles = StyleSheet.create({
 
     textInput: {
       width: 300,
-      height: 320
+      height: 320,
+      fontSize: Sizes.Text,
+      color: Colors.Text
     },
 
     text: {
-      fontSize: 16,
+      fontSize: Sizes.H2,
       color: Colors.Text
     }
 });

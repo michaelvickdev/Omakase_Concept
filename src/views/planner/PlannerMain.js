@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar
+  View, Text, StyleSheet, StatusBar, Platform
 } from 'react-native';
 import {
   Actions
@@ -21,11 +21,12 @@ import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 
 /**
- * Main screen for general users (Client)
- * can toggle to Planners view for registered planners
+ * Main screen for planners onlu
+ * can toggle to ClientMain
  */
 export default class PlannerMain extends Component {
   componentDidMount() {
+    Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
   }
 

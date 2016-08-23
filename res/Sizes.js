@@ -5,6 +5,7 @@ export const Sizes = {
   H2: 14,
   Text: 12,
   SmallText: 10,
+  TextButton: 14,
 
   // padding sizes
   OuterFrame: 25,

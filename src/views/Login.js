@@ -8,7 +8,7 @@ import {
   Actions
 } from 'react-native-router-flux';
 import {
-  Colors
+  Colors, Sizes
 } from '../../res/Constants';
 
 // components
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 20
+    fontSize: Sizes.H1
   }
 });

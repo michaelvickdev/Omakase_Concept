@@ -5,7 +5,7 @@ import {
   View, Text, Image, StyleSheet
 } from 'react-native';
 import {
-  Colors
+  Colors, Sizes
 } from '../../res/Constants';
 import {
   Actions
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 
   text: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: Sizes.H1,
     color: Colors.AlternateText
   },
 
