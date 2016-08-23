@@ -22,7 +22,7 @@ import {
 export default class ClientExclusion extends Component {
   render() {
     return (
-      <View style={[{flex: 1}]}>
+      <View style={styles.wrapper}>
         <View style={styles.titleContainer}>
           <Text>
             To ensure your better experience. Please tell
@@ -33,14 +33,14 @@ export default class ClientExclusion extends Component {
               style={styles.textInput}
               placeholder="Tell us your exclusions" />
           </View>
-          <View style={styles.bottomContainer}>
+        </View>
+        <View style={styles.bottomContainer}>
           <Button
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
             size={14}
             onPress={Actions.clientBudget} />
-          </View>
         </View>
       </View>
     );
@@ -48,6 +48,9 @@ export default class ClientExclusion extends Component {
 }
 
 const styles = StyleSheet.create({
+    wrapper: {
+      flex: 1
+    },
     titleContainer: {
       flex: 1,
       justifyContent: 'flex-start',
@@ -60,8 +63,10 @@ const styles = StyleSheet.create({
       borderWidth: 1
     },
     bottomContainer: {
+      flex: 1,
+      top: 0,
       justifyContent: 'flex-end',
-      alignItems: 'flex-end'
+      alignItems: 'flex-end',
     },
     textInput: {
       width: 300,

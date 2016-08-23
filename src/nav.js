@@ -19,6 +19,8 @@ import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
 import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
+import PlannerMain from './views/planner/PlannerMain';
+
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -51,6 +53,8 @@ export default class Navigation extends Component {
             key="tutorial"
             component={Tutorial}
             type='replace' />
+
+    {/* Scenes for client */}
           <Scene
             key="clientMain"
             component={ClientMain}
@@ -71,6 +75,12 @@ export default class Navigation extends Component {
             title={Strings.CreateEventTitle}
             component={ClientBudget}
             hidNavBar={false}/>
+    {/* Scenes for planner */}
+          <Scene
+            key="plannerMain"
+            component={PlannerMain}
+            type='replace'
+            hideNavBar={false} />
         </Scene>
       </Router>
     );
