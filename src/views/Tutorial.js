@@ -28,6 +28,10 @@ export default class Tutorial extends Component {
     };
   }
 
+  componentDidMount() {
+    StatusBar.setHidden(true, 'slide');
+  }
+
   render() {
     return (
       <View style={[{flex: 1}]}>

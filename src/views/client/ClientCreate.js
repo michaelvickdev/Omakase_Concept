@@ -31,7 +31,7 @@ export default class ClientCreate extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.wrapper}>
         <View style={styles.titleContainer}>
           <Text style={styles.text}>
             Create new event
@@ -51,6 +51,10 @@ export default class ClientCreate extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1
+  },
+
   titleContainer: {
     flex: 1,
     justifyContent: 'flex-start',

@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     wrapper: {
       flex: 1
     },
+
     titleContainer: {
       flex: 1,
       justifyContent: 'flex-start',
@@ -59,16 +60,19 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.Background,
       marginTop: 60
     },
+
     midContainer: {
       top: 5,
       borderWidth: 1
     },
+
     bottomContainer: {
       flex: 1,
       top: 0,
       justifyContent: 'flex-end',
       alignItems: 'flex-end',
     },
+    
     textInput: {
       width: 300,
       height: 320

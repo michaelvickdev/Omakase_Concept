@@ -26,6 +26,7 @@ import DatePicker from '../../components/common/DatePicker';
  */
 export default class ClientMain extends Component {
   componentDidMount() {
+    StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
   }
 
