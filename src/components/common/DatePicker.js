@@ -54,19 +54,7 @@ export default class DatePicker extends Component {
                 if (Platform.OS === 'ios') {
                   this.setState({showModal: true});
                 } else {
-                  if (this.props.type === 'date') {
-                    DatePickerAndroid.open({
-                      date: this.state.date,
-                      minDate: this.props.minDate,
-                      maxDate: this.props.maxDate
-                    }).then(result => {
-                      if (result.action !== DatePickerAndroid.dismissedAction) {
-                        this.setState({
-                          date: new Date(result.year, result.month, result.day)
-                        });
-                      }
-                    });
-                  } else {
+                  if (this.props.type === 'time'){
                     TimePickerAndroid.open({
 
                       // set forward 6 hours by default
@@ -82,6 +70,18 @@ export default class DatePicker extends Component {
                         });
                       }
                     })
+                  } else {
+                    DatePickerAndroid.open({
+                      date: this.state.date,
+                      minDate: this.props.minDate,
+                      maxDate: this.props.maxDate
+                    }).then(result => {
+                      if (result.action !== DatePickerAndroid.dismissedAction) {
+                        this.setState({
+                          date: new Date(result.year, result.month, result.day)
+                        });
+                      }
+                    });
                   }
                 }
               }}>

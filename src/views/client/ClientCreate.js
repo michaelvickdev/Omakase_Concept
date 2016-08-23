@@ -16,8 +16,6 @@ import {
   Button
 } from '../../components/common/Button';
 
-import OrderTitle from '../../components/clientorder/OrderTitle';
-
 /**
  * First screen of creating an event
  * client to enter basic info:
