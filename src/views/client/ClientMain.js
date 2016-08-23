@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar
+  View, Text, StyleSheet, StatusBar, Platform
 } from 'react-native';
 import {
   Actions
@@ -26,7 +26,7 @@ import DatePicker from '../../components/common/DatePicker';
  */
 export default class ClientMain extends Component {
   componentDidMount() {
-    StatusBar.setBarStyle('light-content', true);
+    Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
   }
 

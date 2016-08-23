@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StatusBar
+  StatusBar, Platform
 } from 'react-native';
 import {
   Router, Scene
@@ -28,7 +28,7 @@ import PlannerMain from './views/planner/PlannerMain';
  */
 export default class Navigation extends Component {
   componentDidLoad() {
-    StatusBar.setBarStyle('light-content', true);
+    Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
   }
 
   render() {

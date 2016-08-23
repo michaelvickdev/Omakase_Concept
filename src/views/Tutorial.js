@@ -34,7 +34,7 @@ export default class Tutorial extends Component {
 
   render() {
     return (
-      <View style={[{flex: 1}]}>
+      <View style={styles.wrapper}>
         <Image
           style={styles.fullImage}
           source={require('../../res/img/tut_sample.jpg')}>
@@ -80,6 +80,10 @@ export default class Tutorial extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper:{
+    flex: 1
+  },
+
   titleContainer: {
     flex: 1,
     justifyContent: 'center',
