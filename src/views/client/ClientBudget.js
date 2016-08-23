@@ -11,8 +11,7 @@ import {
   Colors
 } from '../../../res/Colors';
 
-//components
-import OrderTitle from '../../components/clientorder/OrderTitle';
+// components
 import {
   Button
 } from '../../components/common/Button';
@@ -25,7 +24,6 @@ export default class ClientBudget extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <OrderTitle />
         <View style={styles.topContainer}>
           <Text style={styles.text}>
             Numbers of People
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: Colors.Background,
-    marginTop: 70
+    marginTop: 100
   },
   botContainer: {
     justifyContent: 'flex-end',

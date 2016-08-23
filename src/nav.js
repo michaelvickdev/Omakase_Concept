@@ -68,6 +68,7 @@ export default class Navigation extends Component {
             hidNavBar={false} />
           <Scene
             key="clientBudget"
+            title={Strings.CreateEventTitle}
             component={ClientBudget}
             hidNavBar={false}/>
         </Scene>

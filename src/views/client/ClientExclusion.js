@@ -11,8 +11,7 @@ import {
   Actions
 } from 'react-native-router-flux';
 
-//components
-import OrderTitle from '../../components/clientorder/OrderTitle';
+// components
 import {
   Button
 } from '../../components/common/Button';
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: Colors.Background,
-      marginTop: 60
+      marginTop: 100
     },
     midContainer: {
       top: 5,
