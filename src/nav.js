@@ -8,7 +8,7 @@ import {
   Router, Scene
 } from 'react-native-router-flux';
 import {
-  Colors
+  Colors, Strings
 } from '../res/Constants';
 
 // components
@@ -58,10 +58,12 @@ export default class Navigation extends Component {
             hideNavBar={false} />
           <Scene
             key="clientCreate"
+            title={Strings.CreateEventTitle}
             component={ClientCreate}
             hideNavBar={false} />
           <Scene
             key="clientExclusion"
+            title={Strings.CreateEventTitle}
             component={ClientExclusion}
             hidNavBar={false} />
           <Scene

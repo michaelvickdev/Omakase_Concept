@@ -32,7 +32,6 @@ export default class ClientCreate extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <OrderTitle />
         <View style={styles.titleContainer}>
           <Text style={styles.text}>
             Create new event

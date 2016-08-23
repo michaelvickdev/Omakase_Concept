@@ -24,7 +24,6 @@ export default class ClientExclusion extends Component {
   render() {
     return (
       <View style={[{flex: 1}]}>
-        <OrderTitle />
         <View style={styles.titleContainer}>
           <Text>
             To ensure your better experience. Please tell
