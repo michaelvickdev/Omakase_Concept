@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: Colors.Background,
-      marginTop: 100
+      marginTop: 100,
+      marginLeft: 10,
+      marginRight: 10,
     },
 
     midContainer: {
