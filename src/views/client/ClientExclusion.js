@@ -20,7 +20,7 @@ import {
   * The screen of client filling exclusions
   * for their order in the TextInput. E.g. Veggies only
   */
-export default class ClientException extends Component {
+export default class ClientExclusion extends Component {
   render() {
     return (
       <View style={[{flex: 1}]}>

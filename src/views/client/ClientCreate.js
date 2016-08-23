@@ -44,7 +44,7 @@ export default class ClientCreate extends Component {
             color={Colors.Transparent}
             fontColor={Colors.Primary}
             size={14}
-            onPress={Actions.clientException} />
+            onPress={Actions.clientExclusion} />
         </View>
       </View>
     );

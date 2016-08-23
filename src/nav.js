@@ -17,7 +17,7 @@ import Login from './views/Login';
 import Tutorial from './views/Tutorial';
 import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
-import ClientException from './views/client/ClientException';
+import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 
 /**
@@ -61,8 +61,8 @@ export default class Navigation extends Component {
             component={ClientCreate}
             hideNavBar={false} />
           <Scene
-            key="clientException"
-            component={ClientException}
+            key="clientExclusion"
+            component={ClientExclusion}
             hidNavBar={false} />
           <Scene
             key="clientBudget"
