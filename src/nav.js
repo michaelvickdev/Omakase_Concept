@@ -19,6 +19,7 @@ import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
 import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
+import clientConfirm from './views/client/ClientConfirm';
 import PlannerMain from './views/planner/PlannerMain';
 
 
@@ -75,6 +76,11 @@ export default class Navigation extends Component {
             title={Strings.CreateEventTitle}
             component={ClientBudget}
             hidNavBar={false}/>
+          <Scene
+            key="clientConfirm"
+            title='Confirmation'
+            component={clientConfirm}
+            hidNavBar={false} />
     {/* Scenes for planner */}
           <Scene
             key="plannerMain"

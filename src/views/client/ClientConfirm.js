@@ -5,14 +5,11 @@ import {
   View, Text, StyleSheet
 } from 'react-native';
 import {
+  Colors
+} from '../../../res/Colors';
+import {
   Sizes
 } from '../../../res/Sizes';
-import {
-  Colors
-} from '../../../res/Constants';
-import {
-  Actions
-} from 'react-native-router-flux';
 
 // components
 import {
@@ -20,28 +17,32 @@ import {
 } from '../../components/common/Button';
 
 /**
- * Thrid screen of creating an event
- * client to enter: Budget, Number of People
- */
-export default class ClientBudget extends Component {
+  * The Screen of confirmation after client filling
+  * all basic infos.
+  */
+export default class ClientConfirm extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
         <View style={styles.topContainer}>
           <Text style={styles.text}>
-            Numbers of People
-          </Text>
-          <Text style={styles.text}>
-            Budget
+            Client's confirmation details in the
+            following format.
+            Date:
+            Seating:
+            Number of People:
+            Address:
+            Occasions:
+            Budget:
           </Text>
         </View>
         <View style={styles.botContainer}>
           <Button
-            label={"Next"}
+            label={"Pay"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
             size={Sizes.H2}
-            onPress={Actions.clientConfirm} />
+            />
         </View>
       </View>
     );
@@ -49,23 +50,21 @@ export default class ClientBudget extends Component {
 }
 
 const styles = StyleSheet.create({
+
   wrapper: {
     flex: 1
   },
-
   topContainer: {
     flex: 1,
+    backgroundColor: Colors.Background,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: Colors.Background,
     marginTop: 100
-
   },
   botContainer: {
     justifyContent: 'flex-end',
-    alignItems: 'flex-end'
+    alignItems: 'center'
   },
-
   text: {
     textAlign: 'center',
     fontSize: Sizes.H2,
