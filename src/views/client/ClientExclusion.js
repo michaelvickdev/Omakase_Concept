@@ -24,15 +24,15 @@ export default class ClientExclusion extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.titleContainer}>
-          <Text>
+          <Text style={styles.text}>
             To ensure your better experience. Please tell
             us if you have any exclusions.(e.g. Veggies only)
           </Text>
-          <View style={styles.midContainer}>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Tell us your exclusions" />
-          </View>
+        </View>
+        <View style={styles.midContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Tell us your exclusions" />
         </View>
         <View style={styles.bottomContainer}>
           <Button
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     },
 
     midContainer: {
-      top: 5,
-      borderWidth: 1
+      margin: 10,
+      borderWidth: 1,
     },
 
     bottomContainer: {
@@ -71,9 +71,14 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       alignItems: 'flex-end',
     },
-    
+
     textInput: {
       width: 300,
       height: 320
+    },
+
+    text: {
+      fontSize: 16,
+      color: Colors.Text
     }
 });
