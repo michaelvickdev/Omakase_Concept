@@ -23,7 +23,7 @@ import {
 export default class ClientBudget extends Component {
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.wrapper}>
         <View style={styles.topContainer}>
           <Text style={styles.text}>
             Numbers of People
@@ -45,17 +45,23 @@ export default class ClientBudget extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1
+  },
+  
   topContainer: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: Colors.Background,
     marginTop: 100
+
   },
   botContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end'
   },
+
   text: {
     textAlign: 'center',
     fontSize: Sizes.H2,
