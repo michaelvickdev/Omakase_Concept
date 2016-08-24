@@ -65,12 +65,7 @@ export default class Navigation extends Component {
        >
         <Router>
           <Scene key="root"
-            hideNavBar={true}
-            navigationBarStyle={{backgroundColor: Colors.Primary}}
-            titleStyle={{color: Colors.AlternateText}}
-            leftButtonIconStyle = {{tintColor: Colors.AlternateText}}
-            rightButtonIconStyle = {{tintColor: Colors.AlternateText}}
-            drawerImage = {require("../res/img/menu.png")}>
+            hideNavBar={true}>
             <Scene
               key="loader"
               initial={true}
@@ -86,36 +81,38 @@ export default class Navigation extends Component {
               type='replace' />
 
       {/* Scenes for client */}
-            <Scene
-              key="clientMain"
-              component={ClientMain}
-              type='replace'
-              hideNavBar={false} />
-            <Scene
-              key="clientCreate"
-              title={Strings.CreateEventTitle}
-              component={ClientCreate}
-              hideNavBar={false} />
-            <Scene
-              key="clientExclusion"
-              title={Strings.CreateEventTitle}
-              component={ClientExclusion}
-              hidNavBar={false} />
-            <Scene
-              key="clientBudget"
-              title={Strings.CreateEventTitle}
-              component={ClientBudget}
-              hidNavBar={false}/>
-            <Scene
-              key="clientConfirm"
-              title='Confirmation'
-              component={ClientConfirm}
-              hidNavBar={false} />
-            <Scene
-              key="clientPay"
-              title='Payment'
-              component={ClientPay}
-              hidNavBar={false} />
+            <Scene key="clientRoot"
+              hideNavBar={false}
+              navigationBarStyle={{backgroundColor: Colors.Primary}}
+              titleStyle={{color: Colors.AlternateText}}
+              leftButtonIconStyle = {{tintColor: Colors.AlternateText}}
+              rightButtonIconStyle = {{tintColor: Colors.AlternateText}}
+              drawerImage = {require("../res/img/menu.png")}>
+              <Scene key="clientMain"
+                component={ClientMain}
+                type='replace'
+                hideNavBar={false} />
+              <Scene key="clientCreate"
+                title={Strings.CreateEventTitle}
+                component={ClientCreate}
+                hideNavBar={false} />
+              <Scene key="clientExclusion"
+                title={Strings.CreateEventTitle}
+                component={ClientExclusion}
+                hidNavBar={false} />
+              <Scene key="clientBudget"
+                title={Strings.CreateEventTitle}
+                component={ClientBudget}
+                hidNavBar={false}/>
+              <Scene key="clientConfirm"
+                title='Confirmation'
+                component={ClientConfirm}
+                hidNavBar={false} />
+              <Scene key="clientPay"
+                title='Payment'
+                component={ClientPay}
+                hidNavBar={false} />
+            </Scene>
       {/* Scenes for planner */}
             <Scene
               key="plannerMain"

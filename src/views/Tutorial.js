@@ -60,7 +60,7 @@ export default class Tutorial extends Component {
             label={"Done"}
             color={Colors.Transparent}
             fontColor={Colors.AlternateText}
-            onPress={Actions.clientMain}
+            onPress={Actions.clientRoot()}
             size={14}
           />
           :

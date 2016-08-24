@@ -22,7 +22,7 @@ export default class Loader extends Component {
 
     // handle currently logged in user
     firebase.auth().onAuthStateChanged(user => {
-      if (user) Actions.clientMain(); else Actions.login();
+      if (user) Actions.clientRoot(); else Actions.login();
     });
   }
 
