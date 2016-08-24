@@ -56,6 +56,11 @@ export default class ClientMain extends Component {
             color={Colors.Primary}
             fontColor={Colors.AlternateText}
             onPress={Actions.clientCreate} />
+          <Button
+            label={"Planners"}
+            color={Colors.Primary}
+            fontColor={Colors.AlternateText}
+            onPress={Actions.plannerMain} />
           <FacebookButton />
         </View>
       </View>

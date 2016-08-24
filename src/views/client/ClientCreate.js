@@ -32,7 +32,7 @@ export default class ClientCreate extends Component {
     return (
       <View style={styles.wrapper}>
         {/* DatePicker*/}
-        <View style={styles.dateContainer}>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Choose your date having dinner:
           </Text>
@@ -41,7 +41,7 @@ export default class ClientCreate extends Component {
             isTop={true}/>
         </View>
         {/* SeatingPicker*/}
-        <View style={styles.seatingContainer}>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Choose your seating time:
           </Text>
@@ -50,7 +50,7 @@ export default class ClientCreate extends Component {
           isTop={true}  />
         </View>
         {/* OccasionsPicker*/}
-        <View style={styles.occasionContainer}>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Choose your occasions:
           </Text>
@@ -64,7 +64,7 @@ export default class ClientCreate extends Component {
             label={"Next"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
-            size={14}
+            size={Sizes.H2}
             onPress={Actions.clientExclusion} />
         </View>
       </View>
@@ -75,25 +75,17 @@ export default class ClientCreate extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    justifyContent: 'space-between',
     marginTop: 100
   },
 
-  dateContainer: {
-    flex: 1
-  },
-
-  seatingContainer: {
-    flex: 1
-
-  },
-
-  occasionContainer: {
-    flex: 1
-
+  childContainer: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   bottomContainer: {
-    flex: 1,
     top: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',

@@ -119,6 +119,8 @@ export default class Navigation extends Component {
       {/* Scenes for planner */}
             <Scene
               key="plannerMain"
+              title={"PLANNER"}
+              InputField={true}
               component={PlannerMain}
               type='replace'
               hideNavBar={false} />
