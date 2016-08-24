@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet, TextInput
 } from 'react-native';
 import {
   Colors
@@ -10,16 +10,21 @@ import {
 import {
   Sizes
 } from '../../../res/Sizes';
+import {
+  Actions
+} from 'react-native-router-flux';
 
 // components
 import {
   Button
 } from '../../components/common/Button';
-import SingleLineInput from '../../components/common/SingleLineInput';
+import InputField from '../../components/common/InputField';
 
 /**
   * The Screen of confirmation after client filling
-  * all basic infos.
+  * all basic infos:
+  * Date, Seating, Occasions, Number of people
+  * Address, Budget, Exclusions
   */
 export default class ClientConfirm extends Component {
   render() {
@@ -27,31 +32,30 @@ export default class ClientConfirm extends Component {
       <View style={styles.wrapper}>
         <View style={styles.topContainer}>
           <Text style={styles.text}>
-            Client's confirmation details in the
-            following format.
+            Please Confirm the following:
           </Text>
-          <SingleLineInput
-            label="Date:"
-            isTop={true} />
-          <SingleLineInput
-            label="Seating:" />
-          <SingleLineInput
-            label="Number of People:" />
-          <SingleLineInput
-            label="Address:" />
-          <SingleLineInput
-            label="Occasions:" />
-          <SingleLineInput
-            label="Budget:"
-            isBottom={true} />
+          <InputField
+            label="Date"/>
+            <InputField
+              label="Seating"/>
+              <InputField
+                label="Occasions"/>
+                <InputField
+                  label="Number of People"/>
+                  <InputField
+                    label="Address"/>
+                    <InputField
+                      label="Budget"/>
+                      <InputField
+                        label="Exclusions"/>
         </View>
         <View style={styles.botContainer}>
           <Button
-            label={"Pay"}
+            label={"Confirm"}
             color={Colors.Transparent}
             fontColor={Colors.Primary}
             size={Sizes.H2}
-            />
+            onPress={Actions.clientPay}/>
         </View>
       </View>
     );
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
   },
   botContainer: {
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'flex-end'
   },
   text: {
     textAlign: 'center',

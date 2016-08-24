@@ -22,7 +22,8 @@ import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
 import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
-import clientConfirm from './views/client/ClientConfirm';
+import ClientConfirm from './views/client/ClientConfirm';
+import ClientPay from './views/client/ClientPay';
 import PlannerMain from './views/planner/PlannerMain';
 
 import SideMenu from './components/SideMenu';
@@ -108,7 +109,12 @@ export default class Navigation extends Component {
             <Scene
               key="clientConfirm"
               title='Confirmation'
-              component={clientConfirm}
+              component={ClientConfirm}
+              hidNavBar={false} />
+            <Scene
+              key="clientPay"
+              title='Payment'
+              component={ClientPay}
               hidNavBar={false} />
       {/* Scenes for planner */}
             <Scene
