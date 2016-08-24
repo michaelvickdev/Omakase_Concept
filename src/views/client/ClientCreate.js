@@ -15,7 +15,8 @@ import {
 import {
   Button
 } from '../../components/common/Button';
-
+import DatePicker from '../../components/common/DatePicker';
+import SingleLineInput from '../../components/common/SingleLineInput';
 /**
  * First screen of creating an event
  * client to enter basic info:
@@ -30,11 +31,24 @@ export default class ClientCreate extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.text}>
-            Create new event
-          </Text>
+        {/* DatePicker*/}
+        <View style={styles.dateContainer}>
+          <DatePicker
+            label="Choose Your Date"
+            isTop={true}/>
         </View>
+        {/* SeatingPicker*/}
+        <View style={styles.seatingContainer}>
+          <SingleLineInput
+          label="SeatingPicker"  />
+        </View>
+        {/* OccasionsPicker*/}
+        <View style={styles.occasionContainer}>
+          <SingleLineInput
+          label="OccasionsPicker"
+          isBottom={true}  />
+        </View>
+        {/* Next Button*/}
         <View style={styles.bottomContainer}>
           <Button
             label={"Next"}
@@ -53,12 +67,16 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  titleContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: Colors.Background,
+  dateContainer: {
     marginTop: 100
+  },
+
+  seatingContainer: {
+
+  },
+
+  occasionContainer: {
+
   },
 
   bottomContainer: {
