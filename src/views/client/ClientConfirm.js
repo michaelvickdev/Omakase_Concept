@@ -15,6 +15,7 @@ import {
 import {
   Button
 } from '../../components/common/Button';
+import SingleLineInput from '../../components/common/SingleLineInput';
 
 /**
   * The Screen of confirmation after client filling
@@ -28,13 +29,21 @@ export default class ClientConfirm extends Component {
           <Text style={styles.text}>
             Client's confirmation details in the
             following format.
-            Date:
-            Seating:
-            Number of People:
-            Address:
-            Occasions:
-            Budget:
           </Text>
+          <SingleLineInput
+            label="Date:"
+            isTop={true} />
+          <SingleLineInput
+            label="Seating:" />
+          <SingleLineInput
+            label="Number of People:" />
+          <SingleLineInput
+            label="Address:" />
+          <SingleLineInput
+            label="Occasions:" />
+          <SingleLineInput
+            label="Budget:"
+            isBottom={true} />
         </View>
         <View style={styles.botContainer}>
           <Button

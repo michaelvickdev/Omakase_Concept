@@ -18,6 +18,7 @@ import {
 import {
   Button
 } from '../../components/common/Button';
+import SingleLineInput from '../../components/common/SingleLineInput';
 
 /**
  * Thrid screen of creating an event
@@ -27,13 +28,15 @@ export default class ClientBudget extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.topContainer}>
-          <Text style={styles.text}>
-            Numbers of People
-          </Text>
-          <Text style={styles.text}>
-            Budget
-          </Text>
+        <View style={styles.numberPeopleContainer}>
+          <SingleLineInput
+            label="NumberOfPeoplePicker"
+            isTop={true} />
+        </View>
+        <View style={styles.budgetContainer}>
+          <SingleLineInput
+            label="BudgetPicker"
+            isBottom={true} />
         </View>
         <View style={styles.botContainer}>
           <Button
@@ -53,15 +56,19 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  topContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: Colors.Background,
+  numberPeopleContainer: {
+
     marginTop: 100
 
   },
+
+  budgetContainer: {
+
+  },
+
   botContainer: {
+    flex: 1,
+    top: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end'
   },
