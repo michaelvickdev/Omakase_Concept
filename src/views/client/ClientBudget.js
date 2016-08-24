@@ -28,21 +28,23 @@ export default class ClientBudget extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.numberPeopleContainer}>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Number of People:
           </Text>
           <SingleLineInput
             label="NumberOfPeoplePicker"
-            isTop={true} />
+            isTop={true}
+            isBottom={true} />
         </View>
-        <View style={styles.budgetContainer}>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Budget per person:
           </Text>
           <SingleLineInput
             label="BudgetPicker"
-            isTop={true} />
+            isTop={true}
+            isBottom={true} />
         </View>
         <View style={styles.botContainer}>
           <Button
@@ -60,20 +62,18 @@ export default class ClientBudget extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    justifyContent: 'space-between',
     marginTop: 100
   },
 
-  numberPeopleContainer: {
-    flex: 1
+  childContainer: {
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    alignItems: 'center'
 
-  },
-
-  budgetContainer: {
-    flex: 1
   },
 
   botContainer: {
-    flex: 1,
     top: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end'

@@ -38,7 +38,8 @@ export default class ClientCreate extends Component {
           </Text>
           <DatePicker
             label="Choose Your Date"
-            isTop={true}/>
+            isTop={true}
+            isBottom={true} />
         </View>
         {/* SeatingPicker*/}
         <View style={styles.childContainer}>
@@ -47,7 +48,8 @@ export default class ClientCreate extends Component {
           </Text>
           <SingleLineInput
           label="SeatingPicker"
-          isTop={true}  />
+          isTop={true}
+          isBottom={true} />
         </View>
         {/* OccasionsPicker*/}
         <View style={styles.childContainer}>
@@ -56,7 +58,8 @@ export default class ClientCreate extends Component {
           </Text>
           <SingleLineInput
           label="OccasionsPicker"
-          isTop={true} />
+          isTop={true}
+          isBottom={true} />
         </View>
         {/* Next Button*/}
         <View style={styles.bottomContainer}>

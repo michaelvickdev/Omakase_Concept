@@ -30,26 +30,32 @@ export default class ClientPay extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.topContainer}>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Credit Card Number:
           </Text>
           <SingleLineInput
             label="Credit Card Number"
-            isTop={true} />
+            isTop={true}
+            isBottom={true} />
+        </View>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             Expiry Date:
           </Text>
           <SingleLineInput
             label="Expiry Date"
-            isTop={true} />
+            isTop={true}
+            isBottom={true} />
+        </View>
+        <View style={styles.childContainer}>
           <Text style={styles.text}>
             CVC/CVV:
           </Text>
           <SingleLineInput
             label="CVC/CVV"
             isTop={true}
-             />
+            isBottom={true} />
         </View>
         <View style={styles.botContainer}>
           <Button
@@ -67,16 +73,17 @@ export default class ClientPay extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    justifyContent: 'space-between',
     marginTop: 100
   },
 
-  topContainer: {
-    flex: 1
-
+  childContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch'
   },
 
   botContainer:{
-    flex: 1,
     top: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end'
