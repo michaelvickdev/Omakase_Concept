@@ -33,20 +33,30 @@ export default class ClientCreate extends Component {
       <View style={styles.wrapper}>
         {/* DatePicker*/}
         <View style={styles.dateContainer}>
+          <Text style={styles.text}>
+            Choose your date having dinner:
+          </Text>
           <DatePicker
             label="Choose Your Date"
             isTop={true}/>
         </View>
         {/* SeatingPicker*/}
         <View style={styles.seatingContainer}>
+          <Text style={styles.text}>
+            Choose your seating time:
+          </Text>
           <SingleLineInput
-          label="SeatingPicker"  />
+          label="SeatingPicker"
+          isTop={true}  />
         </View>
         {/* OccasionsPicker*/}
         <View style={styles.occasionContainer}>
+          <Text style={styles.text}>
+            Choose your occasions:
+          </Text>
           <SingleLineInput
           label="OccasionsPicker"
-          isBottom={true}  />
+          isTop={true} />
         </View>
         {/* Next Button*/}
         <View style={styles.bottomContainer}>
@@ -64,18 +74,21 @@ export default class ClientCreate extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1
-  },
-
-  dateContainer: {
+    flex: 1,
     marginTop: 100
   },
 
+  dateContainer: {
+    flex: 1
+  },
+
   seatingContainer: {
+    flex: 1
 
   },
 
   occasionContainer: {
+    flex: 1
 
   },
 

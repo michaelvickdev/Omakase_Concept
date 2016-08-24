@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     },
 
     text: {
+      textAlign: 'center',
       fontSize: Sizes.H2,
-      color: Colors.Text
+      color: Colors.Primary
     }
 });

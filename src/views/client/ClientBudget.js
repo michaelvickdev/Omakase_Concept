@@ -60,8 +60,7 @@ export default class ClientBudget extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    marginTop: 100,
-    justifyContent: 'space-around',
+    marginTop: 100
   },
 
   numberPeopleContainer: {

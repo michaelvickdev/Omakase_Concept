@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, StyleSheet
+  View, StyleSheet, Text
 } from 'react-native';
 import {
   Sizes
@@ -31,14 +31,25 @@ export default class ClientPay extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.topContainer}>
+          <Text style={styles.text}>
+            Credit Card Number:
+          </Text>
           <SingleLineInput
             label="Credit Card Number"
             isTop={true} />
+          <Text style={styles.text}>
+            Expiry Date:
+          </Text>
           <SingleLineInput
-            label="Expiry Date" />
+            label="Expiry Date"
+            isTop={true} />
+          <Text style={styles.text}>
+            CVC/CVV:
+          </Text>
           <SingleLineInput
             label="CVC/CVV"
-            isBottom={true} />
+            isTop={true}
+             />
         </View>
         <View style={styles.botContainer}>
           <Button
@@ -55,11 +66,13 @@ export default class ClientPay extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1
+    flex: 1,
+    marginTop: 100
   },
 
   topContainer: {
-    marginTop: 100
+    flex: 1
+
   },
 
   botContainer:{
@@ -67,5 +80,11 @@ const styles = StyleSheet.create({
     top: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end'
+  },
+
+  text: {
+    textAlign: 'center',
+    fontSize: Sizes.H2,
+    color: Colors.Primary
   }
 });
