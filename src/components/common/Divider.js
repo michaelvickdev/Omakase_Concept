@@ -14,10 +14,12 @@ import {
 export default class Divider extends Component {
   render() {
     return (
-      <View style={[
-        styles.divider,
-        this.props.color && {backgroundColor: this.props.color}
-      ]} />
+      <View
+        style={[
+          styles.divider,
+          this.props.style,
+          this.props.color && {backgroundColor: this.props.color},
+        ]} />
     );
   }
 }
