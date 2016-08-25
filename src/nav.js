@@ -34,7 +34,7 @@ import SideMenu from './components/SideMenu';
  * the initial View displayed.
  */
 export default class Navigation extends Component {
-  componentDidLoad() {
+  componentDidMount() {
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
   }
 
@@ -65,7 +65,7 @@ export default class Navigation extends Component {
        >
         <Router>
           <Scene key="root"
-            hideNavBar={true}  
+            hideNavBar={true}
             navigationBarStyle={{backgroundColor: Colors.Primary}}
             titleStyle={{color: Colors.AlternateText}}
             leftButtonIconStyle = {{tintColor: Colors.AlternateText}}

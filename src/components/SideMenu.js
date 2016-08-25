@@ -90,7 +90,7 @@ export default class SideMenu extends Component {
           <Text>Client Mode</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={closeDrawer}>
-          <FacebookButton/>
+          <FacebookButton onLogoutFinished={() => this.switchMode('client')}/>
         </TouchableOpacity>
       </View>
     )
