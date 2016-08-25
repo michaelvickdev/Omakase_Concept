@@ -56,7 +56,7 @@ export default class Navigation extends Component {
          main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}
        }}
        tapToClose={true}
-       openDrawerOffset={0.2}
+       openDrawerOffset={0.3}
        panCloseMask={0.2}
        closedDrawerOffset={-3}
        tweenHandler={(ratio) => ({

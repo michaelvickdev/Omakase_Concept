@@ -20,6 +20,7 @@ import {
   Button
 } from './common/Button';
 import FacebookButton from './account/FacebookButton';
+import SideItem from './SideItem';
 
 /**
  * Drawer Menu View
@@ -54,7 +55,7 @@ export default class SideMenu extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
       {this.state.mode === 'planner' ?
         this.renderPlannerMenu()
       :
@@ -69,21 +70,33 @@ export default class SideMenu extends Component {
     return (
       <View>
         <Text style={styles.controlText}>Client</Text>
-        <TouchableOpacity style={styles.button} onPress={closeDrawer}>
-          <Text>Close Drawer</Text>
-        </TouchableOpacity>
+        <SideItem icon="clear"
+          label="Close Drawer"
+          onPress={closeDrawer}/>
+        <SideItem icon="motorcycle"
+          label="Test Field1"
+          onPress={() => this.test()}/>
+        <SideItem icon="star"
+          label="Test Field2"
+          onPress={() => this.test()}/>
         {this.state.isPlanner?
-        <TouchableOpacity style={styles.button} onPress={() => this.switchMode('planner')}>
-          <Text>Planner Mode</Text>
-        </TouchableOpacity>
+        <SideItem icon="swap-horiz"
+          label="Planner Mode"
+          onPress={() => this.switchMode('planner')}/>
         :
         <View/>
         }
-        <TouchableOpacity onPress={closeDrawer}>
+
+
+        <TouchableOpacity style={styles.facebookButton} onPress={closeDrawer}>
           <FacebookButton/>
         </TouchableOpacity>
       </View>
     )
+  }
+
+  test(){
+    alert("YOLO")
   }
 
   renderPlannerMenu() {
@@ -91,13 +104,13 @@ export default class SideMenu extends Component {
     return (
       <View>
         <Text style={styles.controlText}>Planner</Text>
-        <TouchableOpacity style={styles.button} onPress={closeDrawer}>
-          <Text>Close Drawer</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => this.switchMode('client')}>
-          <Text>Client Mode</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={closeDrawer}>
+        <SideItem icon="clear"
+          label="Close Drawer"
+          onPress={closeDrawer}/>
+        <SideItem icon="swap-horiz"
+          label="Client Mode"
+          onPress={() => this.switchMode('client')}/>
+        <TouchableOpacity style={styles.facebookButton} onPress={closeDrawer}>
           <FacebookButton onLogoutFinished={() => this.switchMode('client')}/>
         </TouchableOpacity>
       </View>
@@ -110,10 +123,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: Colors.SideMenuBackground,
+    alignItems: 'flex-start'
   },
 
   controlText: {
     color: 'white',
+    fontSize: Sizes.H1,
+    marginTop: 10,
+    marginBottom: 20
   },
 
   button: {
@@ -121,5 +138,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     padding: 10,
+  },
+
+  facebookButton: {
+    marginTop: 30,
   }
 })
