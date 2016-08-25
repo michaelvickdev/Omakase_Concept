@@ -65,29 +65,25 @@ export default class Navigation extends Component {
        >
         <Router>
           <Scene key="root"
-            hideNavBar={true}>
-            <Scene
-              key="loader"
+            hideNavBar={true}  
+            navigationBarStyle={{backgroundColor: Colors.Primary}}
+            titleStyle={{color: Colors.AlternateText}}
+            leftButtonIconStyle = {{tintColor: Colors.AlternateText}}
+            rightButtonIconStyle = {{tintColor: Colors.AlternateText}}
+            drawerImage = {require("../res/img/menu.png")}>
+            <Scene key="loader"
               initial={true}
               component={Loader}
               type='replace' />
-            <Scene
-              key="login"
+            <Scene key="login"
               component={Login}
               type='replace'/>
-            <Scene
-              key="tutorial"
+            <Scene key="tutorial"
               component={Tutorial}
               type='replace' />
 
       {/* Scenes for client */}
-            <Scene key="clientRoot"
-              hideNavBar={false}
-              navigationBarStyle={{backgroundColor: Colors.Primary}}
-              titleStyle={{color: Colors.AlternateText}}
-              leftButtonIconStyle = {{tintColor: Colors.AlternateText}}
-              rightButtonIconStyle = {{tintColor: Colors.AlternateText}}
-              drawerImage = {require("../res/img/menu.png")}>
+
               <Scene key="clientMain"
                 component={ClientMain}
                 type='replace'
@@ -112,16 +108,14 @@ export default class Navigation extends Component {
                 title='Payment'
                 component={ClientPay}
                 hidNavBar={false} />
-            </Scene>
       {/* Scenes for planner */}
-            <Scene
-              key="plannerMain"
-              title={"PLANNER"}
-              InputField={true}
-              component={PlannerMain}
-              type='replace'
-              hideNavBar={false} />
-          </Scene>
+              <Scene key="plannerMain"
+                title={"PLANNER"}
+                InputField={true}
+                component={PlannerMain}
+                type='replace'
+                hideNavBar={false} />
+              </Scene>
         </Router>
       </Drawer>
     );

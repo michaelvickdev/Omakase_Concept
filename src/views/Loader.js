@@ -4,6 +4,9 @@ import React, {
 import {
   View, ActivityIndicator, StyleSheet, StatusBar
 } from 'react-native';
+import
+  Storage
+from 'react-native-simple-store';
 import {
   Actions
 } from 'react-native-router-flux';
@@ -22,7 +25,17 @@ export default class Loader extends Component {
 
     // handle currently logged in user
     firebase.auth().onAuthStateChanged(user => {
-      if (user) Actions.clientRoot(); else Actions.login();
+      if (user) this.goToApp(); else Actions.login();
+    });
+  }
+
+  goToApp(){
+    Storage.get('notNew').then(notNew => {
+      if (!notNew){
+        Actions.tutorial()
+      } else {
+        Actions.clientMain()
+      }
     });
   }
 

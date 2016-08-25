@@ -15,7 +15,6 @@ import {
 import {
   Button
 } from '../../components/common/Button';
-import FacebookButton from '../../components/account/FacebookButton';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
@@ -38,25 +37,24 @@ export default class PlannerMain extends Component {
               You have no pending events
           </Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <InputSectionHeader
-            label="Testing Component" />
+        <InputSectionHeader
+          label="Testing Component" />
+        <SingleLineInput
+          label="Something"
+          isTop={true} />
           <SingleLineInput
-            label="Something"
-            isTop={true} />
+            label="message" />
             <SingleLineInput
-              label="message" />
-              <SingleLineInput
-                label="Something2" />
-          <DatePicker
-            label="Date"
-            isBottom={true} />
+              label="Something2" />
+        <DatePicker
+          label="Date"
+          isBottom={true} />
+        <View style={styles.buttonContainer}>
           <Button
             label={"New Event"}
             color={Colors.Primary}
             fontColor={Colors.AlternateText}
             onPress={Actions.clientCreate} />
-          <FacebookButton />
         </View>
       </View>
     );
@@ -83,6 +81,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
+    paddingBottom: 20,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center'

@@ -2,14 +2,19 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, Image, StyleSheet
+  View, Text, Image, StatusBar, StyleSheet
 } from 'react-native';
 import {
   Colors, Sizes
 } from '../../res/Constants';
+import
+  Storage
+from 'react-native-simple-store';
 import {
   Actions
 } from 'react-native-router-flux';
+
+
 
 // components
 import {
@@ -30,6 +35,12 @@ export default class Tutorial extends Component {
 
   componentDidMount() {
     StatusBar.setHidden(true, 'slide');
+  }
+
+  onDone(){
+    Storage.save('notNew', true).then(() => {
+      Actions.clientMain()
+    });
   }
 
   render() {
@@ -60,7 +71,7 @@ export default class Tutorial extends Component {
             label={"Done"}
             color={Colors.Transparent}
             fontColor={Colors.AlternateText}
-            onPress={Actions.clientRoot()}
+            onPress={this.onDone}
             size={14}
           />
           :

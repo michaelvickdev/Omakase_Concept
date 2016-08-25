@@ -21,10 +21,6 @@ import FacebookButton from '../components/account/FacebookButton';
 export default class Login extends Component {
   componentDidMount() {
     StatusBar.setHidden(true, 'slide');
-    // override default logged in route to allow tutorial display
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) Actions.tutorial(); else Actions.login();
-    });
   }
 
   render() {
