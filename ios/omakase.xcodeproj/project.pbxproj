@@ -27,7 +27,7 @@
 		BE989B0A1D6AB36D00F61925 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE989B071D6AB36D00F61925 /* FBSDKLoginKit.framework */; };
 		BE989B0B1D6AB36D00F61925 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE989B081D6AB36D00F61925 /* FBSDKShareKit.framework */; };
 		C6FEA3931C9F425A8E3C25D9 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C762F0E60D744E9C8A16E7E1 /* libRCTFBSDK.a */; };
-		DCDEBAEB1D6EC14200F65FAB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDEBAE31D6EC14200F65FAB /* MaterialIcons.ttf */; };
+		DCDEBB0F1D6EDA1A00F65FAB /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCDEBB071D6EDA1A00F65FAB /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +144,7 @@
 		BE989B071D6AB36D00F61925 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		BE989B081D6AB36D00F61925 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		C762F0E60D744E9C8A16E7E1 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
-		DCDEBAE31D6EC14200F65FAB /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		DCDEBB071D6EDA1A00F65FAB /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,7 +263,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				DCDEBADD1D6EC14200F65FAB /* Fonts */,
+				DCDEBB011D6EDA1A00F65FAB /* Fonts */,
 			);
 			name = omakase;
 			sourceTree = "<group>";
@@ -350,10 +350,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DCDEBADD1D6EC14200F65FAB /* Fonts */ = {
+		DCDEBB011D6EDA1A00F65FAB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DCDEBAE31D6EC14200F65FAB /* MaterialIcons.ttf */,
+				DCDEBB071D6EDA1A00F65FAB /* MaterialIcons.ttf */,
 			);
 			name = Fonts;
 			path = "../node_modules/react-native-vector-icons/Fonts";
@@ -570,7 +570,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCDEBAEB1D6EC14200F65FAB /* MaterialIcons.ttf in Resources */,
+				DCDEBB0F1D6EDA1A00F65FAB /* MaterialIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
