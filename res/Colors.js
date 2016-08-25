@@ -3,6 +3,7 @@ export const Colors = {
   Primary: '#9068BE',
   Secondary: '#F5F5F5',
   Background: '#FFFFFF',
+  SideMenuBackground: 'rgba(0, 0, 0, 0.9)',
   Text: '#9E9E9E',
   AlternateText: '#FFFFFF',
   EmphasizedText: '#6D6C6C',

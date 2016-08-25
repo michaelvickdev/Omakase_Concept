@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import {
   Actions
-} from 'react-native-router-flux';
+} from 'react-native-router-flux';import {
+  Colors, Sizes
+} from '../../res/Constants';
 
 // components
 import {
@@ -32,6 +34,8 @@ export default class SideMenu extends Component {
     super(props);
     this.state = {
       mode: 'client',
+      //to be replaced with UserStore.user.isplanner or something alike
+      isPlanner: true
     };
   }
 
@@ -68,9 +72,13 @@ export default class SideMenu extends Component {
         <TouchableOpacity style={styles.button} onPress={closeDrawer}>
           <Text>Close Drawer</Text>
         </TouchableOpacity>
+        {this.state.isPlanner?
         <TouchableOpacity style={styles.button} onPress={() => this.switchMode('planner')}>
           <Text>Planner Mode</Text>
         </TouchableOpacity>
+        :
+        <View/>
+        }
         <TouchableOpacity onPress={closeDrawer}>
           <FacebookButton/>
         </TouchableOpacity>
@@ -101,7 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'black',
+    backgroundColor: Colors.SideMenuBackground,
   },
 
   controlText: {

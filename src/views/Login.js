@@ -21,6 +21,11 @@ import FacebookButton from '../components/account/FacebookButton';
 export default class Login extends Component {
   componentDidMount() {
     StatusBar.setHidden(true, 'slide');
+    /* lemme know if this works, no work for me.
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) Actions.tutorial(); else Actions.login();
+    });
+    */
   }
 
   render() {
@@ -34,7 +39,7 @@ export default class Login extends Component {
             planning your ultimate experience
           </Text>
         </View>
-        <FacebookButton />
+        <FacebookButton onLoginFinished={Actions.tutorial}/>
       </View>
     );
   }

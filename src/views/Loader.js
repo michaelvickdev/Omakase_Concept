@@ -30,6 +30,8 @@ export default class Loader extends Component {
   }
 
   goToApp(){
+  // use this with firebase in login.js instead of storage if it works
+  //  Actions.clientMain()
     Storage.get('notNew').then(notNew => {
       if (!notNew){
         Actions.tutorial()

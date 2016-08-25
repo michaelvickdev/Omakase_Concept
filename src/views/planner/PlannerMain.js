@@ -50,11 +50,7 @@ export default class PlannerMain extends Component {
           label="Date"
           isBottom={true} />
         <View style={styles.buttonContainer}>
-          <Button
-            label={"New Event"}
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
-            onPress={Actions.clientCreate} />
+        
         </View>
       </View>
     );
