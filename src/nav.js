@@ -86,7 +86,7 @@ export default class Navigation extends Component {
 
               <Scene key="clientMain"
                 component={ClientMain}
-                type='replace'
+                type='reset'
                 hideNavBar={false} />
               <Scene key="clientCreate"
                 title={Strings.CreateEventTitle}
@@ -113,7 +113,7 @@ export default class Navigation extends Component {
                 title={"PLANNER"}
                 InputField={true}
                 component={PlannerMain}
-                type='replace'
+                type='reset'
                 hideNavBar={false} />
               </Scene>
         </Router>
