@@ -11,9 +11,14 @@ import {
 } from 'react-native';
 import {
   Actions
-} from 'react-native-router-flux';import {
+} from 'react-native-router-flux';
+import {
   Colors, Sizes
 } from '../../res/Constants';
+import
+  Divider
+from './common/Divider';
+
 
 // components
 import {
@@ -54,13 +59,17 @@ export default class SideMenu extends Component {
   }
 
   render() {
+    let {closeDrawer} = this.props
     return (
       <ScrollView contentContainerStyle={styles.container}>
-      {this.state.mode === 'planner' ?
-        this.renderPlannerMenu()
-      :
-        this.renderClientMenu()
-      }
+        {this.state.mode === 'planner' ?
+          this.renderPlannerMenu()
+        :
+          this.renderClientMenu()
+        }
+        <TouchableOpacity style={styles.facebookButton} onPress={closeDrawer}>
+          <FacebookButton/>
+        </TouchableOpacity>
       </ScrollView>
     )
   }
@@ -68,29 +77,32 @@ export default class SideMenu extends Component {
   renderClientMenu() {
     let {closeDrawer} = this.props
     return (
-      <View>
-        <Text style={styles.controlText}>Client</Text>
+      <View style={styles.subcontainer}>
         <SideItem icon="clear"
           label="Close Drawer"
           onPress={closeDrawer}/>
-        <SideItem icon="motorcycle"
-          label="Test Field1"
+        <SideItem icon="description"
+          label="Orders"
           onPress={() => this.test()}/>
-        <SideItem icon="star"
-          label="Test Field2"
+        <SideItem icon="credit-card"
+          label="Payment"
+          onPress={() => this.test()}/>
+        <SideItem icon="face"
+          label="Profile"
+          onPress={() => this.test()}/>
+        <SideItem icon="help-outline"
+          label="Help"
           onPress={() => this.test()}/>
         {this.state.isPlanner?
-        <SideItem icon="swap-horiz"
-          label="Planner Mode"
-          onPress={() => this.switchMode('planner')}/>
+        <View>
+          <Divider style={styles.divider}/>
+          <SideItem icon="swap-horiz"
+            label="Planner Mode"
+            onPress={() => this.switchMode('planner')}/>
+        </View>
         :
         <View/>
         }
-
-
-        <TouchableOpacity style={styles.facebookButton} onPress={closeDrawer}>
-          <FacebookButton/>
-        </TouchableOpacity>
       </View>
     )
   }
@@ -102,17 +114,32 @@ export default class SideMenu extends Component {
   renderPlannerMenu() {
     let {closeDrawer} = this.props
     return (
-      <View>
-        <Text style={styles.controlText}>Planner</Text>
+      <View style={styles.subcontainer}>
         <SideItem icon="clear"
           label="Close Drawer"
           onPress={closeDrawer}/>
+        <SideItem icon="view-list"
+          label="Requests"
+          onPress={() => this.test()}/>
+        <SideItem icon="assignment"
+          label="Tasks"
+          onPress={() => this.test()}/>
+        <SideItem icon="assessment"
+          label="Statistics"
+          onPress={() => this.test()}/>
+        <SideItem icon="star"
+          label="Rating"
+          onPress={() => this.test()}/>
+        <SideItem icon="face"
+          label="Profile"
+          onPress={() => this.test()}/>
+        <SideItem icon="help-outline"
+          label="Help"
+          onPress={() => this.test()}/>
+        <Divider style={styles.divider}/>
         <SideItem icon="swap-horiz"
           label="Client Mode"
           onPress={() => this.switchMode('client')}/>
-        <TouchableOpacity style={styles.facebookButton} onPress={closeDrawer}>
-          <FacebookButton onLogoutFinished={() => this.switchMode('client')}/>
-        </TouchableOpacity>
       </View>
     )
   }
@@ -126,11 +153,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
 
-  controlText: {
-    color: 'white',
-    fontSize: Sizes.H1,
-    marginTop: 10,
-    marginBottom: 20
+  subcontainer: {
+    marginTop: 30
   },
 
   button: {
@@ -138,6 +162,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     padding: 10,
+  },
+
+  divider: {
+    marginTop: 15,
+    marginBottom: 15,
   },
 
   facebookButton: {
