@@ -15,16 +15,24 @@ import {
 } from '../res/Constants';
 
 // components
+
 import Loader from './views/Loader';
 import Login from './views/Login';
 import Tutorial from './views/Tutorial';
+// clients components
 import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
 import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 import ClientConfirm from './views/client/ClientConfirm';
 import ClientPay from './views/client/ClientPay';
+// planners components
 import PlannerMain from './views/planner/PlannerMain';
+import PlannerBalance from './views/planner/PlannerBalance';
+import PlannerRequestMain from './views/planner/PlannerRequestMain';
+import PlannerRequestPool from './views/planner/PlannerRequestPool';
+import PlannerRequestDetail from './views/planner/PlannerRequestDetail';
+import PlannerRating from './views/planner/PlannerRating';
 
 import SideMenu from './components/SideMenu';
 
@@ -114,6 +122,26 @@ export default class Navigation extends Component {
                 InputField={true}
                 component={PlannerMain}
                 type='reset'
+                hideNavBar={false} />
+              <Scene key="plannerBalance"
+                title={"Balance"}
+                component={PlannerBalance}
+                hideNavBar={false} />
+              <Scene key="plannerRequestMain"
+                title={"Request Main"}
+                component={PlannerRequestMain}
+                hideNavBar={false} />
+              <Scene key="plannerRequestPool"
+                title={"Request Pool"}
+                component={PlannerRequestPool}
+                hideNavBar={false} />
+              <Scene key="plannerRequestDetail"
+                title={"Request Detail"}
+                component={PlannerRequestDetail}
+                hideNavBar={false} />
+              <Scene key="plannerRating"
+                title={"Request Rating"}
+                component={PlannerRating}
                 hideNavBar={false} />
               </Scene>
         </Router>

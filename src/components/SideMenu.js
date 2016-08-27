@@ -111,6 +111,22 @@ export default class SideMenu extends Component {
     alert("YOLO")
   }
 
+  testBalance() {
+    let {closeDrawer} = this.props
+    closeDrawer();
+    Actions.plannerBalance();
+  }
+  testRequestMain() {
+    let {closeDrawer} = this.props
+    closeDrawer();
+    Actions.plannerRequestMain();
+  }
+  testRating() {
+    let {closeDrawer} = this.props
+    closeDrawer();
+    Actions.plannerRating();
+  }
+
   renderPlannerMenu() {
     let {closeDrawer} = this.props
     return (
@@ -120,16 +136,16 @@ export default class SideMenu extends Component {
           onPress={closeDrawer}/>
         <SideItem icon="view-list"
           label="Requests"
-          onPress={() => this.test()}/>
+          onPress={() => this.testRequestMain()}/>
         <SideItem icon="assignment"
           label="Tasks"
           onPress={() => this.test()}/>
         <SideItem icon="assessment"
           label="Statistics"
-          onPress={() => this.test()}/>
+          onPress={() => this.testBalance()}/>
         <SideItem icon="star"
           label="Rating"
-          onPress={() => this.test()}/>
+          onPress={() => this.testRating()}/>
         <SideItem icon="face"
           label="Profile"
           onPress={() => this.test()}/>
