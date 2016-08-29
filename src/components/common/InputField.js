@@ -53,12 +53,12 @@ export default class InputField extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.Background,
     flexDirection: 'column',
     alignSelf: 'stretch'
   },
 
   innerContainer: {
+    backgroundColor: Colors.Background,
     paddingLeft: Sizes.OuterFrame,
     paddingTop: Sizes.InnerFrame,
     paddingBottom: Sizes.InnerFrame,
