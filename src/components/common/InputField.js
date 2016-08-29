@@ -42,7 +42,9 @@ export default class InputField extends Component {
         </View>
         <Divider
           style={
-            !this.props.isBottom && {marginLeft: Sizes.OuterFrame}
+            !this.props.isBottom
+            ? styles.middle
+            : styles.bottom
           } />
       </View>
     );
@@ -75,5 +77,13 @@ const styles = StyleSheet.create({
   icon: {
     marginTop: 1,
     marginRight: 5
+  },
+
+  middle: {
+    marginLeft: Sizes.OuterFrame
+  },
+
+  bottom: {
+    marginBottom: Sizes.OuterFrame
   }
 });
