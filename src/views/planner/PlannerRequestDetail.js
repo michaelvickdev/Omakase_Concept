@@ -34,12 +34,33 @@ export default class PlannerRequestDetail extends Component {
         finalized: true,
         confirmed: false,
         contributions: {
-          budget: 120,
-          party: 2,
+          budget: 120.135,
+          party: 3,
           exceptions: 'fully cooked beef, no cheese, no red stuff'
         }
-      }
+      },
+      users: [],
+      place: 'Trinity, Toronto, ON'
     };
+  }
+
+  componentDidMount() {
+    let users = [];
+    let user = {};
+    user.name = 'Kenneth the Pedo';
+    user.age = '36',
+    users.push(user);
+    user = {};
+    user.name = 'Little Girl';
+    user.age = '12',
+    users.push(user);
+    user = {};
+    user.name = 'Little Girls Puppy';
+    user.age = '3',
+    users.push(user);
+    this.setState({
+      users: users
+    })
   }
 
   _confirmClick() {
@@ -62,6 +83,19 @@ export default class PlannerRequestDetail extends Component {
   }
 
   render() {
+    let usersView = [];
+    if (this.state.users){
+      for (var i=0; i < this.state.users.length; i++) {
+        usersView.push(
+          <View key={i}>
+            <Text style={styles.text}>
+              {this.state.users[i].name + ', ' +
+                this.state.users[i].age}
+            </Text>
+          </View>
+        )
+      }
+    }
     return (
       <View style={styles.wrapper}>
         <ScrollView contentContainerStyle={styles.topContainer}>
@@ -89,8 +123,9 @@ export default class PlannerRequestDetail extends Component {
               name='group'/>
             <View style={styles.textWrap}>
               <Text style={styles.text}>
-                {this.state.booking.contributions.party + ' people'}
+                {this.state.booking.contributions.party + ' people:'}
               </Text>
+              {usersView}
             </View>
           </View>
           <View style={[styles.topContainer, styles.rowContainer]}>
@@ -131,6 +166,20 @@ export default class PlannerRequestDetail extends Component {
                 {this.state.booking.contributions.exceptions ?
                   this.state.booking.contributions.exceptions :
                   Strings.NoException}
+              </Text>
+            </View>
+          </View>
+          <View style={[styles.topContainer, styles.rowContainer]}>
+            <Icon
+              style={[
+                styles.icon
+              ]}
+              name='place'/>
+            <View style={styles.textWrap}>
+              <Text style={styles.text}>
+                {this.state.place ?
+                  this.state.place :
+                  'Area not specified'}
               </Text>
             </View>
           </View>
