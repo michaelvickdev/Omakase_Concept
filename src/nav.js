@@ -68,7 +68,11 @@ export default class Navigation extends Component {
            opacity: (2 - ratio) / 2
          }
        })}>
-        <Router sceneStyle={styles.global}>
+        <Router getSceneStyle={(props, computed) => ({
+          paddingTop: computed.hideNavBar
+            ? 0
+            : Navigator.NavigationBar.Styles.General.TotalNavHeight
+        })}>
           <Scene key="root"
             hideNavBar={true}
             navigationBarStyle={styles.nav}
@@ -77,13 +81,14 @@ export default class Navigation extends Component {
             rightButtonIconStyle = {styles.navButtons}
             drawerImage = {require("../res/img/menu.png")}>
           <Scene key="loader"
-            initial={true}
+
             component={Loader}
             type='replace' />
           <Scene key="login"
             component={Login}
             type='replace'/>
           <Scene key="tutorial"
+            initial
             component={Tutorial}
             type='replace' />
 
@@ -148,10 +153,6 @@ export default class Navigation extends Component {
 }
 
 const styles = StyleSheet.create({
-  global: {
-    paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight
-  },
-
   nav: {
     backgroundColor: Colors.Primary
   },
