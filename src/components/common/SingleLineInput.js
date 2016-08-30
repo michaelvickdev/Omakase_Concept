@@ -24,6 +24,13 @@ export default class SingleLineInput extends Component {
     this.state = {
       value: ''
     };
+
+    // bind methods
+    this.val = this.val.bind(this);
+  }
+
+  val() {
+    return this.state.value;
   }
 
   render() {

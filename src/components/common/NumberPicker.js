@@ -26,7 +26,15 @@ export default class Dropdown extends Component {
       min: this.props.min || null,
       max: this.props.max || null
     };
+
+    // bind methods
+    this.val = this.val.bind(this);
   }
+
+  val() {
+    return this.state.number;
+  }
+
   render() {
       return (
         <InputField
