@@ -7,14 +7,10 @@ import {
 import {
   Colors, Sizes, Strings
 } from '../../../res/Constants';
-import
-  DateFormat
-from 'dateformat';
+import DateFormat from 'dateformat';
 
 // components
-import
-  Icon
-from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '../../components/common/Button';
 
 /**
