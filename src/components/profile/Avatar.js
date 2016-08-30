@@ -27,16 +27,22 @@ export default class Avatar extends Component {
     this.state = {
       url: ' '
     };
+
+    // retain ref to unlisten later
+    this.profileRef = Database.ref(
+      `profiles/${this.props.uid}/photo`
+    );
   }
 
   componentDidMount() {
-    this.profileRef = Database.ref(
-      `profiles/${this.props.uid}/photo`
-    ).on('value', data => {
+    this.profileCallback = this.profileRef.on('value', data => {
       if (data.val()) {
+
+        // retain refs and callback to unlisten later
         this.photoRef = Database.ref(
           `photos/${data.val()}/url`
-        ).on('value', data => {
+        );
+        this.photoCallback = this.photoRef.on('value', data => {
           this.setState({
             url: data.val()
           });
@@ -46,8 +52,12 @@ export default class Avatar extends Component {
   }
 
   componentWillUnmount() {
-    this.profileRef && this.profileRef.off('value');
-    this.photoRef && this.photoRef.off('value');
+    this.profileRef && this.profileRef.off(
+      'value', this.profileCallback
+    );
+    this.photoRef && this.photoRef.off(
+      'value', this.photoCallback
+    );
   }
 
   render() {
