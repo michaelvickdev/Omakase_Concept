@@ -10,6 +10,9 @@ import {
 import {
   Colors, Sizes, Styles
 } from '../../../res/Constants';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
 
 // components
 import Button from '../../components/common/Button';
@@ -45,7 +48,18 @@ export default class ClientCreate extends Component {
         {
           text: 'Confirm Booking',
           onPress: () => {
-            Actions.clientPlannerChoice();
+            Database.ref('bookings').push({
+              createdBy: Firebase.auth().currentUser.uid,
+              requestedTime: this._date.val().valueOf(),
+              occasion: this._occasion.val(),
+              contributions: {
+                [Firebase.auth().currentUser.uid]: {
+                  budget: this._price.val() * this._party.val(),
+                  party: this._party.val(),
+                  exceptions: this._restrictions.val()
+                }
+              }
+            }, error => Actions.clientPlannerChoice());
           }
         }
       ]
