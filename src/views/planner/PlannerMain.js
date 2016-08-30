@@ -16,6 +16,7 @@ import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
+import NumberPicker from '../../components/common/NumberPicker';
 
 /**
  * Main screen for planners onlu
@@ -44,6 +45,8 @@ export default class PlannerMain extends Component {
             label="message" />
             <SingleLineInput
               label="Something2" />
+            <NumberPicker
+              label="Number Picker"/>
         <DatePicker
           label="Date"
           isBottom={true} />

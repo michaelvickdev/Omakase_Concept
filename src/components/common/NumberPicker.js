@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, StyleSheet, Text, Modal, TouchableHighlight, Dimensions
+  View, StyleSheet, Text
 } from 'react-native';
 import {
   Sizes, Colors
@@ -11,7 +11,13 @@ import {
 // components
 import InputField from './InputField';
 
-
+/**
+ * Platform agnostic NumberPicker wrapped inside InputField.
+ *
+ * @param {number} the number for this NumberPicker.
+ * @param {number} [minDate] - The minimum allowable number.
+ * @param {number} [maxDate] - The maximum allowable number.
+ */
 export default class Dropdown extends Component {
   constructor(props) {
     super(props);

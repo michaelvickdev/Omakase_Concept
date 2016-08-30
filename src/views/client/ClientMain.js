@@ -16,7 +16,7 @@ import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
-import Dropdown from '../../components/common/Dropdown';
+
 /**
  * Main screen for general users (Client)
  * can toggle to Planners view for registered planners
