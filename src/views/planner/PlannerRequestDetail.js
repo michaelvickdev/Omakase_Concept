@@ -12,16 +12,10 @@ import
 from 'dateformat';
 
 // components
-<<<<<<< HEAD
 import
   Icon
 from 'react-native-vector-icons/MaterialIcons';
-import {
-  Button
-} from '../../components/common/Button';
-=======
 import Button from '../../components/common/Button';
->>>>>>> 0a8e8573ca31787c006ac07362a8feb2e3c8da48
 
 /**
   * Show the corresponding request details:
