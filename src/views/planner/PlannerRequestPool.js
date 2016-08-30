@@ -12,9 +12,7 @@ import {
 } from 'react-native-router-flux'
 
 // components
-import {
-  Button
-} from '../../components/common/Button';
+import Button from '../../components/common/Button';
 
 /**
   * Show the lists of requests available to plan.

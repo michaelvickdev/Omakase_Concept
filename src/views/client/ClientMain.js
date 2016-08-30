@@ -12,9 +12,7 @@ import {
 } from '../../../res/Constants';
 
 // components
-import {
-  Button
-} from '../../components/common/Button';
+import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';

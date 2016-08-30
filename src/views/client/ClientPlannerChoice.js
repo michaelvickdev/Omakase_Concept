@@ -13,14 +13,11 @@ import {
 
 // components
 import Button from '../../components/common/Button';
-import DatePicker from '../../components/common/DatePicker';
-import SingleLineInput from '../../components/common/SingleLineInput';
-import InputSectionHeader from '../../components/common/InputSectionHeader';
+import Divider from '../../components/common/Divider';
 
 /**
- * First screen of creating an event
- * client to enter basic info:
- * date, # of people, time, area, budget, occasion
+ * Presents three planners assigned to a newly booked event and
+ * allows re-rolling of the planners.
  */
 export default class ClientCreate extends Component {
   constructor(props){
@@ -33,36 +30,18 @@ export default class ClientCreate extends Component {
         <View style={styles.input}>
           <View style={styles.body}>
             <Text style={Styles.Header}>
-              Book a new Event
+              Meet your planners
             </Text>
             <Text style={Styles.BodyText}>
-              Give us a little information about your event and
-              we'll pair you up with a local event planner to figure
-              out the rest.
+              We've selected some possible planners locally based
+              on your budget and criteria. You can review them below.
             </Text>
           </View>
-          <InputSectionHeader
-            label="Schedule" />
-          <DatePicker
-            isTop
-            label="Date" />
-          <DatePicker
-            label="Time"
-            type="time" />
-          <SingleLineInput
-            isBottom
-            label="Occasion" />
-
-          <InputSectionHeader
-            label="Party Details" />
-          <SingleLineInput
-            isTop
-            label="Price (per person)" />
-          <SingleLineInput
-            label="# of People" />
-          <SingleLineInput
-            isBottom
-            label="Dietary Restrictions & Allergies" />
+        </View>
+        <View style={styles.planners}>
+          <Divider />
+          <View></View>
+          <Divider />
         </View>
         <View style={styles.buttons}>
           <Button
@@ -70,7 +49,6 @@ export default class ClientCreate extends Component {
           <Button
             color={Colors.Primary}
             fontColor={Colors.AlternateText}
-            onPress={Actions.clientPlannerChoice}
             label="Book & View Assigned Planners" />
         </View>
       </View>

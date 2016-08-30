@@ -14,12 +14,8 @@ import {
   Actions
 } from 'react-native-router-flux';
 
-
-
 // components
-import {
-  Button
-} from '../components/common/Button';
+import Button from '../components/common/Button';
 
 /**
  * Brief tutorial of the solution, next next next done
