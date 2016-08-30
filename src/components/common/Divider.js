@@ -28,6 +28,6 @@ styles = StyleSheet.create({
   divider: {
     alignSelf: 'stretch',
     backgroundColor: Colors.Text,
-    height: 0.5
+    height: 0.6
   }
 });
