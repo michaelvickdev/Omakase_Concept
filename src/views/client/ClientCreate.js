@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet, Alert
 } from 'react-native';
 import {
   Actions
@@ -26,6 +26,30 @@ import NumberPicker from '../../components/common/NumberPicker';
 export default class ClientCreate extends Component {
   constructor(props){
     super(props);
+
+    // bind methods
+    this.submit = this.submit.bind(this);
+  }
+
+  submit() {
+    Alert.alert(
+      'Please confirm this Booking',
+      `You are authorizing $${this._price.val() * this._party.val()} `
+      + `on your credit card for ${this._date.val().toLocaleDateString()}`
+      + `, at ${this._time.val().toLocaleTimeString()} for a `
+      + `party of ${this._party.val()}.`,
+      [
+        {
+          text: 'I need to make changes'
+        },
+        {
+          text: 'Confirm Booking',
+          onPress: () => {
+            Actions.clientPlannerChoice();
+          }
+        }
+      ]
+    );
   }
 
   render() {
@@ -46,13 +70,16 @@ export default class ClientCreate extends Component {
             label="Schedule" />
           <DatePicker
             isTop
+            ref={ref => this._date = ref}
             label="Date" />
           <DatePicker
             label="Time"
+            ref={ref => this._time = ref}
             type="time" />
           <SingleLineInput
             isBottom
             label="Occasion"
+            ref={ref => this._occasion = ref}
             subtitle="Tell us how we should plan your night" />
 
           <InputSectionHeader
@@ -62,13 +89,16 @@ export default class ClientCreate extends Component {
             number={60}
             min={20}
             label="Price"
+            ref={ref => this._price = ref}
             subtitle="Per person (in CAD$)" />
           <NumberPicker
             number={2}
             min={1}
+            ref={ref => this._party = ref}
             label="# of People" />
           <SingleLineInput
             isBottom
+            ref={ref => this._restrictions = ref}
             label="Dietary Restrictions & Allergies" />
         </View>
         <View style={styles.buttons}>
@@ -77,7 +107,7 @@ export default class ClientCreate extends Component {
           <Button
             color={Colors.Primary}
             fontColor={Colors.AlternateText}
-            onPress={Actions.clientPlannerChoice}
+            onPress={this.submit}
             label="Book & View Assigned Planners" />
         </View>
       </View>
