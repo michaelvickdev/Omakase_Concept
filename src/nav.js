@@ -81,14 +81,13 @@ export default class Navigation extends Component {
             rightButtonIconStyle = {styles.navButtons}
             drawerImage = {require("../res/img/menu.png")}>
           <Scene key="loader"
-
+            initial={true}
             component={Loader}
             type='replace' />
           <Scene key="login"
             component={Login}
             type='replace'/>
           <Scene key="tutorial"
-            initial
             component={Tutorial}
             type='replace' />
 
