@@ -14,6 +14,7 @@ import {
 // components
 import Button from '../../components/common/Button';
 import Divider from '../../components/common/Divider';
+import Avatar from '../../components/profile/Avatar';
 
 /**
  * Presents three planners assigned to a newly booked event and
@@ -71,7 +72,19 @@ export default class ClientPlannerChoice extends Component {
             <Divider />
             <View style={styles.planners}>
               <View style={styles.planner}>
-
+                <Avatar
+                  uid="lq96kaJpFmdyikJlcuRUOqoUwjM2"
+                  size={100} />
+              </View>
+              <View style={styles.planner}>
+                <Avatar
+                  uid="HOtOvx58WEgkOeOguoBs7Mu7LDe2"
+                  size={100} />
+              </View>
+              <View style={styles.planner}>
+                <Avatar
+                  uid="gX1zgZbcQPh0D6yiqhKTLRygEyT2"
+                  size={100} />
               </View>
             </View>
             <Divider />
@@ -144,7 +157,13 @@ const styles = StyleSheet.create({
   },
 
   planners: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: Sizes.OuterFrame
+  },
+
+  planner: {
   },
 
   buttons: {
