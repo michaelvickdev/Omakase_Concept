@@ -34,10 +34,21 @@ export default class InputField extends Component {
               ]}
               name={this.props.icon} />
           }
-          <Text
-            style={styles.label}>
-            {this.props.label || this.props.placeholder}
-          </Text>
+          <View style={styles.labelContainer}>
+            <Text style={styles.label}>
+              {this.props.label || this.props.placeholder}
+            </Text>
+            {this.props.subtitle && (
+              <Text style={[
+                styles.subtitle,
+                this.props.subtitleColor && {
+                  color: this.props.subtitleColor
+                }
+              ]}>
+                {this.props.subtitle}
+              </Text>
+            )}
+          </View>
           {this.props.field}
         </View>
         <Divider
@@ -67,11 +78,21 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
+  labelContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'center'
+  },
+
   label: {
     color: Colors.Text,
     fontSize: Sizes.Text,
-    fontWeight: '500',
-    alignSelf: 'flex-start'
+    fontWeight: '500'
+  },
+
+  subtitle: {
+    color: Colors.Disabled,
+    fontSize: Sizes.SmallText,
+    fontStyle: 'italic'
   },
 
   icon: {
