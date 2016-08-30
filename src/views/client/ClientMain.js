@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: Sizes.outerFrame,
     backgroundColor: '#FAFAFA'
+    padding: Sizes.OuterFrame
   },
 
   contentContainer: {
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    paddingBottom: 20,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center'

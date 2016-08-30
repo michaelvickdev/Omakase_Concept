@@ -36,23 +36,6 @@ export default class PlannerMain extends Component {
               You have no pending events
           </Text>
         </View>
-        <InputSectionHeader
-          label="Testing Component" />
-        <SingleLineInput
-          label="Something"
-          isTop={true} />
-          <SingleLineInput
-            label="message" />
-            <SingleLineInput
-              label="Something2" />
-            <NumberPicker
-              label="Number Picker"/>
-        <DatePicker
-          label="Date"
-          isBottom={true} />
-        <View style={styles.buttonContainer}>
-
-        </View>
       </View>
     );
   }
