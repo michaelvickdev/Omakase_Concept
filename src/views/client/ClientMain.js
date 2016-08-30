@@ -18,7 +18,7 @@ import {
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
-
+import Dropdown from '../../components/common/Dropdown';
 /**
  * Main screen for general users (Client)
  * can toggle to Planners view for registered planners
@@ -39,9 +39,14 @@ export default class ClientMain extends Component {
         </View>
         <InputSectionHeader
           label="Testing Component" />
+        <Dropdown
+          isTop={true}
+          label="Number Picker"
+          number={1}
+          min={0}
+          max={5} />
         <SingleLineInput
-          label="Something"
-          isTop={true} />
+          label="Something" />
           <SingleLineInput
             label="message" />
             <SingleLineInput
