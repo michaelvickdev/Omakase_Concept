@@ -16,6 +16,7 @@ import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
+import BookingCard from '../../components/common/BookingCard';
 
 /**
  * Main screen for general users (Client)
@@ -38,9 +39,13 @@ export default class ClientMain extends Component {
 
   renderBookings = () => {
     return (
-      <Text style={styles.text}>
-          bookings
-      </Text>
+      <View>
+        <Text style={styles.text}>
+          Your current bookings:
+        </Text>
+        <BookingCard />
+        <BookingCard />
+      </View>
     );
   }
 
@@ -72,7 +77,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: Sizes.outerFrame
+    padding: Sizes.outerFrame,
+    backgroundColor: '#FAFAFA'
   },
 
   contentContainer: {

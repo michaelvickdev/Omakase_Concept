@@ -2,7 +2,7 @@ export const Colors = {
   Transparent: 'rgba(0, 0, 0, 0)',
   Primary: '#9068BE',
   Secondary: '#F5F5F5',
-  Background: '#FFFFFF',
+  Background: '#FAFAFA',
   SideMenuBackground: 'rgba(0, 0, 0, 0.9)',
   Text: '#9E9E9E',
   AlternateText: '#FFFFFF',
