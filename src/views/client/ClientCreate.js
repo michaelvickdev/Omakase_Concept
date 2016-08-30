@@ -16,6 +16,7 @@ import Button from '../../components/common/Button';
 import DatePicker from '../../components/common/DatePicker';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
+import NumberPicker from '../../components/common/NumberPicker';
 
 /**
  * First screen of creating an event
@@ -55,10 +56,14 @@ export default class ClientCreate extends Component {
 
           <InputSectionHeader
             label="Party Details" />
-          <SingleLineInput
+          <NumberPicker
             isTop
+            number={60}
+            min={20}
             label="Price (per person)" />
-          <SingleLineInput
+          <NumberPicker
+            number={2}
+            min={1}
             label="# of People" />
           <SingleLineInput
             isBottom

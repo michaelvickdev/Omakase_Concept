@@ -7,6 +7,7 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 /**
  * Displays a Button.
@@ -96,6 +97,29 @@ export default class Button extends Component {
 
           ): (
             <View style={styles.textContainer}>
+              {
+
+                // icon
+                this.props.icon
+                && (
+                  <Icon
+                    name={this.props.icon}
+                    size={(this.props.size || Sizes.Text) + 3}
+                    color={
+                      (this.props.isDisabled && this.props.disabledFontColor)
+                      || this.props.fontColor
+                      || Sizes.Text
+                    } />
+                )
+              }
+              {
+
+                // spacer if both icon and label are used
+                this.props.icon && this.props.label && (
+                  <View
+                    style={styles.spacer} />
+                )
+              }
               {
 
                 // the label
