@@ -52,7 +52,8 @@ export default class ClientCreate extends Component {
             type="time" />
           <SingleLineInput
             isBottom
-            label="Occasion" />
+            label="Occasion"
+            subtitle="Tell us how we should plan your night" />
 
           <InputSectionHeader
             label="Party Details" />
@@ -60,7 +61,8 @@ export default class ClientCreate extends Component {
             isTop
             number={60}
             min={20}
-            label="Price (per person)" />
+            label="Price"
+            subtitle="Per person (in CAD$)" />
           <NumberPicker
             number={2}
             min={1}
