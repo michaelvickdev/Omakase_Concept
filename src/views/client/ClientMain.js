@@ -34,7 +34,20 @@ export default class ClientMain extends Component {
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
     // TODO: Retrieve actual bookings from server
-    this.state.bookings = ['yep'];
+    this.setState({bookings: [{
+      bookingId: '1234',
+      createdBy: 'bookerUserId',
+      planner: null,
+      requestedTime: 1472515800581,
+      occasion: 'tinder date',
+      finalized: true,
+      confirmed: false,
+      contributions: {
+        budget: 120.135,
+        party: 3,
+        exceptions: 'fully cooked beef, no cheese, no red stuff'
+      }
+    }]});
   }
 
   renderBookings = () => {
@@ -44,12 +57,9 @@ export default class ClientMain extends Component {
           Your current bookings:
         </Text>
         <BookingCard />
-        <BookingCard />
-        <BookingCard booking={{
-          ocassion: 'Lmao',
-          requestedTime: 'October 13th, 1:30PM',
-          description: 'Some stuff going on here.'
-        }}/>
+        {this.state.bookings.map(data => {
+          return (<BookingCard key={data.bookingId} booking={data}/>)
+        })}
       </View>
     );
   }
