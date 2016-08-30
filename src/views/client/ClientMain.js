@@ -45,6 +45,11 @@ export default class ClientMain extends Component {
         </Text>
         <BookingCard />
         <BookingCard />
+        <BookingCard booking={{
+          ocassion: 'Lmao',
+          requestedTime: 'October 13th, 1:30PM',
+          description: 'Some stuff going on here.'
+        }}/>
       </View>
     );
   }
