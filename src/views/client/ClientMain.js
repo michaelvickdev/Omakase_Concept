@@ -37,23 +37,6 @@ export default class ClientMain extends Component {
               You have no pending events
           </Text>
         </View>
-        <InputSectionHeader
-          label="Testing Component" />
-        <Dropdown
-          isTop={true}
-          label="Number Picker"
-          number={1}
-          min={0}
-          max={5} />
-        <SingleLineInput
-          label="Something" />
-          <SingleLineInput
-            label="message" />
-            <SingleLineInput
-              label="Something2" />
-        <DatePicker
-          label="Date"
-          isBottom={true} />
         <View style={styles.buttonContainer}>
           <Button
             label={"New Event"}

@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StatusBar, Platform
+  StatusBar, Platform, StyleSheet, Navigator
 } from 'react-native';
 import {
   Router, Scene
@@ -15,10 +15,11 @@ import {
 } from '../res/Constants';
 
 // components
-
 import Loader from './views/Loader';
 import Login from './views/Login';
 import Tutorial from './views/Tutorial';
+import SideMenu from './components/SideMenu';
+
 // clients components
 import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
@@ -26,6 +27,7 @@ import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 import ClientConfirm from './views/client/ClientConfirm';
 import ClientPay from './views/client/ClientPay';
+
 // planners components
 import PlannerMain from './views/planner/PlannerMain';
 import PlannerBalance from './views/planner/PlannerBalance';
@@ -33,9 +35,6 @@ import PlannerRequestMain from './views/planner/PlannerRequestMain';
 import PlannerRequestPool from './views/planner/PlannerRequestPool';
 import PlannerRequestDetail from './views/planner/PlannerRequestDetail';
 import PlannerRating from './views/planner/PlannerRating';
-
-import SideMenu from './components/SideMenu';
-
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -47,11 +46,11 @@ export default class Navigation extends Component {
   }
 
   closeDrawer = () => {
-    this._drawer.close()
+    this._drawer.close();
   };
 
   openDrawer = () => {
-    this._drawer.open()
+    this._drawer.open();
   };
 
   render() {
@@ -60,92 +59,108 @@ export default class Navigation extends Component {
        ref={(ref) => this._drawer = ref}
        type="overlay"
        content={<SideMenu closeDrawer={this.closeDrawer} />}
-       styles={{
-         main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}
-       }}
        tapToClose={true}
        openDrawerOffset={0.3}
        panCloseMask={0.2}
        closedDrawerOffset={-3}
-       tweenHandler={(ratio) => ({
-         main: { opacity:(2-ratio)/2 }
-       })}
-       >
-        <Router>
+       tweenHandler={ratio => ({
+         main: {
+           opacity: (2 - ratio) / 2
+         }
+       })}>
+        <Router getSceneStyle={(props, computed) => ({
+          paddingTop: computed.hideNavBar
+            ? 0
+            : Navigator.NavigationBar.Styles.General.TotalNavHeight
+        })}>
           <Scene key="root"
             hideNavBar={true}
-            navigationBarStyle={{backgroundColor: Colors.Primary}}
-            titleStyle={{color: Colors.AlternateText}}
-            leftButtonIconStyle = {{tintColor: Colors.AlternateText}}
-            rightButtonIconStyle = {{tintColor: Colors.AlternateText}}
+            navigationBarStyle={styles.nav}
+            titleStyle={styles.navText}
+            leftButtonIconStyle = {styles.navButtons}
+            rightButtonIconStyle = {styles.navButtons}
             drawerImage = {require("../res/img/menu.png")}>
-            <Scene key="loader"
-              initial={true}
-              component={Loader}
-              type='replace' />
-            <Scene key="login"
-              component={Login}
-              type='replace'/>
-            <Scene key="tutorial"
-              component={Tutorial}
-              type='replace' />
+          <Scene key="loader"
+            initial={true}
+            component={Loader}
+            type='replace' />
+          <Scene key="login"
+            component={Login}
+            type='replace'/>
+          <Scene key="tutorial"
+            component={Tutorial}
+            type='replace' />
 
-      {/* Scenes for client */}
+          {/* Scenes for client */}
+          <Scene key="clientMain"
+            component={ClientMain}
+            type='reset'
+            hideNavBar={false} />
+          <Scene key="clientCreate"
+            title={Strings.CreateEventTitle}
+            component={ClientCreate}
+            hideNavBar={false} />
+          <Scene key="clientExclusion"
+            title={Strings.CreateEventTitle}
+            component={ClientExclusion}
+            hidNavBar={false} />
+          <Scene key="clientBudget"
+            title={Strings.CreateEventTitle}
+            component={ClientBudget}
+            hidNavBar={false}/>
+          <Scene key="clientConfirm"
+            title='Confirmation'
+            component={ClientConfirm}
+            hidNavBar={false} />
+          <Scene key="clientPay"
+            title='Payment'
+            component={ClientPay}
+            hidNavBar={false} />
 
-              <Scene key="clientMain"
-                component={ClientMain}
-                type='reset'
-                hideNavBar={false} />
-              <Scene key="clientCreate"
-                title={Strings.CreateEventTitle}
-                component={ClientCreate}
-                hideNavBar={false} />
-              <Scene key="clientExclusion"
-                title={Strings.CreateEventTitle}
-                component={ClientExclusion}
-                hidNavBar={false} />
-              <Scene key="clientBudget"
-                title={Strings.CreateEventTitle}
-                component={ClientBudget}
-                hidNavBar={false}/>
-              <Scene key="clientConfirm"
-                title='Confirmation'
-                component={ClientConfirm}
-                hidNavBar={false} />
-              <Scene key="clientPay"
-                title='Payment'
-                component={ClientPay}
-                hidNavBar={false} />
-      {/* Scenes for planner */}
-              <Scene key="plannerMain"
-                title={"PLANNER"}
-                InputField={true}
-                component={PlannerMain}
-                type='reset'
-                hideNavBar={false} />
-              <Scene key="plannerBalance"
-                title={"Balance"}
-                component={PlannerBalance}
-                hideNavBar={false} />
-              <Scene key="plannerRequestMain"
-                title={"Request Main"}
-                component={PlannerRequestMain}
-                hideNavBar={false} />
-              <Scene key="plannerRequestPool"
-                title={"Request Pool"}
-                component={PlannerRequestPool}
-                hideNavBar={false} />
-              <Scene key="plannerRequestDetail"
-                title={"Request Detail"}
-                component={PlannerRequestDetail}
-                hideNavBar={false} />
-              <Scene key="plannerRating"
-                title={"Request Rating"}
-                component={PlannerRating}
-                hideNavBar={false} />
-              </Scene>
+          {/* Scenes for planner */}
+          <Scene key="plannerMain"
+            title={"PLANNER"}
+            InputField={true}
+            component={PlannerMain}
+            type='reset'
+            hideNavBar={false} />
+          <Scene key="plannerBalance"
+            title={"Balance"}
+            component={PlannerBalance}
+            hideNavBar={false} />
+          <Scene key="plannerRequestMain"
+            title={"Request Main"}
+            component={PlannerRequestMain}
+            hideNavBar={false} />
+          <Scene key="plannerRequestPool"
+            title={"Request Pool"}
+            component={PlannerRequestPool}
+            hideNavBar={false} />
+          <Scene key="plannerRequestDetail"
+            title={"Request Detail"}
+            component={PlannerRequestDetail}
+            hideNavBar={false} />
+          <Scene key="plannerRating"
+            title={"Request Rating"}
+            component={PlannerRating}
+            hideNavBar={false} />
+          </Scene>
         </Router>
       </Drawer>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  nav: {
+    backgroundColor: Colors.Primary
+  },
+
+  navText: {
+    color: Colors.AlternateText
+  },
+
+  navButtons: {
+    tintColor: Colors.AlternateText
+  }
+});

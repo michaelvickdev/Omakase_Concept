@@ -86,7 +86,11 @@ export default class DatePicker extends Component {
                 }
               }}>
               <Text style={styles.text}>
-                {this.state.date.toDateString()}
+                {
+                  this.props.type === 'time'
+                  ? this.state.date.toLocaleTimeString()
+                  : this.state.date.toLocaleDateString()
+                }
               </Text>
             </TouchableHighlight>
           </View>
