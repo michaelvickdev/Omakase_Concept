@@ -34,21 +34,23 @@ export default class ClientPlannerChoice extends Component {
           visible={this.state.showModal}
           animationType="slide">
           <View style={styles.modalContainer}>
-            <View style={[
-              styles.body, styles.successBody
-            ]}>
+            <View style={styles.body}>
               <Text style={[
-                Styles.Header, styles.successText, styles.header
+                Styles.Header, styles.successText, styles.successHeader
               ]}>
-                Booked!
+                Yusssss!
               </Text>
               <Text style={[
-                Styles.BodyText, styles.successText, styles.text
+                Styles.BodyText, styles.successText, styles.successBody
               ]}>
-                Your event has been booked and a planner is figuring your
-                dream night out. We'll let you know where to head to
-                closer to the event time.
+                You've been booked in for tonight. We'll send a car to pick you
+                up at 5:30 PM at your place.
               </Text>
+              <Button
+                label="View Booking Details"
+                color={Colors.Green}
+                fontColor={Colors.AlternateText}
+                onPress={Actions.clientMain} />
             </View>
             <Image
               style={styles.successImage}
@@ -159,30 +161,30 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
+    paddingTop: Sizes.OuterFrame * 2,
+    paddingLeft: Sizes.OuterFrame,
+    paddingRight: Sizes.OuterFrame,
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.Primary
   },
 
   successImage: {
-    width: 372,
-    height: 372
-  },
-
-  successBody: {
-    marginTop: 100
+    width: 350,
+    height: 350
   },
 
   successText: {
     color: Colors.AlternateText,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: Sizes.InnerFrame
   },
 
-  header: {
+  successHeader: {
     fontSize: 32
   },
 
-  text: {
+  successBody: {
     fontSize: 14
   }
 });
