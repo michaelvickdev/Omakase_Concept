@@ -1,5 +1,5 @@
 export const Strings = {
-  CreateEventTitle: 'Personalized Order',
+  CreateEventTitle: '',
   NoException: 'No exclusions specified',
   NoOccasion: 'No occasions specified',
   ConfirmPlan: 'Do you want to plan this event?'
