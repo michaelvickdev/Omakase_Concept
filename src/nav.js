@@ -42,23 +42,21 @@ import PlannerRating from './views/planner/PlannerRating';
  */
 export default class Navigation extends Component {
   componentDidMount() {
-    this.closeDrawer = this.closeDrawer.bind(this);
-    this.openDrawer = this.openDrawer.bind(this);
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
   }
 
-  closeDrawer() {
-    this._drawer.close()
+  closeDrawer = () => {
+    this._drawer.close();
   };
 
-  openDrawer() {
-    this._drawer.open()
+  openDrawer = () => {
+    this._drawer.open();
   };
 
   render() {
     return (
       <Drawer
-       ref={ref => this._drawer = ref}
+       ref={(ref) => this._drawer = ref}
        type="overlay"
        content={<SideMenu closeDrawer={this.closeDrawer} />}
        tapToClose={true}
@@ -70,7 +68,11 @@ export default class Navigation extends Component {
            opacity: (2 - ratio) / 2
          }
        })}>
-        <Router sceneStyle={styles.global}>
+        <Router getSceneStyle={(props, computed) => ({
+          paddingTop: computed.hideNavBar
+            ? 0
+            : Navigator.NavigationBar.Styles.General.TotalNavHeight
+        })}>
           <Scene key="root"
             hideNavBar={true}
             navigationBarStyle={styles.nav}
@@ -79,13 +81,14 @@ export default class Navigation extends Component {
             rightButtonIconStyle = {styles.navButtons}
             drawerImage = {require("../res/img/menu.png")}>
           <Scene key="loader"
-            initial={true}
+
             component={Loader}
             type='replace' />
           <Scene key="login"
             component={Login}
             type='replace'/>
           <Scene key="tutorial"
+            initial
             component={Tutorial}
             type='replace' />
 
@@ -150,10 +153,6 @@ export default class Navigation extends Component {
 }
 
 const styles = StyleSheet.create({
-  global: {
-    paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight
-  },
-
   nav: {
     backgroundColor: Colors.Primary
   },
