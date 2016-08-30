@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: Sizes.outerFrame,
     backgroundColor: '#FAFAFA'
-    padding: Sizes.OuterFrame
   },
 
   contentContainer: {
