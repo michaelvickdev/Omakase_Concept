@@ -33,7 +33,6 @@ import ClientPay from './views/client/ClientPay';
 import PlannerMain from './views/planner/PlannerMain';
 import PlannerBalance from './views/planner/PlannerBalance';
 import PlannerRequestMain from './views/planner/PlannerRequestMain';
-import PlannerRequestPool from './views/planner/PlannerRequestPool';
 import PlannerRequestDetail from './views/planner/PlannerRequestDetail';
 import PlannerRating from './views/planner/PlannerRating';
 
@@ -135,10 +134,6 @@ export default class Navigation extends Component {
           <Scene key="plannerRequestMain"
             title={"Request Main"}
             component={PlannerRequestMain}
-            hideNavBar={false} />
-          <Scene key="plannerRequestPool"
-            title={"Request Pool"}
-            component={PlannerRequestPool}
             hideNavBar={false} />
           <Scene key="plannerRequestDetail"
             title={"Request Detail"}
