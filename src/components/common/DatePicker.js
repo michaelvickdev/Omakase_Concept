@@ -29,14 +29,13 @@ export default class DatePicker extends Component {
       tempDate: startDate,
       showModal: false
     };
-  }
 
-  componentDidMount() {
+    // bind methods
     this._renderIOS = this._renderIOS.bind(this);
-    this.getDate = this.getDate.bind(this);
+    this.val = this.val.bind(this);
   }
 
-  getDate() {
+  val() {
     return this.state.date;
   }
 
