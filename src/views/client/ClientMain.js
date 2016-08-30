@@ -22,18 +22,38 @@ import DatePicker from '../../components/common/DatePicker';
  * can toggle to Planners view for registered planners
  */
 export default class ClientMain extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bookings: []
+    };
+  }
+
   componentDidMount() {
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
+    // TODO: Retrieve actual bookings from server
+    this.state.bookings = ['yep'];
+  }
+
+  renderBookings = () => {
+    return (
+      <Text style={styles.text}>
+          bookings
+      </Text>
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
-          <Text style={styles.text}>
-              You have no pending events
-          </Text>
+          { this.state.bookings
+            ? this.renderBookings()
+            : <Text style={styles.text}>
+                You have no pending events
+              </Text>
+          }
         </View>
         <View style={styles.buttonContainer}>
           <Button
