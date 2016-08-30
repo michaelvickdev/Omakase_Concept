@@ -137,9 +137,6 @@ export default class SideMenu extends Component {
         <SideItem icon="view-list"
           label="Requests"
           onPress={() => this.testRequestMain()}/>
-        <SideItem icon="assignment"
-          label="Tasks"
-          onPress={() => this.test()}/>
         <SideItem icon="assessment"
           label="Statistics"
           onPress={() => this.testBalance()}/>
