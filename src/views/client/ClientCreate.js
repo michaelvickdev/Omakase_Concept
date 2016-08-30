@@ -8,7 +8,7 @@ import {
   Actions
 } from 'react-native-router-flux';
 import {
-  Colors, Sizes
+  Colors, Sizes, Styles
 } from '../../../res/Constants';
 
 // components
@@ -17,58 +17,62 @@ import {
 } from '../../components/common/Button';
 import DatePicker from '../../components/common/DatePicker';
 import SingleLineInput from '../../components/common/SingleLineInput';
+import InputSectionHeader from '../../components/common/InputSectionHeader';
+
 /**
  * First screen of creating an event
  * client to enter basic info:
  * date, # of people, time, area, budget, occasion
  */
 export default class ClientCreate extends Component {
-
   constructor(props){
     super(props);
   }
 
   render() {
     return (
-      <View style={styles.wrapper}>
-        {/* DatePicker*/}
-        <View style={styles.childContainer}>
-          <Text style={styles.text}>
-            Choose your date having dinner:
-          </Text>
+      <View style={styles.container}>
+        <View style={styles.input}>
+          <View style={styles.body}>
+            <Text style={Styles.Header}>
+              Book a new Event
+            </Text>
+            <Text style={Styles.BodyText}>
+              Give us a little information about your event and
+              we'll pair you up with a local event planner to figure
+              out the rest.
+            </Text>
+          </View>
+          <InputSectionHeader
+            label="Schedule" />
           <DatePicker
-            label="Choose Your Date"
-            isTop={true}
-            isBottom={true} />
-        </View>
-        {/* SeatingPicker*/}
-        <View style={styles.childContainer}>
-          <Text style={styles.text}>
-            Choose your seating time:
-          </Text>
+            isTop
+            label="Date" />
+          <DatePicker
+            label="Time"
+            type="time" />
           <SingleLineInput
-          label="SeatingPicker"
-          isTop={true}
-          isBottom={true} />
-        </View>
-        {/* OccasionsPicker*/}
-        <View style={styles.childContainer}>
-          <Text style={styles.text}>
-            Choose your occasions:
-          </Text>
+            isBottom
+            label="Occasion" />
+
+          <InputSectionHeader
+            label="Party Details" />
           <SingleLineInput
-          label="OccasionsPicker"
-          isTop={true}
-          isBottom={true} />
+            isTop
+            label="Price (per person)" />
+          <SingleLineInput
+            label="# of People" />
+          <SingleLineInput
+            isBottom
+            label="Dietary Restrictions & Allergies" />
         </View>
-        {/* Next Button*/}
-        <View style={styles.bottomContainer}>
+        <View style={styles.buttons}>
           <Button
-            label={"Next"}
-            color={Colors.Transparent}
-            fontColor={Colors.Primary}
-            size={Sizes.H2}
-            onPress={Actions.clientExclusion} />
+            label=" " />
+          <Button
+            color={Colors.Primary}
+            fontColor={Colors.AlternateText}
+            label="Book & View Assigned Planners" />
         </View>
       </View>
     );
@@ -76,27 +80,28 @@ export default class ClientCreate extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     flex: 1,
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginTop: 100
+    backgroundColor: Colors.Secondary
   },
 
-  childContainer: {
+  input: {
     alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
   },
 
-  bottomContainer: {
-    top: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+  body: {
+    paddingTop: Sizes.InnerFrame,
+    paddingBottom: Sizes.InnerFrame
   },
 
-  text: {
-    textAlign: 'center',
-    fontSize: Sizes.H2,
-    color: Colors.Primary
+  buttons: {
+    padding: Sizes.InnerFrame,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    justifyContent: 'space-between'
   }
 });
