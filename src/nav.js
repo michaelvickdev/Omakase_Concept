@@ -42,23 +42,21 @@ import PlannerRating from './views/planner/PlannerRating';
  */
 export default class Navigation extends Component {
   componentDidMount() {
-    this.closeDrawer = this.closeDrawer.bind(this);
-    this.openDrawer = this.openDrawer.bind(this);
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
   }
 
-  closeDrawer() {
-    this._drawer.close()
+  closeDrawer = () => {
+    this._drawer.close();
   };
 
-  openDrawer() {
-    this._drawer.open()
+  openDrawer = () => {
+    this._drawer.open();
   };
 
   render() {
     return (
       <Drawer
-       ref={ref => this._drawer = ref}
+       ref={(ref) => this._drawer = ref}
        type="overlay"
        content={<SideMenu closeDrawer={this.closeDrawer} />}
        tapToClose={true}
