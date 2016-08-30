@@ -50,7 +50,13 @@ export default class ClientCreate extends Component {
           onPress: () => {
             Database.ref('bookings').push({
               createdBy: Firebase.auth().currentUser.uid,
-              requestedTime: this._date.val().valueOf(),
+              requestedTime: (new Date(
+                this._date.val().getUTCFullYear(),
+                this._date.val().getUTCMonth(),
+                this._date.val().getUTCDate(),
+                this._time.val().getUTCHours(),
+                this._time.val().getUTCMinutes()
+              )).valueOf(),
               occasion: this._occasion.val(),
               contributions: {
                 [Firebase.auth().currentUser.uid]: {
