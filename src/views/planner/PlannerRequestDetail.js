@@ -184,18 +184,25 @@ export default class PlannerRequestDetail extends Component {
             </View>
           </View>
         </ScrollView>
-        <View style={styles.buttonContainer}>
-          <Button
-            label={"Cancel"}
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
-            onPress={() => Actions.pop()} />
-          <Button
-            label={"Confirm"}
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
-            onPress={() => this._confirmClick()} />
-        </View>
+        {!this.state.planner ?
+          this.renderAssignButton() : <View/>}
+      </View>
+    );
+  }
+
+  renderAssignButton() {
+    return (
+      <View style={styles.buttonContainer}>
+        <Button
+          label={"Cancel"}
+          color={Colors.Primary}
+          fontColor={Colors.AlternateText}
+          onPress={() => Actions.pop()} />
+        <Button
+          label={"Confirm"}
+          color={Colors.Primary}
+          fontColor={Colors.AlternateText}
+          onPress={() => this._confirmClick()} />
       </View>
     );
   }
@@ -204,17 +211,19 @@ export default class PlannerRequestDetail extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    padding: Sizes.OuterFrame
+    backgroundColor: Colors.Secondary
   },
 
   topContainer: {
-    marginBottom: Sizes.InnerFrame,
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame,
+    paddingTop: Sizes.InnerFrame,
+
   },
 
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: Sizes.OuterFrame,
   },
 
   rowContainer: {
@@ -229,6 +238,7 @@ const styles = StyleSheet.create({
   day: {
     fontSize: Sizes.H1,
     color: Colors.Primary,
+    fontWeight: '500'
   },
 
   date: {
@@ -242,17 +252,19 @@ const styles = StyleSheet.create({
   time: {
     fontSize: Sizes.H1,
     color: Colors.Primary,
-    alignSelf: 'flex-end'
+    fontWeight: '500',
+    alignSelf: 'flex-end',
   },
 
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    paddingBottom: Sizes.OuterFrame,
   },
 
   text: {
-    fontSize: Sizes.H1,
+    fontSize: Sizes.H2,
     color: Colors.Text,
   },
 
@@ -261,6 +273,5 @@ const styles = StyleSheet.create({
     fontSize: Sizes.H1,
     alignSelf: 'flex-start',
     marginRight: Sizes.InnerFrame,
-    marginTop: 3,
   }
 });

@@ -43,7 +43,7 @@ export default class PlannerRequestMain extends Component {
             color={Colors.Transparent}
             fontColor={Colors.Primary}
             size={Sizes.H2}
-            onPress={Actions.plannerRequestPool} />
+            onPress={Actions.plannerRequestDetail} />
         </View>
       </View>
     );

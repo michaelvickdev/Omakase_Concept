@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: Sizes.outerFrame
+    padding: Sizes.OuterFrame
   },
 
   contentContainer: {
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    paddingBottom: 20,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center'
