@@ -16,7 +16,7 @@ export default class Dropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: this.props.number,
+      number: this.props.number || 0,
       min: this.props.min || null,
       max: this.props.max || null
     };
@@ -31,7 +31,8 @@ export default class Dropdown extends Component {
                 <Text
                   style={styles.button}
                   onPress={() => {
-                    if (this.state.min || this.state.number > this.state.min) {
+                    if (this.state.min === null
+                       || this.state.number > this.state.min) {
                       this.setState({number: this.state.number - 1});
                     }
                   }
@@ -44,7 +45,8 @@ export default class Dropdown extends Component {
                 <Text
                   style={styles.button}
                   onPress={() => {
-                    if (this.state.max || this.state.number < this.state.max) {
+                    if (this.state.max === null
+                       || this.state.number < this.state.max) {
                      this.setState({number: this.state.number + 1});
                    }
                  }
@@ -70,16 +72,16 @@ const styles = StyleSheet.create({
 
   text: {
     textAlign: 'center',
-    fontSize: Sizes.H2,
-    color: '#000000',
-        paddingRight: Sizes.OuterFrame
+    fontSize: Sizes.text,
+    color: Colors.EmphasizedText,
+    paddingRight: Sizes.OuterFrame
   },
 
   button: {
     textAlign: 'center',
-    fontSize: Sizes.H2,
+    fontSize: Sizes.text,
     color: Colors.Primary,
-        paddingRight: Sizes.OuterFrame
+    paddingRight: Sizes.OuterFrame
   }
 
 });
