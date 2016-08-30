@@ -21,9 +21,7 @@ from './common/Divider';
 
 
 // components
-import {
-  Button
-} from './common/Button';
+import Button from './common/Button';
 import FacebookButton from './account/FacebookButton';
 import SideItem from './SideItem';
 

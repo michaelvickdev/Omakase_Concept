@@ -12,9 +12,7 @@ import {
 } from 'react-native-router-flux';
 
 // components
-import {
-  Button
-} from '../../components/common/Button';
+import Button from '../../components/common/Button';
 /**
   * The screen of client filling exclusions
   * for their order in the TextInput. E.g. Veggies only

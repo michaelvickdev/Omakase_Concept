@@ -11,7 +11,7 @@ import {
 /**
  * Displays a Button.
  */
-export class Button extends Component {
+export default class Button extends Component {
 
   /**
    * Creates a new Button.

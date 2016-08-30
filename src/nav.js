@@ -23,6 +23,7 @@ import SideMenu from './components/SideMenu';
 // clients components
 import ClientMain from './views/client/ClientMain';
 import ClientCreate from './views/client/ClientCreate';
+import ClientPlannerChoice from './views/client/ClientPlannerChoice';
 import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 import ClientConfirm from './views/client/ClientConfirm';
@@ -100,6 +101,9 @@ export default class Navigation extends Component {
             title={Strings.CreateEventTitle}
             component={ClientCreate}
             hideNavBar={false} />
+          <Scene key="clientPlannerChoice"
+            title={Strings.CreateEventTitle}
+            component={ClientPlannerChoice} />
           <Scene key="clientExclusion"
             title={Strings.CreateEventTitle}
             component={ClientExclusion}

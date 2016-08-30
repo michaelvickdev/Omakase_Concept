@@ -12,9 +12,7 @@ import {
 } from 'react-native-router-flux'
 
 // components
-import {
-  Button
-} from '../../components/common/Button';
+import Button from '../../components/common/Button';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 
 /** Shows all kinds of request for planners including
