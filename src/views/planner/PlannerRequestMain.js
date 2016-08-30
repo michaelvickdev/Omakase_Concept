@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView
+  View, Text, StyleSheet, ListView
 } from 'react-native';
 import {
   Sizes, Colors
@@ -20,23 +20,48 @@ import InputSectionHeader from '../../components/common/InputSectionHeader';
   */
 
 export default class PlannerRequestMain extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+    };
+  }
+
+  componentDidMount(){
+    let bookingList = [];
+    let booking = {};
+    booking.bookingId = 'booking1';
+    bookingList.push(booking);
+    booking.bookingId = 'booking2';
+    bookingList.push(booking);
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(bookingList),
+    });
+  }
+
+  renderRow = (booking) => {
+    return (
+      <View
+        key={booking.bookingId}
+      />
+    );
+  }
+
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={styles.topContainer}>
-          <ScrollView contentContainerStyle={styles.childContainer}>
-            <InputSectionHeader
-              label={"Deadline "} />
-          </ScrollView>
-          <ScrollView contentContainerStyle={styles.childContainer}>
-            <InputSectionHeader
-              label={"Accepted"} />
-          </ScrollView>
-          <ScrollView contentContainerStyle={styles.childContainer}>
-            <InputSectionHeader
-              label={"Finished"} />
-          </ScrollView>
-        </View>
+        <ListView
+          style={styles.listContainer}
+          enableEmptySections={true}
+          initialListSize={0}
+          scrollRenderAheadDistance={10}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow}
+          scrollEnabled={true}
+          removeClippedSubviews={true}
+        />
         <View style={styles.botContainer}>
           <Button
             label={"Browse Requests"}
