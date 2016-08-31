@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, Alert
+  View, Text, StyleSheet, Alert, ScrollView
 } from 'react-native';
 import {
   Actions
@@ -20,6 +20,7 @@ import DatePicker from '../../components/common/DatePicker';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import NumberPicker from '../../components/common/NumberPicker';
+import SwitchInput from '../../components/common/SwitchInput';
 
 /**
  * First screen of creating an event
@@ -50,7 +51,13 @@ export default class ClientCreate extends Component {
           onPress: () => {
             Database.ref('bookings').push({
               createdBy: Firebase.auth().currentUser.uid,
-              requestedTime: this._date.val().valueOf(),
+              requestedTime: (new Date(
+                this._date.val().getUTCFullYear(),
+                this._date.val().getUTCMonth(),
+                this._date.val().getUTCDate(),
+                this._time.val().getUTCHours(),
+                this._time.val().getUTCMinutes()
+              )).valueOf(),
               occasion: this._occasion.val(),
               contributions: {
                 [Firebase.auth().currentUser.uid]: {
@@ -68,7 +75,7 @@ export default class ClientCreate extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView><View style={styles.container}>
         <View style={styles.input}>
           <View style={styles.body}>
             <Text style={Styles.Header}>
@@ -114,6 +121,14 @@ export default class ClientCreate extends Component {
             isBottom
             ref={ref => this._restrictions = ref}
             label="Dietary Restrictions & Allergies" />
+
+          <InputSectionHeader
+            label="Terms & Conditions" />
+          <SwitchInput
+            isTop
+            isBottom
+            label="I Accept"
+            subtitle="http://omakase.com/tos" />
         </View>
         <View style={styles.buttons}>
           <Button
@@ -124,7 +139,7 @@ export default class ClientCreate extends Component {
             onPress={this.submit}
             label="Book & View Assigned Planners" />
         </View>
-      </View>
+      </View></ScrollView>
     );
   }
 }
