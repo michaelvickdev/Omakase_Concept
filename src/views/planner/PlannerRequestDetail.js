@@ -109,8 +109,8 @@ export default class PlannerRequestDetail extends Component {
               ]}
               name='group'/>
             <View style={styles.textWrap}>
-              <Text style={styles.text}>
-                {this.state.booking.contributions.party + ' people:'}
+              <Text style={[styles.text, styles.subheadingText]}>
+                {this.state.booking.contributions.party + ' participants:'}
               </Text>
               {usersView}
             </View>
@@ -122,8 +122,11 @@ export default class PlannerRequestDetail extends Component {
               ]}
               name='attach-money'/>
             <View style={styles.textWrap}>
+              <Text style={[styles.text, styles.subheadingText]}>
+                Budget
+              </Text>
               <Text style={styles.text}>
-                {this.state.booking.contributions.budget.toFixed(2)}
+                {'$' + this.state.booking.contributions.budget.toFixed(2)}
               </Text>
             </View>
           </View>
@@ -134,10 +137,13 @@ export default class PlannerRequestDetail extends Component {
               ]}
               name='local-play'/>
               <View style={styles.textWrap}>
+                <Text style={[styles.text, styles.subheadingText]}>
+                  Occasion
+                </Text>
                 <Text style={[styles.text, {}]}>
                   {this.state.booking.occasion ?
                     this.state.booking.occasion :
-                    Strings.NoOccasion}
+                    Strings.NotSpecified}
                 </Text>
               </View>
             <View/>
@@ -149,10 +155,13 @@ export default class PlannerRequestDetail extends Component {
               ]}
               name='block'/>
             <View style={styles.textWrap}>
+              <Text style={[styles.text, styles.subheadingText]}>
+                Exclusions
+              </Text>
               <Text style={styles.text}>
                 {this.state.booking.contributions.exceptions ?
                   this.state.booking.contributions.exceptions :
-                  Strings.NoException}
+                  Strings.NotSpecified}
               </Text>
             </View>
           </View>
@@ -163,10 +172,13 @@ export default class PlannerRequestDetail extends Component {
               ]}
               name='place'/>
             <View style={styles.textWrap}>
+              <Text style={[styles.text, styles.subheadingText]}>
+                Area
+              </Text>
               <Text style={styles.text}>
                 {this.state.place ?
                   this.state.place :
-                  'Area not specified'}
+                  Strings.NotSpecified}
               </Text>
             </View>
           </View>
@@ -257,10 +269,15 @@ const styles = StyleSheet.create({
     color: Colors.Text,
   },
 
+  subheadingText: {
+    fontStyle: 'italic'
+  },
+
   icon: {
     color: Colors.Text,
     fontSize: Sizes.H1,
     alignSelf: 'flex-start',
     marginRight: Sizes.InnerFrame,
+    marginTop: -1,
   }
 });
