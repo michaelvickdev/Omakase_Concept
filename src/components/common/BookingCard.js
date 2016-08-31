@@ -50,6 +50,14 @@ export default class BookingCard extends Component {
         `people. Including a ${details}.`;
       booking.requestedTime = DateFormat(new Date(booking.requestedTime),
         'mmmm dS, h:MMTT');
+
+      if (booking.confirmed) {
+        booking.statusColor = '#008BBA'
+        booking.statusText = 'Confirmed'
+      } else if (booking.finalized) {
+        booking.statusColor = '#00A03E'
+        booking.statusText = 'Completed'
+      }
       this.setState({booking: booking});
     }
   }
@@ -74,8 +82,17 @@ export default class BookingCard extends Component {
           </Text>
         </View>
         <View style={styles.cardActions}>
-          <Button label="DETAILS" fontColor="#3F51B5"/>
-          <Button label="CANCEL" fontColor="#DB2D6D"/>
+          <View style={styles.cardActionsButtons}>
+            <Button label="DETAILS" fontColor="#3F51B5"/>
+            <Button label="CANCEL" fontColor="#DB2D6D"/>
+          </View>
+          <View style={[styles.cardStatus, {backgroundColor: this.state.booking.statusColor ? this.state.booking.statusColor : Colors.Primary}]}>
+            <Text style={styles.cardStatusText}>
+              {
+                this.state.booking.statusText ? this.state.booking.statusText : 'In Progress'
+              }
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -117,12 +134,28 @@ styles = StyleSheet.create({
   cardActions: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
     // justifyContent: 'center',
     height: 30,
     borderStyle: 'solid',
     borderTopColor: 'rgba(0, 0, 0, 0.1)',
     borderTopWidth: 1,
+  },
+  cardActionsButtons: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  cardStatus: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    // padding: 0,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 10,
+    borderColor: Colors.Transparent,
+    borderWidth: 1,
   },
 
   cardText: {
@@ -134,5 +167,8 @@ styles = StyleSheet.create({
   },
   cardDetailsTextDesc: {
     color: 'black'
+  },
+  cardStatusText: {
+    color: Colors.White
   }
 });
