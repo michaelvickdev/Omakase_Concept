@@ -1,5 +1,5 @@
 import React, {
-    Component
+  Component
 } from 'react';
 import {
   View, Text, StyleSheet
@@ -8,6 +8,9 @@ import {
   Sizes, Colors
 } from '../../../res/Constants';
 
+//components
+import Graph from '../../components/common/Graph'
+
 /**
   * Show the Rating of the planners
   */
@@ -15,9 +18,12 @@ export default class PlannerRating extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          Your Rating Level
-        </Text>
+        <View>
+          <Graph style={styles.graph}/>
+          <Text style={styles.text}>
+            Your Rating Level
+          </Text>
+        </View>
       </View>
     );
   }
@@ -26,9 +32,10 @@ export default class PlannerRating extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 100
+  },
+
+  graph: {
+    alignSelf: 'flex-start'
   },
 
   text: {
