@@ -99,7 +99,7 @@ export default class BookingCard extends Component {
   }
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   cardWrapper: {
     flex: 1,
     width: Dimensions.get('window').width - 20,
