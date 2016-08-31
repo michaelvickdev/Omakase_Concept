@@ -10,6 +10,7 @@ import {
 
 // components
 import InputField from './InputField';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 /** Generic Picker
   * @param {defaultVal} - The default value for the picker.
@@ -47,17 +48,8 @@ export default class PickerField extends Component {
                       onPress={() => this.setState({
                         showModal: false
                       })}>
-                      <Text style={styles.button}>
-                        {this.props.cancelLabel || 'Cancel'}
-                      </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                      underlayColor={Colors.Transparent}
-                      onPress={() => this.setState({
-                        showModal: false
-                      })}>
-                      <Text style={styles.button}>
-                        {this.props.doneLabel || 'Done'}
+                      <Text style={styles.text}>
+                        Close
                       </Text>
                     </TouchableHighlight>
                 </View>
@@ -92,6 +84,11 @@ export default class PickerField extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1
+  },
+
+  icon: {
+    color: Colors.Text,
+    fontSize: Sizes.H2
   },
 
   text: {
@@ -130,8 +127,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: Dimensions.get('window').width,
     backgroundColor: Colors.Background,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     flexDirection: 'row',
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame,
