@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar, Platform
+  View, Text, StyleSheet, StatusBar, Platform, ScrollView
 } from 'react-native';
 import {
   Actions
@@ -53,19 +53,25 @@ export default class ClientMain extends Component {
   renderBookings = () => {
     return (
       <View>
-        <Text style={styles.text}>
-          Your current bookings:
-        </Text>
+        <View style={{alignItems: 'center', padding: 10}}>
+          <Text style={styles.text}>
+            Your Bookings:
+          </Text>
+        </View>
         <BookingCard />
         {this.state.bookings.map(data => {
           return (<BookingCard key={data.bookingId} booking={data}/>)
         })}
+        <BookingCard />
+        <BookingCard />
+        <BookingCard />
+        <BookingCard />
       </View>
     );
   }
 
   render() {
-    return (
+    return (<ScrollView>
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           { this.state.bookings
@@ -75,15 +81,15 @@ export default class ClientMain extends Component {
               </Text>
           }
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            label={"New Event"}
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
-            onPress={Actions.clientCreate} />
-        </View>
       </View>
-    );
+      <View style={styles.buttonContainer}>
+        <Button
+          label={"New Event"}
+          color={Colors.Primary}
+          fontColor={Colors.AlternateText}
+          onPress={Actions.clientCreate} />
+      </View>
+    </ScrollView>);
   }
 }
 
@@ -92,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: Sizes.outerFrame,
+    // padding: Sizes.outerFrame,
     backgroundColor: '#FAFAFA'
   },
 
