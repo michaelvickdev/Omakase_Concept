@@ -12,7 +12,8 @@ import {
 /**
   * Show a graph
   */
-export default class Graph extends Component {  constructor () {
+export default class Graph extends Component {
+  constructor () {
     super()
     const width = {pts: 5, ast:50, reb:40}
     this.state = {
