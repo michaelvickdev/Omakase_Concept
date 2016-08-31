@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar, Platform
+  View, Text, StyleSheet, StatusBar, Platform, Picker
 } from 'react-native';
 import {
   Actions
@@ -17,6 +17,7 @@ import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 import NumberPicker from '../../components/common/NumberPicker';
+import PickerField from '../../components/common/PickerField';
 
 /**
  * Main screen for planners onlu
@@ -36,6 +37,15 @@ export default class PlannerMain extends Component {
               You have no pending events
           </Text>
         </View>
+        <PickerField
+          label="A PICKER"
+          select={'key0'}
+          pickerLabel={'lick me'}>
+          <Picker.Item label="Kenneth" value="key0" />
+          <Picker.Item label="Terrence" value="key1" />
+          <Picker.Item label="Baller Kenneth" value="so smart" />
+          <Picker.Item label="Baller Terrence" value="so right" />
+        </PickerField>
       </View>
     );
   }
