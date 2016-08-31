@@ -33,7 +33,7 @@ export default class PlannerMain extends Component {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <Text style={styles.text}>
-              You have no pending events
+              Some kind of dashboard like thangs
           </Text>
         </View>
       </View>
