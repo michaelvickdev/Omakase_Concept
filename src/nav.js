@@ -132,15 +132,15 @@ export default class Navigation extends Component {
             component={PlannerBalance}
             hideNavBar={false} />
           <Scene key="plannerRequestMain"
-            title={"Request Main"}
+            title={"Requests"}
             component={PlannerRequestMain}
             hideNavBar={false} />
           <Scene key="plannerRequestDetail"
-            title={"Request Detail"}
+            title={"Detail"}
             component={PlannerRequestDetail}
             hideNavBar={false} />
           <Scene key="plannerRating"
-            title={"Request Rating"}
+            title={"Ratings"}
             component={PlannerRating}
             hideNavBar={false} />
           </Scene>

@@ -2,12 +2,16 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableHighlight
+  StyleSheet, View, Text, Dimensions, TouchableOpacity
 } from 'react-native';
 import {
   Colors, Sizes
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux'
 import DateFormat from 'dateformat';
+
 
 //components
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -47,6 +51,10 @@ export default class RequestCard extends Component {
     });
   }
 
+  _open(){
+    Actions.plannerRequestDetail({booking: this.state.booking});
+  }
+
   render() {
     let usersView = [];
     if (this.state.booking.contributions.party){
@@ -57,13 +65,15 @@ export default class RequestCard extends Component {
               style={[
                 styles.icon
               ]}
-              name='account-circle'/>
+              name='person'/>
           </View>
         )
       }
     }
     return (
-      <View style={styles.cardWrapper}>
+      <TouchableOpacity
+        style={styles.cardWrapper}
+        onPress={() => this._open()}>
         <View style={styles.rowWrapper}>
           {usersView}
         </View>
@@ -72,9 +82,12 @@ export default class RequestCard extends Component {
             <Text style={styles.text}>
               {this.state.status}
             </Text>
+            <Text style={styles.dollarText}>
+              {'$' + this.state.booking.contributions.budget.toFixed(2)}
+            </Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -112,13 +125,20 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: Sizes.H2,
+    fontWeight: '500',
     color: Colors.Primary,
+  },
+
+  dollarText: {
+    fontSize: Sizes.H2,
+    color: Colors.Text,
+    alignSelf: 'flex-end'
   },
 
   icon: {
     color: Colors.Text,
     fontSize: 25,
-    marginRight: -1,
+    marginRight: -7,
   }
 
 });

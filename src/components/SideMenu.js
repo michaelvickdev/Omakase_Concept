@@ -139,7 +139,7 @@ export default class SideMenu extends Component {
           label="Statistics"
           onPress={() => this.testBalance()}/>
         <SideItem icon="star"
-          label="Rating"
+          label="Ratings"
           onPress={() => this.testRating()}/>
         <SideItem icon="face"
           label="Profile"

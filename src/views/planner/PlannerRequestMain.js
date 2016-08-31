@@ -7,9 +7,6 @@ import {
 import {
   Sizes, Colors
 } from '../../../res/Constants';
-import {
-  Actions
-} from 'react-native-router-flux'
 
 // components
 import Button from '../../components/common/Button';
@@ -63,14 +60,6 @@ export default class PlannerRequestMain extends Component {
           scrollEnabled={true}
           removeClippedSubviews={true}
         />
-        <View style={styles.botContainer}>
-          <Button
-            label={"Browse Requests"}
-            color={Colors.Transparent}
-            fontColor={Colors.Primary}
-            size={Sizes.H2}
-            onPress={Actions.plannerRequestDetail} />
-        </View>
       </View>
     );
   }
@@ -83,11 +72,6 @@ const styles = StyleSheet.create({
 
   topContainer: {
     justifyContent: 'space-between'
-  },
-
-  botContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'center'
   },
 
   childContainer: {
