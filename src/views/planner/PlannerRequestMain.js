@@ -14,6 +14,7 @@ import {
 // components
 import Button from '../../components/common/Button';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
+import RequestCard from '../../components/planner/RequestCard'
 
 /** Shows all kinds of request for planners including
   * Accepted, Unfinished and Finished
@@ -43,7 +44,7 @@ export default class PlannerRequestMain extends Component {
 
   renderRow = (booking) => {
     return (
-      <View
+      <RequestCard
         key={booking.bookingId}
       />
     );
@@ -78,11 +79,9 @@ export default class PlannerRequestMain extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    marginTop: 70
   },
 
   topContainer: {
-    flex: 1,
     justifyContent: 'space-between'
   },
 
