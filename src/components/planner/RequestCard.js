@@ -7,9 +7,10 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
+import DateFormat from 'dateformat';
 
 //components
-import DateFormat from 'dateformat';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '../common/Button';
 
 
@@ -47,12 +48,24 @@ export default class RequestCard extends Component {
   }
 
   render() {
+    let usersView = [];
+    if (this.state.booking.contributions.party){
+      for (var i=0; i < this.state.booking.contributions.party; i++) {
+        usersView.push(
+          <View key={i}>
+            <Icon
+              style={[
+                styles.icon
+              ]}
+              name='account-circle'/>
+          </View>
+        )
+      }
+    }
     return (
       <View style={styles.cardWrapper}>
-        <View>
-          <Text>
-            {this.state.booking.contributions.party}
-          </Text>
+        <View style={styles.rowWrapper}>
+          {usersView}
         </View>
         <View>
           <View style={styles.columnWrapper}>
@@ -83,7 +96,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: Sizes.OuterFrame,
+    padding: Sizes.InnerFrame,
+  },
+
+  rowWrapper: {
+    flex: 0.8,
+    flexDirection: 'row',
   },
 
   columnWrapper: {
@@ -95,5 +113,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: Sizes.H2,
     color: Colors.Primary,
+  },
+
+  icon: {
+    color: Colors.Text,
+    fontSize: 25,
+    marginRight: -1,
   }
+
 });
