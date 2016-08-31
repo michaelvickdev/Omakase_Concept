@@ -68,6 +68,7 @@ export default class PlannerRequestMain extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: Colors.Background,
   },
 
   topContainer: {

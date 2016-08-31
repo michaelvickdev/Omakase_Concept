@@ -181,9 +181,11 @@ export default class PlannerRequestDetail extends Component {
     return (
       <View style={styles.buttonContainer}>
         <Button
+          ref={this.cancelButton}
           label={"Cancel"}
           color={Colors.Primary}
           fontColor={Colors.AlternateText}
+          shouldBlur={true}
           onPress={() => Actions.pop()} />
         <Button
           label={"Confirm"}
@@ -198,7 +200,7 @@ export default class PlannerRequestDetail extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.Secondary
+    backgroundColor: Colors.Background
   },
 
   topContainer: {
