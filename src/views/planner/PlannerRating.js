@@ -19,11 +19,11 @@ export default class PlannerRating extends Component {
     super(props);
     let items = [];
     let item = {};
-    item.width = 38;
+    item.value = 38;
     item.label = 'Mon';
     items.push(item);
     let item2 = {};
-    item2.width = 150;
+    item2.value = 150;
     item2.label = 'Tue';
     items.push(item2);
     this.state = {

@@ -7,23 +7,32 @@ import {
 import {
   Sizes, Colors
 } from '../../../res/Constants';
-
+import Dimensions from 'Dimensions';
 
 /**
-  * Show a graph
+  * Show a graph with a list of items as props
+  * each of the item contains a label and a value attribute
   */
 export default class Graph extends Component {
   constructor(props) {
     super(props)
     let width = {};
+    let maxValue = 0;
     if (props.items) {
       props.items.map((item, key) => {
         width[key] = new Animated.Value(0);
+        if (maxValue < item.value) {
+          maxValue = item.value;
+        }
       });
     }
+    let scale = 0.8 * (Dimensions.get('window').width
+      - Sizes.InnerFrame*2 - 40) / maxValue;
+
     this.state = {
       items: props.items,
-      width: width
+      width: width,
+      scale: scale
     }
   }
 
@@ -32,7 +41,7 @@ export default class Graph extends Component {
     if (this.state.items){
       Animated.parallel(this.state.items.map((item, key) => {
         return timing(this.state.width[key], {
-          toValue: item.width,
+          toValue: item.value * this.state.scale,
           easing: Easing.elastic(1),
           duration: 1000
         })
@@ -45,9 +54,16 @@ export default class Graph extends Component {
     if (this.state.items){
       this.state.items.map((item, key) => {
         barViews.push(
-          <Animated.View
-            style={[styles.bar, {width: this.state.width[key]}]}
-            key={key}/>
+          <View style={styles.rowWrapper} key={key}>
+            <Animated.View
+              style={[styles.bar, {width: this.state.width[key]}]}/>
+            <Text>
+              {'$' + item.value}
+            </Text>
+            <Text style={styles.labelText}>
+              {item.label}
+            </Text>
+          </View>
         )
       })
     }
@@ -55,7 +71,6 @@ export default class Graph extends Component {
     return(
       <View style={styles.container}>
         {barViews}
-        <Text onPress={this.handeleAnimation.bind(this)}>Button</Text>
       </View>
     )
   }
@@ -71,6 +86,19 @@ const styles = StyleSheet.create({
   bar: {
     height: 20,
     backgroundColor: Colors.Primary,
-    marginBottom: 5
+    marginBottom: 5,
+    marginLeft: 35,
+    marginRight: 5
+  },
+
+  rowWrapper: {
+    flex: 0.8,
+    flexDirection: 'row',
+  },
+
+  labelText: {
+    left: 0,
+    position: 'absolute',
+    fontStyle: 'italic'
   }
 })
