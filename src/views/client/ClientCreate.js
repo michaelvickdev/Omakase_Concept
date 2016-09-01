@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, Alert, ScrollView
+  View, Text, StyleSheet, Alert, ScrollView, Picker
 } from 'react-native';
 import {
   Actions
@@ -21,6 +21,7 @@ import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import NumberPicker from '../../components/common/NumberPicker';
 import SwitchInput from '../../components/common/SwitchInput';
+import PickerField from '../../components/common/PickerField';
 
 /**
  * First screen of creating an event
@@ -97,11 +98,18 @@ export default class ClientCreate extends Component {
             label="Time"
             ref={ref => this._time = ref}
             type="time" />
-          <SingleLineInput
+          <PickerField
             isBottom
             label="Occasion"
             ref={ref => this._occasion = ref}
-            subtitle="Tell us how we should plan your night" />
+            subtitle="Tell us how we should plan your night"
+            defaultVal="Chill">
+            <Picker.Item label="Birthday" value="Birthday" />
+            <Picker.Item label="Anniversay" value="Anniversay" />
+            <Picker.Item label="Family Reunion" value="Family Reunion" />
+            <Picker.Item label="Graduation" value="Graduation" />
+            <Picker.Item label="Chill" value="Chill" />
+          </PickerField>
 
           <InputSectionHeader
             label="Party Details" />

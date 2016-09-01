@@ -20,8 +20,7 @@ export default class PickerField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pickerLabel: this.props.pickerLabel || 'Picker',
-      defaultVal: this.props.defaultVal,
+      defaultVal: this.props.defaultVal || "Choose",
       showModal: false
     };
   }
@@ -70,7 +69,7 @@ export default class PickerField extends Component {
                 })}>
                 <Text
                   style={styles.text}>
-                  {this.state.pickerLabel}
+                  {this.state.defaultVal}
                 </Text>
               </TouchableHighlight>
             </View>
@@ -86,15 +85,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  icon: {
-    color: Colors.Text,
-    fontSize: Sizes.H2
-  },
-
   text: {
     textAlign: 'center',
-    fontSize: Sizes.text,
-    color: Colors.EmphasizedText
+    fontSize: Sizes.Text
   },
 
   picker: {

@@ -34,15 +34,13 @@ export default class PlannerMain extends Component {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <Text style={styles.text}>
-              Some kind of dashboard like thangs
+              You have no pending events
           </Text>
         </View>
         <PickerField
-          label="A PICKER"
-          select={'key0'}
-          pickerLabel={'lick me'}>
-          <Picker.Item label="Kenneth" value="key0" />
-          <Picker.Item label="Terrence" value="key1" />
+          label="A PICKER">
+          <Picker.Item label="Kenneth" value="try again sucker" />
+          <Picker.Item label="Terrence" value="try again idiot" />
           <Picker.Item label="Baller Kenneth" value="so smart" />
           <Picker.Item label="Baller Terrence" value="so right" />
         </PickerField>
