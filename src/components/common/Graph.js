@@ -12,6 +12,7 @@ import Dimensions from 'Dimensions';
 /**
   * Show a graph with a list of items as props
   * each of the item contains a label and a value attribute
+  * max line will be 80 percent
   */
 export default class Graph extends Component {
   constructor(props) {
