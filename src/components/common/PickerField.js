@@ -21,9 +21,19 @@ export default class PickerField extends Component {
     super(props);
     this.state = {
       defaultVal: this.props.defaultVal || "Choose",
+      tempDefault: this.props.defaultVal || "Choose",
       showModal: false
     };
+
+    // bind methods
+    this.val = this.val.bind(this);
+
   }
+
+  val() {
+    return this.state.defaultVal;
+  }
+
   _onValueChange = (key: string, value: string) => {
   const newState = {};
   newState[key] = value;
@@ -48,14 +58,24 @@ export default class PickerField extends Component {
                         showModal: false
                       })}>
                       <Text style={styles.text}>
-                        Close
+                        {this.props.doneLabel || 'Cancel'}
+                      </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                      underlayColor={Colors.Transparent}
+                      onPress={() => this.setState({
+                        defaultVal: this.state.tempDefault,
+                        showModal: false
+                      })}>
+                      <Text style={styles.text}>
+                        {this.props.doneLabel || 'Done'}
                       </Text>
                     </TouchableHighlight>
                 </View>
                 <View style={styles.pickerContainer}>
                   <Picker style={styles.picker}
-                    selectedValue={this.state.defaultVal}
-                    onValueChange={this._onValueChange.bind(this, 'defaultVal')}>
+                    selectedValue={this.state.tempDefault}
+                    onValueChange={this._onValueChange.bind(this, 'tempDefault')}>
                     {this.props.children}
                   </Picker>
                 </View>
@@ -104,7 +124,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingRight: Sizes.InnerFrame
+    paddingRight: Sizes.OuterFrame
   },
 
   modalContainer: {
@@ -121,7 +141,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     backgroundColor: Colors.Background,
     alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame,
