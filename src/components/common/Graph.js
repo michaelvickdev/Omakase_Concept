@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react'
 import {
-  View, Text, Animated, StyleSheet
+  View, Text, Animated, Easing, StyleSheet
 } from 'react-native';
 import {
   Sizes, Colors
@@ -13,42 +13,51 @@ import {
   * Show a graph
   */
 export default class Graph extends Component {
-  constructor () {
-    super()
-    const width = {pts: 5, ast:50, reb:40}
+  constructor(props) {
+    super(props)
+    let width = {};
+    if (props.items) {
+      props.items.map((item, key) => {
+        width[key] = new Animated.Value(0);
+      });
+    }
     this.state = {
-      pts: new Animated.Value(width.pts),
-      ast: new Animated.Value(width.ast),
-      reb: new Animated.Value(width.reb),
+      items: props.items,
+      width: width
     }
   }
 
-  handeleAnimation () {
+  handeleAnimation() {
     const timing = Animated.timing
-    const width = {pts: 10, ast:20, reb:15}
-    const indicators = ['pts', 'ast', 'reb']
-    Animated.parallel(indicators.map(item => {
-      return timing(this.state[item], {toValue: width[item]})
-    })).start()
+    if (this.state.items){
+      Animated.parallel(this.state.items.map((item, key) => {
+        return timing(this.state.width[key], {
+          toValue: item.width,
+          easing: Easing.elastic(1),
+          duration: 1000
+        })
+      })).start()
+    }``
   }
 
-  render () {
-   const {pts, ast, reb, stl, blk, tov, min} = this.state
-
-   return (
+  render() {
+    let barViews = [];
+    if (this.state.items){
+      this.state.items.map((item, key) => {
+        barViews.push(
+          <Animated.View
+            style={[styles.bar, {width: this.state.width[key]}]}
+            key={key}/>
+        )
+      })
+    }
+    this.handeleAnimation ();
+    return(
       <View style={styles.container}>
-       {pts &&
-          <Animated.View style={[styles.bar, styles.points, {width: pts}]} />
-        }
-        {ast &&
-          <Animated.View style={[styles.bar, styles.assists, {width: ast}]} />
-        }
-        {reb &&
-          <Animated.View style={[styles.bar, styles.rebounds, {width: reb}]} />
-        }
+        {barViews}
         <Text onPress={this.handeleAnimation.bind(this)}>Button</Text>
       </View>
-   )
+    )
   }
 }
 

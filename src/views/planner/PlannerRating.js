@@ -15,11 +15,27 @@ import Graph from '../../components/common/Graph'
   * Show the Rating of the planners
   */
 export default class PlannerRating extends Component {
+  constructor(props) {
+    super(props);
+    let items = [];
+    let item = {};
+    item.width = 38;
+    item.label = 'Mon';
+    items.push(item);
+    let item2 = {};
+    item2.width = 150;
+    item2.label = 'Tue';
+    items.push(item2);
+    this.state = {
+      items: items
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View>
-          <Graph style={styles.graph}/>
+          <Graph style={styles.graph} items={this.state.items}/>
           <Text style={styles.text}>
             Your Rating Level
           </Text>
