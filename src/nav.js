@@ -128,7 +128,7 @@ export default class Navigation extends Component {
             type='reset'
             hideNavBar={false} />
           <Scene key="plannerBalance"
-            title={"Balance"}
+            title={"Statistics"}
             component={PlannerBalance}
             hideNavBar={false} />
           <Scene key="plannerRequestMain"

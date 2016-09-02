@@ -53,7 +53,7 @@ export default class ClientMain extends Component {
   renderBookings = () => {
     return (
       <View>
-        <View style={{alignItems: 'center', padding: 10}}>
+        <View style={styles.titleContainer}>
           <Text style={styles.text}>
             Your Bookings:
           </Text>
@@ -106,6 +106,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+
+  titleContainer: {
+    alignItems: 'center',
+    padding: Sizes.InnerFrame
   },
 
   text: {

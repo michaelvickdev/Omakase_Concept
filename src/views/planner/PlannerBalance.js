@@ -18,14 +18,35 @@ export default class PlannerBalance extends Component {
   constructor(props) {
     super(props);
     let items = [];
-    let item = {};
-    item.value = 38;
-    item.label = 'Mon';
-    items.push(item);
-    let item2 = {};
-    item2.value = 10;
-    item2.label = 'Tue';
-    items.push(item2);
+    items.push({
+      label: 'Sun',
+      value: 189
+    });
+    items.push({
+      label: 'Mon',
+      value: 38
+    });
+    items.push({
+      label: 'Tue',
+      value: 10
+    });
+    items.push({
+      label: 'Wed',
+      value: 112
+    });
+    items.push({
+      label: 'Thu',
+      value: 43
+    });
+    items.push({
+      label: 'Fri',
+      value: 90
+    });
+    items.push({
+      label: 'Sat',
+      value: 170
+    });
+
     this.state = {
       items: items
     }
@@ -34,10 +55,13 @@ export default class PlannerBalance extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.subcontainer}>
+          <Text style={styles.text}>
+            Recent Earnings
+          </Text>
           <Graph style={styles.graph} items={this.state.items}/>
           <Text style={styles.text}>
-            Your Rating Level
+            History
           </Text>
         </View>
       </View>
@@ -48,6 +72,10 @@ export default class PlannerBalance extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  subcontainer: {
+    marginTop: Sizes.InnerFrame
   },
 
   graph: {
