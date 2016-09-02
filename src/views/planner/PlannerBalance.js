@@ -12,7 +12,7 @@ import {
 import Graph from '../../components/common/Graph'
 
 /**
-  * Show the Rating of the planners
+  * Show the Statistic of the planners with a earning graph for the week
   */
 export default class PlannerBalance extends Component {
   constructor(props) {
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
   titleText: {
     textAlign: 'center',
     color: Colors.Primary,
+    fontWeight: '500'
   },
 
   text: {
