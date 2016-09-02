@@ -47,8 +47,14 @@ export default class PlannerBalance extends Component {
       value: 170
     });
 
+    let totalEarnings = 0;
+    items.map(item => {
+      totalEarnings += item.value;
+    });
+
     this.state = {
-      items: items
+      items: items,
+      totalEarnings: totalEarnings
     }
   }
 
@@ -57,12 +63,17 @@ export default class PlannerBalance extends Component {
       <View style={styles.container}>
         <View style={styles.subcontainer}>
           <Text style={styles.text}>
-            Recent Earnings
+            This week
           </Text>
           <Graph style={styles.graph} items={this.state.items}/>
-          <Text style={styles.text}>
-            History
-          </Text>
+          <View style={[styles.rowContainer, styles.earningContainer]}>
+            <Text style={[styles.text]}>
+              {'earnings: '}
+            </Text>
+            <Text style={[styles.text, styles.earningText]}>
+              {'$' + this.state.totalEarnings}
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -80,6 +91,20 @@ const styles = StyleSheet.create({
 
   graph: {
     alignSelf: 'flex-start'
+  },
+
+  rowContainer: {
+    flexDirection: 'row',
+  },
+
+  earningContainer: {
+    alignSelf: 'flex-end',
+    alignItems: 'flex-end',
+    marginRight: Sizes.InnerFrame
+  },
+
+  earningText: {
+    fontSize: Sizes.H1,
   },
 
   text: {
