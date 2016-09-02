@@ -25,20 +25,7 @@ export default class RequestCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      booking: {
-        bookingId: '1234',
-        createdBy: 'bookerUserId',
-        planner: null,
-        requestedTime: 1472515800581,
-        occasion: 'tinder date',
-        finalized: true,
-        confirmed: false,
-        contributions: {
-          budget: 120.135,
-          party: 3,
-          exceptions: 'fully cooked beef, no cheese, no red stuff'
-        }
-      },
+      booking: props.booking
     };
   }
 

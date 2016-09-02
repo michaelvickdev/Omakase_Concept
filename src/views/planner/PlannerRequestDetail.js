@@ -26,28 +26,12 @@ export default class PlannerRequestDetail extends Component {
     super(props);
     this.state = {
       booking: props.booking,
-      users: [],
-      place: 'Trinity, Toronto, ON'
+      users: props.booking.users,
+      place: props.booking.place
     };
   }
 
   componentDidMount() {
-    let users = [];
-    let user = {};
-    user.name = 'Kenneth the Pedo';
-    user.age = '36',
-    users.push(user);
-    user = {};
-    user.name = 'Little Girl';
-    user.age = '12',
-    users.push(user);
-    user = {};
-    user.name = 'Little Girls Puppy';
-    user.age = '3',
-    users.push(user);
-    this.setState({
-      users: users
-    })
   }
 
   _confirmClick() {

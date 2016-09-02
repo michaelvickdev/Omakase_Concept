@@ -41,7 +41,22 @@ export default class PlannerRequestMain extends Component {
         budget: 120.135,
         party: 3,
         exceptions: 'fully cooked beef, no cheese, no red stuff'
-      }
+      },
+      place: 'Trinity, Toronto, ON',
+      users: [
+        {
+          name: 'Kenneth the Pedo',
+          age: '36'
+        },
+        {
+          name: 'Little Girl',
+          age: '12'
+        },
+        {
+          name: 'Little Girls Puppy',
+          age: '3'
+        },
+      ]
     });
     bookingList.push({
       bookingId: 'booking2',
@@ -55,7 +70,18 @@ export default class PlannerRequestMain extends Component {
         budget: 40,
         party: 2,
         exceptions: 'no veggies, i am a meat eater'
-      }
+      },
+      place: 'Leaside, Toronto, ON',
+      users: [
+        {
+          name: 'Ken the meat eater',
+          age: '33'
+        },
+        {
+          name: 'Roy',
+          age: '36'
+        }
+      ],
     });
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(bookingList),
