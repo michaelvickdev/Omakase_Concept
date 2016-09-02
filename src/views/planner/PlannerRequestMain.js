@@ -29,11 +29,34 @@ export default class PlannerRequestMain extends Component {
 
   componentDidMount(){
     let bookingList = [];
-    let booking = {};
-    booking.bookingId = 'booking1';
-    bookingList.push(booking);
-    booking.bookingId = 'booking2';
-    bookingList.push(booking);
+    bookingList.push({
+      bookingId: 'booking1',
+      createdBy: 'bookerUserId',
+      planner: null,
+      requestedTime: 1472515800581,
+      occasion: 'tinder date',
+      finalized: true,
+      confirmed: false,
+      contributions: {
+        budget: 120.135,
+        party: 3,
+        exceptions: 'fully cooked beef, no cheese, no red stuff'
+      }
+    });
+    bookingList.push({
+      bookingId: 'booking2',
+      createdBy: 'bookerUserId',
+      planner: 'planner1',
+      requestedTime: 1472515900581,
+      occasion: 'chill',
+      finalized: true,
+      confirmed: false,
+      contributions: {
+        budget: 40,
+        party: 2,
+        exceptions: 'no veggies, i am a meat eater'
+      }
+    });
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(bookingList),
     });
@@ -42,7 +65,7 @@ export default class PlannerRequestMain extends Component {
   renderRow = (booking) => {
     return (
       <RequestCard
-        key={booking.bookingId}
+        key={booking.bookingId} booking={booking}
       />
     );
   }
