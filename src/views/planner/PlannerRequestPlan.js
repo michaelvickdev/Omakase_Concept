@@ -17,10 +17,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '../../components/common/Button';
 
 /**
-  * Show the corresponding request details:
-  * Date, Seating, Number of ppl, Address, Occasions, Budget and Exclusions
+  * Allows planner to make plans
   */
-export default class PlannerRequestDetail extends Component {
+export default class PlannerRequestPlan extends Component {
 
   constructor(props){
     super(props);
@@ -32,7 +31,6 @@ export default class PlannerRequestDetail extends Component {
   }
 
   componentDidMount() {
-    Actions.refresh({title: this.state.booking.status})
   }
 
   _confirmClick() {
@@ -59,10 +57,6 @@ export default class PlannerRequestDetail extends Component {
       booking: booking
     })
     Actions.refresh({title: this.state.booking.status})
-  }
-
-  _makePlan() {
-    Actions.plannerRequestPlan({booking: this.state.booking});
   }
 
   render() {
@@ -179,44 +173,17 @@ export default class PlannerRequestDetail extends Component {
             </View>
           </View>
         </ScrollView>
-        {this.state.booking.status === 'Assigned'?
-          this.renderAssignButton() :
-          this.state.booking.status === 'Confirmed' ?
-          this.renderPlanButton() : <View/>}
+        <View style={styles.buttonContainer}>
+          <Button
+            label={"Save"}
+            color={Colors.Primary}
+            fontColor={Colors.AlternateText}
+            onPress={() => alert("save")} />
+        </View>
       </View>
     );
   }
 
-  renderAssignButton() {
-    return (
-      <View style={styles.buttonContainer}>
-        <Button
-          ref={this.cancelButton}
-          label={"Cancel"}
-          color={Colors.Primary}
-          fontColor={Colors.AlternateText}
-          shouldBlur={true}
-          onPress={() => Actions.pop()} />
-        <Button
-          label={"Confirm"}
-          color={Colors.Primary}
-          fontColor={Colors.AlternateText}
-          onPress={() => this._confirmClick()} />
-      </View>
-    );
-  }
-
-  renderPlanButton() {
-    return (
-      <View style={styles.buttonContainer}>
-        <Button
-          label={"Make Plan"}
-          color={Colors.Primary}
-          fontColor={Colors.AlternateText}
-          onPress={() => this._makePlan()} />
-      </View>
-    );
-  }
 }
 
 const styles = StyleSheet.create({
