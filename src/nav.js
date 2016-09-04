@@ -34,6 +34,7 @@ import PlannerMain from './views/planner/PlannerMain';
 import PlannerBalance from './views/planner/PlannerBalance';
 import PlannerRequestMain from './views/planner/PlannerRequestMain';
 import PlannerRequestDetail from './views/planner/PlannerRequestDetail';
+import PlannerRequestPlan from './views/planner/PlannerRequestPlan';
 import PlannerRating from './views/planner/PlannerRating';
 
 /**
@@ -136,8 +137,11 @@ export default class Navigation extends Component {
             component={PlannerRequestMain}
             hideNavBar={false} />
           <Scene key="plannerRequestDetail"
-            title={"Detail"}
             component={PlannerRequestDetail}
+            hideNavBar={false} />
+          <Scene key="plannerRequestPlan"
+            title={"Make Plan"}
+            component={PlannerRequestPlan}
             hideNavBar={false} />
           <Scene key="plannerRating"
             title={"Ratings"}
