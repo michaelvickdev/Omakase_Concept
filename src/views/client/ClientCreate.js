@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    backgroundColor: Colors.Secondary
   },
 
   input: {

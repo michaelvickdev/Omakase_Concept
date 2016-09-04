@@ -9,6 +9,7 @@ export const Colors = {
   EmphasizedText: '#6D6C6C',
   Disabled: '#9E9E9E',
   Facebook: '#3B5998',
+  Rating: '#FFC107',
 
   // colors below are depreciated, please use above
   White: '#FFFFFF',
