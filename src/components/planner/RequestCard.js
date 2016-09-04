@@ -25,7 +25,7 @@ export default class RequestCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      booking: props.booking
+      booking: props.booking,
     };
   }
 
@@ -33,8 +33,10 @@ export default class RequestCard extends Component {
     let status = !this.state.booking.planner ? 'Assigned' :
       ! this.state.booking.confirmed ? 'Awaiting Details' :
       ! this.state.booking.finalized ? 'Confirmed' : 'Complete' ;
+    let booking = this.state.booking;
+    booking.status = status;
     this.setState({
-      status: status
+      booking: booking
     });
   }
 
@@ -67,7 +69,7 @@ export default class RequestCard extends Component {
         <View>
           <View style={styles.columnWrapper}>
             <Text style={styles.text}>
-              {this.state.status}
+              {this.state.booking.status}
             </Text>
             <Text style={styles.dollarText}>
               {'$' + this.state.booking.contributions.budget.toFixed(2)}

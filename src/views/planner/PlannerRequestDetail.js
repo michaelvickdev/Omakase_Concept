@@ -32,6 +32,7 @@ export default class PlannerRequestDetail extends Component {
   }
 
   componentDidMount() {
+    Actions.refresh({title: this.state.booking.status})
   }
 
   _confirmClick() {
@@ -167,7 +168,7 @@ export default class PlannerRequestDetail extends Component {
             </View>
           </View>
         </ScrollView>
-        {!this.state.planner ?
+        {this.state.booking.status === 'Assigned'?
           this.renderAssignButton() : <View/>}
       </View>
     );

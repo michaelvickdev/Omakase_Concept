@@ -83,6 +83,60 @@ export default class PlannerRequestMain extends Component {
         }
       ],
     });
+    bookingList.push({
+      bookingId: 'booking3',
+      createdBy: 'bookerUserId',
+      planner: 'planner1',
+      requestedTime: 1472515902581,
+      occasion: 'lonely',
+      finalized: false,
+      confirmed: true,
+      contributions: {
+        budget: 30,
+        party: 1,
+        exceptions: 'none'
+      },
+      place: 'Leaside, Toronto, ON',
+      users: [
+        {
+          name: 'Ken the loner',
+          age: '33'
+        }
+      ],
+    });
+    bookingList.push({
+      bookingId: 'booking4',
+      createdBy: 'bookerUserId',
+      planner: 'planner1',
+      requestedTime: 1472515902581,
+      occasion: 'birthday',
+      finalized: true,
+      confirmed: true,
+      contributions: {
+        budget: 240,
+        party: 4,
+        exceptions: 'none'
+      },
+      place: 'North York, Toronto, ON',
+      users: [
+        {
+          name: 'Ken the bday boy',
+          age: '33'
+        },
+        {
+          name: 'Faisal',
+          age: '38'
+        },
+        {
+          name: 'Alex',
+          age: '13'
+        },
+        {
+          name: 'Roy',
+          age: '39'
+        },
+      ],
+    });
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(bookingList),
     });
