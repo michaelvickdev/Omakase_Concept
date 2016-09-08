@@ -7,16 +7,17 @@ import {
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
 
 // components
-import Button from '../../components/common/Button';
-import InputSectionHeader from '../../components/common/InputSectionHeader';
 import RequestCard from '../../components/planner/RequestCard'
 
-/** Shows all kinds of request for planners including
-  * Accepted, Unfinished and Finished
-  */
-
+/**
+ * Shows all kinds of request for planners including
+ * Accepted, Unfinished and Finished
+ */
 export default class PlannerRequestMain extends Component {
   constructor(props){
     super(props);
@@ -25,128 +26,31 @@ export default class PlannerRequestMain extends Component {
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
     };
+
+    // listing of all bookingIds assigned to this planner
+    this.bookingRef = Database.ref(
+      `assigned/${Firebase.auth().currentUser.uid}`
+    ).orderByKey();
   }
 
-  componentDidMount(){
-    let bookingList = [];
-    bookingList.push({
-      bookingId: 'booking1',
-      createdBy: 'bookerUserId',
-      planner: null,
-      requestedTime: 1472515800581,
-      occasion: 'tinder date',
-      finalized: true,
-      confirmed: false,
-      contributions: {
-        budget: 120.135,
-        party: 3,
-        exceptions: 'fully cooked beef, no cheese, no red stuff'
-      },
-      place: 'Trinity, Toronto, ON',
-      users: [
-        {
-          name: 'Kenneth the Pedo',
-          age: '36'
-        },
-        {
-          name: 'Little Girl',
-          age: '12'
-        },
-        {
-          name: 'Little Girls Puppy',
-          age: '3'
-        },
-      ]
-    });
-    bookingList.push({
-      bookingId: 'booking2',
-      createdBy: 'bookerUserId',
-      planner: 'planner1',
-      requestedTime: 1472515900581,
-      occasion: 'chill',
-      finalized: true,
-      confirmed: false,
-      contributions: {
-        budget: 40,
-        party: 2,
-        exceptions: 'no veggies, i am a meat eater'
-      },
-      place: 'Leaside, Toronto, ON',
-      users: [
-        {
-          name: 'Ken the meat eater',
-          age: '33'
-        },
-        {
-          name: 'Roy',
-          age: '36'
-        }
-      ],
-    });
-    bookingList.push({
-      bookingId: 'booking3',
-      createdBy: 'bookerUserId',
-      planner: 'planner1',
-      requestedTime: 1472515902581,
-      occasion: 'lonely',
-      finalized: false,
-      confirmed: true,
-      contributions: {
-        budget: 30,
-        party: 1,
-        exceptions: 'none'
-      },
-      place: 'Leaside, Toronto, ON',
-      users: [
-        {
-          name: 'Ken the loner',
-          age: '33'
-        }
-      ],
-    });
-    bookingList.push({
-      bookingId: 'booking4',
-      createdBy: 'bookerUserId',
-      planner: 'planner1',
-      requestedTime: 1472515902581,
-      occasion: 'birthday',
-      finalized: true,
-      confirmed: true,
-      contributions: {
-        budget: 240,
-        party: 4,
-        exceptions: 'none'
-      },
-      place: 'North York, Toronto, ON',
-      users: [
-        {
-          name: 'Ken the bday boy',
-          age: '33'
-        },
-        {
-          name: 'Faisal',
-          age: '38'
-        },
-        {
-          name: 'Alex',
-          age: '13'
-        },
-        {
-          name: 'Roy',
-          age: '39'
-        },
-      ],
-    });
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(bookingList),
+  componentWillUnmount() {
+    this.bookingListener && this.bookingRef.off(
+      'value', this.bookingListener
+    );
+  }
+
+  componentDidMount() {
+    this.bookingListener = this.bookingRef.on('value', data => {
+      data.exists() && this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data.val()),
+      });
     });
   }
 
-  renderRow = (booking) => {
+  renderRow(bookingId) {
     return (
       <RequestCard
-        key={booking.bookingId} booking={booking}
-      />
+        bookingId={bookingId} />
     );
   }
 
@@ -161,8 +65,7 @@ export default class PlannerRequestMain extends Component {
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
           scrollEnabled={true}
-          removeClippedSubviews={true}
-        />
+          removeClippedSubviews={true} />
       </View>
     );
   }
@@ -171,7 +74,7 @@ export default class PlannerRequestMain extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Secondary,
   },
 
   topContainer: {

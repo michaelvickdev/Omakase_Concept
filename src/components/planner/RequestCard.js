@@ -10,13 +10,10 @@ import {
 import {
   Actions
 } from 'react-native-router-flux'
-import DateFormat from 'dateformat';
+import Database from '../../utils/Firebase';
 
-
-//components
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Button from '../common/Button';
-
+// components
+import Avatar from '../profile/Avatar';
 
 /**
  * Request Card Component for booking requests
@@ -25,54 +22,63 @@ export default class RequestCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      booking: props.booking,
+      booking: null,
+      budget: 0
     };
   }
 
   componentDidMount() {
-    let status = !this.state.booking.planner ? 'Assigned' :
-      ! this.state.booking.confirmed ? 'Awaiting Details' :
-      ! this.state.booking.finalized ? 'Confirmed' : 'Complete' ;
-    let booking = this.state.booking;
-    booking.status = status;
-    this.setState({
-      booking: booking
-    });
-  }
+    Database.ref(
+      `bookings/${this.props.bookingId}`
+    ).once('value', data => {
+      if (data.exists()) {
 
-  _open(){
-    Actions.plannerRequestDetail({booking: this.state.booking});
+        // total total contributions
+        let booking = data.val();
+        this.setState({
+          booking: booking,
+          budget: Object.keys(
+            booking.contributions
+          ).map(
+            uid => booking.contributions[uid].budget
+          ).reduce((total, contribution) => total + contribution, 0)
+        });
+      }
+    })
   }
 
   render() {
-    let usersView = [];
-    if (this.state.booking.contributions.party){
-      for (var i=0; i < this.state.booking.contributions.party; i++) {
-        usersView.push(
-          <View key={i}>
-            <Icon
-              style={[
-                styles.icon
-              ]}
-              name='person'/>
-          </View>
-        )
-      }
-    }
     return (
-      <TouchableOpacity
-        style={styles.cardWrapper}
-        onPress={() => this._open()}>
-        <View style={styles.rowWrapper}>
-          {usersView}
+      <TouchableOpacity style={styles.container}>
+        <View style={styles.avatarContainer}>
+          {
+            this.state.booking && Object.keys(
+              this.state.booking.contributions
+            ).map(uid => (
+              <View
+                style={styles.avatarContainer}
+                key={uid}>
+                {
+                  new Array(
+                    this.state.booking.contributions[uid].party
+                  ).fill().map(i => (
+                    <View
+                      key={`${uid}-${Math.random()}`}
+                      style={styles.avatar}>
+                      <Avatar
+                        size={35}
+                        uid={uid} />
+                    </View>
+                  ))
+                }
+              </View>
+            ))
+          }
         </View>
         <View>
-          <View style={styles.columnWrapper}>
-            <Text style={styles.text}>
-              {this.state.booking.status}
-            </Text>
-            <Text style={styles.dollarText}>
-              {'$' + this.state.booking.contributions.budget.toFixed(2)}
+          <View style={styles.detailsContainer}>
+            <Text style={styles.budget}>
+              {`$${this.state.budget.toFixed(2)}`}
             </Text>
           </View>
         </View>
@@ -82,52 +88,37 @@ export default class RequestCard extends Component {
 }
 
 const styles = StyleSheet.create({
-  cardWrapper: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    // borderRadius: 2,
-    // borderColor: '#ffffff',
-    // borderWidth: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.12)',
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 2,
-    },
+  container: {
+    backgroundColor: Colors.Background,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: Sizes.InnerFrame,
+    padding: Sizes.OuterFrame,
+    marginBottom: Sizes.ItemSpacer
   },
 
-  rowWrapper: {
-    flex: 0.8,
+  avatarContainer: {
     flexDirection: 'row',
   },
 
-  columnWrapper: {
-    flex: 0.8,
+  avatar: {
+    marginRight: -7,
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.Background
+  },
+
+  detailsContainer: {
     flexDirection: 'column',
     alignSelf: 'flex-end',
   },
 
-  text: {
-    fontSize: Sizes.H2,
-    fontWeight: '500',
-    color: Colors.Primary,
-  },
-
-  dollarText: {
+  budget: {
     fontSize: Sizes.H2,
     color: Colors.Text,
     alignSelf: 'flex-end'
-  },
-
-  icon: {
-    color: Colors.Text,
-    fontSize: 25,
-    marginRight: -7,
   }
-
 });
