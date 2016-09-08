@@ -181,8 +181,10 @@ export default class PlannerRequestDetail extends Component {
         </ScrollView>
         {this.state.booking.status === 'Assigned'?
           this.renderAssignButton() :
+          this.state.booking.status === 'Awaiting Details' ?
+          this.renderPlanButton() :
           this.state.booking.status === 'Confirmed' ?
-          this.renderPlanButton() : <View/>}
+          this.renderEditButton() : <View/>}
       </View>
     );
   }
@@ -217,28 +219,40 @@ export default class PlannerRequestDetail extends Component {
       </View>
     );
   }
+
+  renderEditButton() {
+    return (
+      <View style={styles.buttonContainer}>
+        <Button
+          label={"Edit Plan"}
+          color={Colors.Primary}
+          fontColor={Colors.AlternateText}
+          onPress={() => this._makePlan()} />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.Background
   },
 
   topContainer: {
-    paddingLeft: Sizes.InnerFrame,
-    paddingRight: Sizes.InnerFrame,
     paddingTop: Sizes.InnerFrame,
-
   },
 
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame,
   },
 
   rowContainer: {
     flexDirection: 'row',
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame,
   },
 
   textWrap: {

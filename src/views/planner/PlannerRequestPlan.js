@@ -13,6 +13,9 @@ import {
 import DateFormat from 'dateformat';
 
 // components
+import SingleLineInput from '../../components/common/SingleLineInput';
+import CheckboxField from '../../components/common/CheckboxField';
+import InputSectionHeader from '../../components/common/InputSectionHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '../../components/common/Button';
 
@@ -54,7 +57,8 @@ export default class PlannerRequestPlan extends Component {
     let booking = this.state.booking;
     booking.status = 'Confirmed';
     this.setState({
-      booking: booking
+      booking: booking,
+      ready: false
     })
     Actions.refresh({title: this.state.booking.status})
   }
@@ -172,14 +176,50 @@ export default class PlannerRequestPlan extends Component {
               </Text>
             </View>
           </View>
+          <View style={styles.topContainer}>
+            <InputSectionHeader
+              label="Plan" />
+            <SingleLineInput
+              isTop
+              ref={ref => this._address = ref}
+              label="Restaurant Address" />
+            <CheckboxField
+              ref={ref => this._reservation = ref}
+              label="Reservation" />
+            <CheckboxField
+              ref={ref => this._ride = ref}
+              label="Ride" />
+            <CheckboxField
+              ref={ref => this._food = ref}
+              label="Food" />
+            <SingleLineInput
+              isBottom
+              ref={ref => this._address = ref}
+              label="Notes" />
+          </View>
+          {!this.state.ready ?
+          <View style={styles.buttonContainer}>
+            <Button
+              label={"Save"}
+              color={Colors.Primary}
+              fontColor={Colors.AlternateText}
+              onPress={() => alert("save")} />
+          </View>
+          :
+          <View style={styles.buttonContainer}>
+            <Button
+              label={"Save"}
+              color={Colors.Primary}
+              fontColor={Colors.AlternateText}
+              onPress={() => alert("save")} />
+            <Button
+              label={"Submit"}
+              color={Colors.Primary}
+              fontColor={Colors.AlternateText}
+              onPress={() => alert("submit")} />
+          </View>}
         </ScrollView>
-        <View style={styles.buttonContainer}>
-          <Button
-            label={"Save"}
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
-            onPress={() => alert("save")} />
-        </View>
+
       </View>
     );
   }
@@ -189,23 +229,23 @@ export default class PlannerRequestPlan extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.Background
   },
 
   topContainer: {
-    paddingLeft: Sizes.InnerFrame,
-    paddingRight: Sizes.InnerFrame,
     paddingTop: Sizes.InnerFrame,
-
   },
 
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame,
   },
 
   rowContainer: {
     flexDirection: 'row',
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame,
   },
 
   textWrap: {
@@ -239,6 +279,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingBottom: Sizes.OuterFrame,
+    backgroundColor: Colors.Transparent
   },
 
   text: {
