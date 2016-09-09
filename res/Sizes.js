@@ -9,7 +9,10 @@ export const Sizes = {
 
   // padding sizes
   OuterFrame: 25,
-  InnerFrame: 15
+  InnerFrame: 15,
+
+  // margin sizes
+  ItemSpacer: 2
 };
 
 export default Sizes;
