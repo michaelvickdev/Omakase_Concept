@@ -12,7 +12,8 @@ import {
 // components
 import InputField from './InputField';
 import Divider from './Divider';
-
+var enter = "Enter";
+var enterHere = "Enter here";
 /**
   * MultiLineInput allows client enter any
   * text in multiple lines
@@ -22,8 +23,6 @@ import Divider from './Divider';
 export default class MultiLineInput extends Component {
   constructor(props) {
     super(props);
-    var enter = "Enter";
-    var enterHere = "Enter here";
     this.state = {
       defaultText: this.props.defaultText || enter,
       tempText: this.props.defaultText || enter,
