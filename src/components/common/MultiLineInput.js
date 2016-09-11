@@ -22,10 +22,12 @@ import Divider from './Divider';
 export default class MultiLineInput extends Component {
   constructor(props) {
     super(props);
+    var enter = "Enter";
+    var enterHere = "Enter here";
     this.state = {
-      defaultText: this.props.defaultText || "Enter",
-      tempText: this.props.defaultText || "Enter",
-      placeholder: this.props.placeholder || "Enter here",
+      defaultText: this.props.defaultText || enter,
+      tempText: this.props.defaultText || enter,
+      placeholder: this.props.placeholder || enterHere,
       showModal: false,
       multiline: this.props.multiline || true,
       numberOfLines: this.props.numberOfLines || 5,
@@ -76,7 +78,7 @@ export default class MultiLineInput extends Component {
                     onChangeText={defaultText => this.setState({
                       tempText: defaultText
                     })}
-                    value={((this.state.tempText) === "Enter") ? "" :
+                    value={((this.state.tempText) === enter) ? "" :
                     (this.state.tempText)}
                     multiline={true}
                     numberOfLines={this.state.numberOfLines}
@@ -94,7 +96,7 @@ export default class MultiLineInput extends Component {
                 <Text>
                   {((this.state.defaultText).length > 13) ?
                   (((this.state.defaultText.substring(0, 10) + "..."))) :
-                  this.state.defaultText}
+                  this.state.defaultText || enter}
                 </Text>
               </TouchableHighlight>
             </View>
