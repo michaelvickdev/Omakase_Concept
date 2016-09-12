@@ -47,6 +47,8 @@ export default class GroupAvatar extends Component {
     });
   }
 
+  // TODO: implement tappable collapsed icon to show modal of
+  // all collapsed users
   render() {
     return (
       <View style={styles.container}>
