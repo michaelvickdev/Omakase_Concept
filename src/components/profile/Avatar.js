@@ -27,22 +27,32 @@ export default class Avatar extends Component {
     this.state = {
       url: ' '
     };
+
+    this.profileRef = Database.ref(
+      `profiles/${this.props.uid}/photo`
+    );
   }
 
   componentDidMount() {
-    Database.ref(
-      `profiles/${this.props.uid}/photo`
-    ).once('value', data => {
+    this.profileListener = this.profileRef.on('value', data => {
       if (data.val()) {
-        Database.ref(
+
+        // save ref to unlisten later
+        this.photoRef = Database.ref(
           `photos/${data.val()}/url`
-        ).once('value', data => {
+        );
+        this.photoListener = this.photoRef.on('value', data => {
           this.setState({
             url: data.val()
           });
         });
       }
     });
+  }
+
+  componentWillUnmount() {
+    this.profileRef.off('value', this.profileListener);
+    this.photoRef && this.photoRef.off('value', this.photoListener);
   }
 
   render() {
