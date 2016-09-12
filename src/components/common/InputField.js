@@ -24,7 +24,10 @@ export default class InputField extends Component {
     return (
       <View style={styles.container}>
         {this.props.isTop && (<Divider />)}
-        <View style={styles.innerContainer}>
+        <View style={[
+          styles.innerContainer,
+          this.props.color && {backgroundColor: this.props.color}
+        ]}>
           {
             this.props.icon
             && <Icon
@@ -52,11 +55,12 @@ export default class InputField extends Component {
           {this.props.field}
         </View>
         <Divider
-          style={
+          style={[
             !this.props.isBottom
             ? styles.middle
-            : styles.bottom
-          } />
+            : styles.bottom,
+            this.props.noMargin && {marginBottom: 0}
+          ]} />
       </View>
     );
   }
