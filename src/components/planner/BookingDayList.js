@@ -7,7 +7,7 @@ import {
 import Database from '../../utils/Firebase';
 
 // components
-import RequestCard from './RequestCard';
+import BookingCard from './BookingCard';
 
 /**
  * A listing of a certain day's Bookings.
@@ -57,7 +57,7 @@ export default class BookingDayList extends Component {
 
   renderRow(bookingId) {
     return (
-      <RequestCard bookingId={bookingId} />
+      <BookingCard bookingId={bookingId} />
     );
   }
 

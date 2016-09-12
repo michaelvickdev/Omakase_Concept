@@ -34,7 +34,7 @@ function expandOnParty(contributions) {
 /**
  * Request Card Component for booking requests
  */
-export default class RequestCard extends Component {
+export default class BookingCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
