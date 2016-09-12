@@ -14,6 +14,8 @@ import Database from '../../utils/Firebase';
 
 // components
 import GroupAvatar from '../profile/GroupAvatar';
+import InputField from '../common/InputField';
+import Button from '../common/Button';
 
 /**
  * Creates an array of duplicated UID's based on party sizes.
@@ -39,7 +41,9 @@ export default class BookingCard extends Component {
     super(props);
     this.state = {
       booking: null,
-      budget: 0
+      budget: 0,
+      party: 0,
+      visible: false
     };
 
     this.ref = Database.ref(
@@ -59,7 +63,14 @@ export default class BookingCard extends Component {
             booking.contributions
           ).map(
             uid => booking.contributions[uid].budget
-          ).reduce((total, contribution) => total + contribution, 0)
+          ).reduce((total, contribution) => total + contribution, 0),
+          party: Object.keys(
+            booking.contributions
+          ).map(
+            uid => booking.contributions[uid].party
+
+          // party size starts at one due to planner included
+          ).reduce((total, party) => total + party, 1)
         });
       }
     });
@@ -71,34 +82,77 @@ export default class BookingCard extends Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() =>
-          Actions.plannerRequestDetail({booking:this.state.booking})}>
-        <GroupAvatar
-          limit={6}
-          uids={
-            this.state.booking && expandOnParty(
-              this.state.booking.contributions
-            )
-          } />
-        <View>
-          <View style={styles.detailsContainer}>
-            <Text style={[
-              styles.budget,
-              styles.right
-            ]}>
-              {`$${this.state.budget.toFixed(2)}`}
-            </Text>
-            <Text style={[
-              styles.details,
-              styles.right
-            ]}>
-              Toronto, ON
-            </Text>
+      <View>
+        <TouchableOpacity
+          style={styles.container}
+          onPress={() => this.setState({
+            visible: !this.state.visible
+          })}>
+          <GroupAvatar
+            limit={6}
+            uids={
+              this.state.booking && expandOnParty(
+                this.state.booking.contributions
+              )
+            } />
+          <View>
+            <View style={styles.detailsContainer}>
+              <Text style={[
+                styles.budget,
+                styles.right
+              ]}>
+                {`$${this.state.budget.toFixed(2)}`}
+              </Text>
+              <Text style={[
+                styles.details,
+                styles.right
+              ]}>
+                {`$${
+                  (this.state.budget / this.state.party).toFixed(2)
+                }/person`}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        {this.state.visible && (
+          <View style={styles.expandedContainer}>
+            <InputField
+              isTop
+              icon="place"
+              label="Meet-up Location"
+              color={Colors.Transparent}
+              field={
+                <Text>Test</Text>
+              } />
+            <InputField
+              color={Colors.Transparent}
+              icon="directions-run"
+              label="Excitement Level"
+              field={
+                <Text>Test</Text>
+              } />
+            <InputField
+              isBottom
+              noMargin
+              icon="stars"
+              label="Level Required"
+              color={Colors.Transparent}
+              field={
+                <Text>Test</Text>
+              } />
+            <Button
+              squareBorders
+              style={{
+                paddingTop: Sizes.InnerFrame,
+                paddingBottom: Sizes.InnerFrame
+              }}
+              color={Colors.Green}
+              fontColor={Colors.AlternateText}
+              icon="airplanemode-active"
+              label="test" />
+          </View>
+        )}
+      </View>
     );
   }
 }
@@ -129,5 +183,8 @@ const styles = StyleSheet.create({
   budget: {
     fontSize: Sizes.H2,
     color: Colors.Text
+  },
+
+  expandedContainer: {
   }
 });
