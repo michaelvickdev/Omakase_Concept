@@ -13,8 +13,6 @@ import BookingCard from './BookingCard';
  * A listing of a certain day's Bookings.
  *
  * @param {Date} [props.date] - The Date this BookingDayList should show.
- * @param {number} [props.start] - The starting time range (for fine control).
- * @param {number} [props.end] - The ending time range (for fine control).
  */
 export default class BookingDayList extends Component {
   constructor(props) {
@@ -26,22 +24,36 @@ export default class BookingDayList extends Component {
       })
     };
 
+    this.init = this.init.bind(this);
+  }
+
+  init(date) {
+
+    // perform reset if previously initialized
+    this.listener && this.componentWillUnmount();
+    this.setState({
+      data: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2,
+        sectionHeaderHasChanged: (r1, r2) => r1 !== r2
+      })
+    });
+
+    // setup new filters
     this.db = Database
       .ref('bookings')
       .orderByChild('requestedTime')
-      .startAt(this.props.start || this.props.date && new Date(
-        this.props.date.getFullYear(),
-        this.props.date.getMonth(),
-        this.props.date.getDate()
+      .startAt(new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
       ).valueOf())
-      .endAt(this.props.end || this.props.date && new Date(
-        this.props.date.getFullYear(),
-        this.props.date.getMonth(),
-        this.props.date.getDate() + 1
+      .endAt(new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate() + 1
       ).valueOf());
-  }
 
-  componentDidMount() {
+    // and listener
     this.listener = this.db.on('value', data => {
       data.exists() && this.setState({
         data: this.state.data.cloneWithRows(
@@ -51,8 +63,16 @@ export default class BookingDayList extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.init(nextProps.date);
+  }
+
+  componentDidMount() {
+    this.init(this.props.date);
+  }
+
   componentWillUnmount() {
-    this.db.off('value', this.listener);
+    this.db && this.db.off('value', this.listener);
   }
 
   renderRow(bookingId) {

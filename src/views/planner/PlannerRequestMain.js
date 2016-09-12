@@ -56,7 +56,7 @@ export default class PlannerRequestMain extends Component {
             Seems like a busy day.
           </Text>
         </View>
-        <BookingDayList start={0} date={this.state.date} />
+        <BookingDayList date={this.state.date} />
         <View style={styles.buttons}>
           <Button
             color={Colors.Primary}
