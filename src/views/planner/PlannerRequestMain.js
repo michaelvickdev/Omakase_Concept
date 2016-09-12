@@ -61,6 +61,7 @@ export default class PlannerRequestMain extends Component {
           <Button
             color={Colors.Primary}
             fontColor={Colors.AlternateText}
+            icon="arrow-back"
             onPress={() => this.setState({
               date: new Date(
                 this.state.date.getFullYear(),
@@ -68,7 +69,7 @@ export default class PlannerRequestMain extends Component {
                 this.state.date.getDate() - 1
               )
             })}
-            label={`< ${
+            label={`${
               days[
                 new Date(
                   this.state.date.getFullYear(),
@@ -80,6 +81,7 @@ export default class PlannerRequestMain extends Component {
           <Button
             color={Colors.Primary}
             fontColor={Colors.AlternateText}
+            rightIcon="arrow-forward"
             onPress={() => this.setState({
               date: new Date(
                 this.state.date.getFullYear(),
@@ -95,7 +97,7 @@ export default class PlannerRequestMain extends Component {
                   this.state.date.getDate() + 1
                 ).getDay()
               ]
-            } >`} />
+            }`} />
         </View>
       </View>
     );

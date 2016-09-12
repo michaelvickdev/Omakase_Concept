@@ -139,6 +139,29 @@ export default class Button extends Component {
                   </Text>
                 )
               }
+              {
+
+                // spacer if both rightIcon and label are used
+                this.props.rightIcon && this.props.label && (
+                  <View
+                    style={styles.spacer} />
+                )
+              }
+              {
+
+                // icon
+                this.props.rightIcon
+                && (
+                  <Icon
+                    name={this.props.rightIcon}
+                    size={(this.props.size || Sizes.Text) + 3}
+                    color={
+                      (this.props.isDisabled && this.props.disabledFontColor)
+                      || this.props.fontColor
+                      || Sizes.Text
+                    } />
+                )
+              }
             </View>
           )
         }
