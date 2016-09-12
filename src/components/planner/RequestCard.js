@@ -44,7 +44,7 @@ export default class RequestCard extends Component {
           ).reduce((total, contribution) => total + contribution, 0)
         });
       }
-    })
+    });
   }
 
   render() {
