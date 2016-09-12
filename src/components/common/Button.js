@@ -66,6 +66,9 @@ export default class Button extends Component {
           this.state.pressed && {
             backgroundColor: Colors.Transparent
           },
+          this.props.squareBorders && {
+            borderRadius: 0
+          }
         ]}
         onPress={() => {
 
