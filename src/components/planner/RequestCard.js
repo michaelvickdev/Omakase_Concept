@@ -13,7 +13,23 @@ import {
 import Database from '../../utils/Firebase';
 
 // components
-import Avatar from '../profile/Avatar';
+import GroupAvatar from '../profile/GroupAvatar';
+
+/**
+ * Creates an array of duplicated UID's based on party sizes.
+ * Used for GroupAvatar generation.
+ *
+ * @param {number} props.contributions.party
+ */
+function expandOnParty(contributions) {
+  let expanded = [];
+  for (let uid of Object.keys(contributions)) {
+    for (let i = 0; i < contributions[uid].party; i++) {
+      expanded.push(uid);
+    }
+  }
+  return expanded;
+}
 
 /**
  * Request Card Component for booking requests
@@ -25,12 +41,14 @@ export default class RequestCard extends Component {
       booking: null,
       budget: 0
     };
+
+    this.ref = Database.ref(
+      `bookings/${this.props.bookingId}`
+    );
   }
 
   componentDidMount() {
-    Database.ref(
-      `bookings/${this.props.bookingId}`
-    ).once('value', data => {
+    this.listener = this.ref.on('value', data => {
       if (data.exists()) {
 
         // total total contributions
@@ -47,37 +65,23 @@ export default class RequestCard extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.ref.off('value', this.listener);
+  }
+
   render() {
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={() =>
           Actions.plannerRequestDetail({booking:this.state.booking})}>
-        <View style={styles.avatarContainer}>
-          {
-            this.state.booking && Object.keys(
+        <GroupAvatar
+          limit={3}
+          uids={
+            this.state.booking && expandOnParty(
               this.state.booking.contributions
-            ).map(uid => (
-              <View
-                style={styles.avatarContainer}
-                key={uid}>
-                {
-                  new Array(
-                    this.state.booking.contributions[uid].party
-                  ).fill().map(i => (
-                    <View
-                      key={`${uid}-${Math.random()}`}
-                      style={styles.avatar}>
-                      <Avatar
-                        size={35}
-                        uid={uid} />
-                    </View>
-                  ))
-                }
-              </View>
-            ))
-          }
-        </View>
+            )
+          } />
         <View>
           <View style={styles.detailsContainer}>
             <Text style={styles.budget}>
@@ -98,20 +102,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Sizes.OuterFrame,
     marginBottom: Sizes.ItemSpacer
-  },
-
-  avatarContainer: {
-    flexDirection: 'row',
-  },
-
-  avatar: {
-    marginRight: -7,
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.Background
   },
 
   detailsContainer: {
