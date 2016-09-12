@@ -18,6 +18,8 @@ import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 import NumberPicker from '../../components/common/NumberPicker';
 import PickerField from '../../components/common/PickerField';
+import CheckboxField from '../../components/common/CheckboxField';
+import MultiLineInput from '../../components/common/MultiLineInput';
 
 /**
  * Main screen for planners onlu
@@ -37,13 +39,9 @@ export default class PlannerMain extends Component {
               You have no pending events
           </Text>
         </View>
-        <PickerField
-          label="A PICKER">
-          <Picker.Item label="Kenneth" value="try again sucker" />
-          <Picker.Item label="Terrence" value="try again idiot" />
-          <Picker.Item label="Baller Kenneth" value="so smart" />
-          <Picker.Item label="Baller Terrence" value="so right" />
-        </PickerField>
+        <MultiLineInput
+          label="Multiple Line Input"
+          isBottom={true} />
       </View>
     );
   }

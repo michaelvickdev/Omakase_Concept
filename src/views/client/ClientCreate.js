@@ -110,7 +110,6 @@ export default class ClientCreate extends Component {
             <Picker.Item label="Graduation" value="Graduation" />
             <Picker.Item label="Chill" value="Chill" />
           </PickerField>
-
           <InputSectionHeader
             label="Party Details" />
           <NumberPicker

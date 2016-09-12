@@ -26,13 +26,26 @@ export default class PlannerRequestDetail extends Component {
     super(props);
     this.state = {
       booking: props.booking,
-      users: props.booking.users,
-      place: props.booking.place
+      budget: 0,
+      users: null,
+      place: null
     };
   }
 
   componentDidMount() {
-    Actions.refresh({title: this.state.booking.status})
+    this.setState({
+      budget: Object.keys(
+        this.state.booking.contributions
+      ).map(
+        uid => this.state.booking.contributions[uid].budget
+      ).reduce((total, contribution) => total + contribution, 0),
+      party: Object.keys(
+        this.state.booking.contributions
+      ).map(
+        uid => this.state.booking.contributions[uid].party
+      ).reduce((total, contribution) => total + contribution, 0)
+    });
+  //  Actions.refresh({title: this.state.booking.status})
   }
 
   _confirmClick() {
@@ -106,7 +119,7 @@ export default class PlannerRequestDetail extends Component {
               name='group'/>
             <View style={styles.textWrap}>
               <Text style={[styles.text, styles.subheadingText]}>
-                {this.state.booking.contributions.party + ' participants:'}
+                {this.state.party + ' participants:'}
               </Text>
               {usersView}
             </View>
@@ -122,7 +135,7 @@ export default class PlannerRequestDetail extends Component {
                 Budget
               </Text>
               <Text style={styles.text}>
-                {'$' + this.state.booking.contributions.budget.toFixed(2)}
+                {'$' + this.state.budget.toFixed(2)}
               </Text>
             </View>
           </View>
@@ -143,23 +156,6 @@ export default class PlannerRequestDetail extends Component {
                 </Text>
               </View>
             <View/>
-          </View>
-          <View style={[styles.topContainer, styles.rowContainer]}>
-            <Icon
-              style={[
-                styles.icon
-              ]}
-              name='block'/>
-            <View style={styles.textWrap}>
-              <Text style={[styles.text, styles.subheadingText]}>
-                Exclusions
-              </Text>
-              <Text style={styles.text}>
-                {this.state.booking.contributions.exceptions ?
-                  this.state.booking.contributions.exceptions :
-                  Strings.NotSpecified}
-              </Text>
-            </View>
           </View>
           <View style={[styles.topContainer, styles.rowContainer]}>
             <Icon
@@ -245,7 +241,6 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame,
   },
 

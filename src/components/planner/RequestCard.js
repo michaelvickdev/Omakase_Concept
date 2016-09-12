@@ -49,7 +49,10 @@ export default class RequestCard extends Component {
 
   render() {
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() =>
+          Actions.plannerRequestDetail({booking:this.state.booking})}>
         <View style={styles.avatarContainer}>
           {
             this.state.booking && Object.keys(
