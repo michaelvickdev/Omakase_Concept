@@ -84,8 +84,21 @@ export default class BookingCard extends Component {
           } />
         <View>
           <View style={styles.detailsContainer}>
-            <Text style={styles.budget}>
+            <Text style={[
+              styles.budget,
+              styles.right
+            ]}>
               {`$${this.state.budget.toFixed(2)}`}
+            </Text>
+            <Text style={[
+              styles.details,
+              styles.right
+            ]}>
+              {
+                this.state.booking && new Date(
+                  this.state.booking.requestedTime
+                ).toLocaleDateString()
+              }
             </Text>
           </View>
         </View>
@@ -109,9 +122,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
 
+  right: {
+    textAlign: 'right'
+  },
+
+  details: {
+    fontSize: Sizes.SmallText
+  },
+
   budget: {
     fontSize: Sizes.H2,
-    color: Colors.Text,
-    alignSelf: 'flex-end'
+    color: Colors.Text
   }
 });
