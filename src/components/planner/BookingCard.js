@@ -76,7 +76,7 @@ export default class BookingCard extends Component {
         onPress={() =>
           Actions.plannerRequestDetail({booking:this.state.booking})}>
         <GroupAvatar
-          limit={3}
+          limit={6}
           uids={
             this.state.booking && expandOnParty(
               this.state.booking.contributions
@@ -94,11 +94,7 @@ export default class BookingCard extends Component {
               styles.details,
               styles.right
             ]}>
-              {
-                this.state.booking && new Date(
-                  this.state.booking.requestedTime
-                ).toLocaleDateString()
-              }
+              Toronto, ON
             </Text>
           </View>
         </View>
