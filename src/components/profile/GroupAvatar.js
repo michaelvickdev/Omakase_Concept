@@ -22,7 +22,6 @@ export default class GroupAvatar extends Component {
    * @param {string} props.uids[] - A listing of UIDs to show.
    * @param {object} props.style - The style to override with.
    * @param {string} props.color - The color for empty Avatars.
-   * @param {number} props.size - The size.
    * @param {number} props.limit - Avatars to show before collapsing.
    */
   constructor(props) {
@@ -58,7 +57,7 @@ export default class GroupAvatar extends Component {
               style={styles.outline}>
               <Avatar
                 color={this.props.color || Colors.Primary}
-                size={this.props.size || 35}
+                size={35}
                 uid={uid} />
             </View>
           ))
@@ -67,12 +66,8 @@ export default class GroupAvatar extends Component {
           this.state.collapsed.length > 0 && (
             <View style={styles.outline}>
               <View style={[
-                styles.outline,
+                styles.collapsedContainer,
                 {
-                  marginRight: 0,
-                  height: this.props.size || 35,
-                  width: this.props.size || 35,
-                  borderRadius: (this.props.size || 35) / 2,
                   backgroundColor: this.props.color || Colors.Primary
                 }
               ]}>
@@ -105,6 +100,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.Background,
+    overflow: 'hidden'
+  },
+
+  collapsedContainer: {
+    height: 35,
+    width: 35,
+    borderRadius: 35 / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
     overflow: 'hidden'
   },
 
