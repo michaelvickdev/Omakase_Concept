@@ -94,14 +94,13 @@ export default class AutoCompleteInput extends Component {
                    fetchDetails={true}
                    onPress={(data, details = null) => {
                      console.log(details);
-                     console.log(data);
                      this.setState({
                        value: details,
                        description: data.description,
                        defaultText: data.description,
                        showModal: false
                      })
-                     this.props.onSelect();
+                     this.props.onSelect ? this.props.onSelect() : null ;
                    }}
                    getDefaultValue={() => {
                       return this.state.description || '';
