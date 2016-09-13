@@ -1,4 +1,12 @@
+import {
+  Dimensions
+} from 'react-native';
+
 export const Sizes = {
+
+  // screen
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height,
 
   // text sizes
   H1: 20,

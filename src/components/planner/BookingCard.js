@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableOpacity
+  StyleSheet, View, Text, Dimensions, TouchableOpacity, MapView
 } from 'react-native';
 import {
   Colors, Sizes
@@ -15,6 +15,7 @@ import Database from '../../utils/Firebase';
 // components
 import GroupAvatar from '../profile/GroupAvatar';
 import InputField from '../common/InputField';
+import InformationField from '../common/InformationField';
 import Button from '../common/Button';
 
 /**
@@ -116,30 +117,43 @@ export default class BookingCard extends Component {
         </TouchableOpacity>
         {this.state.visible && (
           <View style={styles.expandedContainer}>
-            <InputField
-              isTop
-              icon="place"
-              label="Meet-up Location"
+            <MapView
+              region={{
+                latitude: 43.653226,
+                longitude: -79.383184,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+              }}
+              annotations={[
+                {
+                  latitude: 43.653226,
+                  longitude: -79.383184,
+                  title: 'Meet-up Location',
+                  subtitle: '100 Queen St W',
+                  tintColor: Colors.Primary,
+                  animateDrop: true
+                }
+              ]}
+              style={styles.map} />
+            <InformationField
+              label="Party Size"
               color={Colors.Transparent}
-              field={
-                <Text>Test</Text>
-              } />
-            <InputField
+              info={`${this.state.party - 1} (Ages 19-29)`} />
+
+            <InformationField
+              label="Looking for"
               color={Colors.Transparent}
-              icon="directions-run"
-              label="Excitement Level"
-              field={
-                <Text>Test</Text>
-              } />
-            <InputField
+              info="1 Person" />
+            <InformationField
+              icon="record-voice-over"
+              color={Colors.Transparent}
+              info="English, Italian, and Cantonese" />
+            <InformationField
               isBottom
               noMargin
-              icon="stars"
-              label="Level Required"
               color={Colors.Transparent}
-              field={
-                <Text>Test</Text>
-              } />
+              icon="directions-run"
+              info="Leisurely" />
             <Button
               squareBorders
               style={{
@@ -148,8 +162,8 @@ export default class BookingCard extends Component {
               }}
               color={Colors.Green}
               fontColor={Colors.AlternateText}
-              icon="airplanemode-active"
-              label="test" />
+              icon="move-to-inbox"
+              label="Request to Join" />
           </View>
         )}
       </View>
@@ -186,5 +200,10 @@ const styles = StyleSheet.create({
   },
 
   expandedContainer: {
+  },
+
+  map: {
+    width: Sizes.width,
+    height: 200
   }
 });
