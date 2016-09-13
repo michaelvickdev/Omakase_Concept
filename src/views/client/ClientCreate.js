@@ -18,10 +18,12 @@ import Database, {
 import Button from '../../components/common/Button';
 import DatePicker from '../../components/common/DatePicker';
 import SingleLineInput from '../../components/common/SingleLineInput';
+import MultiLineInput from '../../components/common/MultiLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import NumberPicker from '../../components/common/NumberPicker';
 import SwitchInput from '../../components/common/SwitchInput';
 import PickerField from '../../components/common/PickerField';
+import AutoCompleteInput from '../../components/common/AutoCompleteInput';
 
 /**
  * First screen of creating an event
@@ -124,6 +126,26 @@ export default class ClientCreate extends Component {
             min={1}
             ref={ref => this._party = ref}
             label="# of People" />
+          <AutoCompleteInput
+            ref={ref => this._city = ref}
+            label="Destination City"
+            type="(cities)"
+            maxLength={20}
+            onSelect={() => this.forceUpdate()}
+            placeholder="Search City"/>
+          <AutoCompleteInput
+            ref={ref => this._address = ref}
+            label="Pickup Address"
+            defaultText="Enter"
+            type="address"
+            maxLength={25}
+            location={this._city && this._city.val() ?
+              this._city.val().geometry.location.lat + ','
+              + this._city.val().geometry.location.lng : ''}
+            placeholder="Enter the pickup address"/>
+          <MultiLineInput
+            ref={ref => this._restrictions = ref}
+            label="Multiline" />
           <SingleLineInput
             isBottom
             ref={ref => this._restrictions = ref}
