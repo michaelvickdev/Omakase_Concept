@@ -103,12 +103,12 @@ export default class ClientCreate extends Component {
             label="Occasion"
             ref={ref => this._occasion = ref}
             subtitle="Tell us how we should plan your night"
-            defaultVal="Chill">
-            <Picker.Item label="Birthday" value="Birthday" />
-            <Picker.Item label="Anniversay" value="Anniversay" />
-            <Picker.Item label="Family Reunion" value="Family Reunion" />
-            <Picker.Item label="Graduation" value="Graduation" />
-            <Picker.Item label="Chill" value="Chill" />
+            defaultVal="key4">
+            <Picker.Item label="Birthday" value="key0" />
+            <Picker.Item label="Anniversay" value="key1" />
+            <Picker.Item label="Family Reunion" value="key2" />
+            <Picker.Item label="Graduation" value="key3" />
+            <Picker.Item label="Chilling" value="key4" />
           </PickerField>
           <InputSectionHeader
             label="Party Details" />
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
+    backgroundColor: Colors.Secondary
   },
 
   input: {
