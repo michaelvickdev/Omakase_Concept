@@ -62,10 +62,6 @@ export default class ClientMain extends Component {
         {this.state.bookings.map(data => {
           return (<BookingCard key={data.bookingId} booking={data}/>)
         })}
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
-        <BookingCard />
       </View>
     );
   }
