@@ -105,12 +105,12 @@ export default class ClientCreate extends Component {
             label="Occasion"
             ref={ref => this._occasion = ref}
             subtitle="Tell us how we should plan your night"
-            defaultVal="key4">
-            <Picker.Item label="Birthday" value="key0" />
-            <Picker.Item label="Anniversay" value="key1" />
-            <Picker.Item label="Family Reunion" value="key2" />
-            <Picker.Item label="Graduation" value="key3" />
-            <Picker.Item label="Chilling" value="key4" />
+            defaultVal="Birthday">
+            <Picker.Item label="Birthday" value="Birthday" />
+            <Picker.Item label="Anniversay" value="Anniversay" />
+            <Picker.Item label="Family Reunion" value="Family Reunion" />
+            <Picker.Item label="Graduation" value="Graduation" />
+            <Picker.Item label="Chilling" value="Chilling" />
           </PickerField>
           <InputSectionHeader
             label="Party Details" />
@@ -146,11 +146,6 @@ export default class ClientCreate extends Component {
           <MultiLineInput
             ref={ref => this._restrictions = ref}
             label="Multiline" />
-          <SingleLineInput
-            isBottom
-            ref={ref => this._restrictions = ref}
-            label="Dietary Restrictions & Allergies" />
-
           <InputSectionHeader
             label="Terms & Conditions" />
           <SwitchInput
