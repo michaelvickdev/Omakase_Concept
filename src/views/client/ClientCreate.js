@@ -130,6 +130,7 @@ export default class ClientCreate extends Component {
             ref={ref => this._city = ref}
             label="Destination City"
             type="(cities)"
+            maxLength={20}
             onSelect={() => this.forceUpdate()}
             placeholder="Search City"/>
           <AutoCompleteInput
@@ -137,6 +138,7 @@ export default class ClientCreate extends Component {
             label="Pickup Address"
             defaultText="Enter"
             type="address"
+            maxLength={25}
             location={this._city && this._city.val() ?
               this._city.val().geometry.location.lat + ','
               + this._city.val().geometry.location.lng : ''}
