@@ -143,7 +143,7 @@ export default class AutoCompleteInput extends Component {
                   }) : Alert.alert('Oops!', this.props.conditionMsg
                     || 'Something is wrong')
                 }} >
-                <Text>
+                <Text style={styles.text}>
                   {this.state.defaultText.length > this.state.maxLength ?
                     this.state.defaultText.substring(0, this.state.maxLength-3)
                     + "..." : this.state.defaultText }

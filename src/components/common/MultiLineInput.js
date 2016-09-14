@@ -92,7 +92,7 @@ export default class MultiLineInput extends Component {
                 onPress={() => this.setState({
                   showModal: true
                 })} >
-                <Text>
+                <Text style={styles.text}>
                   {((this.state.defaultText).length > 13) ?
                   (((this.state.defaultText.substring(0, 10) + "..."))) :
                   this.state.defaultText || enter}
