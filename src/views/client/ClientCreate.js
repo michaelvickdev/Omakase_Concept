@@ -82,68 +82,16 @@ export default class ClientCreate extends Component {
         <View style={styles.input}>
           <View style={styles.body}>
             <Text style={Styles.Header}>
-              Book a new Event
+              Book a New Trip
             </Text>
             <Text style={Styles.BodyText}>
-              Give us a little information about your event and
-              we'll pair you up with a local event planner to figure
+              Let us know where you are heading and the dates and
+              we'll pair you up with a local trip planner to figure
               out the rest.
             </Text>
           </View>
           <InputSectionHeader
-            label="Schedule" />
-          <DatePicker
-            isTop
-            ref={ref => this._date = ref}
-            label="Date" />
-          <DatePicker
-            label="Time"
-            ref={ref => this._time = ref}
-            type="time" />
-          <PickerField
-            isBottom
-            label="Occasion"
-            ref={ref => this._occasion = ref}
-            subtitle="Tell us how we should plan your night"
-            defaultVal="Birthday">
-            <Picker.Item label="Birthday" value="Birthday" />
-            <Picker.Item label="Anniversay" value="Anniversay" />
-            <Picker.Item label="Family Reunion" value="Family Reunion" />
-            <Picker.Item label="Graduation" value="Graduation" />
-            <Picker.Item label="Chilling" value="Chilling" />
-          </PickerField>
-          <InputSectionHeader
-            label="Party Details" />
-          <NumberPicker
-            isTop
-            number={60}
-            min={20}
-            label="Price"
-            ref={ref => this._price = ref}
-            subtitle="Per person (in CAD$)" />
-          <NumberPicker
-            number={2}
-            min={1}
-            ref={ref => this._party = ref}
-            label="# of People" />
-          <AutoCompleteInput
-            ref={ref => this._city = ref}
-            label="Destination City"
-            type="(cities)"
-            maxLength={20}
-            onSelect={() => this.forceUpdate()}
-            placeholder="Search City"/>
-          <AutoCompleteInput
-            ref={ref => this._address = ref}
-            label="Pickup Address"
-            defaultText="Enter"
-            type="address"
-            maxLength={25}
-            location={this._city && this._city.val() ?
-              this._city.val().geometry.location.lat + ','
-              + this._city.val().geometry.location.lng : ''}
-            placeholder="Enter the pickup address"/>
-
+            label="Itinerary" />
           {/*sample code to get city picture*/}
           {this._city && this._city.val()
             && this._city.val().photos ?
@@ -156,10 +104,73 @@ export default class ClientCreate extends Component {
               '&key=' + Strings.googleApiKey}}/>
           :
           <View/>}
+          <AutoCompleteInput
+            isTop
+            ref={ref => this._city = ref}
+            label="Destination"
+            type="(cities)"
+            maxLength={30}
+            onSelect={() => this.forceUpdate()}
+            placeholder="Search City"/>
+          <DatePicker
+            ref={ref => this._date = ref}
+            label="Date" />
+          <DatePicker
+            label="Start Time"
+            ref={ref => this._time = ref}
+            type="time" />
+          <AutoCompleteInput
+            ref={ref => this._address = ref}
+            label="Pickup Address"
+            defaultText="Enter"
+            type="address"
+            maxLength={25}
+            failCondition={!this._city || !this._city.val()}
+            conditionMsg={'Select your destination'}
+            location={this._city && this._city.val() ?
+              this._city.val().geometry.location.lat + ','
+              + this._city.val().geometry.location.lng : ''}
+            placeholder="Enter the pickup address"/>
+          <NumberPicker
+            isBottom
+            number={3}
+            min={1}
+            ref={ref => this._party = ref}
+            label="Expected Duration"
+            subtitle="How many hours?" />
 
+
+          <InputSectionHeader
+            label="Party Details" />
+          <NumberPicker
+            isTop
+            number={100}
+            min={50}
+            label="Budget"
+            ref={ref => this._price = ref}
+            subtitle="For the party (in USD$)" />
+          <NumberPicker
+            number={2}
+            min={1}
+            ref={ref => this._party = ref}
+            label="# of People" />
+          <PickerField
+            label="Language"
+            ref={ref => this._occasion = ref}
+            subtitle="Tell us which you are comfortable with"
+            defaultVal="English">
+            <Picker.Item label="English" value="English" />
+            <Picker.Item label="French" value="French" />
+            <Picker.Item label="Italian" value="Italian" />
+            <Picker.Item label="Cantonese" value="Cantonese" />
+            <Picker.Item label="Latin" value="Latin" />
+          </PickerField>
           <MultiLineInput
+            isBottom
             ref={ref => this._restrictions = ref}
-            label="Multiline" />
+            label="Additional Comments"
+            subtitle="Anything else you would like to tell us?" />
+
           <InputSectionHeader
             label="Terms & Conditions" />
           <SwitchInput

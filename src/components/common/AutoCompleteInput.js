@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import {
   View, StyleSheet, TextInput, Modal, TouchableHighlight, Dimensions,
-  Text
+  Alert, Text
 } from 'react-native';
 import {
   Strings, Sizes, Colors
@@ -27,6 +27,8 @@ import Divider from './Divider';
   * @param {location} - Optional search from location, format: 'lat,lng'
   * @param {radius} - The search radius if 'location' is specified
   * @param {onSelect} - Pass in function on selection of a place item
+  * @param {failCondition} - optional condition to block search
+  * @param {conditionMsg} - error msg if above is satisfied
   */
 export default class AutoCompleteInput extends Component {
 
@@ -93,6 +95,7 @@ export default class AutoCompleteInput extends Component {
                    autoFocus={this.state.description ? false : true}
                    fetchDetails={true}
                    onPress={(data, details = null) => {
+                     console.log(data);
                      console.log(details);
                      this.setState({
                        value: details,
@@ -134,9 +137,12 @@ export default class AutoCompleteInput extends Component {
             <View style={styles.contentContainer}>
               <TouchableHighlight
                 underlayColor={Colors.Transparent}
-                onPress={() => this.setState({
-                  showModal: true
-                })} >
+                onPress={() => {
+                  !this.props.failCondition ? this.setState({
+                    showModal: true
+                  }) : Alert.alert('Oops!', this.props.conditionMsg
+                    || 'Something is wrong')
+                }} >
                 <Text>
                   {this.state.defaultText.length > this.state.maxLength ?
                     this.state.defaultText.substring(0, this.state.maxLength-3)

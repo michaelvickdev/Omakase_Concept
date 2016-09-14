@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     paddingLeft: Sizes.InnerFrame,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height/3
+    height: Dimensions.get('window').height*2/3,
   },
 
   contentContainer: {
