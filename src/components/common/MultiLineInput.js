@@ -42,6 +42,10 @@ export default class MultiLineInput extends Component {
           <View style={styles.wrapper}>
             <Modal
               animationType="slide"
+              onRequestClose={() => this.setState({
+                tempText: this.state.defaultText,
+                showModal: false
+              })}
               transparent={true}
               visible={this.state.showModal}>
               <View style={styles.modalContainer}>
@@ -82,6 +86,7 @@ export default class MultiLineInput extends Component {
                     multiline={true}
                     numberOfLines={this.state.numberOfLines}
                     maxLength={this.state.maxWord}
+                    returnKeyType='done'
                      />
                 </View>
               </View>
@@ -92,7 +97,7 @@ export default class MultiLineInput extends Component {
                 onPress={() => this.setState({
                   showModal: true
                 })} >
-                <Text>
+                <Text style={styles.text}>
                   {((this.state.defaultText).length > 13) ?
                   (((this.state.defaultText.substring(0, 10) + "..."))) :
                   this.state.defaultText || enter}
@@ -124,7 +129,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     paddingLeft: Sizes.InnerFrame,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height/3
+    height: Dimensions.get('window').height*2/3,
+    textAlignVertical: 'top',
   },
 
   contentContainer: {
@@ -150,8 +156,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: Dimensions.get('window').width,
     backgroundColor: Colors.Background,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    alignItems: 'stretch',
     paddingTop: Sizes.InnerFrame
   },
 

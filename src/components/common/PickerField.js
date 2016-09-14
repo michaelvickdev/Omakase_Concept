@@ -48,6 +48,9 @@ export default class PickerField extends Component {
           <View style={styles.wrapper}>
             <Modal
               animationType="slide"
+              onRequestClose={() => this.setState({
+                showModal: false
+              })}
               transparent={true}
               visible={this.state.showModal}>
               <View style={styles.modalContainer}>

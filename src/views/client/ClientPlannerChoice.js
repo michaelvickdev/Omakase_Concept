@@ -33,6 +33,9 @@ export default class ClientPlannerChoice extends Component {
       <View style={styles.container}>
         <Modal
           visible={this.state.showModal}
+          onRequestClose={() => this.setState({
+            showModal: false
+          })}
           animationType="slide">
           <View style={styles.modalContainer}>
             <View style={styles.body}>
