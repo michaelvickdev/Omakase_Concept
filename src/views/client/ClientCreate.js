@@ -43,10 +43,10 @@ export default class ClientCreate extends Component {
       'Please confirm this Booking',
       `You are authorizing $${this._price.val()} USD `
       + `on your credit card for your trip to `
-      + `${this._city.val()} on `
-      + `${this._date.val().toLocaleDateString()}`
-      + `, at ${this._time.val().toLocaleTimeString()} for a `
-      + `party of ${this._party.val()}.`,
+      + `${this._city.val()} on ${this._date.val().toLocaleDateString()}`
+      + `, starting at ${this._time.val().toLocaleTimeString()} for a `
+      + `party of ${this._party.val()}. Your pick up location is `
+      + `${this._address.val()}`,
       [
         {
           text: 'I need to make changes'
