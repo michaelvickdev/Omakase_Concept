@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     paddingLeft: Sizes.InnerFrame,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height*2/3,
+    textAlignVertical: 'top',
   },
 
   contentContainer: {
