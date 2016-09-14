@@ -42,10 +42,15 @@ export default class AutoCompleteInput extends Component {
 
     // bind methods
     this.val = this.val.bind(this);
+    this.detail = this.detail.bind(this);
+  }
+
+  detail() {
+    return this.state.value;
   }
 
   val() {
-    return this.state.value;
+    return this.state.description;
   }
 
   render() {

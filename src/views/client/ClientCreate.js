@@ -41,8 +41,10 @@ export default class ClientCreate extends Component {
   submit() {
     Alert.alert(
       'Please confirm this Booking',
-      `You are authorizing $${this._price.val() * this._party.val()} `
-      + `on your credit card for ${this._date.val().toLocaleDateString()}`
+      `You are authorizing $${this._price.val()} USD `
+      + `on your credit card for your trip to `
+      + `${this._city.val()} on `
+      + `${this._date.val().toLocaleDateString()}`
       + `, at ${this._time.val().toLocaleTimeString()} for a `
       + `party of ${this._party.val()}.`,
       [
@@ -66,7 +68,7 @@ export default class ClientCreate extends Component {
                 [Firebase.auth().currentUser.uid]: {
                   budget: this._price.val() * this._party.val(),
                   party: this._party.val(),
-                  exceptions: this._restrictions.val()
+                  exceptions: ''
                 }
               }
             }, error => Actions.clientPlannerChoice());
@@ -94,13 +96,13 @@ export default class ClientCreate extends Component {
             <InputSectionHeader
               label="Itinerary" />
             {/*sample code to get city picture*/}
-            {this._city && this._city.val()
-              && this._city.val().photos ?
+            {this._city && this._city.detail()
+              && this._city.detail().photos ?
             <Image style={styles.primaryPhoto}
               source={{uri:
                 Strings.googlePlacePhotoURL + '?maxwidth=400&photoreference=' +
-                this._city.val().photos[
-                  Math.floor(Math.random()*(this._city.val().photos.length))
+                this._city.detail().photos[
+                  Math.floor(Math.random()*(this._city.detail().photos.length))
                 ].photo_reference +
                 '&key=' + Strings.googleApiKey}}/>
             :
@@ -126,11 +128,11 @@ export default class ClientCreate extends Component {
               defaultText="Enter"
               type="address"
               maxLength={25}
-              failCondition={!this._city || !this._city.val()}
+              failCondition={!this._city || !this._city.detail()}
               conditionMsg={'Select your destination'}
-              location={this._city && this._city.val() ?
-                this._city.val().geometry.location.lat + ','
-                + this._city.val().geometry.location.lng : ''}
+              location={this._city && this._city.detail() ?
+                this._city.detail().geometry.location.lat + ','
+                + this._city.detail().geometry.location.lng : ''}
               placeholder="Enter the pickup address"/>
             <NumberPicker
               isBottom
@@ -168,7 +170,7 @@ export default class ClientCreate extends Component {
             </PickerField>
             <MultiLineInput
               isBottom
-              ref={ref => this._restrictions = ref}
+              ref={ref => this._comments = ref}
               label="Additional Comments"
               subtitle="Anything else you would like to tell us?" />
 
