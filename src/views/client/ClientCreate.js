@@ -149,6 +149,7 @@ export default class ClientCreate extends Component {
               isTop
               number={100}
               min={50}
+              interval={10}
               label="Budget"
               ref={ref => this._price = ref}
               subtitle="For the party (in USD$)" />
