@@ -2,13 +2,13 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, Alert, ScrollView, Picker
+  View, Text, StyleSheet, Alert, ScrollView, Image, Picker
 } from 'react-native';
 import {
   Actions
 } from 'react-native-router-flux';
 import {
-  Colors, Sizes, Styles
+  Colors, Sizes, Styles, Strings
 } from '../../../res/Constants';
 import Database, {
   Firebase
@@ -143,6 +143,20 @@ export default class ClientCreate extends Component {
               this._city.val().geometry.location.lat + ','
               + this._city.val().geometry.location.lng : ''}
             placeholder="Enter the pickup address"/>
+
+          {/*sample code to get city picture*/}
+          {this._city && this._city.val()
+            && this._city.val().photos ?
+          <Image style={styles.primaryPhoto}
+            source={{uri:
+              Strings.googlePlacePhotoURL + '?maxwidth=400&photoreference=' +
+              this._city.val().photos[
+                Math.floor(Math.random()*(this._city.val().photos.length))
+              ].photo_reference +
+              '&key=' + Strings.googleApiKey}}/>
+          :
+          <View/>}
+
           <MultiLineInput
             ref={ref => this._restrictions = ref}
             label="Multiline" />
@@ -192,5 +206,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'stretch',
     justifyContent: 'space-between'
-  }
+  },
+
+  primaryPhoto: {
+    flex: 1,
+    width: 400,
+    height: 300,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
 });
