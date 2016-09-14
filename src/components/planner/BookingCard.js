@@ -2,7 +2,8 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableOpacity, MapView
+  StyleSheet, View, Text, Dimensions, TouchableOpacity, MapView,
+  Alert
 } from 'react-native';
 import {
   Colors, Sizes
@@ -10,7 +11,9 @@ import {
 import {
   Actions
 } from 'react-native-router-flux'
-import Database from '../../utils/Firebase';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
 
 // components
 import GroupAvatar from '../profile/GroupAvatar';
@@ -50,6 +53,38 @@ export default class BookingCard extends Component {
     this.ref = Database.ref(
       `bookings/${this.props.bookingId}`
     );
+    this.join = this.join.bind(this);
+  }
+
+  join() {
+    Alert.alert(
+      'Confirm your Request to Attend',
+      'You are committing to plan and attend this booking '
+      + 'if you are selected by the sponsor.',
+      [
+        {
+          text: 'Cancel'
+        }, {
+          text: 'Confirm',
+          onPress: () => {
+
+            // first the planner is technically a contributor
+            this.ref.child(
+              `contributions/${Firebase.auth().currentUser.uid}`
+            ).set({
+              budget: 0,
+              party: 1
+            });
+
+            // now, tell sponsor that planner is interested
+            this.ref.child(
+              `interested/${Firebase.auth().currentUser.uid}`
+            ).set(true);
+          }
+        }
+      ]
+    )
+    this.ref.child('contributions')
   }
 
   componentDidMount() {
@@ -163,6 +198,7 @@ export default class BookingCard extends Component {
               color={Colors.Green}
               fontColor={Colors.AlternateText}
               icon="move-to-inbox"
+              onPress={this.join}
               label="Request to Join" />
           </View>
         )}
