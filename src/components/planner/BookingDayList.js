@@ -7,6 +7,9 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import {
+  Colors
+} from '../../../res/Constants';
 
 // components
 import BookingCard from './BookingCard';
@@ -117,6 +120,7 @@ export default class BookingDayList extends Component {
   renderSectionHeader(header) {
     return (
       <InputSectionHeader
+        backgroundColor={Colors.Secondary}
         label={header} />
     );
   }
