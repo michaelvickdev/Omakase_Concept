@@ -42,6 +42,7 @@ export default class MultiLineInput extends Component {
           <View style={styles.wrapper}>
             <Modal
               animationType="slide"
+              onRequestClose={() => console.log("modal close")}
               transparent={true}
               visible={this.state.showModal}>
               <View style={styles.modalContainer}>

@@ -141,8 +141,6 @@ export default class ClientCreate extends Component {
               ref={ref => this._party = ref}
               label="Expected Duration"
               subtitle="How many hours?" />
-
-
             <InputSectionHeader
               label="Party Details" />
             <NumberPicker
@@ -161,7 +159,7 @@ export default class ClientCreate extends Component {
             <PickerField
               label="Language"
               ref={ref => this._occasion = ref}
-              subtitle="Tell us which you are comfortable with"
+              subtitle="Tell us what you are comfortable with"
               defaultVal="English">
               <Picker.Item label="English" value="English" />
               <Picker.Item label="French" value="French" />

@@ -102,6 +102,7 @@ export default class DatePicker extends Component {
       return (
         <Modal
           animationType="slide"
+          onRequestClose={() => console.log("modal close")}
           transparent
           visible={this.state.showModal}>
           <View style={styles.modalContainer}>
