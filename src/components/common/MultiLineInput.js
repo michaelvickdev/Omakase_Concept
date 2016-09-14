@@ -42,7 +42,10 @@ export default class MultiLineInput extends Component {
           <View style={styles.wrapper}>
             <Modal
               animationType="slide"
-              onRequestClose={() => console.log("modal close")}
+              onRequestClose={() => this.setState({
+                tempText: this.state.defaultText,
+                showModal: false
+              })}
               transparent={true}
               visible={this.state.showModal}>
               <View style={styles.modalContainer}>
@@ -83,6 +86,7 @@ export default class MultiLineInput extends Component {
                     multiline={true}
                     numberOfLines={this.state.numberOfLines}
                     maxLength={this.state.maxWord}
+                    returnKeyType='done'
                      />
                 </View>
               </View>
@@ -151,8 +155,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: Dimensions.get('window').width,
     backgroundColor: Colors.Background,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    alignItems: 'stretch',
     paddingTop: Sizes.InnerFrame
   },
 

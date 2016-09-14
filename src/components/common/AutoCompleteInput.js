@@ -61,7 +61,10 @@ export default class AutoCompleteInput extends Component {
           <View style={styles.wrapper}>
             <Modal
               animationType="slide"
-              onRequestClose={() => console.log("modal close")}
+              onRequestClose={() => this.setState({
+                value: this.state.previousVal,
+                showModal: false
+              })}
               transparent={true}
               visible={this.state.showModal}
               onShow={() => this.setState({
