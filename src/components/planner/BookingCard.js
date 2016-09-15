@@ -2,8 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableOpacity, MapView,
-  Alert
+  StyleSheet, View, Text, Dimensions, TouchableOpacity, Alert
 } from 'react-native';
 import {
   Colors, Sizes
@@ -14,6 +13,8 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import MapView from 'react-native-maps';
+
 
 // components
 import GroupAvatar from '../profile/GroupAvatar';
@@ -156,23 +157,24 @@ export default class BookingCard extends Component {
         {this.state.visible && (
           <View style={styles.expandedContainer}>
             <MapView
+              style={styles.map}
+              scrollEnabled={false}
               region={{
                 latitude: 43.653226,
                 longitude: -79.383184,
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01
-              }}
-              annotations={[
-                {
+              }}>
+              <MapView.Marker
+                coordinate={{
                   latitude: 43.653226,
                   longitude: -79.383184,
-                  title: 'Meet-up Location',
-                  subtitle: '100 Queen St W',
-                  tintColor: Colors.Primary,
-                  animateDrop: true
-                }
-              ]}
-              style={styles.map} />
+                }}
+                title={'Meet-up Location'}
+                description={'100 Queen St W'}
+                pinColor={Colors.Primary}
+              />
+            </MapView>
             <InformationField
               label="Party Size"
               color={Colors.Transparent}

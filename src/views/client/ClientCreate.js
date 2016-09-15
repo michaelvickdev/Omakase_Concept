@@ -13,6 +13,7 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import MapView from 'react-native-maps';
 
 // components
 import Button from '../../components/common/Button';
@@ -34,7 +35,9 @@ import AutoCompleteInput from '../../components/common/AutoCompleteInput';
 export default class ClientCreate extends Component {
   constructor(props){
     super(props);
-
+    this.state = {
+      random: Math.random() ,
+    };
     // bind methods
     this.submit = this.submit.bind(this);
   }
@@ -108,7 +111,8 @@ export default class ClientCreate extends Component {
               source={{uri:
                 Strings.googlePlacePhotoURL + '?maxwidth=800&photoreference=' +
                 this._city.detail().photos[
-                  Math.floor(Math.random()*(this._city.detail().photos.length))
+                  Math.floor(this.state.random
+                  *(this._city.detail().photos.length))
                 ].photo_reference +
                 '&key=' + Strings.googleApiKey}}/>
             :
@@ -134,12 +138,34 @@ export default class ClientCreate extends Component {
               defaultText="Enter"
               type="address"
               maxLength={25}
+              onSelect={() => this.forceUpdate()}
               failCondition={!this._city || !this._city.detail()}
               conditionMsg={'Select your destination'}
               location={this._city && this._city.detail() ?
                 this._city.detail().geometry.location.lat + ','
                 + this._city.detail().geometry.location.lng : ''}
               placeholder="Enter the pickup address"/>
+            {this._address && this._address.detail() && (
+            <MapView
+              style={styles.map}
+              scrollEnabled={false}
+              region={{
+                latitude: this._address.detail().geometry.location.lat,
+                longitude: this._address.detail().geometry.location.lng,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+              }}>
+              <MapView.Marker
+                coordinate={{
+                  latitude: this._address.detail().geometry.location.lat,
+                  longitude: this._address.detail().geometry.location.lng,
+                }}
+                title={'Meet-up Location'}
+                description={'100 Queen St W'}
+                pinColor={Colors.Primary}
+              />
+            </MapView>
+            )}
             <NumberPicker
               isBottom
               number={3}
@@ -234,9 +260,14 @@ const styles = StyleSheet.create({
 
   primaryPhoto: {
     flex: 1,
-    width: 400,
+    width: Sizes.width,
     height: 250,
     alignSelf: 'center',
     justifyContent: 'center',
   },
+
+  map: {
+    width: Sizes.width,
+    height: 200
+  }
 });
