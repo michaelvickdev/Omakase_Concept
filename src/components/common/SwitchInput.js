@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingRight: Sizes.OuterFrame
+    paddingRight: Sizes.OuterFrame,
+    marginTop: -10,
+    marginBottom: -10,
   }
 });
