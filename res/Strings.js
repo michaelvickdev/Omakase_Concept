@@ -1,6 +1,5 @@
 export const Strings = {
-  //googleApiKey: 'AIzaSyA5n8zWjgZmUDkkTmwUK1NS3UG-QRBCmAQ',
-  googleApiKey: 'AIzaSyCjecWgW2lq3P2yL6KzA77_oXnKwQImWHg',
+  googleApiKey: 'AIzaSyA5n8zWjgZmUDkkTmwUK1NS3UG-QRBCmAQ',
   googlePlacePhotoURL: 'https://maps.googleapis.com/maps/api/place/photo',
   CreateEventTitle: '',
   NotSpecified: 'Not specified',

@@ -154,8 +154,7 @@ export default class ClientCreate extends Component {
                   latitude: this._address.detail().geometry.location.lat,
                   longitude: this._address.detail().geometry.location.lng,
                 }}
-                title={'Meet-up Location'}
-                description={'100 Queen St W'}
+                title={this._address.detail().name}
                 pinColor={Colors.Primary}
               />
             </MapView>
