@@ -38,13 +38,18 @@ export default class ClientCreate extends Component {
     this.submit = this.submit.bind(this);
   }
 
+
+
   submit() {
+    let timeString = (this._time.val().getHours() % 12 || 12)+ ':'
+      + this._time.val().getMinutes()
+      + (this._time.val().getHours() > 11 ? ' PM' : ' AM');
     Alert.alert(
       'Please confirm this Booking',
       `You are authorizing $${this._price.val()} USD `
       + `on your credit card for your trip to `
-      + `${this._city.val()} on ${this._date.val().toLocaleDateString()}`
-      + `, starting at ${this._time.val().toLocaleTimeString()} for a `
+      + `${this._city.val()} on ${this._date.val().toDateString()}`
+      + `, beginning at ${timeString} for a `
       + `party of ${this._party.val()}. Your pick up location is `
       + `${this._address.val()}`,
       [

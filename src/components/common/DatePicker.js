@@ -87,8 +87,10 @@ export default class DatePicker extends Component {
               <Text style={styles.text}>
                 {
                   this.props.type === 'time'
-                  ? this.state.date.toLocaleTimeString()
-                  : this.state.date.toLocaleDateString()
+                  ? (this.state.date.getHours() % 12 || 12)+ ':'
+                  + this.state.date.getMinutes()
+                  + (this.state.date.getHours() > 11 ? ' PM' : ' AM')
+                  : this.state.date.toDateString()
                 }
               </Text>
             </TouchableHighlight>
