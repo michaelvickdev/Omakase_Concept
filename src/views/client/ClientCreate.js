@@ -46,6 +46,7 @@ export default class ClientCreate extends Component {
 
   submit() {
     let timeString = (this._time.val().getHours() % 12 || 12)+ ':'
+      + (this._time.val().getMinutes() > 9 ? '' : '0')
       + this._time.val().getMinutes()
       + (this._time.val().getHours() > 11 ? ' PM' : ' AM');
     Alert.alert(
