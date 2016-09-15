@@ -125,13 +125,6 @@ export default class ClientCreate extends Component {
               maxLength={30}
               onSelect={() => this.forceUpdate()}
               placeholder="Search City"/>
-            <DatePicker
-              ref={ref => this._date = ref}
-              label="Date" />
-            <DatePicker
-              label="Start Time"
-              ref={ref => this._time = ref}
-              type="time" />
             <AutoCompleteInput
               ref={ref => this._address = ref}
               label="Pickup Address"
@@ -145,6 +138,7 @@ export default class ClientCreate extends Component {
                 this._city.detail().geometry.location.lat + ','
                 + this._city.detail().geometry.location.lng : ''}
               placeholder="Enter the pickup address"/>
+
             {this._address && this._address.detail() && (
             <MapView
               style={styles.map}
@@ -166,6 +160,13 @@ export default class ClientCreate extends Component {
               />
             </MapView>
             )}
+            <DatePicker
+              ref={ref => this._date = ref}
+              label="Date" />
+            <DatePicker
+              label="Start Time"
+              ref={ref => this._time = ref}
+              type="time" />
             <NumberPicker
               isBottom
               number={3}
@@ -173,6 +174,7 @@ export default class ClientCreate extends Component {
               ref={ref => this._party = ref}
               label="Expected Duration"
               subtitle="How many hours?" />
+
             <InputSectionHeader
               label="Party Details" />
             <NumberPicker
