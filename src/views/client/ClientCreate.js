@@ -23,6 +23,7 @@ import InputSectionHeader from '../../components/common/InputSectionHeader';
 import NumberPicker from '../../components/common/NumberPicker';
 import SwitchInput from '../../components/common/SwitchInput';
 import PickerField from '../../components/common/PickerField';
+import SliderInput from '../../components/common/SliderInput';
 import AutoCompleteInput from '../../components/common/AutoCompleteInput';
 
 /**
@@ -47,7 +48,7 @@ export default class ClientCreate extends Component {
     Alert.alert(
       'Please confirm this Booking',
       `You are authorizing $${this._price.val()} USD `
-      + `on your credit card for your trip to `
+      + `on your credit card for your experience in `
       + `${this._city.val()} on ${this._date.val().toDateString()}`
       + `, beginning at ${timeString} for a `
       + `party of ${this._party.val()}. Your pick up location is `
@@ -90,11 +91,11 @@ export default class ClientCreate extends Component {
           <View style={styles.input}>
             <View style={styles.body}>
               <Text style={Styles.Header}>
-                Book a New Trip
+                Book a New Experience
               </Text>
               <Text style={Styles.BodyText}>
                 Let us know where you are heading and the dates and
-                we'll pair you up with a local trip planner to figure
+                we'll pair you up with a local planner to figure
                 out the rest.
               </Text>
             </View>
@@ -172,12 +173,16 @@ export default class ClientCreate extends Component {
               <Picker.Item label="Cantonese" value="Cantonese" />
               <Picker.Item label="Latin" value="Latin" />
             </PickerField>
+            <SliderInput
+              ref={ref => this._excitement = ref}
+              values={['Peacful','Leisurely','Moderate'
+                ,'Adventurous','Thrilled']}
+              label="Excitement" />
             <MultiLineInput
               isBottom
               ref={ref => this._comments = ref}
               label="Additional Comments"
               subtitle="Anything else you would like to tell us?" />
-
             <InputSectionHeader
               label="Terms & Conditions" />
             <SwitchInput
