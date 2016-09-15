@@ -2,7 +2,8 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableOpacity, MapView
+  StyleSheet, View, Text, Dimensions, TouchableOpacity, MapView,
+  Alert
 } from 'react-native';
 import {
   Colors, Sizes
@@ -10,7 +11,9 @@ import {
 import {
   Actions
 } from 'react-native-router-flux'
-import Database from '../../utils/Firebase';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
 
 // components
 import GroupAvatar from '../profile/GroupAvatar';
@@ -22,16 +25,28 @@ import Button from '../common/Button';
  * Creates an array of duplicated UID's based on party sizes.
  * Used for GroupAvatar generation.
  *
- * @param {number} props.contributions.party
+ * @param {number} props.booking.contributions.party
  */
-function expandOnParty(contributions) {
+function expandOnParty(booking) {
   let expanded = [];
-  for (let uid of Object.keys(contributions)) {
-    for (let i = 0; i < contributions[uid].party; i++) {
-      expanded.push(uid);
+  let budget = 0;
+
+  for (let uid of Object.keys(booking.contributions)) {
+    if (
+      booking.contributions[uid].confirmed
+
+      // TODO: remove hack to allow the owner as auto-confirmed
+      // to support legacy data without confirmed
+      || booking.createdBy === uid
+    ) {
+      budget += booking.contributions[uid].budget;
+      for (let i = 0; i < booking.contributions[uid].party; i++) {
+        expanded.push(uid);
+      }
     }
   }
-  return expanded;
+
+  return [expanded, budget];
 }
 
 /**
@@ -43,13 +58,46 @@ export default class BookingCard extends Component {
     this.state = {
       booking: null,
       budget: 0,
-      party: 0,
+      party: [],
+      size: 1,
       visible: false
     };
 
     this.ref = Database.ref(
       `bookings/${this.props.bookingId}`
     );
+    this.join = this.join.bind(this);
+  }
+
+  join() {
+    Alert.alert(
+      'Confirm your Request to Attend',
+      'You are committing to plan and attend this booking '
+      + 'if you are selected by the sponsor.',
+      [
+        {
+          text: 'Cancel'
+        }, {
+          text: 'Confirm',
+          onPress: () => {
+
+            // first the planner is technically a contributor
+            this.ref.child(
+              `contributions/${Firebase.auth().currentUser.uid}`
+            ).set({
+              budget: 0,
+              party: 1
+            });
+
+            // now, tell sponsor that planner is interested
+            this.ref.child(
+              `interested/${Firebase.auth().currentUser.uid}`
+            ).set(true);
+          }
+        }
+      ]
+    )
+    this.ref.child('contributions')
   }
 
   componentDidMount() {
@@ -58,20 +106,12 @@ export default class BookingCard extends Component {
 
         // total total contributions
         let booking = data.val();
+        let [party, budget] = expandOnParty(booking);
         this.setState({
           booking: booking,
-          budget: Object.keys(
-            booking.contributions
-          ).map(
-            uid => booking.contributions[uid].budget
-          ).reduce((total, contribution) => total + contribution, 0),
-          party: Object.keys(
-            booking.contributions
-          ).map(
-            uid => booking.contributions[uid].party
-
-          // party size starts at one due to planner included
-          ).reduce((total, party) => total + party, 1)
+          budget: budget,
+          party: party,
+          size: party.length
         });
       }
     });
@@ -92,9 +132,7 @@ export default class BookingCard extends Component {
           <GroupAvatar
             limit={6}
             uids={
-              this.state.booking && expandOnParty(
-                this.state.booking.contributions
-              )
+              this.state.party
             } />
           <View>
             <View style={styles.detailsContainer}>
@@ -109,7 +147,7 @@ export default class BookingCard extends Component {
                 styles.right
               ]}>
                 {`$${
-                  (this.state.budget / this.state.party).toFixed(2)
+                  (this.state.budget / (this.state.size + 1)).toFixed(2)
                 }/person`}
               </Text>
             </View>
@@ -138,12 +176,16 @@ export default class BookingCard extends Component {
             <InformationField
               label="Party Size"
               color={Colors.Transparent}
-              info={`${this.state.party - 1} (Ages 19-29)`} />
+              info={`${this.state.size} (Ages 19-29)`} />
 
             <InformationField
               label="Looking for"
               color={Colors.Transparent}
-              info="1 Person" />
+              info={
+                this.state.booking && this.state.booking.space > 1
+                ? `${this.state.booking.space} people`
+                : '1 person'
+              } />
             <InformationField
               icon="record-voice-over"
               color={Colors.Transparent}
@@ -163,6 +205,7 @@ export default class BookingCard extends Component {
               color={Colors.Green}
               fontColor={Colors.AlternateText}
               icon="move-to-inbox"
+              onPress={this.join}
               label="Request to Join" />
           </View>
         )}
