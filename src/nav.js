@@ -19,6 +19,7 @@ import Loader from './views/Loader';
 import Login from './views/Login';
 import Tutorial from './views/Tutorial';
 import SideMenu from './components/SideMenu';
+import Profile from './views/Profile';
 
 // clients components
 import ClientMain from './views/client/ClientMain';
@@ -80,6 +81,9 @@ export default class Navigation extends Component {
             leftButtonIconStyle = {styles.navButtons}
             rightButtonIconStyle = {styles.navButtons}
             drawerImage = {require("../res/img/menu.png")}>
+          <Scene key="profile"
+            component={Profile}
+            hideNavBar={false} />
           <Scene key="loader"
             initial={true}
             component={Loader}

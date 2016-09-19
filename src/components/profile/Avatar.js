@@ -35,7 +35,7 @@ export default class Avatar extends Component {
 
   componentDidMount() {
     this.profileListener = this.profileRef.on('value', data => {
-      if (data.val()) {
+      if (data.exists()) {
 
         // save ref to unlisten later
         this.photoRef = Database.ref(

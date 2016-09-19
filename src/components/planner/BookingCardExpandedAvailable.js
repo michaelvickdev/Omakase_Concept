@@ -9,7 +9,7 @@ import {
 } from '../../../res/Constants';
 import {
   Actions
-} from 'react-native-router-flux'
+} from 'react-native-router-flux';
 import Database, {
   Firebase
 } from '../../utils/Firebase';
