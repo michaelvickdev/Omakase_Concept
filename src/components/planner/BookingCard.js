@@ -13,14 +13,10 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
-import MapView from 'react-native-maps';
-
 
 // components
 import GroupAvatar from '../profile/GroupAvatar';
-import InputField from '../common/InputField';
-import InformationField from '../common/InformationField';
-import Button from '../common/Button';
+import BookingCardExpandedAvailable from './BookingCardExpandedAvailable';
 
 /**
  * Creates an array of duplicated UID's based on party sizes.
@@ -28,7 +24,7 @@ import Button from '../common/Button';
  *
  * @param {number} props.booking.contributions.party
  */
-function expandOnParty(booking) {
+export function expandOnParty(booking) {
   let expanded = [];
   let budget = 0;
 
@@ -155,61 +151,10 @@ export default class BookingCard extends Component {
           </View>
         </TouchableOpacity>
         {this.state.visible && (
-          <View style={styles.expandedContainer}>
-            <MapView
-              style={styles.map}
-              scrollEnabled={false}
-              region={{
-                latitude: 43.653226,
-                longitude: -79.383184,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01
-              }}>
-              <MapView.Marker
-                coordinate={{
-                  latitude: 43.653226,
-                  longitude: -79.383184,
-                }}
-                title={'Meet-up Location'}
-                description={'100 Queen St W'}
-                pinColor={Colors.Primary}
-              />
-            </MapView>
-            <InformationField
-              label="Party Size"
-              color={Colors.Transparent}
-              info={`${this.state.size} (Ages 19-29)`} />
-
-            <InformationField
-              label="Looking for"
-              color={Colors.Transparent}
-              info={
-                this.state.booking && this.state.booking.space > 1
-                ? `${this.state.booking.space} people`
-                : '1 person'
-              } />
-            <InformationField
-              icon="record-voice-over"
-              color={Colors.Transparent}
-              info="English, Italian, and Cantonese" />
-            <InformationField
-              isBottom
-              noMargin
-              color={Colors.Transparent}
-              icon="directions-run"
-              info="Leisurely" />
-            <Button
-              squareBorders
-              style={{
-                paddingTop: Sizes.InnerFrame,
-                paddingBottom: Sizes.InnerFrame
-              }}
-              color={Colors.Green}
-              fontColor={Colors.AlternateText}
-              icon="move-to-inbox"
-              onPress={this.join}
-              label="Request to Join" />
-          </View>
+          <BookingCardExpandedAvailable
+            bookingId={this.props.bookingId}
+            booking={this.state.booking}
+            size={this.state.size} />
         )}
       </View>
     );
@@ -226,11 +171,6 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.ItemSpacer
   },
 
-  detailsContainer: {
-    flexDirection: 'column',
-    alignSelf: 'flex-end',
-  },
-
   right: {
     textAlign: 'right'
   },
@@ -243,12 +183,4 @@ const styles = StyleSheet.create({
     fontSize: Sizes.H2,
     color: Colors.Text
   },
-
-  expandedContainer: {
-  },
-
-  map: {
-    width: Sizes.width,
-    height: 200
-  }
 });
