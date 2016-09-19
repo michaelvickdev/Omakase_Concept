@@ -119,6 +119,38 @@ export default class BookingCard extends Component {
   }
 
   render() {
+
+    // expanded view is different based on the current stage
+    // only render if we have a booking loaded
+    let expanded = null;
+    if (this.state.booking) {
+
+      // the viewer is the designed planner
+      if (
+        this.state.booking.planner === Firebase.auth().currentUser.uid
+      ) {
+        expanded = null;
+
+      // the viewer is interested, but not yet accepted
+      } else if (
+        this.state.booking.interested
+        && Object.keys(this.state.booking.interested).indexOf(
+          Firebase.auth().currentUser.uid
+        ) >= 0
+      ) {
+        expanded = null;
+
+      // available to be interested in
+      } else {
+        expanded = (
+          <BookingCardExpandedAvailable
+            bookingId={this.props.bookingId}
+            booking={this.state.booking}
+            size={this.state.size} />
+        );
+      }
+    }
+
     return (
       <View>
         <TouchableOpacity
@@ -150,12 +182,7 @@ export default class BookingCard extends Component {
             </View>
           </View>
         </TouchableOpacity>
-        {this.state.visible && (
-          <BookingCardExpandedAvailable
-            bookingId={this.props.bookingId}
-            booking={this.state.booking}
-            size={this.state.size} />
-        )}
+        {this.state.visible && expanded}
       </View>
     );
   }
