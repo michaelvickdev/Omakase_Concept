@@ -7,6 +7,9 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux';
 
 // components
 import Avatar from './Avatar';
@@ -55,11 +58,13 @@ export default class GroupAvatar extends Component {
         {
           this.state.visible.map(uid => (
             <View
-              key={`${uid}-${Math.random()}`}
-              style={styles.outline}>
+              style={styles.outline}
+              key={`${uid}-${Math.random()}`}>
               <Avatar
+                outline
+                onPress={() => Actions.profile({uid: uid})}
                 color={this.props.color || Colors.Primary}
-                size={35}
+                size={40}
                 uid={uid} />
             </View>
           ))
@@ -96,13 +101,8 @@ const styles = StyleSheet.create({
 
   outline: {
     marginRight: -7,
-    height: 40,
-    width: 40,
-    borderRadius: 20,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.Background,
-    overflow: 'hidden'
+    justifyContent: 'center'
   },
 
   collapsedContainer: {

@@ -56,8 +56,25 @@ export default class Avatar extends Component {
   }
 
   render() {
+    let innerSize = (
+      this.props.outline
+      ? (this.props.size || 20) - (this.props.size * 0.1)
+      : (this.props.size || 20)
+    );
+
     return (
       <TouchableHighlight
+        style={[
+          styles.container,
+          this.props.size && {
+            width: this.props.size,
+            height: this.props.size,
+            borderRadius: this.props.size / 2
+          },
+          this.props.outlineColor && {
+            backgroundColor: this.props.outlineColor
+          }
+        ]}
         onPress={this.props.onPress}
         underlayColor={Colors.Transparent}>
         <Image
@@ -65,9 +82,12 @@ export default class Avatar extends Component {
             styles.avatar,
             this.props.style,
             this.props.size && {
-              width: this.props.size,
-              height: this.props.size,
-              borderRadius: this.props.size / 2
+              width: innerSize,
+              height: innerSize,
+              borderRadius: innerSize / 2
+            },
+            this.props.color && {
+              backgroundColor: this.props.color
             }
           ]}
           source={{uri: this.state.url}} />
@@ -77,6 +97,16 @@ export default class Avatar extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.Background,
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   avatar: {
     backgroundColor: Colors.Primary,
     borderRadius: 10,
