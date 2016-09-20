@@ -100,15 +100,19 @@ const styles = StyleSheet.create({
   },
 
   outline: {
+    height: 40,
+    width: 40,
+    borderRadius: 40 / 2,
     marginRight: -7,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: Colors.Background
   },
 
   collapsedContainer: {
-    height: 35,
-    width: 35,
-    borderRadius: 35 / 2,
+    height: 36,
+    width: 36,
+    borderRadius: 36 / 2,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden'

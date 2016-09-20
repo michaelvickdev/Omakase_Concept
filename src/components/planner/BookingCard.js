@@ -5,7 +5,7 @@ import {
   StyleSheet, View, Text, Dimensions, TouchableOpacity, Alert
 } from 'react-native';
 import {
-  Colors, Sizes
+  Colors, Sizes, Styles
 } from '../../../res/Constants';
 import {
   Actions
@@ -57,44 +57,14 @@ export default class BookingCard extends Component {
       budget: 0,
       party: [],
       size: 1,
-      visible: false
+      visible: false,
+      stage: 0
     };
 
     this.ref = Database.ref(
       `bookings/${this.props.bookingId}`
     );
-    this.join = this.join.bind(this);
-  }
-
-  join() {
-    Alert.alert(
-      'Confirm your Request to Attend',
-      'You are committing to plan and attend this booking '
-      + 'if you are selected by the sponsor.',
-      [
-        {
-          text: 'Cancel'
-        }, {
-          text: 'Confirm',
-          onPress: () => {
-
-            // first the planner is technically a contributor
-            this.ref.child(
-              `contributions/${Firebase.auth().currentUser.uid}`
-            ).set({
-              budget: 0,
-              party: 1
-            });
-
-            // now, tell sponsor that planner is interested
-            this.ref.child(
-              `interested/${Firebase.auth().currentUser.uid}`
-            ).set(true);
-          }
-        }
-      ]
-    )
-    this.ref.child('contributions')
+    this.onPress = this.onPress.bind(this);
   }
 
   componentDidMount() {
@@ -110,6 +80,30 @@ export default class BookingCard extends Component {
           party: party,
           size: party.length
         });
+
+        // determine the current stage of booking
+        // 0 - available
+        // 1 - applied
+        // 2 - selected
+        // 3 - unavailable (selected other)
+        if (booking) {
+          if (
+            booking.planner === Firebase.auth().currentUser.uid
+          ) {
+            this.setState({stage: 2});
+          } else if (booking.planner) {
+            this.setState({stage: 3});
+          } else if (
+            booking.interested
+            && Object.keys(booking.interested).indexOf(
+              Firebase.auth().currentUser.uid
+            ) >= 0
+          ) {
+            this.setState({stage: 1});
+          } else {
+            this.setState({stage: 0});
+          }
+        }
       }
     });
   }
@@ -119,45 +113,11 @@ export default class BookingCard extends Component {
   }
 
   render() {
-
-    // expanded view is different based on the current stage
-    // only render if we have a booking loaded
-    let expanded = null;
-    if (this.state.booking) {
-
-      // the viewer is the designed planner
-      if (
-        this.state.booking.planner === Firebase.auth().currentUser.uid
-      ) {
-        expanded = null;
-
-      // the viewer is interested, but not yet accepted
-      } else if (
-        this.state.booking.interested
-        && Object.keys(this.state.booking.interested).indexOf(
-          Firebase.auth().currentUser.uid
-        ) >= 0
-      ) {
-        expanded = null;
-
-      // available to be interested in
-      } else {
-        expanded = (
-          <BookingCardExpandedAvailable
-            bookingId={this.props.bookingId}
-            booking={this.state.booking}
-            size={this.state.size} />
-        );
-      }
-    }
-
     return (
       <View>
         <TouchableOpacity
           style={styles.container}
-          onPress={() => this.setState({
-            visible: !this.state.visible
-          })}>
+          onPress={this.onPress}>
           <GroupAvatar
             limit={6}
             uids={
@@ -166,25 +126,55 @@ export default class BookingCard extends Component {
           <View>
             <View style={styles.detailsContainer}>
               <Text style={[
-                styles.budget,
+                Styles.Header,
                 styles.right
               ]}>
-                {`$${this.state.budget.toFixed(2)}`}
+                {`$${(
+                  this.state.budget / (
+
+                    // add extra person if not confirmed yet
+                    this.state.size + (this.state.stage < 2 ? 1: 0)
+                  )
+                ).toFixed(0)}`}
               </Text>
               <Text style={[
                 styles.details,
                 styles.right
               ]}>
-                {`$${
-                  (this.state.budget / (this.state.size + 1)).toFixed(2)
-                }/person`}
+                per person
               </Text>
             </View>
           </View>
         </TouchableOpacity>
-        {this.state.visible && expanded}
+        {this.state.visible && (() => {
+          switch(this.state.stage) {
+            default: return (
+              <BookingCardExpandedAvailable
+                booking={this.state.booking}
+                bookingId={this.props.bookingId}
+                size={this.state.size} />
+            );
+          }
+        })()}
       </View>
     );
+  }
+
+  onPress() {
+    switch(this.state.stage) {
+      case 1:
+        Actions.plannerRequestDetail({bookingId: this.props.bookingId});
+        break;
+      case 2:
+        Actions.plannerRequestDetail({bookingId: this.props.bookingId});
+        break;
+      case 3:
+        break;
+      default:
+        this.setState({
+          visible: !this.state.visible
+        });
+    }
   }
 }
 
@@ -199,15 +189,12 @@ const styles = StyleSheet.create({
   },
 
   right: {
-    textAlign: 'right'
+    textAlign: 'right',
+    paddingRight: 0,
+    paddingLeft: 0
   },
 
   details: {
     fontSize: Sizes.SmallText
-  },
-
-  budget: {
-    fontSize: Sizes.H2,
-    color: Colors.Text
-  },
+  }
 });
