@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text
+  StyleSheet, View, Text, TouchableOpacity
 } from 'react-native';
 import {
   Colors, Sizes, Styles
@@ -10,6 +10,9 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import {
+  Actions
+} from 'react-native-router-flux';
 import {
   expandOnParty
 } from '../../components/planner/BookingCard';
@@ -24,7 +27,7 @@ export default class PlannerRequestDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      booking: null
+      booking: {}
     };
 
     this.ref = Database.ref(
@@ -96,11 +99,14 @@ export default class PlannerRequestDetail extends Component {
             info="Leisurely" />
 
           <InputSectionHeader label="Sponsor Profile" />
-          <InformationField
-            isTop
-            label="Name"
-            color={Colors.White}
-            info="Kenneth Ma" />
+          <TouchableOpacity
+            onPress={() => Actions.profile({uid: this.state.booking.createdBy})}>
+            <InformationField
+              isTop
+              label="Name"
+              color={Colors.White}
+              info="Kenneth Ma" />
+          </TouchableOpacity>
           <InformationField
             isBottom
             label="Languages Spoken"
