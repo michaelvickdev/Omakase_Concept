@@ -7,16 +7,25 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
-import DateFormat from 'dateformat';
 
 // components
+import ParallaxView from 'react-native-parallax-view';
 
 export default class PlannerRequestDetail extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>{this.props.bookingId}</Text>
-      </View>
+      <ParallaxView
+        backgroundSource={require('../../../res/img/profile_bg.jpg')}
+        windowHeight={300}
+        header={(
+          <View>
+            <Text>{this.props.bookingId}</Text>
+          </View>
+        )}>
+        <View>
+          <Text>Hello</Text>
+        </View>
+      </ParallaxView>
     );
   }
 }
