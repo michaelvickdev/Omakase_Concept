@@ -22,6 +22,7 @@ import ParallaxView from 'react-native-parallax-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
+import Activity from '../../components/planner/Activity';
 
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
@@ -77,42 +78,44 @@ export default class PlannerRequestDetail extends Component {
             </View>
           </View>
         )}>
-        <View style={styles.body}>
-          <Text style={styles.status}>
-            We're still waiting to hear back from the sponsor before
-            you should start planning things to do.
-          </Text>
-          <InputSectionHeader label="Adventure Criteria" />
+        <Text style={styles.status}>
+          We're still waiting to hear back from the sponsor before
+          you should start planning things to do.
+        </Text>
+        <InputSectionHeader label="Adventure Criteria" />
+        <InformationField
+          isTop
+          label="Adventure Date"
+          color={Colors.White}
+          info="September 18th, 2016" />
+        <InformationField
+          label="Meeting Location"
+          color={Colors.White}
+          info="1839 Queen Street W, Toronto, ON" />
+        <InformationField
+          isBottom
+          label="Excitement Level"
+          color={Colors.White}
+          info="Leisurely" />
+
+        <InputSectionHeader label="Sponsor Profile" />
+        <TouchableOpacity
+          onPress={() => Actions.profile({
+            uid: this.state.booking.createdBy
+          })}>
           <InformationField
             isTop
-            label="Adventure Date"
+            label="Name"
             color={Colors.White}
-            info="September 18th, 2016" />
-          <InformationField
-            label="Meeting Location"
-            color={Colors.White}
-            info="1839 Queen Street W, Toronto, ON" />
-          <InformationField
-            isBottom
-            label="Excitement Level"
-            color={Colors.White}
-            info="Leisurely" />
-
-          <InputSectionHeader label="Sponsor Profile" />
-          <TouchableOpacity
-            onPress={() => Actions.profile({uid: this.state.booking.createdBy})}>
-            <InformationField
-              isTop
-              label="Name"
-              color={Colors.White}
-              info="Kenneth Ma" />
-          </TouchableOpacity>
-          <InformationField
-            isBottom
-            label="Languages Spoken"
-            color={Colors.White}
-            info="English, and Cantonese" />
-        </View>
+            info="Kenneth Ma" />
+        </TouchableOpacity>
+        <InformationField
+          isBottom
+          label="Languages Spoken"
+          color={Colors.White}
+          info="English, and Cantonese" />
+        <Activity activityId="-KEJWEHEJjeweh-wehe-ej2" />
+        <Activity activityId="-KEKWEJJEWjejw-wejwejweejw2jn" />
       </ParallaxView>
     );
   }
@@ -120,7 +123,7 @@ export default class PlannerRequestDetail extends Component {
 
 const styles = StyleSheet.create({
   headerScroll: {
-    backgroundColor: Colors.Primary
+    backgroundColor: Colors.Background
   },
 
   headerContainer: {
@@ -141,13 +144,6 @@ const styles = StyleSheet.create({
 
   title: {
     color: Colors.AlternateText
-  },
-
-  body: {
-
-    // to compensate for the header
-    height: Sizes.height - 170,
-    backgroundColor: Colors.Background
   },
 
   status: {
