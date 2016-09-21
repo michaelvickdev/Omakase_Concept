@@ -45,17 +45,19 @@ export default class ClientCreate extends Component {
 
 
   submit() {
-    let timeString = (this._time.val().getHours() % 12 || 12)+ ':'
-      + (this._time.val().getMinutes() > 9 ? '' : '0')
-      + this._time.val().getMinutes()
-      + (this._time.val().getHours() > 11 ? ' PM' : ' AM');
+    let reqtime =(new Date(
+      this._date.val().getUTCFullYear(),
+      this._date.val().getUTCMonth(),
+      this._date.val().getUTCDate()
+    )).valueOf();
+    console.log('requestedTime ', reqtime)
+
     Alert.alert(
       'Please confirm this Booking',
       `You are authorizing $${this._price.val()} USD `
       + `on your credit card for your experience in `
-      + `${this._city.val()} on ${this._date.val().toDateString()}`
-      + `, beginning at ${timeString} for a `
-      + `party of ${this._party.val()}. Your pick up location is `
+      + `${this._city.val()} on ${this._date.val().toDateString()} `
+      + `for a party of ${this._party.val()}. Your pick up location is `
       + `${this._address.val()}`,
       [
         {
@@ -69,16 +71,14 @@ export default class ClientCreate extends Component {
               requestedTime: (new Date(
                 this._date.val().getUTCFullYear(),
                 this._date.val().getUTCMonth(),
-                this._date.val().getUTCDate(),
-                this._time.val().getUTCHours(),
-                this._time.val().getUTCMinutes()
+                this._date.val().getUTCDate()
               )).valueOf(),
-              occasion: this._occasion.val(),
+              excitement: this._excitement.val(),
+              space: 2,
               contributions: {
                 [Firebase.auth().currentUser.uid]: {
                   budget: this._price.val() * this._party.val(),
                   party: this._party.val(),
-                  exceptions: ''
                 }
               }
             }, error => Actions.clientPlannerChoice());
@@ -161,19 +161,9 @@ export default class ClientCreate extends Component {
             </MapView>
             )}
             <DatePicker
+              isBottom
               ref={ref => this._date = ref}
               label="Date" />
-            <DatePicker
-              label="Start Time"
-              ref={ref => this._time = ref}
-              type="time" />
-            <NumberPicker
-              isBottom
-              number={3}
-              min={1}
-              ref={ref => this._party = ref}
-              label="Expected Duration"
-              subtitle="How many hours?" />
 
             <InputSectionHeader
               label="Party Details" />
@@ -192,7 +182,7 @@ export default class ClientCreate extends Component {
               label="# of People" />
             <PickerField
               label="Language"
-              ref={ref => this._occasion = ref}
+              ref={ref => this._language = ref}
               subtitle="Tell us what you are comfortable with"
               defaultVal="English">
               <Picker.Item label="English" value="English" />
