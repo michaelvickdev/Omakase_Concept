@@ -74,7 +74,7 @@ export default class ClientCreate extends Component {
                 this._date.val().getUTCDate()
               )).valueOf(),
               excitement: this._excitement.val(),
-              space: 2,
+              space: this._space.val(),
               contributions: {
                 [Firebase.auth().currentUser.uid]: {
                   budget: this._price.val() * this._party.val(),
@@ -169,17 +169,17 @@ export default class ClientCreate extends Component {
               label="Party Details" />
             <NumberPicker
               isTop
+              number={2}
+              min={1}
+              ref={ref => this._party = ref}
+              label="# of People" />
+            <NumberPicker
               number={100}
               min={50}
               interval={10}
               label="Budget"
               ref={ref => this._price = ref}
               subtitle="For the party (in USD$)" />
-            <NumberPicker
-              number={2}
-              min={1}
-              ref={ref => this._party = ref}
-              label="# of People" />
             <PickerField
               label="Language"
               ref={ref => this._language = ref}
@@ -191,6 +191,11 @@ export default class ClientCreate extends Component {
               <Picker.Item label="Cantonese" value="Cantonese" />
               <Picker.Item label="Latin" value="Latin" />
             </PickerField>
+            <NumberPicker
+              number={2}
+              min={1}
+              ref={ref => this._space = ref}
+              label="# of Guides" />
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'
