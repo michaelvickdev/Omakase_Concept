@@ -11,8 +11,9 @@ import {
   Colors, Sizes, Styles, Strings
 } from '../../../res/Constants';
 import Database, {
-  Firebase
+  Firebase, geoFire
 } from '../../utils/Firebase';
+import GeoFire from 'geofire';
 import MapView from 'react-native-maps';
 
 // components
@@ -50,7 +51,6 @@ export default class ClientCreate extends Component {
       this._date.val().getUTCMonth(),
       this._date.val().getUTCDate()
     )).valueOf();
-    console.log('requestedTime ', reqtime)
 
     Alert.alert(
       'Please confirm this Booking',
@@ -66,7 +66,7 @@ export default class ClientCreate extends Component {
         {
           text: 'Confirm Booking',
           onPress: () => {
-            Database.ref('bookings').push({
+            let bookingRef = Database.ref('bookings').push({
               createdBy: Firebase.auth().currentUser.uid,
               requestedTime: (new Date(
                 this._date.val().getUTCFullYear(),
@@ -82,6 +82,15 @@ export default class ClientCreate extends Component {
                 }
               }
             }, error => Actions.clientPlannerChoice());
+
+            let geoFire = new GeoFire(bookingRef);
+            geoFire.set("location", [37.79, -122.41]).then(() => {
+              console.log("Provided keys have been added to GeoFire");
+            }, error => {
+              console.log("Error: " + error);
+            });
+
+
           }
         }
       ]
@@ -195,7 +204,8 @@ export default class ClientCreate extends Component {
               number={2}
               min={1}
               ref={ref => this._space = ref}
-              label="# of Guides" />
+              label="# of Guides"
+              subtitle="How many guides are you expecting" />
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'
