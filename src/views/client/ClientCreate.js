@@ -84,8 +84,8 @@ export default class ClientCreate extends Component {
                 }
               }, error => Actions.clientPlannerChoice());
 
-              let geoFire = new GeoFire(bookingRef);
-              geoFire.set("location", [
+              let geoFire = new GeoFire(Database.ref('locations'));
+              geoFire.set(bookingRef.key, [
                   this._address.detail().geometry.location.lat,
                   this._address.detail().geometry.location.lng
                 ]).then(() => {
