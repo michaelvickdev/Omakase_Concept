@@ -52,7 +52,7 @@ export default class ClientCreate extends Component {
       this._date.val().getUTCDate()
     )).valueOf();
 
-    if (this._address.val()){
+    if (this._address.val() && this._terms.val()){
       Alert.alert(
         'Please confirm this Booking',
         `You are authorizing $${this._price.val()} USD `
@@ -76,6 +76,8 @@ export default class ClientCreate extends Component {
                 )).valueOf(),
                 excitement: this._excitement.val(),
                 space: this._space.val(),
+                city: this._city.val(),
+                address: this._address.val(),
                 contributions: {
                   [Firebase.auth().currentUser.uid]: {
                     budget: this._price.val() * this._party.val(),
@@ -96,6 +98,12 @@ export default class ClientCreate extends Component {
             }
           }
         ]
+      );
+    } else if (!this._terms.val()){
+      Alert.alert(
+        'Terms and Conditions',
+        `Please review and accept the terms and conditions to `
+        + `continue with your booking. `
       );
     } else {
       Alert.alert(
@@ -231,6 +239,7 @@ export default class ClientCreate extends Component {
             <SwitchInput
               isTop
               isBottom
+              ref={ref => this._terms = ref}
               label="I Accept"
               subtitle="http://omakase.com/tos" />
           </View>
