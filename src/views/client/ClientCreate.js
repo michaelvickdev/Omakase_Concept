@@ -11,8 +11,9 @@ import {
   Colors, Sizes, Styles, Strings
 } from '../../../res/Constants';
 import Database, {
-  Firebase
+  Firebase, geoFire
 } from '../../utils/Firebase';
+import GeoFire from 'geofire';
 import MapView from 'react-native-maps';
 
 // components
@@ -50,42 +51,68 @@ export default class ClientCreate extends Component {
       this._date.val().getUTCMonth(),
       this._date.val().getUTCDate()
     )).valueOf();
-    console.log('requestedTime ', reqtime)
 
-    Alert.alert(
-      'Please confirm this Booking',
-      `You are authorizing $${this._price.val()} USD `
-      + `on your credit card for your experience in `
-      + `${this._city.val()} on ${this._date.val().toDateString()} `
-      + `for a party of ${this._party.val()}. Your pick up location is `
-      + `${this._address.val()}`,
-      [
-        {
-          text: 'I need to make changes'
-        },
-        {
-          text: 'Confirm Booking',
-          onPress: () => {
-            Database.ref('bookings').push({
-              createdBy: Firebase.auth().currentUser.uid,
-              requestedTime: (new Date(
-                this._date.val().getUTCFullYear(),
-                this._date.val().getUTCMonth(),
-                this._date.val().getUTCDate()
-              )).valueOf(),
-              excitement: this._excitement.val(),
-              space: this._space.val(),
-              contributions: {
-                [Firebase.auth().currentUser.uid]: {
-                  budget: this._price.val() * this._party.val(),
-                  party: this._party.val(),
+    if (this._address.val() && this._terms.val()){
+      Alert.alert(
+        'Please confirm this Booking',
+        `You are authorizing $${this._price.val()} USD `
+        + `on your credit card for your experience in `
+        + `${this._city.val()} on ${this._date.val().toDateString()} `
+        + `for a party of ${this._party.val()}. Your pick up location is `
+        + `${this._address.val()}`,
+        [
+          {
+            text: 'I need to make changes'
+          },
+          {
+            text: 'Confirm Booking',
+            onPress: () => {
+              let bookingRef = Database.ref('bookings').push({
+                createdBy: Firebase.auth().currentUser.uid,
+                requestedTime: (new Date(
+                  this._date.val().getUTCFullYear(),
+                  this._date.val().getUTCMonth(),
+                  this._date.val().getUTCDate()
+                )).valueOf(),
+                excitement: this._excitement.val(),
+                space: this._space.val(),
+                city: this._city.val(),
+                address: this._address.val(),
+                contributions: {
+                  [Firebase.auth().currentUser.uid]: {
+                    budget: this._price.val() * this._party.val(),
+                    party: this._party.val(),
+                  }
                 }
-              }
-            }, error => Actions.clientPlannerChoice());
+              }, error => Actions.clientPlannerChoice());
+
+              let geoFire = new GeoFire(Database.ref('locations'));
+              geoFire.set(bookingRef.key, [
+                  this._address.detail().geometry.location.lat,
+                  this._address.detail().geometry.location.lng
+                ]).then(() => {
+                console.log("Provided keys have been added to GeoFire");
+              }, error => {
+                console.log("Error: " + error);
+              });
+            }
           }
-        }
-      ]
-    );
+        ]
+      );
+    } else if (!this._terms.val()){
+      Alert.alert(
+        'Terms and Conditions',
+        `Please review and accept the terms and conditions to `
+        + `continue with your booking. `
+      );
+    } else {
+      Alert.alert(
+        'Oops!',
+        `You did not select a pick up address where you would like `
+        + `to meet your planner. Please enter the pick up address `
+        + `to proceed with your booking.`
+      );
+    }
   }
 
   render() {
@@ -195,7 +222,8 @@ export default class ClientCreate extends Component {
               number={2}
               min={1}
               ref={ref => this._space = ref}
-              label="# of Guides" />
+              label="# of Guides"
+              subtitle="How many guides are you expecting" />
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'
@@ -211,6 +239,7 @@ export default class ClientCreate extends Component {
             <SwitchInput
               isTop
               isBottom
+              ref={ref => this._terms = ref}
               label="I Accept"
               subtitle="http://omakase.com/tos" />
           </View>
