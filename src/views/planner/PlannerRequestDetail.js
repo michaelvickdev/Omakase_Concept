@@ -21,6 +21,8 @@ import {
 import ParallaxView from 'react-native-parallax-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
+import InputField from '../../components/common/InputField';
+import Excitement from '../../components/common/Excitement';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import Activity from '../../components/planner/Activity';
 
@@ -94,11 +96,15 @@ export default class PlannerRequestDetail extends Component {
           label="Meeting Location"
           color={Colors.White}
           info={this.state.booking && this.state.booking.address} />
-        <InformationField
+        <InputField
           isBottom
           label="Excitement Level"
           color={Colors.White}
-          info="Leisurely" />
+          field={
+            <Excitement
+              style={styles.excitement}
+              level={this.state.booking.excitement || 0} />
+          } />
 
         <InputSectionHeader label="Sponsor Profile" />
         <TouchableOpacity
@@ -151,5 +157,11 @@ const styles = StyleSheet.create({
     padding: Sizes.InnerFrame,
     backgroundColor: Colors.Primary,
     color: Colors.AlternateText
+  },
+
+  excitement: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingRight: Sizes.OuterFrame
   }
 });

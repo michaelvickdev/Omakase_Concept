@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // components
 import GroupAvatar from '../profile/GroupAvatar';
 import BookingCardExpandedAvailable from './BookingCardExpandedAvailable';
+import Excitement from '../common/Excitement';
 
 /**
  * Creates an array of duplicated UID's based on party sizes.
@@ -157,17 +158,13 @@ export default class BookingCard extends Component {
               ]}>
                 per person
               </Text>
-              <View style={styles.excitementContainer}>
-                {
+              <Excitement
+                level={
                   this.state.booking
                   && this.state.booking.excitement
-                  && [...Array(this.state.booking.excitement)].map(i => (
-                    <Icon
-                      key={Math.random()}
-                      name="directions-run" />
-                  ))
+                  || 0
                 }
-              </View>
+                style={styles.excitement} />
             </View>
           </View>
         </TouchableOpacity>
@@ -224,9 +221,8 @@ const styles = StyleSheet.create({
     fontSize: Sizes.SmallText
   },
 
-  excitementContainer: {
+  excitement: {
     marginTop: Sizes.InnerFrame,
-    flexDirection: 'row',
     justifyContent: 'flex-end'
   }
 });
