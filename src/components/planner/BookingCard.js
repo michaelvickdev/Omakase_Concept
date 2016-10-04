@@ -131,7 +131,10 @@ export default class BookingCard extends Component {
     return (
       <View>
         <TouchableOpacity
-          style={styles.container}
+          style={[
+            styles.container,
+            this.state.stage === 2 && styles.activeBg
+          ]}
           onPress={this.onPress}>
           <GroupAvatar
             limit={6}
@@ -142,7 +145,8 @@ export default class BookingCard extends Component {
             <View style={styles.detailsContainer}>
               <Text style={[
                 Styles.Header,
-                styles.right
+                styles.right,
+                this.state.stage === 2 && styles.activeText
               ]}>
                 {`$${(
                   this.state.budget / (
@@ -154,7 +158,8 @@ export default class BookingCard extends Component {
               </Text>
               <Text style={[
                 styles.details,
-                styles.right
+                styles.right,
+                this.state.stage === 2 && styles.activeText
               ]}>
                 per person
               </Text>
@@ -164,7 +169,8 @@ export default class BookingCard extends Component {
                   && this.state.booking.excitement
                   || 0
                 }
-                style={styles.excitement} />
+                style={styles.excitement}
+                color={this.state.stage === 2 ? Colors.AlternateText: null} />
             </View>
           </View>
         </TouchableOpacity>
@@ -224,5 +230,13 @@ const styles = StyleSheet.create({
   excitement: {
     marginTop: Sizes.InnerFrame,
     justifyContent: 'flex-end'
+  },
+
+  activeBg: {
+    backgroundColor: Colors.Green
+  },
+
+  activeText: {
+    color: Colors.AlternateText
   }
 });

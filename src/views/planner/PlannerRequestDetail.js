@@ -16,6 +16,7 @@ import {
 import {
   expandOnParty
 } from '../../components/planner/BookingCard';
+import DateFormat from 'dateformat';
 
 // components
 import ParallaxView from 'react-native-parallax-view';
@@ -58,6 +59,12 @@ export default class PlannerRequestDetail extends Component {
   }
 
   render() {
+    let a = (
+      this.state.booking
+      && this.state.booking.languages
+      || []
+    );
+
     return (
       <ParallaxView
         backgroundSource={require('../../../res/img/profile_bg.jpg')}
@@ -80,22 +87,40 @@ export default class PlannerRequestDetail extends Component {
             </View>
           </View>
         )}>
-        <Text style={styles.status}>
-          {
-            'We\'re still waiting to hear back from the sponsor before '
-            + 'you should start planning things to do.'
-          }
-        </Text>
-        <InputSectionHeader label="Adventure Criteria" />
+        {
+          this.state.booking
+          && this.state.booking.planner != Firebase.auth().currentUser.uid
+          && (
+            <Text style={styles.status}>
+              {
+                'We\'re still waiting to hear back from the sponsor before '
+                + 'you should start planning things to do.'
+              }
+            </Text>
+          )
+        }
+        <InputSectionHeader
+          style={styles.top}
+          label="Adventure Criteria" />
         <InformationField
           isTop
           label="Adventure Date"
           color={Colors.White}
-          info="September 18th, 2016" />
+          info={DateFormat(
+            this.state.booking
+            && this.state.booking.requestedTime
+            && new Date(this.state.booking.requestedTime)
+            || new Date(),
+            'mmmm dS, yyyy'
+          )} />
         <InformationField
           label="Meeting Location"
           color={Colors.White}
-          info={this.state.booking && this.state.booking.address} />
+          info={
+            this.state.booking
+            && this.state.booking.address
+            || 'Unknown'
+          } />
         <InputField
           isBottom
           label="Excitement Level"
@@ -121,7 +146,12 @@ export default class PlannerRequestDetail extends Component {
           isBottom
           label="Languages Spoken"
           color={Colors.White}
-          info="English, and Cantonese" />
+          info={
+            a.join(', ').replace(/,([^,]+)$/,`${a[2] ? ',': ''} and$1`)
+
+            // default english
+            || 'English'
+          } />
       </ParallaxView>
     );
   }
@@ -146,6 +176,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between'
+  },
+
+  top: {
+    marginTop: Sizes.InnerFrame
   },
 
   title: {

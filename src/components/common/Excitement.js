@@ -5,6 +5,9 @@ import {
   StyleSheet, View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {
+  Colors
+} from '../../../res/Constants';
 
 export default class Excitement extends Component {
   render() {
@@ -17,7 +20,8 @@ export default class Excitement extends Component {
           [...Array(this.props.level)].map(i => (
             <Icon
               key={Math.random()}
-              name="directions-run" />
+              name="directions-run"
+              color={this.props.color || Colors.EmphasizedText} />
           ))
         }
       </View>

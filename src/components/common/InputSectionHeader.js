@@ -19,7 +19,8 @@ export default class InputSectionHeader extends Component {
     return (
       <View style={[
         styles.container,
-        this.props.backgroundColor && {backgroundColor: this.props.backgroundColor}
+        this.props.backgroundColor && {backgroundColor: this.props.backgroundColor},
+        this.props.style
       ]}>
         <Text style={[
           styles.label,
