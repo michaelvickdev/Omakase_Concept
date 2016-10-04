@@ -8,8 +8,8 @@
   "dependencies": {
     "firebase": "^3.3.0",
     "geofire": "^4.1.1",
-    "react": "15.3.0",
-    "react-native": "0.32.0",
+    "react": "15.3.2",
+    "react-native": "0.34.0",
     "react-native-checkbox": "^1.0.15",
     "react-native-drawer": "^2.2.6",
     "react-native-fbsdk": "^0.3.0",
