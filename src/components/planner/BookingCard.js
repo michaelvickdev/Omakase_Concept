@@ -13,6 +13,7 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // components
 import GroupAvatar from '../profile/GroupAvatar';
@@ -54,6 +55,7 @@ export default class BookingCard extends Component {
     super(props);
     this.state = {
       booking: null,
+      location: null,
       budget: 0,
       party: [],
       size: 1,
@@ -64,6 +66,10 @@ export default class BookingCard extends Component {
     this.ref = Database.ref(
       `bookings/${this.props.bookingId}`
     );
+    this.locationRef = Database.ref(
+      `locations/${this.props.bookingId}`
+    );
+
     this.onPress = this.onPress.bind(this);
   }
 
@@ -106,10 +112,18 @@ export default class BookingCard extends Component {
         }
       }
     });
+
+    this.locationListener = this.locationRef.on('value', data => {
+      console.log(data.val());
+      data.exists() && this.setState({
+        location: data.val()
+      });
+    });
   }
 
   componentWillUnmount() {
     this.ref.off('value', this.listener);
+    this.locationRef.off('value', this.locationListener);
   }
 
   render() {
@@ -143,6 +157,17 @@ export default class BookingCard extends Component {
               ]}>
                 per person
               </Text>
+              <View style={styles.excitementContainer}>
+                {
+                  this.state.booking
+                  && this.state.booking.excitement
+                  && [...Array(this.state.booking.excitement)].map(i => (
+                    <Icon
+                      key={Math.random()}
+                      name="directions-run" />
+                  ))
+                }
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -151,6 +176,7 @@ export default class BookingCard extends Component {
             default: return (
               <BookingCardExpandedAvailable
                 booking={this.state.booking}
+                location={this.state.location}
                 bookingId={this.props.bookingId}
                 size={this.state.size} />
             );
@@ -196,5 +222,11 @@ const styles = StyleSheet.create({
 
   details: {
     fontSize: Sizes.SmallText
+  },
+
+  excitementContainer: {
+    marginTop: Sizes.InnerFrame,
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   }
 });

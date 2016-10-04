@@ -68,7 +68,7 @@ export default class PlannerRequestDetail extends Component {
                 Styles.Header,
                 styles.title
               ]}>
-                Toronto, ON
+                {this.state.booking && this.state.booking.city}
               </Text>
               <GroupAvatar
                 limit={4}
@@ -79,8 +79,10 @@ export default class PlannerRequestDetail extends Component {
           </View>
         )}>
         <Text style={styles.status}>
-          We're still waiting to hear back from the sponsor before
-          you should start planning things to do.
+          {
+            'We\'re still waiting to hear back from the sponsor before '
+            + 'you should start planning things to do.'
+          }
         </Text>
         <InputSectionHeader label="Adventure Criteria" />
         <InformationField
@@ -91,7 +93,7 @@ export default class PlannerRequestDetail extends Component {
         <InformationField
           label="Meeting Location"
           color={Colors.White}
-          info="1839 Queen Street W, Toronto, ON" />
+          info={this.state.booking && this.state.booking.address} />
         <InformationField
           isBottom
           label="Excitement Level"
@@ -114,8 +116,6 @@ export default class PlannerRequestDetail extends Component {
           label="Languages Spoken"
           color={Colors.White}
           info="English, and Cantonese" />
-        <Activity activityId="-KEJWEHEJjeweh-wehe-ej2" />
-        <Activity activityId="-KEKWEJJEWjejw-wejwejweejw2jn" />
       </ParallaxView>
     );
   }

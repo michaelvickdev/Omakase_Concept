@@ -26,12 +26,10 @@ export default class BookingCardExpandedAvailable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      booking: this.props.booking
+      booking: this.props.booking,
+      location: this.props.location || {}
     };
 
-    this.ref = Database.ref(
-      `bookings/${this.props.bookingId}`
-    );
     this.join = this.join.bind(this);
   }
 
@@ -67,7 +65,8 @@ export default class BookingCardExpandedAvailable extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      booking: nextProps.booking
+      booking: nextProps.booking,
+      location: nextProps.location || {}
     });
   }
 
@@ -78,44 +77,21 @@ export default class BookingCardExpandedAvailable extends Component {
           style={styles.map}
           scrollEnabled={false}
           region={{
-            latitude: 43.653226,
-            longitude: -79.383184,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01
+            latitude: this.state.location.l && this.state.location.l[0] || 0,
+            longitude: this.state.location.l && this.state.location.l[1] || 0,
+            latitudeDelta: 0.001,
+            longitudeDelta: 0.001
           }}>
           <MapView.Marker
             coordinate={{
-              latitude: 43.653226,
-              longitude: -79.383184,
+              latitude: this.state.location.l && this.state.location.l[0] || 0,
+              longitude: this.state.location.l && this.state.location.l[1] || 0,
             }}
             title={'Meet-up Location'}
-            description={'100 Queen St W'}
+            description={this.state.booking && this.state.booking.address}
             pinColor={Colors.Primary}
           />
         </MapView>
-        <InformationField
-          label="Party Size"
-          color={Colors.Transparent}
-          info={`${this.props.size} (Ages 19-29)`} />
-
-        <InformationField
-          label="Looking for"
-          color={Colors.Transparent}
-          info={
-            this.state.booking && this.state.booking.space > 1
-            ? `${this.state.booking.space} people`
-            : '1 person'
-          } />
-        <InformationField
-          icon="record-voice-over"
-          color={Colors.Transparent}
-          info="English, Italian, and Cantonese" />
-        <InformationField
-          isBottom
-          noMargin
-          color={Colors.Transparent}
-          icon="directions-run"
-          info="Leisurely" />
         <Button
           squareBorders
           style={{
@@ -135,11 +111,11 @@ export default class BookingCardExpandedAvailable extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignSelf: 'flex-end',
+    alignSelf: 'stretch'
   },
 
   map: {
-    width: Sizes.width,
-    height: 200
+    alignSelf: 'stretch',
+    height: 100
   }
 });
