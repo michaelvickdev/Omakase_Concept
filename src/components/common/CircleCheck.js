@@ -27,7 +27,11 @@ export default class CircleCheck extends Component {
         <Icon
           size={this.props.size && (this.props.size * 0.6) || 12}
           name="check"
-          color={!this.props.invert ? Colors.AlternateText: Colors.Text} />
+          color={
+            this.props.checkColor
+            ? this.props.checkColor
+            : Colors.AlternateText
+          } />
       </View>
     );
   }

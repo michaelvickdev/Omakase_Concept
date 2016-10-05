@@ -27,6 +27,8 @@ import Excitement from '../../components/common/Excitement';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import Activity from '../../components/planner/Activity';
 
+import CircleCheck from '../../components/common/CircleCheck';
+
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
     super(props);
@@ -88,19 +90,33 @@ export default class PlannerRequestDetail extends Component {
           </View>
         )}>
         {
-          this.state.booking
-          && this.state.booking.planner != Firebase.auth().currentUser.uid
-          && (
-            <Text style={styles.status}>
-              {
-                'We\'re still waiting to hear back from the sponsor before '
-                + 'you should start planning things to do.'
-              }
-            </Text>
+          (
+            this.state.booking
+            && this.state.booking.planner === Firebase.auth().currentUser.uid
+          ) ? (
+            <View style={[
+              styles.status, styles.active
+            ]}>
+              <Text style={styles.statusText}>
+                You've been selected to go and plan this adventure!
+              </Text>
+              <CircleCheck
+                color={Colors.AlternateText}
+                checkColor={Colors.Green}
+                size={30} />
+            </View>
+          ): (
+            <View style={[
+              styles.status, styles.pending
+            ]}>
+              <Text style={styles.statusText}>
+                We're still waiting to hear back from the sponsor before you
+                should start planning things to do.
+              </Text>
+            </View>
           )
         }
         <InputSectionHeader
-          style={styles.top}
           label="Adventure Criteria" />
         <InformationField
           isTop
@@ -187,10 +203,24 @@ const styles = StyleSheet.create({
   },
 
   status: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     margin: Sizes.InnerFrame,
-    padding: Sizes.InnerFrame,
-    backgroundColor: Colors.Primary,
-    color: Colors.AlternateText
+    padding: Sizes.InnerFrame
+  },
+
+  statusText: {
+    color: Colors.AlternateText,
+    flex: 1
+  },
+
+  pending: {
+    backgroundColor: Colors.Primary
+  },
+
+  active: {
+    backgroundColor: Colors.Green
   },
 
   excitement: {
