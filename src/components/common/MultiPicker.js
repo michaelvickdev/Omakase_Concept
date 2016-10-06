@@ -128,8 +128,8 @@ export default class MultiPicker extends Component {
                         <View
                           style={styles.singleOptionContainer}
                           key={lang}>
-                          <TouchableOpacity
-                          underlayColor={Colors.EmphasizedText}
+                          <TouchableHighlight
+                          underlayColor={Colors.Transparent}
                           onPress={() => this.setState({
                             tempsave: this.tuneOption(lang),
                             visible: this.toggle(lang)
@@ -142,7 +142,7 @@ export default class MultiPicker extends Component {
                                 color={this.state.visible[lang]
                                   ? Colors.Green : Colors.Secondary}/>
                             </View>
-                          </TouchableOpacity>
+                          </TouchableHighlight>
                         </View>
                       ))
                     }
@@ -152,6 +152,7 @@ export default class MultiPicker extends Component {
             </Modal>
             <View style={styles.contentContainer}>
               <TouchableHighlight
+                style={styles.wrapper}
                 underlayColor={Colors.Transparent}
                 onPress={() => this.setState({
                   showModal: true
@@ -174,12 +175,14 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    textAlign: 'center',
+    textAlign: 'right',
     fontSize: Sizes.text
   },
 
   contentContainer: {
     flexDirection: 'row',
+    alignItems: 'stretch',
+    alignSelf: 'stretch',
     justifyContent: 'flex-end',
     paddingRight: Sizes.OuterFrame
   },
@@ -209,16 +212,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end'
-  },
-
-  singleOptionContainer2: {
-    width: Dimensions.get('window').width,
-    height: 20,
-    paddingLeft: Sizes.InnerFrame,
-    backgroundColor: Colors.Background,
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
   },
 
   modalContainer: {
