@@ -93,6 +93,7 @@ export default class MultiLineInput extends Component {
             </Modal>
             <View style={styles.contentContainer}>
               <TouchableHighlight
+                style={styles.wrapper}
                 underlayColor={Colors.Transparent}
                 onPress={() => this.setState({
                   showModal: true
