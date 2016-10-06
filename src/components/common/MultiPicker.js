@@ -27,7 +27,8 @@ export default class MultiPicker extends Component {
       options: this.props.options,
       save: [],
       tempsave: [],
-      visible: {}
+      visible: {},
+      tempvisible: {}
     };
 
     // bind methods
@@ -41,6 +42,9 @@ export default class MultiPicker extends Component {
 
   // toggle the visibility of each option
   toggle(option) {
+    for (i in this.state.visible.keys) {
+      this.state.tempvisible[i] = this.state.visible[i];
+    }
     if (this.state.visible[option]) {
       this.state.visible[option] = false;
     } else {
@@ -97,7 +101,9 @@ export default class MultiPicker extends Component {
                     <TouchableHighlight
                       underlayColor={Colors.Transparent}
                       onPress={() => this.setState({
-                        showModal: false
+                        showModal: false,
+                        tempsave: this.state.save.map(i => i),
+                        visible: Object.assign({}, this.state.tempvisible)
                       })}>
                       <Text style={styles.text}>
                         {this.props.cancelLabel || 'Cancel'}
@@ -107,7 +113,8 @@ export default class MultiPicker extends Component {
                       underlayColor={Colors.Transparent}
                       onPress={() => this.setState({
                         showModal: false,
-                        save: this.state.tempsave.map(i => i)
+                        save: this.state.tempsave.map(i => i),
+                        tempvisible: Object.assign({}, this.state.visible)
                       })}>
                       <Text style={styles.text}>
                         {this.props.doneLabel || 'Done'}
