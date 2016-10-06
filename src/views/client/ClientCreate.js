@@ -11,7 +11,7 @@ import {
   Colors, Sizes, Styles, Strings
 } from '../../../res/Constants';
 import Database, {
-  Firebase, geoFire
+  Firebase
 } from '../../utils/Firebase';
 import GeoFire from 'geofire';
 import MapView from 'react-native-maps';
@@ -42,8 +42,6 @@ export default class ClientCreate extends Component {
     // bind methods
     this.submit = this.submit.bind(this);
   }
-
-
 
   submit() {
     let reqtime =(new Date(
