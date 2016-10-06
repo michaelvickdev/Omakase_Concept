@@ -135,8 +135,10 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'stretch',
+    alignSelf: 'stretch',
     paddingRight: Sizes.OuterFrame
   },
 
