@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar, Platform, ScrollView
+  View, Text, StyleSheet, StatusBar, Platform, ScrollView, ListView
 } from 'react-native';
 import {
   Actions
@@ -10,6 +10,9 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
 
 // components
 import Button from '../../components/common/Button';
@@ -17,6 +20,14 @@ import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 import BookingCard from '../../components/common/BookingCard';
+
+// a collection of closures to build a new ListView
+let lvClosures = {
+  getSectionData: (data, section) => data[section],
+  getRowData: (data, section, row) => data[`${section}:${row}`],
+  rowHasChanged: (r1, r2) => r1 !== r2,
+  sectionHeaderHasChanged: (r1, r2) => r1 !== r2
+}
 
 /**
  * Main screen for general users (Client)
@@ -26,7 +37,8 @@ export default class ClientMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookings: []
+      bookings: [],
+      data: new ListView.DataSource(lvClosures)
     };
   }
 
@@ -48,6 +60,65 @@ export default class ClientMain extends Component {
         exceptions: 'fully cooked beef, no cheese, no red stuff'
       }
     }]});
+    this.init();
+  }
+
+  componentWillUnmount() {
+    this.db && this.db.off('value', this.listener);
+  }
+
+  init() {
+
+    // perform reset if previously initialized
+    this.listener && this.componentWillUnmount();
+
+    // setup new filters
+    this.db = Database
+      .ref('bookings')
+      .orderByChild('createdBy')
+      .equalTo(Firebase.auth().currentUser.uid);
+
+    // and listener
+    this.listener = this.db.on('value', data => {
+      if (data.exists()) {
+        let rows = [[], [], []];
+        let blob = {
+          0: 'Active',
+          1: 'Applied',
+          2: 'Available'
+        };
+
+        data.forEach(booking => {
+          console.log("booking: ", booking.child('city').exists
+            && booking.child('city').val());
+          // headers are by statuses: 0 - selected, 1 - interested, 2 - general
+          let section = 2;
+          if (
+            booking.child('planner').exists()
+            && booking.child(
+              'planner'
+            ).val() === Firebase.auth().currentUser.uid
+          ) {
+            section = 0;
+          } else if (
+            booking.child(
+              `interested/${Firebase.auth().currentUser.uid}`
+            ).exists()
+          ) {
+            section = 1;
+          }
+
+          // put in blob
+          rows[section].push(booking.key);
+          blob[`${section}:${booking.key}`] = booking.key;
+        });
+
+        // and finally, clone into DataSource
+        this.setState({
+          data: this.state.data.cloneWithRowsAndSections(blob, [0, 1, 2], rows)
+        });
+      }
+    });
   }
 
   renderBookings = () => {
