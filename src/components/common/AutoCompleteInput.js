@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height*2/3,
+    height: Dimensions.get('window').height - Sizes.NavHeight,
     backgroundColor: Colors.Background,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
