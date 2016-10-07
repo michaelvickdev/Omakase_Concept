@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
       height: 1,
       width: 2,
     },
-    marginBottom: 20,
+    marginTop: 10,
   },
   cardIntro: {
     flex: 1,

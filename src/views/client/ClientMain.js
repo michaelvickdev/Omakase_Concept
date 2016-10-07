@@ -21,14 +21,6 @@ import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 import BookingCard from '../../components/client/BookingCard';
 
-// a collection of closures to build a new ListView
-let lvClosures = {
-  getSectionData: (data, section) => data[section],
-  getRowData: (data, section, row) => data[`${section}:${row}`],
-  rowHasChanged: (r1, r2) => r1 !== r2,
-  sectionHeaderHasChanged: (r1, r2) => r1 !== r2
-}
-
 /**
  * Main screen for general users (Client)
  * can toggle to Planners view for registered planners
@@ -37,29 +29,15 @@ export default class ClientMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookings: [],
-      data: new ListView.DataSource(lvClosures)
+      data: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
     };
   }
 
   componentDidMount() {
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
-    // TODO: Retrieve actual bookings from server
-    this.setState({bookings: [{
-      bookingId: '1234',
-      createdBy: 'bookerUserId',
-      planner: null,
-      requestedTime: 1472515800581,
-      occasion: 'tinder date',
-      finalized: true,
-      confirmed: false,
-      contributions: {
-        budget: 120.135,
-        party: 3,
-        exceptions: 'fully cooked beef, no cheese, no red stuff'
-      }
-    }]});
     this.init();
   }
 
@@ -81,93 +59,82 @@ export default class ClientMain extends Component {
     // and listener
     this.listener = this.db.on('value', data => {
       if (data.exists()) {
-        let rows = [[], [], []];
-        let blob = {
-          0: 'Matched',
-          1: 'Pending',
-          2: 'Open'
-        };
+        let bookings = [];
 
         data.forEach(booking => {
-          console.log("booking: ", booking.child('city').exists
-            && booking.child('city').val());
+          booking.child('city').exists
+            && booking.child('city').val()
+            && bookings.push(booking)
           // headers are by statuses: 0 - selected, 1 - interested, 2 - general
-          let section = 2;
-          if (
-            booking.child('planner').exists()
-          ) {
-            section = 0;
-          } else if (
-            booking.child('interested').hasChildren()
-          ) {
-            section = 1;
-          }
-
-          // put in blob
-          rows[section].push(booking.key);
-          blob[`${section}:${booking.key}`] = booking.key;
         });
 
         // and finally, clone into DataSource
         this.setState({
-          data: this.state.data.cloneWithRowsAndSections(blob, [0, 1, 2], rows)
+          data: this.state.data.cloneWithRows(bookings)
         });
       }
     });
   }
 
+
+  renderRow(bookingId) {
+    return (
+      <BookingCard bookingId={bookingId} />
+    );
+  }
+
   renderBookings = () => {
     return (
       <View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.text}>
-            Your Bookings:
-          </Text>
-        </View>
-        <BookingCard />
-        {this.state.bookings.map(data => {
-          return (<BookingCard key={data.bookingId} booking={data}/>)
-        })}
+        <ListView
+          enableEmptySections={true}
+          initialListSize={0}
+          scrollRenderAheadDistance={10}
+          dataSource={this.state.data}
+          renderRow={this.renderRow}
+          scrollEnabled={true}
+          removeClippedSubviews={true} />
       </View>
     );
   }
 
   render() {
-    return (<ScrollView>
-      <View style={styles.container}>
-        <View style={styles.contentContainer}>
-          { this.state.bookings
-            ? this.renderBookings()
-            : <Text style={styles.text}>
-                You have no pending events
-              </Text>
-          }
-        </View>
+    return (
+      <View style={styles.wrapper}>
+        <ScrollView>
+          <View style={styles.container}>
+            { this.state.data
+              ? this.renderBookings()
+              : <Text style={styles.text}>
+                  You have no pending events
+                </Text>
+            }
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              label={"New Event"}
+              color={Colors.Primary}
+              fontColor={Colors.AlternateText}
+              onPress={Actions.clientCreate} />
+          </View>
+        </ScrollView>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          label={"New Event"}
-          color={Colors.Primary}
-          fontColor={Colors.AlternateText}
-          onPress={Actions.clientCreate} />
-      </View>
-    </ScrollView>);
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: Colors.Secondary
+  },
+
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
     // padding: Sizes.outerFrame,
-    backgroundColor: '#FAFAFA'
-  },
-
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: Colors.Secondary
   },
 
   titleContainer: {
@@ -181,8 +148,10 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    alignSelf: 'stretch',
+    margin: Sizes.InnerFrame,
+    alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: Colors.Secondary
   },
 });
