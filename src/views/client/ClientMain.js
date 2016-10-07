@@ -19,7 +19,7 @@ import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
-import BookingCard from '../../components/common/BookingCard';
+import BookingCard from '../../components/client/BookingCard';
 
 // a collection of closures to build a new ListView
 let lvClosures = {
@@ -83,9 +83,9 @@ export default class ClientMain extends Component {
       if (data.exists()) {
         let rows = [[], [], []];
         let blob = {
-          0: 'Active',
-          1: 'Applied',
-          2: 'Available'
+          0: 'Matched',
+          1: 'Pending',
+          2: 'Open'
         };
 
         data.forEach(booking => {
@@ -95,15 +95,10 @@ export default class ClientMain extends Component {
           let section = 2;
           if (
             booking.child('planner').exists()
-            && booking.child(
-              'planner'
-            ).val() === Firebase.auth().currentUser.uid
           ) {
             section = 0;
           } else if (
-            booking.child(
-              `interested/${Firebase.auth().currentUser.uid}`
-            ).exists()
+            booking.child('interested').hasChildren()
           ) {
             section = 1;
           }

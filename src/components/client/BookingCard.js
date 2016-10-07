@@ -9,7 +9,7 @@ import {
 } from '../../../res/Constants';
 import DateFormat from 'dateformat';
 
-import Button from './Button';
+import Button from '../common/Button';
 
 
 /**
