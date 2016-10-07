@@ -5,12 +5,21 @@ import {
   StyleSheet, View, Text, Dimensions, TouchableHighlight
 } from 'react-native';
 import {
-  Colors
+  Colors, Sizes
 } from '../../../res/Constants';
 import DateFormat from 'dateformat';
 
 import Button from '../common/Button';
 
+let days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
 
 /**
  * Booking Card Component for bookings
@@ -29,6 +38,7 @@ export default class BookingCard extends Component {
         description: 'You have requested a booking for Party Time, with 4 people at 7:30PM on October 21st.'
       }
     };
+    console.log('booking', this.props.booking);
   }
 
   componentDidMount() {
@@ -41,8 +51,13 @@ export default class BookingCard extends Component {
       booking.description = `You have requested a booking for ` +
         `${booking.city.name}, with  ` +
         `people. Including a ${details}.`;
-      booking.requestedTime = DateFormat(new Date(booking.requestedTime),
-        'mmmm dS, h:MMTT');
+
+      if (booking.requestedTime){
+        booking.date = days[new Date(booking.requestedTime).getDay()]
+          + ", " + DateFormat(new Date(booking.requestedTime),
+          'mmmm dS, yyyy');
+      }
+
 
       if (booking.confirmed) {
         booking.statusColor = '#008BBA'
@@ -61,18 +76,23 @@ export default class BookingCard extends Component {
         <View style={styles.cardIntro}>
           <Text style={[styles.cardText, styles.cardTitleText]}>
           {
-            this.state.booking.requestedTime
-              ? "Booking on " + this.state.booking.requestedTime
-              : 'Card Title'
+            this.state.booking.city && this.state.booking.city.name
+              ? this.state.booking.city.name
+              : 'Trip'
+          }
+          </Text>
+          <Text style={[styles.cardText, styles.cardTitleText]}>
+          {
+            this.state.booking.date
+          }
+          </Text>
+          <Text style={[styles.cardText, styles.cardTitleText]}>
+          {
+            this.state.booking.address
           }
           </Text>
         </View>
         <View style={styles.cardDetails}>
-          <Text style={[styles.cardText, styles.cardDetailsTextDesc]}>
-          {
-            this.state.booking.description ? this.state.booking.description : 'Card Description'
-          }
-          </Text>
         </View>
         <View style={styles.cardActions}>
           <View style={styles.cardActionsButtons}>
@@ -110,14 +130,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   cardIntro: {
-    flex: 1,
-    height: 50,
-    backgroundColor: Colors.Primary,
-    justifyContent: 'center',
-    alignItems: 'center'
+    margin: Sizes.InnerFrame,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
   },
   cardDetails: {
-    flex: 1,
     height: 50,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
@@ -125,7 +142,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15
   },
   cardActions: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
@@ -136,7 +152,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   cardActionsButtons: {
-    flex: 1,
     flexDirection: 'row'
   },
   cardStatus: {
@@ -152,10 +167,11 @@ const styles = StyleSheet.create({
   },
 
   cardText: {
-    color: Colors.White,
+    color: Colors.Primary,
     fontSize: 10
   },
   cardTitleText: {
+    marginTop: Sizes.InnerFrame/2,
     fontSize: 16
   },
   cardDetailsTextDesc: {
