@@ -59,7 +59,8 @@ export default class InputField extends Component {
             !this.props.isBottom
             ? styles.middle
             : styles.bottom,
-            this.props.noMargin && {marginBottom: 0}
+            this.props.noMargin && {marginBottom: 0},
+            this.props.noLine && {height: 0}
           ]} />
       </View>
     );

@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Image, TouchableOpacity, Text
+  StyleSheet, View, Image, Text
 } from 'react-native';
 import {
   Sizes, Colors, Styles
@@ -14,7 +14,7 @@ export default class Activity extends Component {
     super(props);
     this.state = {
       activity: {},
-      photo: ''
+      photo: null
     };
     this.ref = Database.ref(
       `activities/${this.props.activityId}`
@@ -39,12 +39,24 @@ export default class Activity extends Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={{uri: this.state.photo}}
-            style={styles.image} />
+      <View style={[
+        styles.container,
+        this.props.thin && styles.thinContainer
+      ]}>
+        <View style={[
+          styles.imageContainer,
+          this.props.thin && styles.thinImageContainer
+        ]}>
+          {
+            this.state.photo
+            ? (
+              <Image
+                source={{uri: this.state.photo}}
+                style={styles.image} />
+            ): (
+              <View style={styles.image} />
+            )
+          }
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>
@@ -52,7 +64,10 @@ export default class Activity extends Component {
           </Text>
           <View style={styles.footer}>
             <View style={styles.detailContainer}>
-              <Text style={styles.details}>
+              <Text style={[
+                styles.details,
+                this.props.thin && styles.thinDetails
+              ]}>
                 {this.state.activity.description}
               </Text>
               <Text style={[
@@ -62,26 +77,39 @@ export default class Activity extends Component {
                 Zen Japanese Restaurant - 2.3km away
               </Text>
             </View>
-            <View style={styles.priceContainer}>
-              <Text style={styles.price}>
+            <View style={[
+              styles.priceContainer,
+              this.props.thin && styles.thinPriceContainer
+            ]}>
+              <Text style={[
+                styles.price,
+                this.props.thin && styles.thinPrice
+              ]}>
                 ${this.state.activity.price}
               </Text>
-              <Text style={styles.pricePerPerson}>
+              <Text style={[
+                styles.pricePerPerson,
+                this.props.thin && styles.thinPricePerPerson
+              ]}>
                 per person
               </Text>
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
-    alignSelf: 'stretch',
     backgroundColor: Colors.White,
     marginBottom: 2
+  },
+
+  thinContainer: {
+    flexDirection: 'row',
+    marginBottom: Sizes.InnerFrame / 2
   },
 
   imageContainer: {
@@ -90,25 +118,35 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
 
+  thinImageContainer: {
+    width: 100,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   image: {
-    width: Sizes.width,
+    backgroundColor: Colors.Primary,
+    alignSelf: 'stretch',
     height: 200
   },
 
   content: {
-    padding: Sizes.InnerFrame
+    padding: Sizes.InnerFrame,
+    flex: 1,
+    justifyContent: 'space-between'
   },
 
   footer: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between'
+    alignItems: 'flex-end'
   },
 
   title: {
     fontSize: Sizes.H2,
     color: Colors.Primary,
-    fontWeight: '500'
+    fontWeight: '500',
+    flexWrap: 'nowrap'
   },
 
   detailContainer: {
@@ -117,6 +155,10 @@ const styles = StyleSheet.create({
 
   details: {
     fontSize: Sizes.SmallText
+  },
+
+  thinDetails: {
+    height: 0
   },
 
   subtitle: {
@@ -133,13 +175,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
 
+  thinPriceContainer: {
+    padding: 2,
+    backgroundColor: Colors.Transparent
+  },
+
   price: {
     fontSize: Sizes.H1,
     color: Colors.AlternateText
   },
 
+  thinPrice: {
+    color: Colors.Primary
+  },
+
   pricePerPerson: {
     fontSize: Sizes.SmallText,
     color: Colors.AlternateText
+  },
+
+  thinPricePerPerson: {
+    color: Colors.Primary
   }
 });

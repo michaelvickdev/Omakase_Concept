@@ -22,7 +22,10 @@ export default class InformationField extends Component {
       <InputField
         {...this.props}
         field={
-          <Text style={styles.info}>
+          <Text style={[
+            styles.info,
+            this.props.style
+          ]}>
             {this.props.info}
           </Text>
         } />

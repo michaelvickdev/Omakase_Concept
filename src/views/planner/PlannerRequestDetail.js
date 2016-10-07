@@ -25,14 +25,15 @@ import InformationField from '../../components/common/InformationField';
 import InputField from '../../components/common/InputField';
 import Excitement from '../../components/common/Excitement';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
-import Activity from '../../components/planner/Activity';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import CircleCheck from '../../components/common/CircleCheck';
+import BookingItinerary from '../../components/planner/BookingItinerary';
 
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      view: 0,
       booking: {}
     };
 
@@ -68,112 +69,192 @@ export default class PlannerRequestDetail extends Component {
     );
 
     return (
-      <ParallaxView
-        backgroundSource={require('../../../res/img/profile_bg.jpg')}
-        windowHeight={100}
-        scrollableViewStyle={styles.headerScroll}
-        header={(
-          <View style={styles.headerContainer}>
-            <View style={styles.header}>
-              <Text style={[
-                Styles.Header,
-                styles.title
-              ]}>
-                {this.state.booking && this.state.booking.city}
-              </Text>
-              <GroupAvatar
-                limit={4}
-                uids={
-                  this.state.party
-                } />
+      <View style={styles.container}>
+        <ParallaxView
+          backgroundSource={require('../../../res/img/profile_bg.jpg')}
+          windowHeight={100}
+          scrollableViewStyle={styles.headerScroll}
+          header={(
+            <View style={styles.headerContainer}>
+              <View style={styles.header}>
+                <Text style={[
+                  Styles.Header,
+                  styles.title
+                ]}>
+                  {this.state.booking && this.state.booking.city}
+                </Text>
+                <GroupAvatar
+                  limit={4}
+                  uids={
+                    this.state.party
+                  } />
+              </View>
             </View>
-          </View>
-        )}>
-        {
-          (
-            this.state.booking
-            && this.state.booking.planner === Firebase.auth().currentUser.uid
-          ) ? (
-            <View style={[
-              styles.status, styles.active
-            ]}>
-              <Text style={styles.statusText}>
-                You've been selected to go and plan this adventure!
-              </Text>
-              <CircleCheck
-                color={Colors.AlternateText}
-                checkColor={Colors.Green}
-                size={30} />
-            </View>
-          ): (
-            <View style={[
-              styles.status, styles.pending
-            ]}>
-              <Text style={styles.statusText}>
-                We're still waiting to hear back from the sponsor before you
-                should start planning things to do.
-              </Text>
-            </View>
-          )
-        }
-        <InputSectionHeader
-          label="Adventure Criteria" />
-        <InformationField
-          isTop
-          label="Adventure Date"
-          color={Colors.White}
-          info={DateFormat(
-            this.state.booking
-            && this.state.booking.requestedTime
-            && new Date(this.state.booking.requestedTime)
-            || new Date(),
-            'mmmm dS, yyyy'
-          )} />
-        <InformationField
-          label="Meeting Location"
-          color={Colors.White}
-          info={
-            this.state.booking
-            && this.state.booking.address
-            || 'Unknown'
-          } />
-        <InputField
-          isBottom
-          label="Excitement Level"
-          color={Colors.White}
-          field={
-            <Excitement
-              style={styles.excitement}
-              level={this.state.booking.excitement || 0} />
-          } />
+          )}>
+          {
+            this.state.view === 0
 
-        <InputSectionHeader label="Sponsor Profile" />
-        <TouchableOpacity
-          onPress={() => Actions.profile({
-            uid: this.state.booking.createdBy
-          })}>
-          <InformationField
-            isTop
-            label="Name"
-            color={Colors.White}
-            info="Kenneth Ma" />
-        </TouchableOpacity>
-        <InformationField
-          isBottom
-          label="Languages Spoken"
-          color={Colors.White}
-          info={
-            a.join(', ').replace(/,([^,]+)$/,`${a[2] ? ',': ''} and$1`)
+            // show summary tab
+            ? (
+              <View>
+                {
+                  (
+                    this.state.booking
+                    && this.state.booking.planner === Firebase.auth().currentUser.uid
+                  ) ? (
+                    <View style={[
+                      styles.status, styles.active
+                    ]}>
+                      <Text style={styles.statusText}>
+                        You've been selected to go and plan this adventure!
+                      </Text>
+                      <CircleCheck
+                        color={Colors.AlternateText}
+                        checkColor={Colors.Green}
+                        size={30} />
+                    </View>
+                  ): (
+                    <View style={[
+                      styles.status, styles.pending
+                    ]}>
+                      <Text style={styles.statusText}>
+                        We're still waiting to hear back from the sponsor before you
+                        should start planning things to do.
+                      </Text>
+                    </View>
+                  )
+                }
+                <InputSectionHeader
+                  label="Adventure Criteria" />
+                <InformationField
+                  isTop
+                  label="Adventure Date"
+                  color={Colors.White}
+                  info={DateFormat(
+                    this.state.booking
+                    && this.state.booking.requestedTime
+                    && new Date(this.state.booking.requestedTime)
+                    || new Date(),
+                    'mmmm dS, yyyy'
+                  )} />
+                <InformationField
+                  label="Meeting Location"
+                  color={Colors.White}
+                  info={
+                    this.state.booking
+                    && this.state.booking.address
+                    || 'Unknown'
+                  } />
+                <TouchableOpacity
+                  onPress={() => Actions.activities({
 
-            // default english
-            || 'English'
-          } />
-      </ParallaxView>
+                    // TODO: remove hardcoded defaults
+                    city: this.state.booking.city || 'Toronto, ON, Canada',
+                    excitement: this.state.booking.excitement || 0
+                  })}>
+                  <InputField
+                    isBottom
+                    label="Excitement Level"
+                    color={Colors.White}
+                    field={
+                      <Excitement
+                        style={styles.excitement}
+                        level={this.state.booking.excitement || 0} />
+                    } />
+                </TouchableOpacity>
+
+                <InputSectionHeader label="Sponsor Profile" />
+                <TouchableOpacity
+                  onPress={() => Actions.profile({
+                    uid: this.state.booking.createdBy
+                  })}>
+                  <InformationField
+                    isTop
+                    label="Name"
+                    color={Colors.White}
+                    info="Kenneth Ma" />
+                </TouchableOpacity>
+                <InformationField
+                  isBottom
+                  label="Languages Spoken"
+                  color={Colors.White}
+                  info={
+                    a.join(', ').replace(/,([^,]+)$/,`${a[2] ? ',': ''} and$1`)
+
+                    // default english
+                    || 'English'
+                  } />
+              </View>
+            ): (
+              <BookingItinerary booking={this.state.booking}/>
+            )
+          }
+        </ParallaxView>
+        <View style={styles.tabs}>
+          <TouchableOpacity
+            onPress={() => this.setState({
+              view: 0
+            })}
+            style={styles.tabItem}>
+            <Icon
+              color={Colors.AlternateText}
+              size={15}
+              name='info' />
+            <Text style={styles.tabLabel}>
+              Summary
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.setState({
+              view: 1
+            })}
+            style={styles.tabItem}>
+            <Icon
+              color={Colors.AlternateText}
+              size={15}
+              name='assignment' />
+            <Text style={styles.tabLabel}>
+              Itinerary
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.setState({
+              view: 2
+            })}
+            style={styles.tabItem}>
+            <Icon
+              color={Colors.AlternateText}
+              size={15}
+              name='directions' />
+            <Text style={styles.tabLabel}>
+              Places
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.setState({
+              view: 3
+            })}
+            style={styles.tabItem}>
+            <Icon
+              color={Colors.AlternateText}
+              size={15}
+              name='photo-camera' />
+            <Text style={styles.tabLabel}>
+              Camera
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.Background
+  },
+
   headerScroll: {
     backgroundColor: Colors.Background
   },
@@ -227,5 +308,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingRight: Sizes.OuterFrame
+  },
+
+  tabs: {
+    backgroundColor: Colors.Primary,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: Sizes.InnerFrame
+  },
+
+  tabItem: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  tabLabel: {
+    fontSize: Sizes.SmallText,
+    color: Colors.AlternateText
   }
 });

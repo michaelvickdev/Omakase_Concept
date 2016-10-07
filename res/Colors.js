@@ -13,7 +13,7 @@ export const Colors = {
 
   // colors below are depreciated, please use above
   White: '#FFFFFF',
-  LightGrey: '#F5F5F5',
+  LightGrey: '#F0F0F0',
   MediumGrey: '#9E9E9E',
   DarkGrey: '#6D6C6C',
   Grey: '#9197A3',
