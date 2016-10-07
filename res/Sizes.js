@@ -1,8 +1,11 @@
 import {
-  Dimensions
+  Dimensions, Navigator
 } from 'react-native';
 
 export const Sizes = {
+
+  // nav bar height
+  NavHeight: Navigator.NavigationBar.Styles.General.TotalNavHeight,
 
   // screen
   width: Dimensions.get('window').width,
