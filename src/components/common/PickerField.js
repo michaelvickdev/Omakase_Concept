@@ -86,6 +86,7 @@ export default class PickerField extends Component {
             </Modal>
             <View style={styles.contentContainer}>
               <TouchableHighlight
+                style={styles.wrapper}
                 underlayColor={Colors.Transparent}
                 onPress={() => this.setState({
                   showModal: true
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    textAlign: 'center',
+    textAlign: 'right',
     fontSize: Sizes.Text
   },
 
@@ -125,8 +126,10 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'stretch',
+    alignSelf: 'stretch',
     paddingRight: Sizes.OuterFrame
   },
 

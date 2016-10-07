@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar, Platform, ScrollView
+  View, Text, StyleSheet, StatusBar, Platform, ScrollView, ListView
 } from 'react-native';
 import {
   Actions
@@ -10,13 +10,16 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
 
 // components
 import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
-import BookingCard from '../../components/common/BookingCard';
+import BookingCard from '../../components/client/BookingCard';
 
 /**
  * Main screen for general users (Client)
@@ -26,82 +29,113 @@ export default class ClientMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bookings: []
+      data: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
     };
   }
 
   componentDidMount() {
     Platform.OS === 'ios' && StatusBar.setBarStyle('light-content', true);
     StatusBar.setHidden(false, 'slide');
-    // TODO: Retrieve actual bookings from server
-    this.setState({bookings: [{
-      bookingId: '1234',
-      createdBy: 'bookerUserId',
-      planner: null,
-      requestedTime: 1472515800581,
-      occasion: 'tinder date',
-      finalized: true,
-      confirmed: false,
-      contributions: {
-        budget: 120.135,
-        party: 3,
-        exceptions: 'fully cooked beef, no cheese, no red stuff'
+    this.init();
+  }
+
+  componentWillUnmount() {
+    this.db && this.db.off('value', this.listener);
+  }
+
+  init() {
+
+    // perform reset if previously initialized
+    this.listener && this.componentWillUnmount();
+
+    // setup new filters
+    this.db = Database
+      .ref('bookings')
+      .orderByChild('createdBy')
+      .equalTo(Firebase.auth().currentUser.uid);
+
+    // and listener
+    this.listener = this.db.on('value', data => {
+      if (data.exists()) {
+        let bookings = [];
+
+        data.forEach(booking => {
+          booking.child('city').exists
+            && booking.child('city').val()
+            && booking.child('city').val().name
+            && bookings.push(booking)
+          // headers are by statuses: 0 - selected, 1 - interested, 2 - general
+        });
+
+        // and finally, clone into DataSource
+        this.setState({
+          data: this.state.data.cloneWithRows(bookings)
+        });
       }
-    }]});
+    });
+  }
+
+
+  renderRow(booking) {
+    return (
+      <BookingCard booking={booking.val()} />
+    );
   }
 
   renderBookings = () => {
     return (
       <View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.text}>
-            Your Bookings:
-          </Text>
-        </View>
-        <BookingCard />
-        {this.state.bookings.map(data => {
-          return (<BookingCard key={data.bookingId} booking={data}/>)
-        })}
+        <ListView
+          enableEmptySections={true}
+          initialListSize={0}
+          scrollRenderAheadDistance={10}
+          dataSource={this.state.data}
+          renderRow={this.renderRow}
+          scrollEnabled={true}
+          removeClippedSubviews={true} />
       </View>
     );
   }
 
   render() {
-    return (<ScrollView>
-      <View style={styles.container}>
-        <View style={styles.contentContainer}>
-          { this.state.bookings
-            ? this.renderBookings()
-            : <Text style={styles.text}>
-                You have no pending events
-              </Text>
-          }
-        </View>
+    return (
+      <View style={styles.wrapper}>
+        <ScrollView>
+          <View style={styles.container}>
+            { this.state.data
+              ? this.renderBookings()
+              : <Text style={styles.text}>
+                  You have no pending events
+                </Text>
+            }
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              label={"New Event"}
+              color={Colors.Primary}
+              fontColor={Colors.AlternateText}
+              onPress={Actions.clientCreate} />
+          </View>
+        </ScrollView>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          label={"New Event"}
-          color={Colors.Primary}
-          fontColor={Colors.AlternateText}
-          onPress={Actions.clientCreate} />
-      </View>
-    </ScrollView>);
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: Colors.Secondary
+  },
+
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
     // padding: Sizes.outerFrame,
-    backgroundColor: '#FAFAFA'
-  },
-
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: Colors.Secondary
   },
 
   titleContainer: {
@@ -115,8 +149,10 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    alignSelf: 'stretch',
+    margin: Sizes.InnerFrame,
+    alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: Colors.Secondary
   },
 });

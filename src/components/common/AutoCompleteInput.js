@@ -145,6 +145,7 @@ export default class AutoCompleteInput extends Component {
             </Modal>
             <View style={styles.contentContainer}>
               <TouchableHighlight
+                style={styles.wrapper}
                 underlayColor={Colors.Transparent}
                 onPress={() => {
                   !this.props.failCondition ? this.setState({
@@ -187,8 +188,10 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    alignItems: 'stretch',
+    alignSelf: 'stretch',
+    flexDirection: 'row',
     paddingRight: Sizes.OuterFrame
   },
 
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height*2/3,
+    height: Dimensions.get('window').height - Sizes.NavHeight,
     backgroundColor: Colors.Background,
     justifyContent: 'flex-start',
     alignItems: 'stretch',

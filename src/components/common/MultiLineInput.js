@@ -93,6 +93,7 @@ export default class MultiLineInput extends Component {
             </Modal>
             <View style={styles.contentContainer}>
               <TouchableHighlight
+                style={styles.wrapper}
                 underlayColor={Colors.Transparent}
                 onPress={() => this.setState({
                   showModal: true
@@ -134,8 +135,10 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'stretch',
+    alignSelf: 'stretch',
     paddingRight: Sizes.OuterFrame
   },
 
@@ -155,6 +158,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     width: Dimensions.get('window').width,
+    height: Sizes.height - Sizes.NavHeight,
     backgroundColor: Colors.Background,
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
