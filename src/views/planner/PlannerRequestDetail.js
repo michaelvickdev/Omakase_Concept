@@ -22,12 +22,12 @@ import ParallaxView from 'react-native-parallax-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
 import InputField from '../../components/common/InputField';
-import Excitement from '../../components/common/Excitement';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CircleCheck from '../../components/common/CircleCheck';
 import BookingItinerary from '../../components/planner/BookingItinerary';
 import BookingSummary from '../../components/planner/BookingSummary';
+import BookingPlaces from '../../components/planner/BookingPlaces';
 
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
@@ -85,16 +85,19 @@ export default class PlannerRequestDetail extends Component {
               </View>
             </View>
           )}>
-          {
-            this.state.view === 0
-
-            // show summary tab
-            ? (
-              <BookingSummary booking={this.state.booking} />
-            ): (
-              <BookingItinerary booking={this.state.booking} />
-            )
-          }
+          {(() => {
+            switch(this.state.view) {
+              case 1: return (
+                <BookingItinerary booking={this.state.booking} />
+              );
+              case 2: return (
+                <BookingPlaces booking={this.state.booking} />
+              );
+              default: return (
+                <BookingSummary booking={this.state.booking} />
+              );
+            }
+          })()}
         </ParallaxView>
         <View style={styles.tabs}>
           <TouchableOpacity
