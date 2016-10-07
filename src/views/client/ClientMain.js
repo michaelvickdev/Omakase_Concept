@@ -64,6 +64,7 @@ export default class ClientMain extends Component {
         data.forEach(booking => {
           booking.child('city').exists
             && booking.child('city').val()
+            && booking.child('city').val().name
             && bookings.push(booking)
           // headers are by statuses: 0 - selected, 1 - interested, 2 - general
         });
@@ -77,9 +78,9 @@ export default class ClientMain extends Component {
   }
 
 
-  renderRow(bookingId) {
+  renderRow(booking) {
     return (
-      <BookingCard bookingId={bookingId} />
+      <BookingCard booking={booking.val()} />
     );
   }
 

@@ -31,22 +31,15 @@ export default class BookingCard extends Component {
     };
   }
 
-  titleCase = (str) => {
-    return str.toLowerCase().split(' ').map(function(word) {
-      return word.replace(word[0], word[0].toUpperCase());
-    }).join(' ');
-  }
-
   componentDidMount() {
     // Compute display values
     if (this.props.booking) {
       let booking = this.props.booking;
-      booking.perPerson = parseFloat(booking.contributions.budget) / parseInt(booking.contributions.party);
-      booking.perPerson = booking.perPerson.toFixed(2);
 
-      let details = `budget of $${booking.contributions.budget} ($${booking.perPerson}/person)`;
+
+      let details = `budget of XXX`;
       booking.description = `You have requested a booking for ` +
-        `${this.titleCase(booking.occasion)}, with ${booking.contributions.party} ` +
+        `${booking.city.name}, with  ` +
         `people. Including a ${details}.`;
       booking.requestedTime = DateFormat(new Date(booking.requestedTime),
         'mmmm dS, h:MMTT');
