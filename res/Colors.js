@@ -1,5 +1,7 @@
 export const Colors = {
   Transparent: 'rgba(0, 0, 0, 0)',
+  Overlay: 'rgba(0, 0, 0, 0.25)',
+  Shadow: 'rgba(0, 0, 0, 0.8)',
   Primary: '#9068BE',
   Secondary: '#F5F5F5',
   Background: '#FAFAFA',

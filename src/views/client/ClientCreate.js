@@ -138,7 +138,7 @@ export default class ClientCreate extends Component {
               && this._city.detail().photos ?
             <Image style={styles.primaryPhoto}
               source={{uri:
-                Strings.googlePlacePhotoURL + '?maxwidth=800&photoreference=' +
+                Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
                 this._city.detail().photos[
                   Math.floor(this.state.random
                   *(this._city.detail().photos.length))
@@ -286,7 +286,6 @@ const styles = StyleSheet.create({
   },
 
   primaryPhoto: {
-    flex: 1,
     width: Sizes.width,
     height: 250,
     alignSelf: 'center',

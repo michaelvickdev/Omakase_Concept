@@ -2,10 +2,10 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableHighlight
+  StyleSheet, View, Text, Dimensions, TouchableHighlight, Image
 } from 'react-native';
 import {
-  Colors, Sizes
+  Colors, Sizes, Strings
 } from '../../../res/Constants';
 import {
   expandOnParty
@@ -31,23 +31,29 @@ export default class BookingCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      booking: this.props.booking ? this.props.booking : {
-        // Defaults for testing
-        ocassion: 'Party Time',
-        confirmed: true,
-        // TODO: handle number -> date conversion
-        requestedTime: 'October 21st, 7:30PM',
-        // TODO: this should be computed
-        description: 'You have requested a booking for Party Time, with 4 people at 7:30PM on October 21st.'
-      }
+      booking: this.props.booking,
+      random: Math.random()
     };
-    console.log('booking', this.props.booking);
   }
 
   componentDidMount() {
     // Compute display values
     if (this.props.booking) {
       let booking = this.props.booking;
+
+      if (booking.city.placeId){
+        fetch(Strings.googlePlaceURL + 'details/json?placeid='
+          + booking.city.placeId + '&key='
+          + Strings.googleApiKey)
+        .then(response => response.json())
+        .then((json) => {
+          let photoReference = json.result.photos[Math.floor(this.state.random
+            *(json.result.photos.length))].photo_reference;
+          this.setState({
+            photoReference: photoReference
+          });
+        });
+      }
 
       if (booking.requestedTime){
         booking.date = days[new Date(booking.requestedTime).getDay()]
@@ -69,34 +75,43 @@ export default class BookingCard extends Component {
   render() {
     return (
       <View style={styles.cardWrapper}>
-        <View style={styles.cardIntro}>
-          <Text style={[styles.cardText, styles.cardTitleText]}>
-            {this.state.status}
-          </Text>
-          <Text style={[styles.cardText, styles.cardTitleText]}>
-            {
-              this.state.booking.city && this.state.booking.city.name
-                ? this.state.booking.city.name
-                : 'Trip'
-            }
-          </Text>
-          <Text style={styles.cardText}>
-            {this.state.booking.date}
-          </Text>
-        </View>
-        <View style={styles.cardIntro}>
-          <Text style={styles.cardText}>
-            {
-              this.state.booking.address
-              && 'Pickup:\n' + this.state.booking.address
-            }
-          </Text>
-          <Text style={styles.cardText}>
-            {
-              "Budget:\n$" + this.state.budget
-              + " for party of " + this.state.size
-            }
-          </Text>
+        {this.state.photoReference ?
+        <Image style={styles.primaryPhoto}
+          source={{uri:
+            Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
+            this.state.photoReference +
+            '&key=' + Strings.googleApiKey}}/>
+        : <View/> }
+        <View style={styles.cardContent}>
+          <View style={styles.cardIntro}>
+            <Text style={[styles.cardText, styles.cardTitleText]}>
+              {this.state.status}
+            </Text>
+            <Text style={[styles.cardText, styles.cardTitleText]}>
+              {
+                this.state.booking.city && this.state.booking.city.name
+                  ? this.state.booking.city.name
+                  : 'Trip'
+              }
+            </Text>
+            <Text style={styles.cardText}>
+              {this.state.booking.date}
+            </Text>
+          </View>
+          <View style={styles.cardIntro}>
+            <Text style={styles.cardText}>
+              {
+                this.state.booking.address
+                && 'Pickup:\n' + this.state.booking.address
+              }
+            </Text>
+            <Text style={styles.cardText}>
+              {
+                "Budget:\n$" + this.state.budget
+                + " for party of " + this.state.size
+              }
+            </Text>
+          </View>
         </View>
       </View>
     );
@@ -107,61 +122,48 @@ const styles = StyleSheet.create({
   cardWrapper: {
     flex: 1,
     width: Dimensions.get('window').width - 20,
-    backgroundColor: '#ffffff',
-    // borderRadius: 2,
-    // borderColor: '#ffffff',
-    // borderWidth: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    backgroundColor: Colors.Background,
+    shadowColor: Colors.Shadow,
     shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowRadius: 3,
     shadowOffset: {
       height: 1,
       width: 2,
     },
     marginTop: 10,
   },
+
+  cardContent: {
+    backgroundColor: Colors.Overlay,
+  },
+
+  primaryPhoto: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: Sizes.width,
+    height: 250,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+
   cardIntro: {
     margin: Sizes.InnerFrame,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start'
-  },
-  cardActions: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'space-around',
-    // justifyContent: 'center',
-    height: 30,
-    borderStyle: 'solid',
-    borderTopColor: 'rgba(0, 0, 0, 0.1)',
-    borderTopWidth: 1,
-  },
-  cardActionsButtons: {
-    flexDirection: 'row'
-  },
-  cardStatus: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-    // padding: 0,
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderRadius: 10,
-    borderColor: Colors.Transparent,
-    borderWidth: 1,
+    alignItems: 'flex-start',
+    backgroundColor: Colors.Transparent
   },
 
   cardText: {
     marginTop: Sizes.InnerFrame/2,
-    color: Colors.Primary,
-    fontSize: Sizes.H2
+    color: Colors.Secondary,
+    fontSize: Sizes.H2,
+    fontWeight: '500'
   },
   cardTitleText: {
-    fontSize: Sizes.H1
+    fontSize: Sizes.H1,
+    fontWeight: '600'
   },
-  cardDetailsTextDesc: {
-    color: 'black'
-  },
-  cardStatusText: {
-    color: Colors.White
-  }
+
+
 });
