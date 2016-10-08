@@ -7,8 +7,11 @@ import {
 import {
   Colors, Sizes
 } from '../../../res/Constants';
-import DateFormat from 'dateformat';
+import {
+  expandOnParty
+} from '../planner/BookingCard';
 
+import DateFormat from 'dateformat';
 import Button from '../common/Button';
 
 let days = [
@@ -46,27 +49,20 @@ export default class BookingCard extends Component {
     if (this.props.booking) {
       let booking = this.props.booking;
 
-
-      let details = `budget of XXX`;
-      booking.description = `You have requested a booking for ` +
-        `${booking.city.name}, with  ` +
-        `people. Including a ${details}.`;
-
       if (booking.requestedTime){
         booking.date = days[new Date(booking.requestedTime).getDay()]
           + ", " + DateFormat(new Date(booking.requestedTime),
           'mmmm dS, yyyy');
       }
 
-
-      if (booking.confirmed) {
-        booking.statusColor = '#008BBA'
-        booking.statusText = 'Confirmed'
-      } else if (booking.finalized) {
-        booking.statusColor = '#00A03E'
-        booking.statusText = 'Completed'
-      }
-      this.setState({booking: booking});
+      let [party, budget] = expandOnParty(booking);
+      this.setState({
+        booking: booking,
+        budget: budget,
+        party: party,
+        size: party.length,
+        status: 'Pending'
+      });
     }
   }
 
@@ -75,37 +71,32 @@ export default class BookingCard extends Component {
       <View style={styles.cardWrapper}>
         <View style={styles.cardIntro}>
           <Text style={[styles.cardText, styles.cardTitleText]}>
-          {
-            this.state.booking.city && this.state.booking.city.name
-              ? this.state.booking.city.name
-              : 'Trip'
-          }
+            {this.state.status}
           </Text>
           <Text style={[styles.cardText, styles.cardTitleText]}>
-          {
-            this.state.booking.date
-          }
+            {
+              this.state.booking.city && this.state.booking.city.name
+                ? this.state.booking.city.name
+                : 'Trip'
+            }
           </Text>
-          <Text style={[styles.cardText, styles.cardTitleText]}>
-          {
-            this.state.booking.address
-          }
+          <Text style={styles.cardText}>
+            {this.state.booking.date}
           </Text>
         </View>
-        <View style={styles.cardDetails}>
-        </View>
-        <View style={styles.cardActions}>
-          <View style={styles.cardActionsButtons}>
-            <Button label="DETAILS" fontColor="#3F51B5"/>
-            <Button label="CANCEL" fontColor="#DB2D6D"/>
-          </View>
-          <View style={[styles.cardStatus, {backgroundColor: this.state.booking.statusColor ? this.state.booking.statusColor : Colors.Primary}]}>
-            <Text style={styles.cardStatusText}>
-              {
-                this.state.booking.statusText ? this.state.booking.statusText : 'In Progress'
-              }
-            </Text>
-          </View>
+        <View style={styles.cardIntro}>
+          <Text style={styles.cardText}>
+            {
+              this.state.booking.address
+              && 'Pickup:\n' + this.state.booking.address
+            }
+          </Text>
+          <Text style={styles.cardText}>
+            {
+              "Budget:\n$" + this.state.budget
+              + " for party of " + this.state.size
+            }
+          </Text>
         </View>
       </View>
     );
@@ -134,13 +125,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start'
   },
-  cardDetails: {
-    height: 50,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingLeft: 15
-  },
   cardActions: {
     flexDirection: 'row',
     alignItems: 'stretch',
@@ -167,12 +151,12 @@ const styles = StyleSheet.create({
   },
 
   cardText: {
+    marginTop: Sizes.InnerFrame/2,
     color: Colors.Primary,
-    fontSize: 10
+    fontSize: Sizes.H2
   },
   cardTitleText: {
-    marginTop: Sizes.InnerFrame/2,
-    fontSize: 16
+    fontSize: Sizes.H1
   },
   cardDetailsTextDesc: {
     color: 'black'
