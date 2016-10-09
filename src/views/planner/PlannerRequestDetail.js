@@ -5,7 +5,7 @@ import {
   StyleSheet, View, Text, TouchableOpacity
 } from 'react-native';
 import {
-  Colors, Sizes, Styles
+  Colors, Sizes, Styles, Strings
 } from '../../../res/Constants';
 import Database, {
   Firebase
@@ -36,7 +36,9 @@ export default class PlannerRequestDetail extends Component {
     super(props);
     this.state = {
       view: 0,
-      booking: {}
+      booking: {},
+      photo: null,
+      random: Math.random()
     };
 
     this.ref = Database.ref(
@@ -49,6 +51,26 @@ export default class PlannerRequestDetail extends Component {
       if (data.exists()) {
         let booking = data.val();
         let [party, budget] = expandOnParty(booking);
+
+        // obtain photo
+        if (booking.city.placeId){
+          fetch(Strings.googlePlaceURL + 'details/json?placeid='
+            + booking.city.placeId + '&key='
+            + Strings.googleApiKey)
+          .then(response => response.json())
+          .then(json => {
+            let photo = json.result.photos[
+              Math.floor(
+                this.state.random
+                * json.result.photos.length
+              )
+            ].photo_reference;
+            this.setState({
+              photo: photo
+            });
+          });
+        }
+
         this.setState({
           booking: booking,
           party: party,
@@ -67,8 +89,17 @@ export default class PlannerRequestDetail extends Component {
     return (
       <View style={styles.container}>
         <ParallaxView
-          backgroundSource={require('../../../res/img/profile_bg.jpg')}
-          windowHeight={100}
+          backgroundSource={
+            this.state.photo
+            ? {uri: (
+              Strings.googlePlaceURL
+              + 'photo?maxwidth=800&photoreference='
+              + this.state.photo
+              + '&key='
+              + Strings.googleApiKey
+            )}: require('../../../res/img/profile_bg.jpg')
+          }
+          windowHeight={400}
           scrollableViewStyle={styles.headerScroll}
           header={(
             <View style={styles.headerContainer}>
@@ -102,7 +133,7 @@ export default class PlannerRequestDetail extends Component {
                 </View>
                 <GroupAvatar
                   style={styles.group}
-                  limit={4}
+                  limit={3}
                   uids={
                     this.state.party
                   } />
@@ -193,6 +224,7 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
+    backgroundColor: Colors.Overlay,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-end',
