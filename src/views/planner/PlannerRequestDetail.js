@@ -75,7 +75,11 @@ export default class PlannerRequestDetail extends Component {
                   Styles.Header,
                   styles.title
                 ]}>
-                  {this.state.booking && this.state.booking.city}
+                  {
+                    this.state.booking
+                    && this.state.booking.city
+                    && this.state.booking.city.name
+                  }
                 </Text>
                 <GroupAvatar
                   limit={4}
