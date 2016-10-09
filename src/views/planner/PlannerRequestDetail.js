@@ -16,6 +16,7 @@ import {
 import {
   expandOnParty
 } from '../../components/planner/BookingCard';
+import DateFormat from 'dateformat';
 
 // components
 import ParallaxView from 'react-native-parallax-view';
@@ -25,6 +26,7 @@ import InputField from '../../components/common/InputField';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CircleCheck from '../../components/common/CircleCheck';
+import Button from '../../components/common/Button';
 import BookingItinerary from '../../components/planner/BookingItinerary';
 import BookingSummary from '../../components/planner/BookingSummary';
 import BookingPlaces from '../../components/planner/BookingPlaces';
@@ -71,17 +73,35 @@ export default class PlannerRequestDetail extends Component {
           header={(
             <View style={styles.headerContainer}>
               <View style={styles.header}>
-                <Text style={[
-                  Styles.Header,
-                  styles.title
-                ]}>
-                  {
-                    this.state.booking
-                    && this.state.booking.city
-                    && this.state.booking.city.name
-                  }
-                </Text>
+                <View style={styles.headerText}>
+                  <View style={styles.locationContainer}>
+                    <Button
+                      style={styles.location}
+                      color={Colors.Primary}
+                      fontColor={Colors.AlternateText}
+                      size={Sizes.SmallText}
+                      icon="place"
+                      label={
+                        this.state.booking
+                        && this.state.booking.city
+                        && this.state.booking.city.name
+                      } />
+                  </View>
+                  <Text style={[
+                    Styles.Header,
+                    styles.title
+                  ]}>
+                    {DateFormat(
+                      this.props.booking
+                      && this.props.booking.requestedTime
+                      && new Date(this.props.booking.requestedTime)
+                      || new Date(),
+                      'dddd, mmmm dS'
+                    )}
+                  </Text>
+                </View>
                 <GroupAvatar
+                  style={styles.group}
                   limit={4}
                   uids={
                     this.state.party
@@ -188,12 +208,29 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
 
+  group: {
+    flex: 1
+  },
+
   top: {
     marginTop: Sizes.InnerFrame
   },
 
   title: {
     color: Colors.AlternateText
+  },
+
+  location: {
+    paddingTop: 5,
+    paddingRight: 10,
+    paddingBottom: 5,
+    paddingLeft: 10
+  },
+
+  locationContainer: {
+    marginLeft: Sizes.InnerFrame,
+    marginBottom: 3,
+    alignItems: 'flex-start'
   },
 
   tabs: {

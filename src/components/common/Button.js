@@ -107,7 +107,7 @@ export default class Button extends Component {
                 && (
                   <Icon
                     name={this.props.icon}
-                    size={(this.props.size || Sizes.Text) + 3}
+                    size={this.props.size || Sizes.Text}
                     color={
                       (this.props.isDisabled && this.props.disabledFontColor)
                       || this.props.fontColor
@@ -157,7 +157,7 @@ export default class Button extends Component {
                 && (
                   <Icon
                     name={this.props.rightIcon}
-                    size={(this.props.size || Sizes.Text) + 3}
+                    size={this.props.size || Sizes.Text}
                     color={
                       (this.props.isDisabled && this.props.disabledFontColor)
                       || this.props.fontColor

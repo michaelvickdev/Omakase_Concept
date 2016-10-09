@@ -54,7 +54,10 @@ export default class GroupAvatar extends Component {
   // all collapsed users
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[
+        styles.container,
+        this.props.style
+      ]}>
         {
           this.state.visible.map(uid => (
             <View
@@ -96,7 +99,9 @@ export default class GroupAvatar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   },
 
   outline: {
