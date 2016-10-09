@@ -35,9 +35,9 @@ export default class BookingSummary extends Component {
         <InformationField
           noLine
           style={[
-            styles.balance, {
-              color: Colors.Green
-            }
+
+            // changes to Red if negative
+            {color: Colors.Green}
           ]}
           label="Available Funds"
           subtitle="Balance left after currently selected activities"
@@ -51,9 +51,5 @@ const styles = StyleSheet.create({
   container: {
     padding: Sizes.InnerFrame,
     alignSelf: 'stretch'
-  },
-
-  balance: {
-    fontSize: Sizes.H1
   }
 });
