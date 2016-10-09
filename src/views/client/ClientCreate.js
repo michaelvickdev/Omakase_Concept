@@ -79,12 +79,6 @@ export default class ClientCreate extends Component {
                   placeId: this._city.detail().place_id
                 },
                 address: this._address.val(),
-                contributions: {
-                  [Firebase.auth().currentUser.uid]: {
-                    budget: this._price.val() * this._party.val(),
-                    party: this._party.val(),
-                  }
-                }
               }, error => Actions.clientPlannerChoice());
 
               let geoFire = new GeoFire(Database.ref('locations'));
