@@ -31,6 +31,9 @@ export default class BookingCardExpandedAvailable extends Component {
     };
 
     this.join = this.join.bind(this);
+    this.ref = Database.ref(
+      `bookings/${this.props.bookingId}`
+    );
   }
 
   join() {
