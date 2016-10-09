@@ -10,6 +10,7 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import DateFormat from 'dateformat';
 
 // components
 import BookingDayList from '../../components/planner/BookingDayList';
@@ -43,12 +44,9 @@ export default class PlannerRequestMain extends Component {
         <View style={styles.body}>
           <Text style={Styles.Header}>
             {
-              `${this.state.date.toLocaleString(
-                'en-US', {
-                  weekday: 'long',
-                  month: 'long',
-                  day: 'numeric'
-                }
+              `${DateFormat(
+                this.state.date,
+                'dddd, mmmm dS'
               )} in Toronto`
             }
           </Text>
