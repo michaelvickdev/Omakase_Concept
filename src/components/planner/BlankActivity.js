@@ -18,7 +18,8 @@ export default class BlankActivity extends Component {
       <View style={[
         styles.container,
         styles.thinContainer,
-        blankStyles.container
+        blankStyles.container,
+        this.props.style
       ]}>
         <View style={[
           styles.imageContainer,
