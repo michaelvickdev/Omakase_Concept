@@ -13,6 +13,7 @@ import {
 import InputField from './InputField';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CircleCheck from '../../components/common/CircleCheck';
+import Divider from '../../components/common/Divider';
 
 
 /** Generic Picker
@@ -105,7 +106,7 @@ export default class MultiPicker extends Component {
                         tempsave: this.state.save.map(i => i),
                         visible: Object.assign({}, this.state.tempvisible)
                       })}>
-                      <Text style={styles.text}>
+                      <Text style={styles.buttonText}>
                         {this.props.cancelLabel || 'Cancel'}
                       </Text>
                     </TouchableHighlight>
@@ -116,12 +117,14 @@ export default class MultiPicker extends Component {
                         save: this.state.tempsave.map(i => i),
                         tempvisible: Object.assign({}, this.state.visible)
                       })}>
-                      <Text style={styles.text}>
+                      <Text style={styles.buttonText}>
                         {this.props.doneLabel || 'Done'}
                       </Text>
                     </TouchableHighlight>
                 </View>
+
                 <View style={styles.optionsContainer}>
+                  <Divider style={styles.divider} />
                   <ScrollView>
                     {
                       this.state.options.map(lang => (
@@ -129,7 +132,7 @@ export default class MultiPicker extends Component {
                           style={styles.singleOptionContainer}
                           key={lang}>
                           <TouchableHighlight
-                          underlayColor={Colors.Transparent}
+                          underlayColor={Colors.LightGrey}
                           onPress={() => this.setState({
                             tempsave: this.tuneOption(lang),
                             visible: this.toggle(lang)
@@ -174,6 +177,19 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
+  divider: {
+    width: Sizes.width,
+    height: 0.6,
+    marginTop: Sizes.InnerFrame,
+    marginLeft: Sizes.OuterFrame
+  },
+
+  buttonText: {
+    textAlign: 'center',
+    fontSize: Sizes.text,
+    color: Colors.Primary
+  },
+
   text: {
     textAlign: 'right',
     fontSize: Sizes.text
@@ -203,7 +219,7 @@ const styles = StyleSheet.create({
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame,
     paddingBottom: Sizes.InnerFrame,
-    backgroundColor: Colors.Secondary,
+    
     alignItems: 'stretch',
     justifyContent: 'space-between'
   },

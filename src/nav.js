@@ -29,6 +29,7 @@ import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 import ClientConfirm from './views/client/ClientConfirm';
 import ClientPay from './views/client/ClientPay';
+import ClientChoosePlanner from './views/client/ClientChoosePlanner';
 
 // planners components
 import PlannerMain from './views/planner/PlannerMain';
@@ -108,6 +109,9 @@ export default class Navigation extends Component {
           <Scene key="clientPlannerChoice"
             title={Strings.CreateEventTitle}
             component={ClientPlannerChoice} />
+          <Scene key="clientChoosePlanner"
+            title={Strings.CreateEventTitle}
+            component={ClientChoosePlanner} />
           <Scene key="clientExclusion"
             title={Strings.CreateEventTitle}
             component={ClientExclusion}

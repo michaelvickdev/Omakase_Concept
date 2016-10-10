@@ -85,7 +85,7 @@ export default class ClientCreate extends Component {
                     party: this._party.val(),
                   }
                 }
-              }, error => Actions.clientPlannerChoice());
+              }, error => Actions.clientChoosePlanner());
 
               let geoFire = new GeoFire(Database.ref('locations'));
               geoFire.set(bookingRef.key, [
@@ -198,16 +198,21 @@ export default class ClientCreate extends Component {
             <NumberPicker
               isTop
               number={2}
+              rightNoun={"person"}
               min={1}
-              ref={ref => this._party = ref}
-              label="# of People" />
+              ref={ref => this._party = ref} />
             <NumberPicker
               number={100}
+              leftNoun={"$"}
+              rightNoun={"CAD per person"}
               min={50}
               interval={10}
-              label="Budget"
-              ref={ref => this._price = ref}
-              subtitle="For the party (in USD$)" />
+              ref={ref => this._price = ref} />
+            <NumberPicker
+              number={2}
+              rightNoun={"Guides"}
+              min={1}
+              ref={ref => this._space = ref} />
             <PickerField
               label="Language"
               ref={ref => this._language = ref}
@@ -219,12 +224,6 @@ export default class ClientCreate extends Component {
               <Picker.Item label="Cantonese" value="Cantonese" />
               <Picker.Item label="Latin" value="Latin" />
             </PickerField>
-            <NumberPicker
-              number={2}
-              min={1}
-              ref={ref => this._space = ref}
-              label="# of Guides"
-              subtitle="How many guides are you expecting" />
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'

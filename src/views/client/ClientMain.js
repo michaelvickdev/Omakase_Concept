@@ -19,7 +19,17 @@ import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
+
 import BookingCard from '../../components/client/BookingCard';
+
+// a collection of closures to build a new ListView
+let lvClosures = {
+  getSectionData: (data, section) => data[section],
+  getRowData: (data, section, row) => data[`${section}:${row}`],
+  rowHasChanged: (r1, r2) => r1 !== r2,
+  sectionHeaderHasChanged: (r1, r2) => r1 !== r2
+}
+
 
 /**
  * Main screen for general users (Client)
