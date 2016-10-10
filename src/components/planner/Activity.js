@@ -104,12 +104,10 @@ export default class Activity extends Component {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.White,
-    marginBottom: 2
   },
 
   thinContainer: {
-    flexDirection: 'row',
-    marginBottom: Sizes.InnerFrame / 2
+    flexDirection: 'row'
   },
 
   imageContainer: {

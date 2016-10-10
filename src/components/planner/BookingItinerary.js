@@ -12,14 +12,24 @@ import {
 import Activity from './Activity';
 import BlankActivity from './BlankActivity';
 import InformationField from '../common/InformationField';
+import Swipeout from 'react-native-swipeout';
 
 export default class BookingSummary extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Activity
-          thin
-          activityId="-KEJWEHEJjeweh-wehe-ej2" />
+        <Swipeout
+          right={[
+            {
+              text: 'Remove',
+              color: Colors.AlternateText,
+              backgroundColor: Colors.Red
+            }
+          ]}>
+          <Activity
+            thin
+            activityId="-KEJWEHEJjeweh-wehe-ej2" />
+        </Swipeout>
         <Activity
           thin
           activityId="-KEKWEJJEWjejw-wejwejweejw2jn" />
