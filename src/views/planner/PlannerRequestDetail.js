@@ -123,9 +123,9 @@ export default class PlannerRequestDetail extends Component {
                     styles.title
                   ]}>
                     {DateFormat(
-                      this.props.booking
-                      && this.props.booking.requestedTime
-                      && new Date(this.props.booking.requestedTime)
+                      this.state.booking
+                      && this.state.booking.requestedTime
+                      && new Date(this.state.booking.requestedTime)
                       || new Date(),
                       'dddd, mmmm dS'
                     )}
