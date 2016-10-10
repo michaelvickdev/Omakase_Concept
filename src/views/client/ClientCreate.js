@@ -85,7 +85,7 @@ export default class ClientCreate extends Component {
                     party: this._party.val(),
                   }
                 }
-              }, error => Actions.clientChoosePlanner());
+              }, error => Actions.clientPlannerChoice());
 
               let geoFire = new GeoFire(Database.ref('locations'));
               geoFire.set(bookingRef.key, [

@@ -13,6 +13,8 @@ import {
 
 import DateFormat from 'dateformat';
 import Button from '../common/Button';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 let days = [
   'Sunday',
@@ -67,7 +69,7 @@ export default class BookingCard extends Component {
         budget: budget,
         party: party,
         size: party.length,
-        status: 'Pending'
+        status: 'Hang tight!! We\'re looking for a planner for you'
       });
     }
   }
@@ -84,21 +86,24 @@ export default class BookingCard extends Component {
         : <View/> }
         <View style={styles.cardContent}>
           <View style={styles.cardIntro}>
-            <Text style={[styles.cardText, styles.cardTitleText]}>
-              {this.state.status}
-            </Text>
-            <Text style={[styles.cardText, styles.cardTitleText]}>
-              {
-                this.state.booking.city && this.state.booking.city.name
-                  ? this.state.booking.city.name
-                  : 'Trip'
-              }
-            </Text>
+            <View style={styles.rowWrapper}>
+              <Icon style={styles.icon}
+                name='place'
+                size={Sizes.H1}
+                color={Colors.Secondary} />
+              <Text style={[styles.cardText, styles.cardTitleText]}>
+                {
+                  this.state.booking.city && this.state.booking.city.name
+                    ? this.state.booking.city.name
+                    : 'Trip'
+                }
+              </Text>
+            </View>
             <Text style={styles.cardText}>
               {this.state.booking.date}
             </Text>
           </View>
-          <View style={styles.cardIntro}>
+          <View style={styles.cardBody}>
             <Text style={styles.cardText}>
               {
                 this.state.booking.address
@@ -112,6 +117,11 @@ export default class BookingCard extends Component {
               }
             </Text>
           </View>
+        </View>
+        <View style={styles.cardFooter}>
+          <Text style={styles.cardText}>
+            {this.state.status}
+          </Text>
         </View>
       </View>
     );
@@ -147,11 +157,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  rowWrapper: {
+    flex: 0.8,
+    flexDirection: 'row',
+  },
+
+  icon: {
+    marginTop: 10,
+    marginRight: 5,
+    marginLeft: -5
+  },
+
   cardIntro: {
     margin: Sizes.InnerFrame,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: Colors.Transparent
+  },
+
+  cardBody: {
+    margin: Sizes.InnerFrame,
+    marginTop: Sizes.InnerFrame*2,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: Colors.Transparent
+  },
+
+  cardFooter: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: Colors.Primary,
+    paddingTop: Sizes.InnerFrame/2,
+    paddingLeft: Sizes.InnerFrame,
+    paddingBottom: Sizes.InnerFrame
   },
 
   cardText: {
@@ -160,6 +198,7 @@ const styles = StyleSheet.create({
     fontSize: Sizes.H2,
     fontWeight: '500'
   },
+
   cardTitleText: {
     fontSize: Sizes.H1,
     fontWeight: '600'

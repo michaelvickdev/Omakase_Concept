@@ -30,17 +30,19 @@ export function expandOnParty(booking) {
   let expanded = [];
   let budget = 0;
 
-  for (let uid of Object.keys(booking.contributions)) {
-    if (
-      booking.contributions[uid].confirmed
+  if (booking.contributions){
+    for (let uid of Object.keys(booking.contributions)) {
+      if (
+        booking.contributions[uid].confirmed
 
-      // TODO: remove hack to allow the owner as auto-confirmed
-      // to support legacy data without confirmed
-      || booking.createdBy === uid
-    ) {
-      budget += booking.contributions[uid].budget;
-      for (let i = 0; i < booking.contributions[uid].party; i++) {
-        expanded.push(uid);
+        // TODO: remove hack to allow the owner as auto-confirmed
+        // to support legacy data without confirmed
+        || booking.createdBy === uid
+      ) {
+        budget += booking.contributions[uid].budget;
+        for (let i = 0; i < booking.contributions[uid].party; i++) {
+          expanded.push(uid);
+        }
       }
     }
   }
