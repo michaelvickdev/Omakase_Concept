@@ -54,7 +54,7 @@ export default class BookingDayList extends Component {
         date.getFullYear(), date.getMonth(), date.getDate()
       ).valueOf())
       .endAt(new Date(
-        date.getFullYear(), date.getMonth(), date.getDate() + 1
+        date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59
       ).valueOf());
 
     // and listener
