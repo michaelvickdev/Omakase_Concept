@@ -65,6 +65,28 @@ export default class ClientCreate extends Component {
           {
             text: 'Confirm Booking',
             onPress: () => {
+              let msg = {
+                createdBy: Firebase.auth().currentUser.uid,
+                requestedTime: (new Date(
+                  this._date.val().getUTCFullYear(),
+                  this._date.val().getUTCMonth(),
+                  this._date.val().getUTCDate()
+                )).valueOf(),
+                excitement: this._excitement.val(),
+                space: this._space.val(),
+            //    city: {
+            //      name: this._city.val(),
+          //        placeId: this._city.detail().place_id
+          //      },
+                address: this._address.val(),
+                contributions: {
+                  [Firebase.auth().currentUser.uid]: {
+                    budget: this._price.val() * this._party.val(),
+                    party: this._party.val(),
+                  }
+                }
+              }
+              console.log(JSON.stringify(msg));
               let bookingRef = Database.ref('bookings').push({
                 createdBy: Firebase.auth().currentUser.uid,
                 requestedTime: (new Date(
@@ -79,16 +101,28 @@ export default class ClientCreate extends Component {
                   placeId: this._city.detail().place_id
                 },
                 address: this._address.val(),
-              }, error => Actions.clientPlannerChoice());
-
-              let geoFire = new GeoFire(Database.ref('locations'));
-              geoFire.set(bookingRef.key, [
-                  this._address.detail().geometry.location.lat,
-                  this._address.detail().geometry.location.lng
-                ]).then(() => {
-                console.log("Provided keys have been added to GeoFire");
+                contributions: {
+                  [Firebase.auth().currentUser.uid]: {
+                    budget: this._price.val() * this._party.val(),
+                    party: this._party.val(),
+                  }
+                }
               }, error => {
-                console.log("Error: " + error);
+                if (!error){
+                  let geoFire = new GeoFire(Database.ref('locations'));
+                  geoFire.set(bookingRef.key, [
+                      this._address.detail().geometry.location.lat,
+                      this._address.detail().geometry.location.lng
+                    ]).then(() => {
+                    console.log("Provided keys have been added to GeoFire");
+                  }, error => {
+                    console.log("Error: " + error);
+                  });
+
+                  Actions.clientPlannerChoice();
+                } else {
+                  console.log("Request submission fail: ", error);
+                }
               });
             }
           }
