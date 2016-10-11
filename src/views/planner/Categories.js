@@ -72,13 +72,12 @@ export default class Categories extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: Sizes.OuterFrame
+    marginTop: Sizes.InnerFrame
   },
 
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    marginLeft: 8
   }
 });

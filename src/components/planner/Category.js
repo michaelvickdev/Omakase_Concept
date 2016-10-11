@@ -61,6 +61,7 @@ export default class Category extends Component {
             <Text style={styles.countText}>
               {
                 this.state.category
+                && this.state.category.activities
                 ? Object.keys(
                   this.state.category.activities
                 ).length: 0

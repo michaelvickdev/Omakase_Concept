@@ -149,11 +149,11 @@ export default class Navigation extends Component {
           <Scene key="activities"
             title={"Activities"}
             component={Activities}
-            hideNavBar={true} />
+            hideNavBar={false} />
           <Scene key="categories"
             title={"Categories"}
             component={Categories}
-            hideNavBar={true} />
+            hideNavBar={false} />
           </Scene>
         </Router>
       </Drawer>
