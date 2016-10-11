@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, ListView, Alert
+  StyleSheet, View, ListView, Alert, TouchableOpacity
 } from 'react-native';
 import {
   Sizes, Colors
@@ -10,6 +10,9 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import {
+  Actions
+} from 'react-native-router-flux'
 
 // components
 import Activity from './Activity';
@@ -86,8 +89,20 @@ export default class BookingSummary extends Component {
           renderRow={this.renderRow}
           dataSource={this.state.data}
           scrollRenderAheadDistance={6} />
-        <BlankActivity
-          style={styles.blank} />
+        <TouchableOpacity
+          onPress={() => Actions.categories({
+            cityId: (
+              this.props.booking
+              && this.props.booking.city
+              && this.props.booking.city.placeId
+            ),
+            select: activityId => {
+              console.log(activityId)
+            }
+          })}>
+          <BlankActivity
+            style={styles.blank} />
+        </TouchableOpacity>
       </View>
     );
   }

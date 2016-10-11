@@ -37,6 +37,7 @@ import PlannerRequestDetail from './views/planner/PlannerRequestDetail';
 import PlannerRequestPlan from './views/planner/PlannerRequestPlan';
 import PlannerRating from './views/planner/PlannerRating';
 import Activities from './views/planner/Activities';
+import Categories from './views/planner/Categories';
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -148,7 +149,11 @@ export default class Navigation extends Component {
           <Scene key="activities"
             title={"Activities"}
             component={Activities}
-            hideNavBar={false} />
+            hideNavBar={true} />
+          <Scene key="categories"
+            title={"Categories"}
+            component={Categories}
+            hideNavBar={true} />
           </Scene>
         </Router>
       </Drawer>

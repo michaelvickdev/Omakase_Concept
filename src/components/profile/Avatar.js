@@ -9,6 +9,7 @@ import {
 } from '../../../res/Constants';
 import Database from '../../utils/Firebase';
 
+// components
 import Photo from '../common/Photo';
 
 /**
