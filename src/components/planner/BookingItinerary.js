@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, ListView
+  StyleSheet, View, ListView, Alert
 } from 'react-native';
 import {
   Sizes, Colors
@@ -29,7 +29,7 @@ export default class BookingSummary extends Component {
       `bookings/${this.props.bookingId}/itinerary`
     );
 
-    console.log(this.props.bookingId);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +50,23 @@ export default class BookingSummary extends Component {
           {
             text: 'Remove',
             color: Colors.AlternateText,
-            backgroundColor: Colors.Red
+            backgroundColor: Colors.Red,
+            onPress: () => {
+              Alert.alert(
+                'Remove this Activity?',
+                null,
+                [
+                  {
+                    text: 'Cancel'
+                  }, {
+                    text: 'Remove',
+                    onPress: () => {
+                      this.ref.child(activityId).remove()
+                    }
+                  }
+                ]
+              );
+            }
           }
         ]}>
         <Activity
