@@ -50,7 +50,9 @@ export default class ClientCreate extends Component {
       this._date.val().getUTCDate()
     )).valueOf();
 
-    if (this._address.val() && this._terms.val()){
+    let validDate = reqtime > (new Date()).getMilliseconds();
+
+    if (this._address.val() && this._terms.val() && validDate){
       Alert.alert(
         'Please confirm this Booking',
         `You are authorizing $${this._price.val()} USD `
@@ -133,6 +135,11 @@ export default class ClientCreate extends Component {
         'Terms and Conditions',
         `Please review and accept the terms and conditions to `
         + `continue with your booking. `
+      );
+    } else if (!validDate){
+      Alert.alert(
+        'Invalid Date',
+        `Please double check your booking date. `
       );
     } else {
       Alert.alert(
