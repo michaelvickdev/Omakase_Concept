@@ -2,17 +2,36 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View
+  StyleSheet, View, ScrollView
 } from 'react-native';
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux'
 
-export default class ActivityDetail extends Component {
+// components
+import Button from '../../components/common/Button';
+
+export default class Activity extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ScrollView style={styles.content}>
 
+        </ScrollView>
+        <Button
+          squareBorders
+          onPress={() => {
+            this.props.select(this.props.activityId);
+            Actions.pop({popNum: 3});
+          }}
+          style={styles.button}
+          color={Colors.Green}
+          fontColor={Colors.AlternateText}
+          icon="check"
+          label="Add to Itinerary" />
       </View>
     );
   }
@@ -20,6 +39,16 @@ export default class ActivityDetail extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
 
+  content: {
+    flex: 1,
+    alignSelf: 'stretch'
+  },
+
+  button: {
+    paddingTop: Sizes.InnerFrame,
+    paddingBottom: Sizes.InnerFrame
   }
 });

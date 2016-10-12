@@ -96,8 +96,13 @@ export default class BookingSummary extends Component {
               && this.props.booking.city
               && this.props.booking.city.placeId
             ),
+
+            // behavior triggered when an activity is
+            // selected by the planner
             select: activityId => {
-              console.log(activityId)
+              this.ref.update({
+                [activityId]: true
+              });
             }
           })}>
           <BlankActivity

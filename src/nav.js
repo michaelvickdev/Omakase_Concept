@@ -132,32 +132,23 @@ export default class Navigation extends Component {
               component={PlannerMain}
               type='reset'
               hideNavBar={false} />
-            <Scene key="plannerBalance"
-              title={"Statistics"}
-              component={PlannerBalance}
-              hideNavBar={false} />
-            <Scene key="plannerRequestDetail"
-              component={PlannerRequestDetail}
-              hideNavBar={true} />
-            <Scene key="plannerRequestPlan"
-              title={"Make Plan"}
-              component={PlannerRequestPlan}
-              hideNavBar={false} />
-            <Scene key="plannerRating"
-              title={"Ratings"}
-              component={PlannerRating}
-              hideNavBar={false} />
-            <Scene key="activities"
-              title={"Activities"}
-              component={Activities}
-              hideNavBar={false} />
+            <Scene
+              hideNavBar
+              key="plannerRequestDetail"
+              component={PlannerRequestDetail} />
             <Scene key="categories"
+              hideNavBar
               title={"Categories"}
-              component={Categories}
-              hideNavBar={false} />
-            <Scene key="activity"
-              component={Activity}
-              hideNavBar={false} />
+              component={Categories} />
+            <Scene
+              hideNavBar
+              key="activities"
+              title={"Activities"}
+              component={Activities} />
+            <Scene
+              hideNavBar
+              key="activity"
+              component={Activity} />
           </Scene>
         </Router>
       </Drawer>
