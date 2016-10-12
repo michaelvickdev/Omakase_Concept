@@ -24,18 +24,18 @@ export default class Activities extends Component {
     };
 
     this.ref = Database.ref(
-      `cities/${
-        this.props.city
-      }/activities/${
-        this.props.excitement
-      }`
+      `categories/${
+        this.props.categoryId
+      }/activities`
     );
   }
 
   componentDidMount() {
     this.listener = this.ref.on('value', data => {
       data.exists() && this.setState({
-        data: this.state.data.cloneWithRows(data.val())
+        data: this.state.data.cloneWithRows(
+          Object.keys(data.val())
+        )
       })
     });
   }
