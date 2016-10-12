@@ -2,46 +2,107 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View
+  StyleSheet, View, ListView, Alert, TouchableOpacity
 } from 'react-native';
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import Database, {
+  Firebase
+} from '../../utils/Firebase';
+import {
+  Actions
+} from 'react-native-router-flux'
 
 // components
 import Activity from './Activity';
 import BlankActivity from './BlankActivity';
-import InformationField from '../common/InformationField';
+import Swipeout from 'react-native-swipeout';
 
 export default class BookingSummary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
+    };
+
+    this.ref = Database.ref(
+      `bookings/${this.props.bookingId}/itinerary`
+    );
+
+    this.renderRow = this.renderRow.bind(this);
+  }
+
+  componentDidMount() {
+    this.listener = this.ref.on('value', data => {
+      data.exists()
+      && this.setState({
+        data: this.state.data.cloneWithRows(
+          Object.keys(data.val())
+        )
+      });
+    });
+  }
+
+  renderRow(activityId) {
+    return (
+      <Swipeout
+        right={[
+          {
+            text: 'Remove',
+            color: Colors.AlternateText,
+            backgroundColor: Colors.Red,
+            onPress: () => {
+              Alert.alert(
+                'Remove this Activity?',
+                null,
+                [
+                  {
+                    text: 'Cancel'
+                  }, {
+                    text: 'Remove',
+                    onPress: () => {
+                      this.ref.child(activityId).remove()
+                    }
+                  }
+                ]
+              );
+            }
+          }
+        ]}>
+        <Activity
+          thin
+          activityId={activityId} />
+      </Swipeout>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Activity
-          thin
-          activityId="-KEJWEHEJjeweh-wehe-ej2" />
-        <Activity
-          thin
-          activityId="-KEKWEJJEWjejw-wejwejweejw2jn" />
-        <BlankActivity />
-        <InformationField
-          label="Total Price"
-          subtitle="Per person"
-          info="$95" />
-        <InformationField
-          label="Allowed Price"
-          subtitle="Paid by the sponsor"
-          info="-$100" />
-        <InformationField
-          noLine
-          style={[
-
-            // changes to Red if negative
-            {color: Colors.Green}
-          ]}
-          label="Available Funds"
-          subtitle="Balance left after currently selected activities"
-          info="$5" />
+        <ListView
+          enableEmptySections
+          removeClippedSubviews
+          initialListSize={0}
+          renderRow={this.renderRow}
+          dataSource={this.state.data}
+          scrollRenderAheadDistance={6} />
+        <TouchableOpacity
+          onPress={() => Actions.categories({
+            cityId: (
+              this.props.booking
+              && this.props.booking.city
+              && this.props.booking.city.placeId
+            ),
+            select: activityId => {
+              console.log(activityId)
+            }
+          })}>
+          <BlankActivity
+            style={styles.blank} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -51,5 +112,9 @@ const styles = StyleSheet.create({
   container: {
     padding: Sizes.InnerFrame,
     alignSelf: 'stretch'
+  },
+
+  blank: {
+    marginTop: 5
   }
 });

@@ -123,9 +123,9 @@ export default class PlannerRequestDetail extends Component {
                     styles.title
                   ]}>
                     {DateFormat(
-                      this.props.booking
-                      && this.props.booking.requestedTime
-                      && new Date(this.props.booking.requestedTime)
+                      this.state.booking
+                      && this.state.booking.requestedTime
+                      && new Date(this.state.booking.requestedTime)
                       || new Date(),
                       'dddd, mmmm dS'
                     )}
@@ -143,13 +143,19 @@ export default class PlannerRequestDetail extends Component {
           {(() => {
             switch(this.state.view) {
               case 1: return (
-                <BookingItinerary booking={this.state.booking} />
+                <BookingItinerary
+                  bookingId={this.props.bookingId}
+                  booking={this.state.booking} />
               );
               case 2: return (
-                <BookingPlaces booking={this.state.booking} />
+                <BookingPlaces
+                  bookingId={this.props.bookingId}
+                  booking={this.state.booking} />
               );
               default: return (
-                <BookingSummary booking={this.state.booking} />
+                <BookingSummary
+                  bookingId={this.props.bookingId}
+                  booking={this.state.booking} />
               );
             }
           })()}

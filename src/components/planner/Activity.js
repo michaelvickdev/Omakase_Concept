@@ -9,6 +9,9 @@ import {
 } from '../../../res/Constants';
 import Database from '../../utils/Firebase';
 
+// components
+import Photo from '../common/Photo';
+
 export default class Activity extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +30,7 @@ export default class Activity extends Component {
         let activity = data.val();
         this.setState({
           activity: activity,
-          photo: activity.images && activity.images[0]
+          photoId: activity.photos && activity.photos[0]
         });
       }
     });
@@ -47,16 +50,9 @@ export default class Activity extends Component {
           styles.imageContainer,
           this.props.thin && styles.thinImageContainer
         ]}>
-          {
-            this.state.photo
-            ? (
-              <Image
-                source={{uri: this.state.photo}}
-                style={styles.image} />
-            ): (
-              <View style={styles.image} />
-            )
-          }
+          <Photo
+            style={styles.image}
+            photoId={this.state.photoId} />
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>
@@ -104,12 +100,10 @@ export default class Activity extends Component {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.White,
-    marginBottom: 2
   },
 
   thinContainer: {
-    flexDirection: 'row',
-    marginBottom: Sizes.InnerFrame / 2
+    flexDirection: 'row'
   },
 
   imageContainer: {

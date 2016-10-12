@@ -9,6 +9,9 @@ import {
 } from '../../../res/Constants';
 import Database from '../../utils/Firebase';
 
+// components
+import Photo from '../common/Photo';
+
 /**
  * Displays a circlar avatar.
  */
@@ -25,34 +28,25 @@ export default class Avatar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: ' '
+      photoId: null
     };
 
-    this.profileRef = Database.ref(
+    this.ref = Database.ref(
       `profiles/${this.props.uid}/photo`
     );
   }
 
   componentDidMount() {
-    this.profileListener = this.profileRef.on('value', data => {
-      if (data.exists()) {
-
-        // save ref to unlisten later
-        this.photoRef = Database.ref(
-          `photos/${data.val()}/url`
-        );
-        this.photoListener = this.photoRef.on('value', data => {
-          this.setState({
-            url: data.val()
-          });
-        });
-      }
+    this.listener = this.ref.on('value', data => {
+      data.exists()
+      && this.setState({
+          photoId: data.val()
+      });
     });
   }
 
   componentWillUnmount() {
-    this.profileRef.off('value', this.profileListener);
-    this.photoRef && this.photoRef.off('value', this.photoListener);
+    this.ref.off('value', this.listener);
   }
 
   render() {
@@ -77,7 +71,7 @@ export default class Avatar extends Component {
         ]}
         onPress={this.props.onPress}
         underlayColor={Colors.Transparent}>
-        <Image
+        <Photo
           style={[
             styles.avatar,
             this.props.style,
@@ -90,7 +84,7 @@ export default class Avatar extends Component {
               backgroundColor: this.props.color
             }
           ]}
-          source={{uri: this.state.url}} />
+          photoId={this.state.photoId} />
       </TouchableHighlight>
     );
   }

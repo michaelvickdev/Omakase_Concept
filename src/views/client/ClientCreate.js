@@ -27,7 +27,7 @@ import SwitchInput from '../../components/common/SwitchInput';
 import PickerField from '../../components/common/PickerField';
 import SliderInput from '../../components/common/SliderInput';
 import AutoCompleteInput from '../../components/common/AutoCompleteInput';
-
+import MultiPicker from '../../components/common/MultiPicker';
 /**
  * First screen of creating an event
  * client to enter basic info:
@@ -50,7 +50,9 @@ export default class ClientCreate extends Component {
       this._date.val().getUTCDate()
     )).valueOf();
 
-    if (this._address.val() && this._terms.val()){
+    let validDate = reqtime > (new Date()).getMilliseconds();
+
+    if (this._address.val() && this._terms.val() && validDate){
       Alert.alert(
         'Please confirm this Booking',
         `You are authorizing $${this._price.val()} USD `
@@ -65,6 +67,28 @@ export default class ClientCreate extends Component {
           {
             text: 'Confirm Booking',
             onPress: () => {
+              let msg = {
+                createdBy: Firebase.auth().currentUser.uid,
+                requestedTime: (new Date(
+                  this._date.val().getUTCFullYear(),
+                  this._date.val().getUTCMonth(),
+                  this._date.val().getUTCDate()
+                )).valueOf(),
+                excitement: this._excitement.val(),
+                space: this._space.val(),
+            //    city: {
+            //      name: this._city.val(),
+          //        placeId: this._city.detail().place_id
+          //      },
+                address: this._address.val(),
+                contributions: {
+                  [Firebase.auth().currentUser.uid]: {
+                    budget: this._price.val() * this._party.val(),
+                    party: this._party.val(),
+                  }
+                }
+              }
+              console.log(JSON.stringify(msg));
               let bookingRef = Database.ref('bookings').push({
                 createdBy: Firebase.auth().currentUser.uid,
                 requestedTime: (new Date(
@@ -86,7 +110,6 @@ export default class ClientCreate extends Component {
                   }
                 }
               }, error => Actions.clientPlannerChoice());
-
               let geoFire = new GeoFire(Database.ref('locations'));
               geoFire.set(bookingRef.key, [
                   this._address.detail().geometry.location.lat,
@@ -94,7 +117,21 @@ export default class ClientCreate extends Component {
                 ]).then(() => {
                 console.log("Provided keys have been added to GeoFire");
               }, error => {
-                console.log("Error: " + error);
+                if (!error){
+                  let geoFire = new GeoFire(Database.ref('locations'));
+                  geoFire.set(bookingRef.key, [
+                      this._address.detail().geometry.location.lat,
+                      this._address.detail().geometry.location.lng
+                    ]).then(() => {
+                    console.log("Provided keys have been added to GeoFire");
+                  }, error => {
+                    console.log("Error: " + error);
+                  });
+
+                  Actions.clientPlannerChoice();
+                } else {
+                  console.log("Request submission fail: ", error);
+                }
               });
             }
           }
@@ -105,6 +142,11 @@ export default class ClientCreate extends Component {
         'Terms and Conditions',
         `Please review and accept the terms and conditions to `
         + `continue with your booking. `
+      );
+    } else if (!validDate){
+      Alert.alert(
+        'Invalid Date',
+        `Please double check your booking date. `
       );
     } else {
       Alert.alert(
@@ -213,17 +255,11 @@ export default class ClientCreate extends Component {
               rightNoun={"Guides"}
               min={1}
               ref={ref => this._space = ref} />
-            <PickerField
+            <MultiPicker
               label="Language"
               ref={ref => this._language = ref}
               subtitle="Tell us what you are comfortable with"
-              defaultVal="English">
-              <Picker.Item label="English" value="English" />
-              <Picker.Item label="French" value="French" />
-              <Picker.Item label="Italian" value="Italian" />
-              <Picker.Item label="Cantonese" value="Cantonese" />
-              <Picker.Item label="Latin" value="Latin" />
-            </PickerField>
+              options={["French", "Cantonese", "Englsih", "Italian"]}/>
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'
