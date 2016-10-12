@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, ListView, Text
+  StyleSheet, View, ListView, Text, TouchableOpacity
 } from 'react-native';
 import Database, {
   Firebase
@@ -10,6 +10,9 @@ import Database, {
 import {
   Colors
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux'
 
 // components
 import Activity from '../../components/planner/Activity';
@@ -28,6 +31,8 @@ export default class Activities extends Component {
         this.props.categoryId
       }/activities`
     );
+
+    this.renderRow = this.renderRow.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +51,13 @@ export default class Activities extends Component {
 
   renderRow(activityId) {
     return (
-      <Activity activityId={activityId} />
+      <TouchableOpacity
+        onPress={() => Actions.activity({
+          activityId: activityId,
+          select: this.props.select
+        })}>
+        <Activity activityId={activityId} />
+      </TouchableOpacity>
     )
   }
 
