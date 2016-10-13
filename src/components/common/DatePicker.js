@@ -97,7 +97,6 @@ export default class DatePicker extends Component {
                   + (this.state.date.getHours() > 11 ? ' PM' : ' AM')
                   : Lists.Days[new Date(this.state.date).getDay()]
                   + ", " + DateFormat(this.state.date, 'mmmm dS yyyy')
-
                 }
               </Text>
             </TouchableHighlight>
