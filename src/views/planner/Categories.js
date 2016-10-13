@@ -2,12 +2,15 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, ListView
+  StyleSheet, View, ListView, TouchableOpacity
 } from 'react-native';
 import Database from '../../utils/Firebase';
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux'
 
 // components
 import Category from '../../components/planner/Category';
@@ -25,6 +28,8 @@ export default class Categories extends Component {
     this.ref = Database.ref(
       `cities/${this.props.cityId}`
     );
+
+    this.renderRow = this.renderRow.bind(this);
   }
 
   componentDidMount() {
@@ -48,8 +53,14 @@ export default class Categories extends Component {
 
   renderRow(categoryId) {
     return (
-      <Category
-        categoryId={categoryId} />
+      <TouchableOpacity
+        onPress={() => Actions.activities({
+          categoryId: categoryId,
+          select: this.props.select
+        })}>
+        <Category
+          categoryId={categoryId} />
+      </TouchableOpacity>
     );
   }
 
@@ -60,8 +71,8 @@ export default class Categories extends Component {
           contentContainerStyle={styles.list}
           enableEmptySections
           removeClippedSubviews
-          scrollEnabled={false}
-          initialListSize={0}
+          scrollEnabled
+          initialListSize={8}
           renderRow={this.renderRow}
           dataSource={this.state.data}
           scrollRenderAheadDistance={6} />
@@ -72,12 +83,16 @@ export default class Categories extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Sizes.InnerFrame
+    flex: 1,
+    backgroundColor: Colors.NearBlack,
+    paddingLeft: 8
   },
 
   list: {
+    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginLeft: 8
+    marginTop: Sizes.OuterFrame,
+    alignItems: 'flex-start'
   }
 });

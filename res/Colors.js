@@ -20,6 +20,7 @@ export const Colors = {
   LightGrey: '#F0F0F0',
   MediumGrey: '#9E9E9E',
   DarkGrey: '#6D6C6C',
+  NearBlack: '#222222',
   Grey: '#9197A3',
   Red: '#E53935',
   Green: '#66C75C'
