@@ -40,6 +40,9 @@ export default class BookingCard extends Component {
 
   componentDidMount() {
     // Compute display values
+    console.log("mount " + this.props.booking.address);
+
+
     if (this.props.booking) {
       let booking = this.props.booking;
 
@@ -51,9 +54,11 @@ export default class BookingCard extends Component {
         .then((json) => {
           let photoReference = json.result.photos[Math.floor(this.state.random
             *(json.result.photos.length))].photo_reference;
-          this.setState({
-            photoReference: photoReference
-          });
+          if (!this.isUnmounted){
+            this.setState({
+              photoReference: photoReference
+            });
+          }
         });
       }
 
@@ -72,6 +77,10 @@ export default class BookingCard extends Component {
         status: 'Hang tight!! We\'re looking for a planner for you'
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true;
   }
 
   render() {
