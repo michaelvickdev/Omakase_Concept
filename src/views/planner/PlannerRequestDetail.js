@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, TouchableOpacity
+  StyleSheet, View, Text, TouchableOpacity, Alert
 } from 'react-native';
 import {
   Colors, Sizes, Styles, Strings
@@ -84,6 +84,20 @@ export default class PlannerRequestDetail extends Component {
 
   componentWillUnmount() {
     this.ref.off('value', this.listener);
+  }
+
+  notAllowed() {
+    Alert.alert(
+      'Not confirmed',
+      'This feature is locked until the sponsor confirms you '
+      + 'to attend this adventure. Please wait until that happens '
+      + 'before making any plans.',
+      [
+        {
+          text: 'OK'
+        }
+      ]
+    );
   }
 
   render() {
@@ -182,9 +196,16 @@ export default class PlannerRequestDetail extends Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.setState({
-              view: 1
-            })}
+            onPress={() => {
+              if (
+                this.state.booking.planner
+                === Firebase.auth().currentUser.uid
+              ) {
+                this.setState({view: 1});
+              } else {
+                this.notAllowed();
+              }
+            }}
             style={styles.tabItem}>
             <Icon
               color={Colors.AlternateText}
@@ -195,9 +216,16 @@ export default class PlannerRequestDetail extends Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.setState({
-              view: 2
-            })}
+            onPress={() => {
+              if (
+                this.state.booking.planner
+                === Firebase.auth().currentUser.uid
+              ) {
+                this.setState({view: 2});
+              } else {
+                this.notAllowed();
+              }
+            }}
             style={styles.tabItem}>
             <Icon
               color={Colors.AlternateText}
@@ -208,9 +236,16 @@ export default class PlannerRequestDetail extends Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.setState({
-              view: 3
-            })}
+            onPress={() => {
+              if (
+                this.state.booking.planner
+                === Firebase.auth().currentUser.uid
+              ) {
+                this.setState({view: 3});
+              } else {
+                this.notAllowed();
+              }
+            }}
             style={styles.tabItem}>
             <Icon
               color={Colors.AlternateText}
