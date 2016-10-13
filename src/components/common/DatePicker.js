@@ -6,11 +6,13 @@ import {
   DatePickerAndroid, TimePickerAndroid, TouchableHighlight, Dimensions
 } from 'react-native';
 import {
-  Colors, Sizes
+  Colors, Sizes, Lists
 } from '../../../res/Constants';
 
 // components
 import InputField from './InputField';
+import DateFormat from 'dateformat';
+
 
 /**
  * Platform agnostic DatePicker wrapped inside InputField.
@@ -93,7 +95,9 @@ export default class DatePicker extends Component {
                   + (this.state.date.getMinutes() > 9 ? '' : '0')
                   + this.state.date.getMinutes()
                   + (this.state.date.getHours() > 11 ? ' PM' : ' AM')
-                  : this.state.date.toDateString()
+                  : Lists.Days[new Date(this.state.date).getDay()]
+                  + ", " + DateFormat(this.state.date, 'mmmm dS yyyy')
+
                 }
               </Text>
             </TouchableHighlight>

@@ -5,7 +5,7 @@ import {
   StyleSheet, View, Text, Dimensions, TouchableHighlight, Image
 } from 'react-native';
 import {
-  Colors, Sizes, Strings
+  Colors, Sizes, Strings, Lists
 } from '../../../res/Constants';
 import {
   expandOnParty
@@ -15,16 +15,6 @@ import DateFormat from 'dateformat';
 import Button from '../common/Button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
-let days = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-];
 
 /**
  * Booking Card Component for bookings
@@ -63,9 +53,9 @@ export default class BookingCard extends Component {
       }
 
       if (booking.requestedTime){
-        booking.date = days[new Date(booking.requestedTime).getDay()]
+        booking.date = Lists.Days[new Date(booking.requestedTime).getDay()]
           + ", " + DateFormat(new Date(booking.requestedTime),
-          'mmmm dS, yyyy');
+          'mmmm dS yyyy');
       }
 
       let [party, budget] = expandOnParty(booking);
