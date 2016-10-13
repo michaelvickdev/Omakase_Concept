@@ -1,6 +1,7 @@
 package com.omakase;
 
 import com.facebook.react.ReactActivity;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Intent;
 

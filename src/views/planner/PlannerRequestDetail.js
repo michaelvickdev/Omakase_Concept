@@ -19,6 +19,7 @@ import {
 import DateFormat from 'dateformat';
 
 // components
+import LinearGradient from 'react-native-linear-gradient';
 import ParallaxView from 'react-native-parallax-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
@@ -102,7 +103,13 @@ export default class PlannerRequestDetail extends Component {
           windowHeight={400}
           scrollableViewStyle={styles.headerScroll}
           header={(
-            <View style={styles.headerContainer}>
+            <LinearGradient
+              colors={[
+                Colors.Transparent,
+                Colors.Transparent,
+                Colors.NearBlack
+              ]}
+              style={styles.headerContainer}>
               <View style={styles.header}>
                 <View style={styles.headerText}>
                   <View style={styles.locationContainer}>
@@ -138,7 +145,7 @@ export default class PlannerRequestDetail extends Component {
                     this.state.party
                   } />
               </View>
-            </View>
+            </LinearGradient>
           )}>
           {(() => {
             switch(this.state.view) {
@@ -230,7 +237,6 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    backgroundColor: Colors.Overlay,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-end',
