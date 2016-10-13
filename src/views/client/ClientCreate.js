@@ -225,6 +225,7 @@ export default class ClientCreate extends Component {
             )}
             <DatePicker
               isBottom
+              delta = {1}
               ref={ref => this._date = ref}
               label="Date" />
 

@@ -15,7 +15,7 @@ import InputField from './InputField';
 /**
  * Platform agnostic DatePicker wrapped inside InputField.
  *
- * @param {Date} [startDate] - The start date/time for this DatePicker.
+ * @param {number} [delta] - delta of initial date and now
  * @param {Date} [minDate] - The minimum allowable Date.
  * @param {Date} [maxDate] - The maximum allowable Date.
  * @param {string} [type] - Either `time` or `date`.
@@ -23,7 +23,9 @@ import InputField from './InputField';
 export default class DatePicker extends Component {
   constructor(props) {
     super(props);
-    let startDate = this.props.date || new Date();
+    let delta = this.props.delta || 0;
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate()+delta);
     this.state = {
       date: startDate,
       tempDate: startDate,
