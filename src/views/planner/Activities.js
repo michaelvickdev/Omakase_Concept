@@ -80,6 +80,6 @@ export default class Activities extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.NearBlack
   }
 });

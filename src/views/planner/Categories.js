@@ -71,8 +71,8 @@ export default class Categories extends Component {
           contentContainerStyle={styles.list}
           enableEmptySections
           removeClippedSubviews
-          scrollEnabled={false}
-          initialListSize={0}
+          scrollEnabled
+          initialListSize={8}
           renderRow={this.renderRow}
           dataSource={this.state.data}
           scrollRenderAheadDistance={6} />
@@ -84,13 +84,15 @@ export default class Categories extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Sizes.InnerFrame
+    backgroundColor: Colors.NearBlack,
+    paddingLeft: 8
   },
 
   list: {
+    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginLeft: 8,
-    alignItems: 'center'
+    marginTop: Sizes.OuterFrame,
+    alignItems: 'flex-start'
   }
 });
