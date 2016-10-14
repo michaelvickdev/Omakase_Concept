@@ -31,6 +31,7 @@ import Button from '../../components/common/Button';
 import BookingItinerary from '../../components/planner/BookingItinerary';
 import BookingSummary from '../../components/planner/BookingSummary';
 import BookingPlaces from '../../components/planner/BookingPlaces';
+import TabButton from '../../components/common/TabButton';
 
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
@@ -185,15 +186,10 @@ export default class PlannerRequestDetail extends Component {
           <TouchableOpacity
             onPress={() => this.setState({
               view: 0
-            })}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='info' />
-            <Text style={styles.tabLabel}>
-              Summary
-            </Text>
+            })}>
+            <TabButton
+              icon='info'
+              label='Summary' />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -205,15 +201,10 @@ export default class PlannerRequestDetail extends Component {
               } else {
                 this.notAllowed();
               }
-            }}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='assignment' />
-            <Text style={styles.tabLabel}>
-              Itinerary
-            </Text>
+            }}>
+            <TabButton
+              icon='assignment'
+              label='Itinerary' />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -225,15 +216,10 @@ export default class PlannerRequestDetail extends Component {
               } else {
                 this.notAllowed();
               }
-            }}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='directions' />
-            <Text style={styles.tabLabel}>
-              Places
-            </Text>
+            }}>
+            <TabButton
+              icon='directions'
+              label='Places' />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -245,15 +231,10 @@ export default class PlannerRequestDetail extends Component {
               } else {
                 this.notAllowed();
               }
-            }}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='photo-camera' />
-            <Text style={styles.tabLabel}>
-              Camera
-            </Text>
+            }}>
+            <TabButton
+              icon='photo-camera'
+              label='Camera' />
           </TouchableOpacity>
         </View>
       </View>
@@ -317,15 +298,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: Sizes.InnerFrame
-  },
-
-  tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  tabLabel: {
-    fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
   }
 });
