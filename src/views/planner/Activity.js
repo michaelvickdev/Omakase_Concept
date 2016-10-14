@@ -2,25 +2,145 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, ScrollView
+  StyleSheet, View, Text
 } from 'react-native';
 import {
-  Sizes, Colors
+  Sizes, Colors, Styles
 } from '../../../res/Constants';
 import {
   Actions
-} from 'react-native-router-flux'
+} from 'react-native-router-flux';
+import Database from '../../utils/Firebase';
 
 // components
 import Button from '../../components/common/Button';
+import LinearGradient from 'react-native-linear-gradient';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Photo from '../../components/common/Photo';
+import MapView from 'react-native-maps';
+import GroupAvatar from '../../components/profile/GroupAvatar';
 
 export default class Activity extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activity: {}
+    };
+
+    this.ref = Database.ref(
+      `activities/${
+        this.props.activityId
+      }`
+    );
+  }
+
+  componentDidMount() {
+    this.listener = this.ref.on('value', data => {
+      data.exists() && this.setState({
+        activity: data.val()
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.listener && this.ref.off('value', this.listener);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.content}>
-
-        </ScrollView>
+        <ParallaxScrollView
+          parallaxHeaderHeight={200}
+          contentBackgroundColor={Colors.NearBlack}
+          renderBackground={() => (
+            <Photo
+              photoId={
+                this.state.activity.photos
+                && this.state.activity.photos[0]
+              }
+              style={styles.photo} />
+          )}
+          renderForeground={() => (
+            <LinearGradient
+              colors={[
+                Colors.Transparent,
+                Colors.Transparent,
+                Colors.NearBlack
+              ]}
+              style={styles.photoOverlay}>
+              <View style={styles.coverForeground}>
+                <View style={styles.header}>
+                  <Text style={styles.subtitle}>
+                    Zen Japanese Restaurant - 2.3km away
+                  </Text>
+                  <Text style={[
+                    Styles.Header,
+                    styles.title
+                  ]}>
+                    {this.state.activity.name}
+                  </Text>
+                </View>
+                <View style={styles.priceContainer}>
+                  <Text style={styles.price}>
+                    ${this.state.activity.price}
+                  </Text>
+                  <Text style={styles.pricePerPerson}>
+                    per person
+                  </Text>
+                </View>
+              </View>
+            </LinearGradient>
+          )}>
+          <View style={styles.content}>
+            <View style={styles.recommendedContainer}>
+              <GroupAvatar
+                size={20}
+                uids={[
+                  'HOtOvx58WEgkOeOguoBs7Mu7LDe2',
+                  'XbK9Czedh2c2d6w3By4Q7TZhckI2',
+                  'gX1zgZbcQPh0D6yiqhKTLRygEyT2',
+                  'lq96kaJpFmdyikJlcuRUOqoUwjM2',
+                  'vbP2QbYxTNUxaUmNnW1tH806DNo1',
+                  'HOtOvx58WEgkOeOguoBs7Mu7LDe2',
+                  'XbK9Czedh2c2d6w3By4Q7TZhckI2',
+                  'gX1zgZbcQPh0D6yiqhKTLRygEyT2',
+                  'lq96kaJpFmdyikJlcuRUOqoUwjM2',
+                  'vbP2QbYxTNUxaUmNnW1tH806DNo1',
+                  'HOtOvx58WEgkOeOguoBs7Mu7LDe2',
+                  'XbK9Czedh2c2d6w3By4Q7TZhckI2',
+                  'gX1zgZbcQPh0D6yiqhKTLRygEyT2',
+                  'lq96kaJpFmdyikJlcuRUOqoUwjM2',
+                  'vbP2QbYxTNUxaUmNnW1tH806DNo1'
+                ]}
+                limit={10} />
+              <Text style={styles.recommendedLabel}>
+                recommend this activity.
+              </Text>
+            </View>
+            <Text style={styles.details}>
+              {this.state.activity.description}
+            </Text>
+            <MapView
+              style={styles.map}
+              scrollEnabled={false}
+              region={{
+                latitude: 43.784560,
+                longitude: -79.184770,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+              }}>
+              <MapView.Marker
+                coordinate={{
+                  latitude: 43.784560,
+                  longitude: -79.184770,
+                }}
+                title={'Meet-up Location'}
+                description={'1265 Military Trail'}
+                pinColor={Colors.Primary}
+              />
+            </MapView>
+          </View>
+        </ParallaxScrollView>
         <Button
           squareBorders
           onPress={() => {
@@ -43,13 +163,87 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.NearBlack
   },
 
-  content: {
+  photo: {
+    height: 200
+  },
+
+  photoOverlay: {
     flex: 1,
     alignSelf: 'stretch'
+  },
+
+  coverForeground:{
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    padding: Sizes.InnerFrame
   },
 
   button: {
     paddingTop: Sizes.InnerFrame,
     paddingBottom: Sizes.InnerFrame
+  },
+
+  header: {
+    flex: 1,
+    flexWrap: 'wrap'
+  },
+
+  title: {
+    paddingLeft: 0,
+    color: Colors.AlternateText
+  },
+
+  subtitle: {
+    fontSize: Sizes.SmallText,
+    color: Colors.AlternateText
+  },
+
+  priceContainer: {
+    borderRadius: 10,
+    padding: 10,
+    marginLeft: Sizes.InnerFrame,
+    backgroundColor: Colors.Primary,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
+  },
+
+  price: {
+    fontSize: Sizes.H1,
+    color: Colors.AlternateText
+  },
+
+  pricePerPerson: {
+    fontSize: Sizes.SmallText,
+    color: Colors.AlternateText
+  },
+
+  // content starts
+  content: {
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame
+  },
+
+  details: {
+    marginBottom: Sizes.InnerFrame,
+    color: Colors.Text
+  },
+
+  recommendedContainer: {
+    flexDirection: 'row',
+    marginBottom: Sizes.InnerFrame,
+    alignItems: 'center'
+  },
+
+  recommendedLabel: {
+    marginLeft: Sizes.InnerFrame / 3,
+    fontSize: Sizes.SmallText,
+    color: Colors.AlternateText
+  },
+
+  map: {
+    height: 200,
+    alignSelf: 'stretch'
   }
 });

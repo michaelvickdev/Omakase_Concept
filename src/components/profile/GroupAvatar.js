@@ -56,29 +56,53 @@ export default class GroupAvatar extends Component {
     return (
       <View style={[
         styles.container,
-        this.props.style
+        this.props.style,
+        this.props.size && {
+          marginRight: this.props.size / 8
+        }
       ]}>
         {
           this.state.visible.map(uid => (
             <View
-              style={styles.outline}
+              style={[
+                styles.outline,
+                this.props.size && {
+                  height: this.props.size,
+                  width: this.props.size,
+                  borderRadius: this.props.size / 2,
+                  marginRight: this.props.size / 8 * -1
+                }
+              ]}
               key={`${uid}-${Math.random()}`}>
               <Avatar
                 outline
                 onPress={() => Actions.profile({uid: uid})}
                 color={this.props.color || Colors.Primary}
-                size={40}
+                size={this.props.size || 40}
                 uid={uid} />
             </View>
           ))
         }
         {
           this.state.collapsed.length > 0 && (
-            <View style={styles.outline}>
+            <View style={[
+              styles.outline,
+              this.props.size && {
+                height: this.props.size,
+                width: this.props.size,
+                borderRadius: this.props.size / 2,
+                marginRight: this.props.size / 8 * -1
+              }
+            ]}>
               <View style={[
                 styles.collapsedContainer,
                 {
                   backgroundColor: this.props.color || Colors.Primary
+                },
+                this.props.size && {
+                  width: this.props.size - (this.props.size * 0.1),
+                  height: this.props.size - (this.props.size * 0.1),
+                  borderRadius: (this.props.size - (this.props.size * 0.1)) / 2
                 }
               ]}>
                 <Text style={styles.collapsed}>
@@ -101,14 +125,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginRight: 5
   },
 
   outline: {
     height: 40,
     width: 40,
     borderRadius: 40 / 2,
-    marginRight: -7,
+    marginRight: -5,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.Background
