@@ -19,8 +19,13 @@ import Button from '../../components/common/Button';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
+<<<<<<< Updated upstream
 
 import BookingCard from '../../components/client/BookingCard';
+=======
+import BookingCard from '../../components/common/BookingCard';
+import MultiPicker from '../../components/common/MultiPicker';
+>>>>>>> Stashed changes
 
 // a collection of closures to build a new ListView
 let lvClosures = {

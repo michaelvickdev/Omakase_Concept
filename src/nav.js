@@ -99,6 +99,7 @@ export default class Navigation extends Component {
               component={Tutorial}
               type='replace' />
 
+<<<<<<< Updated upstream
             {/* Scenes for client */}
             <Scene key="clientMain"
               component={ClientMain}
@@ -149,6 +150,60 @@ export default class Navigation extends Component {
               hideNavBar
               key="activity"
               component={Activity} />
+=======
+          {/* Scenes for client */}
+          <Scene key="clientMain"
+            component={ClientMain}
+            type='reset'
+            hideNavBar={false} />
+          <Scene key="clientCreate"
+            title={Strings.CreateEventTitle}
+            component={ClientCreate}
+            hideNavBar={false} />
+          <Scene key="clientPlannerChoice"
+            title={Strings.CreateEventTitle}
+            component={ClientPlannerChoice} />
+          <Scene key="clientChoosePlanner"
+            title={Strings.CreateEventTitle}
+            component={ClientChoosePlanner} />
+          <Scene key="clientExclusion"
+            title={Strings.CreateEventTitle}
+            component={ClientExclusion}
+            hidNavBar={false} />
+          <Scene key="clientBudget"
+            title={Strings.CreateEventTitle}
+            component={ClientBudget}
+            hidNavBar={false}/>
+          <Scene key="clientConfirm"
+            title='Confirmation'
+            component={ClientConfirm}
+            hidNavBar={false} />
+          <Scene key="clientPay"
+            title='Payment'
+            component={ClientPay}
+            hidNavBar={false} />
+
+          {/* Scenes for planner */}
+          <Scene key="plannerMain"
+            component={PlannerMain}
+            type='reset'
+            hideNavBar={false} />
+          <Scene key="plannerBalance"
+            title={"Statistics"}
+            component={PlannerBalance}
+            hideNavBar={false} />
+          <Scene key="plannerRequestDetail"
+            component={PlannerRequestDetail}
+            hideNavBar={false} />
+          <Scene key="plannerRequestPlan"
+            title={"Make Plan"}
+            component={PlannerRequestPlan}
+            hideNavBar={false} />
+          <Scene key="plannerRating"
+            title={"Ratings"}
+            component={PlannerRating}
+            hideNavBar={false} />
+>>>>>>> Stashed changes
           </Scene>
         </Router>
       </Drawer>
