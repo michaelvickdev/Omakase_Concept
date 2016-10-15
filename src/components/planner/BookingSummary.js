@@ -41,7 +41,7 @@ export default class BookingSummary extends Component {
                 You've been selected to go and plan this adventure!
               </Text>
               <CircleCheck
-                color={Colors.AlternateText}
+                color={Colors.Text}
                 checkColor={Colors.Green}
                 size={30} />
             </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
 
   statusText: {
-    color: Colors.AlternateText,
+    color: Colors.Text,
     flex: 1
   },
 

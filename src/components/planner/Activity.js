@@ -99,10 +99,11 @@ export default class Activity extends Component {
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.White,
+    backgroundColor: Colors.Transparent,
   },
 
   thinContainer: {
+    backgroundColor: Colors.Transparent,
     flexDirection: 'row'
   },
 
@@ -126,6 +127,7 @@ export const styles = StyleSheet.create({
   },
 
   content: {
+    backgroundColor: Colors.Foreground,
     padding: Sizes.InnerFrame,
     flex: 1,
     justifyContent: 'space-between'
@@ -138,7 +140,7 @@ export const styles = StyleSheet.create({
 
   title: {
     fontSize: Sizes.H2,
-    color: Colors.Primary,
+    color: Colors.Text,
     fontWeight: '500',
     flexWrap: 'nowrap'
   },
@@ -157,7 +159,7 @@ export const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: Sizes.InnerFrame,
-    color: Colors.Disabled
+    color: Colors.Text
   },
 
   priceContainer: {

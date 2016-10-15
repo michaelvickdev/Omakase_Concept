@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: Colors.LightOverlay
+    color: Colors.Text
   },
 
   count: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
 
   countText: {
-    color: Colors.AlternateText,
+    color: Colors.Text,
     fontSize: Sizes.SmallText
   }
 });

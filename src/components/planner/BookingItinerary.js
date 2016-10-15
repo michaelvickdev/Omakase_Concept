@@ -56,7 +56,7 @@ export default class BookingSummary extends Component {
         right={[
           {
             text: 'Remove',
-            color: Colors.AlternateText,
+            color: Colors.Text,
             backgroundColor: Colors.Red,
             onPress: () => {
               Alert.alert(

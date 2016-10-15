@@ -9,7 +9,7 @@ export const Styles = StyleSheet.create({
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame,
     fontSize: Sizes.H1,
-    color: Colors.Primary,
+    color: Colors.Text,
     fontWeight: '500'
   },
 

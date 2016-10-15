@@ -135,7 +135,7 @@ export default class PlannerRequestDetail extends Component {
                     <Button
                       style={styles.location}
                       color={Colors.Primary}
-                      fontColor={Colors.AlternateText}
+                      fontColor={Colors.Text}
                       size={Sizes.SmallText}
                       icon="place"
                       label={
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   location: {
