@@ -65,17 +65,15 @@ export default class BookingCardHeader extends Component {
               this.state.photoReference +
               '&key=' + Strings.googleApiKey}}/>
           : <View/> }
-          <View style={styles.cardIntro}>
-            <View style={styles.rowWrapper}>
-              <Icon style={styles.icon}
-                name='place'
-                size={Sizes.H1}
-                color={Colors.Secondary} />
-              <Text style={[styles.cardText, styles.cardTitleText]}>
-                {
-                  this.state.city ? this.state.city : 'Trip'
-                }
-              </Text>
+          <View style={styles.header}>
+            <View style={styles.locationContainer}>
+              <Button
+                style={styles.location}
+                color={Colors.Primary}
+                fontColor={Colors.AlternateText}
+                size={Sizes.SmallText}
+                icon="place"
+                label={this.state.city} />
             </View>
           </View>
         </View>
@@ -92,7 +90,10 @@ const styles = StyleSheet.create({
   },
 
   cardContent: {
-  //  backgroundColor: Colors.Overlay
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
   },
 
   primaryPhoto: {
@@ -135,5 +136,14 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
 
+  header: {
+    alignItems: 'flex-start',
+  },
+
+  locationContainer: {
+    marginLeft: Sizes.InnerFrame,
+    marginBottom: Sizes.InnerFrame/2,
+    alignItems: 'flex-start'
+  },
 
 });
