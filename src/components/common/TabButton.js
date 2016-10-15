@@ -18,7 +18,7 @@ export default class TabButton extends Component {
         <Icon
           color={
             this.props.color
-            || Colors.AlternateText
+            || Colors.Text
           }
           size={15}
           name={this.props.icon} />
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
+    color: Colors.Text
   }
 });

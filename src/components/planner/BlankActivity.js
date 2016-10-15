@@ -29,7 +29,7 @@ export default class BlankActivity extends Component {
           <Icon
             name="add-circle"
             size={70}
-            color={Colors.AlternateText} />
+            color={Colors.LightText} />
         </View>
         <View style={blankStyles.textContainer}>
           <Text style={[
@@ -46,13 +46,13 @@ export default class BlankActivity extends Component {
 
 const blankStyles = StyleSheet.create({
   container: {
-    borderColor: Colors.LightGrey,
+    backgroundColor: Colors.Transparent,
+    borderColor: Colors.LightText,
     borderStyle: 'dashed',
     borderWidth: 1
   },
 
   imageContainer: {
-    backgroundColor: Colors.LightGrey,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -66,6 +66,6 @@ const blankStyles = StyleSheet.create({
   text: {
     flex: 1,
     flexWrap: 'wrap',
-    color: Colors.LightGrey
+    color: Colors.LightText
   }
 })

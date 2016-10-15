@@ -120,7 +120,7 @@ export default class BookingDayList extends Component {
   renderSectionHeader(header) {
     return (
       <InputSectionHeader
-        backgroundColor={Colors.Secondary}
+        backgroundColor={Colors.Background}
         label={header} />
     );
   }

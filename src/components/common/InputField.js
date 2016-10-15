@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
 
   innerContainer: {
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Foreground,
     paddingLeft: Sizes.OuterFrame,
     paddingTop: Sizes.InnerFrame,
     paddingBottom: Sizes.InnerFrame,

@@ -235,15 +235,8 @@ export default class ClientCreate extends Component {
               delta = {1}
               ref={ref => this._date = ref}
               label="Date" />
-
             <InputSectionHeader
               label="Party Details" />
-            <NumberPicker
-              isTop
-              number={2}
-              rightNoun={"person"}
-              min={1}
-              ref={ref => this._party = ref} />
             <NumberPicker
               number={100}
               leftNoun={"$"}
@@ -252,15 +245,17 @@ export default class ClientCreate extends Component {
               interval={10}
               ref={ref => this._price = ref} />
             <NumberPicker
+              isTop
               number={2}
-              rightNoun={"Guides"}
+              rightNoun={"person"}
               min={1}
-              ref={ref => this._space = ref} />
+              ref={ref => this._party = ref} />
             <MultiPicker
               label="Language"
+              defaultVal="English"
               ref={ref => this._language = ref}
               subtitle="Tell us what you are comfortable with"
-              options={["French", "Cantonese", "Englsih", "Italian"]}/>
+              options={["French", "Cantonese", "English", "Italian"]}/>
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'

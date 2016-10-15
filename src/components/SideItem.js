@@ -45,22 +45,22 @@ export default class SideItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 5,
-    marginBottom: 10,
+    marginTop: Sizes.InnerFrame / 2,
+    marginBottom: Sizes.InnerFrame,
     backgroundColor: Colors.Transparent,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
 
   innerContainer: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center'
   },
 
   label: {
-    color: Colors.AlternateText,
+    color: Colors.Text,
     fontSize: Sizes.H1,
-    fontWeight: '300',
-    alignSelf: 'flex-start'
+    fontWeight: '300'
   },
 
   icon: {

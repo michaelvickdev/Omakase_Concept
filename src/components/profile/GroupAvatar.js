@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     marginRight: -5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Outline
   },
 
   collapsedContainer: {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   collapsed: {
-    color: Colors.AlternateText,
+    color: Colors.Text,
     fontSize: Sizes.SmallText,
     fontWeight: '600'
   }

@@ -164,7 +164,7 @@ export default class Activity extends Component {
           }}
           style={styles.button}
           color={Colors.Green}
-          fontColor={Colors.AlternateText}
+          fontColor={Colors.Text}
           icon="check"
           label="Add to Itinerary" />
       </View>
@@ -207,12 +207,12 @@ const styles = StyleSheet.create({
 
   title: {
     paddingLeft: 0,
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   subtitle: {
     fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   priceContainer: {
@@ -226,16 +226,17 @@ const styles = StyleSheet.create({
 
   price: {
     fontSize: Sizes.H1,
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   pricePerPerson: {
     fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   // content starts
   content: {
+    flex: 1,
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame
   },
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
   recommendedLabel: {
     marginLeft: Sizes.InnerFrame / 3,
     fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   map: {
@@ -264,6 +265,7 @@ const styles = StyleSheet.create({
   },
 
   grid: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: Sizes.InnerFrame
   }
 });

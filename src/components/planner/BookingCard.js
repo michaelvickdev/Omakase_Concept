@@ -205,7 +205,7 @@ export default class BookingCard extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Foreground,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -220,7 +220,8 @@ const styles = StyleSheet.create({
   },
 
   details: {
-    fontSize: Sizes.SmallText
+    fontSize: Sizes.SmallText,
+    color: Colors.Text
   },
 
   excitement: {

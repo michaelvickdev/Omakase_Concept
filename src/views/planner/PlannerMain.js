@@ -57,8 +57,8 @@ export default class PlannerRequestMain extends Component {
         <BookingDayList date={this.state.date} />
         <View style={styles.buttons}>
           <Button
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
+            color={Colors.Foreground}
+            fontColor={Colors.Text}
             icon="arrow-back"
             onPress={() => this.setState({
               date: new Date(
@@ -77,8 +77,8 @@ export default class PlannerRequestMain extends Component {
               ]
             }`} />
           <Button
-            color={Colors.Primary}
-            fontColor={Colors.AlternateText}
+            color={Colors.Foreground}
+            fontColor={Colors.Text}
             rightIcon="arrow-forward"
             onPress={() => this.setState({
               date: new Date(
@@ -105,7 +105,7 @@ export default class PlannerRequestMain extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: Colors.Secondary,
+    backgroundColor: Colors.Background,
   },
 
   body: {
