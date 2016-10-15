@@ -105,7 +105,7 @@ export default class ClientMain extends Component {
 
   renderSectionHeader(city) {
     return (
-    //  <View/>
+  //    <View/>
       <BookingCardHeader city={city} />
     );
   }
@@ -128,7 +128,7 @@ export default class ClientMain extends Component {
           renderRow={this.renderRow}
           renderSectionHeader={this.renderSectionHeader}
           scrollEnabled={true}
-          removeClippedSubviews={true} />
+          removeClippedSubviews={true}/>
       </View>
     );
   }
@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     // padding: Sizes.outerFrame,
     backgroundColor: Colors.Secondary
   },

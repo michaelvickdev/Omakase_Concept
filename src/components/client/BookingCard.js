@@ -48,7 +48,7 @@ export default class BookingCard extends Component {
         budget: budget,
         party: party,
         size: party.length,
-        status: 'Hang tight!! We\'re looking for a planner for you'
+        status: 'Hang tight!! We\'re looking for a planner'
       });
     }
   }
@@ -58,6 +58,9 @@ export default class BookingCard extends Component {
       <View style={styles.cardWrapper}>
         <View style={styles.cardContent}>
           <View style={styles.cardBody}>
+            <Text style={styles.cardText}>
+              {this.state.status}
+            </Text>
             <Text style={styles.cardText}>
               {this.state.booking.date}
             </Text>
@@ -75,11 +78,6 @@ export default class BookingCard extends Component {
             </Text>
           </View>
         </View>
-        <View style={styles.cardFooter}>
-          <Text style={styles.cardText}>
-            {this.state.status}
-          </Text>
-        </View>
       </View>
     );
   }
@@ -87,13 +85,17 @@ export default class BookingCard extends Component {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    flex: 0.8,
-    width: Dimensions.get('window').width - 20,
+    flex: 0.9,
+    width: Sizes.width,
     backgroundColor: Colors.Background,
-    marginTop: 10,
+    justifyContent: 'flex-start',
+    alignSelf: 'auto',
   },
 
   cardContent: {
+    marginLeft: Sizes.InnerFrame,
+    marginRight: Sizes.InnerFrame,
+    marginBottom: Sizes.InnerFrame
   },
 
   rowWrapper: {
@@ -102,8 +104,6 @@ const styles = StyleSheet.create({
   },
 
   cardBody: {
-    margin: Sizes.InnerFrame,
-    marginTop: 0,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: Colors.Transparent
@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Primary,
     paddingTop: Sizes.InnerFrame/2,
     paddingLeft: Sizes.InnerFrame,
-    paddingBottom: Sizes.InnerFrame
   },
 
   cardText: {
