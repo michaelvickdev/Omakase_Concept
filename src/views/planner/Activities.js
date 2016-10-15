@@ -8,7 +8,7 @@ import Database, {
   Firebase
 } from '../../utils/Firebase';
 import {
-  Colors
+  Colors, Sizes
 } from '../../../res/Constants';
 import {
   Actions
@@ -65,11 +65,12 @@ export default class Activities extends Component {
     return (
       <View style={styles.container}>
         <ListView
+          contentContainerStyle={styles.list}
           enableEmptySections
           scrollEnabled
           removeClippedSubviews
-          initialListSize={0}
-          scrollRenderAheadDistance={4}
+          initialListSize={8}
+          scrollRenderAheadDistance={6}
           dataSource={this.state.data}
           renderRow={this.renderRow} />
       </View>
@@ -81,5 +82,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.NearBlack
+  },
+
+  list: {
+    flex: 1,
+    marginTop: Sizes.OuterFrame
   }
 });

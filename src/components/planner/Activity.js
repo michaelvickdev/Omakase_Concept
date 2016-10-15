@@ -100,6 +100,7 @@ export default class Activity extends Component {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Transparent,
+    margin: 5
   },
 
   thinContainer: {
