@@ -124,7 +124,7 @@ export default class MultiPicker extends Component {
                           style={styles.singleOptionContainer}
                           key={lang}>
                           <TouchableHighlight
-                          underlayColor={Colors.LightGrey}
+                          underlayColor={Colors.Transparent}
                           onPress={() => this.setState({
                             visible: this.toggle(lang)
                           })}>
@@ -134,7 +134,7 @@ export default class MultiPicker extends Component {
                               </Text>
                               <CircleCheck
                                 color={this.state.visible[lang]
-                                  ? Colors.Green : Colors.Secondary}/>
+                                  ? Colors.Primary : Colors.Disabled}/>
                             </View>
                           </TouchableHighlight>
                         </View>
@@ -152,7 +152,6 @@ export default class MultiPicker extends Component {
                   showModal: true
                 })}>
                 <Text style={styles.text}>
-                  {console.log(this.state.visible)}
                   {this.returnOption()}
                 </Text>
               </TouchableHighlight>
@@ -178,13 +177,14 @@ const styles = StyleSheet.create({
 
   buttonText: {
     textAlign: 'center',
-    fontSize: Sizes.text,
+    fontSize: Sizes.Text,
     color: Colors.Primary
   },
 
   text: {
     textAlign: 'right',
-    fontSize: Sizes.text
+    fontSize: Sizes.Text,
+    color: Colors.Text
   },
 
   contentContainer: {
@@ -207,13 +207,11 @@ const styles = StyleSheet.create({
   singleOptionContainer: {
     width: Dimensions.get('window').width,
     height: 20,
-    marginTop: Sizes.InnerFrame,
-    paddingLeft: Sizes.InnerFrame,
-    paddingRight: Sizes.InnerFrame,
-    paddingBottom: Sizes.InnerFrame,
+    padding: Sizes.InnerFrame,
     backgroundColor: Colors.Background,
     alignItems: 'stretch',
-    justifyContent: 'space-between'
+    alignSelf: 'stretch',
+    justifyContent: 'center'
   },
 
   optionTextContainer: {
