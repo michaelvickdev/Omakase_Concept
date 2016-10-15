@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, TouchableOpacity, Alert
+  StyleSheet, View, Text, TouchableOpacity, Alert, Image
 } from 'react-native';
 import {
   Colors, Sizes, Styles, Strings
@@ -20,7 +20,7 @@ import DateFormat from 'dateformat';
 
 // components
 import LinearGradient from 'react-native-linear-gradient';
-import ParallaxView from 'react-native-parallax-view';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
 import InputField from '../../components/common/InputField';
@@ -104,25 +104,29 @@ export default class PlannerRequestDetail extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ParallaxView
-          backgroundSource={
-            this.state.photo
-            ? {uri: (
-              Strings.googlePlaceURL
-              + 'photo?maxwidth=800&photoreference='
-              + this.state.photo
-              + '&key='
-              + Strings.googleApiKey
-            )}: require('../../../res/img/profile_bg.jpg')
-          }
-          windowHeight={400}
-          scrollableViewStyle={styles.headerScroll}
-          header={(
+        <ParallaxScrollView
+          parallaxHeaderHeight={Sizes.height * 0.4}
+          contentBackgroundColor={Colors.Background}
+          renderBackground={() => (
+            <Image
+              source={
+                this.state.photo
+                ? {uri: (
+                  Strings.googlePlaceURL
+                  + 'photo?maxwidth=800&photoreference='
+                  + this.state.photo
+                  + '&key='
+                  + Strings.googleApiKey
+                )}: require('../../../res/img/profile_bg.jpg')
+              }
+              style={styles.cover} />
+          )}
+          renderForeground={() => (
             <LinearGradient
               colors={[
                 Colors.Transparent,
                 Colors.Transparent,
-                Colors.NearBlack
+                Colors.NearBlack,
               ]}
               style={styles.headerContainer}>
               <View style={styles.header}>
@@ -181,7 +185,7 @@ export default class PlannerRequestDetail extends Component {
               );
             }
           })()}
-        </ParallaxView>
+        </ParallaxScrollView>
         <View style={styles.tabs}>
           <TouchableOpacity
             onPress={() => this.setState({
@@ -245,11 +249,11 @@ export default class PlannerRequestDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.NearBlack
   },
 
-  headerScroll: {
-    backgroundColor: Colors.Background
+  cover: {
+    height: Sizes.height * 0.4
   },
 
   headerContainer: {

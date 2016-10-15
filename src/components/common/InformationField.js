@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     textAlign: 'right',
     paddingRight: Sizes.OuterFrame,
-    fontSize: Sizes.Text
+    fontSize: Sizes.Text,
+    color: Colors.Text
   }
 });

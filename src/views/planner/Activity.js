@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
 
   // content starts
   content: {
+    flex: 1,
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame
   },

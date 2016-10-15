@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     marginRight: -5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Outline
   },
 
   collapsedContainer: {

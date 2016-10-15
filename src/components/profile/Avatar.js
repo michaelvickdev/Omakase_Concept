@@ -92,7 +92,7 @@ export default class Avatar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Outline,
     borderRadius: 10,
     width: 20,
     height: 20,

@@ -61,7 +61,6 @@ export default class BookingSummary extends Component {
         <InformationField
           isTop
           label="Adventure Date"
-          color={Colors.White}
           info={DateFormat(
             this.props.booking
             && this.props.booking.requestedTime
@@ -72,7 +71,6 @@ export default class BookingSummary extends Component {
         <InputField
           isBottom
           label="Excitement Level"
-          color={Colors.White}
           field={
             <Excitement
               style={styles.excitement}
@@ -87,13 +85,11 @@ export default class BookingSummary extends Component {
           <InformationField
             isTop
             label="Name"
-            color={Colors.White}
             info="Kenneth Ma" />
         </TouchableOpacity>
         <InformationField
           isBottom
           label="Languages Spoken"
-          color={Colors.White}
           info={
             a.join(', ').replace(/,([^,]+)$/,`${a[2] ? ',': ''} and$1`)
 

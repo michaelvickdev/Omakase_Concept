@@ -27,7 +27,7 @@ export default class Divider extends Component {
 styles = StyleSheet.create({
   divider: {
     alignSelf: 'stretch',
-    backgroundColor: Colors.Text,
+    backgroundColor: Colors.Divider,
     height: 0.6
   }
 });
