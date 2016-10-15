@@ -16,6 +16,10 @@ export default class Photo extends Component {
     this.setNativeProps = this.setNativeProps.bind(this);
   }
 
+  componentDidMount() {
+    this.componentWillReceiveProps(this.props);
+  }
+
   componentWillReceiveProps(props) {
     if (props.photoId) {
       this.ref = Database.ref(
