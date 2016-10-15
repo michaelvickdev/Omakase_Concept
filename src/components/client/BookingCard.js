@@ -36,22 +36,6 @@ export default class BookingCard extends Component {
     if (this.props.booking) {
       let booking = this.props.booking;
 
-      if (booking.city.placeId){
-        fetch(Strings.googlePlaceURL + 'details/json?placeid='
-          + booking.city.placeId + '&key='
-          + Strings.googleApiKey)
-        .then(response => response.json())
-        .then((json) => {
-          let photoReference = json.result.photos[Math.floor(this.state.random
-            *(json.result.photos.length))].photo_reference;
-          if (!this.isUnmounted){
-            this.setState({
-              photoReference: photoReference
-            });
-          }
-        });
-      }
-
       if (booking.requestedTime){
         booking.date = Lists.Days[new Date(booking.requestedTime).getDay()]
           + ", " + DateFormat(new Date(booking.requestedTime),
@@ -64,45 +48,22 @@ export default class BookingCard extends Component {
         budget: budget,
         party: party,
         size: party.length,
-        status: 'Hang tight!! We\'re looking for a planner for you'
+        status: 'Hang tight!! We\'re looking for a planner'
       });
     }
-  }
-
-  componentWillUnmount() {
-    this.isUnmounted = true;
   }
 
   render() {
     return (
       <View style={styles.cardWrapper}>
-        {this.state.photoReference ?
-        <Image style={styles.primaryPhoto}
-          source={{uri:
-            Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
-            this.state.photoReference +
-            '&key=' + Strings.googleApiKey}}/>
-        : <View/> }
         <View style={styles.cardContent}>
-          <View style={styles.cardIntro}>
-            <View style={styles.rowWrapper}>
-              <Icon style={styles.icon}
-                name='place'
-                size={Sizes.H1}
-                color={Colors.Secondary} />
-              <Text style={[styles.cardText, styles.cardTitleText]}>
-                {
-                  this.state.booking.city && this.state.booking.city.name
-                    ? this.state.booking.city.name
-                    : 'Trip'
-                }
-              </Text>
-            </View>
+          <View style={styles.cardBody}>
+            <Text style={styles.cardText}>
+              {this.state.status}
+            </Text>
             <Text style={styles.cardText}>
               {this.state.booking.date}
             </Text>
-          </View>
-          <View style={styles.cardBody}>
             <Text style={styles.cardText}>
               {
                 this.state.booking.address
@@ -117,11 +78,6 @@ export default class BookingCard extends Component {
             </Text>
           </View>
         </View>
-        <View style={styles.cardFooter}>
-          <Text style={styles.cardText}>
-            {this.state.status}
-          </Text>
-        </View>
       </View>
     );
   }
@@ -129,31 +85,17 @@ export default class BookingCard extends Component {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    flex: 1,
-    width: Dimensions.get('window').width - 20,
+    flex: 0.9,
+    width: Sizes.width,
     backgroundColor: Colors.Background,
-    shadowColor: Colors.Shadow,
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-    shadowOffset: {
-      height: 1,
-      width: 2,
-    },
-    marginTop: 10,
+    justifyContent: 'flex-start',
+    alignSelf: 'auto',
   },
 
   cardContent: {
-    backgroundColor: Colors.Overlay,
-  },
-
-  primaryPhoto: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: Sizes.width,
-    height: 250,
-    alignSelf: 'center',
-    justifyContent: 'center',
+    marginLeft: Sizes.InnerFrame,
+    marginRight: Sizes.InnerFrame,
+    marginBottom: Sizes.InnerFrame
   },
 
   rowWrapper: {
@@ -161,22 +103,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  icon: {
-    marginTop: 10,
-    marginRight: 5,
-    marginLeft: -5
-  },
-
-  cardIntro: {
-    margin: Sizes.InnerFrame,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: Colors.Transparent
-  },
-
   cardBody: {
-    margin: Sizes.InnerFrame,
-    marginTop: Sizes.InnerFrame*2,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: Colors.Transparent
@@ -188,12 +115,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Primary,
     paddingTop: Sizes.InnerFrame/2,
     paddingLeft: Sizes.InnerFrame,
-    paddingBottom: Sizes.InnerFrame
   },
 
   cardText: {
     marginTop: Sizes.InnerFrame/2,
-    color: Colors.Secondary,
+    color: Colors.Primary,
     fontSize: Sizes.H2,
     fontWeight: '500'
   },
