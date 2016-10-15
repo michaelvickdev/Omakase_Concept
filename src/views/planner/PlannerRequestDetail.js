@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, TouchableOpacity
+  StyleSheet, View, Text, TouchableOpacity, Alert
 } from 'react-native';
 import {
   Colors, Sizes, Styles, Strings
@@ -19,6 +19,7 @@ import {
 import DateFormat from 'dateformat';
 
 // components
+import LinearGradient from 'react-native-linear-gradient';
 import ParallaxView from 'react-native-parallax-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
@@ -30,6 +31,7 @@ import Button from '../../components/common/Button';
 import BookingItinerary from '../../components/planner/BookingItinerary';
 import BookingSummary from '../../components/planner/BookingSummary';
 import BookingPlaces from '../../components/planner/BookingPlaces';
+import TabButton from '../../components/common/TabButton';
 
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
@@ -85,6 +87,20 @@ export default class PlannerRequestDetail extends Component {
     this.ref.off('value', this.listener);
   }
 
+  notAllowed() {
+    Alert.alert(
+      'Not confirmed',
+      'This feature is locked until the sponsor confirms you '
+      + 'to attend this adventure. Please wait until that happens '
+      + 'before making any plans.',
+      [
+        {
+          text: 'OK'
+        }
+      ]
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -102,7 +118,13 @@ export default class PlannerRequestDetail extends Component {
           windowHeight={400}
           scrollableViewStyle={styles.headerScroll}
           header={(
-            <View style={styles.headerContainer}>
+            <LinearGradient
+              colors={[
+                Colors.Transparent,
+                Colors.Transparent,
+                Colors.NearBlack
+              ]}
+              style={styles.headerContainer}>
               <View style={styles.header}>
                 <View style={styles.headerText}>
                   <View style={styles.locationContainer}>
@@ -138,7 +160,7 @@ export default class PlannerRequestDetail extends Component {
                     this.state.party
                   } />
               </View>
-            </View>
+            </LinearGradient>
           )}>
           {(() => {
             switch(this.state.view) {
@@ -164,54 +186,55 @@ export default class PlannerRequestDetail extends Component {
           <TouchableOpacity
             onPress={() => this.setState({
               view: 0
-            })}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='info' />
-            <Text style={styles.tabLabel}>
-              Summary
-            </Text>
+            })}>
+            <TabButton
+              icon='info'
+              label='Summary' />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.setState({
-              view: 1
-            })}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='assignment' />
-            <Text style={styles.tabLabel}>
-              Itinerary
-            </Text>
+            onPress={() => {
+              if (
+                this.state.booking.planner
+                === Firebase.auth().currentUser.uid
+              ) {
+                this.setState({view: 1});
+              } else {
+                this.notAllowed();
+              }
+            }}>
+            <TabButton
+              icon='assignment'
+              label='Itinerary' />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.setState({
-              view: 2
-            })}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='directions' />
-            <Text style={styles.tabLabel}>
-              Places
-            </Text>
+            onPress={() => {
+              if (
+                this.state.booking.planner
+                === Firebase.auth().currentUser.uid
+              ) {
+                this.setState({view: 2});
+              } else {
+                this.notAllowed();
+              }
+            }}>
+            <TabButton
+              icon='directions'
+              label='Places' />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.setState({
-              view: 3
-            })}
-            style={styles.tabItem}>
-            <Icon
-              color={Colors.AlternateText}
-              size={15}
-              name='photo-camera' />
-            <Text style={styles.tabLabel}>
-              Camera
-            </Text>
+            onPress={() => {
+              if (
+                this.state.booking.planner
+                === Firebase.auth().currentUser.uid
+              ) {
+                this.setState({view: 3});
+              } else {
+                this.notAllowed();
+              }
+            }}>
+            <TabButton
+              icon='photo-camera'
+              label='Camera' />
           </TouchableOpacity>
         </View>
       </View>
@@ -230,7 +253,6 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    backgroundColor: Colors.Overlay,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -276,15 +298,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: Sizes.InnerFrame
-  },
-
-  tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  tabLabel: {
-    fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
   }
 });
