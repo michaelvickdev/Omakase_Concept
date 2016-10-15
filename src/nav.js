@@ -7,9 +7,7 @@ import {
 import {
   Router, Scene
 } from 'react-native-router-flux';
-import
-  Drawer
-from 'react-native-drawer'
+import Drawer from 'react-native-drawer';
 import {
   Colors, Strings
 } from '../res/Constants';
@@ -61,16 +59,18 @@ export default class Navigation extends Component {
   render() {
     return (
       <Drawer
-       ref={(ref) => this._drawer = ref}
+       ref={ref => this._drawer = ref}
        type="overlay"
        content={<SideMenu closeDrawer={this.closeDrawer} />}
        tapToClose={true}
+       acceptPan={false}
        openDrawerOffset={0.3}
        panCloseMask={0.2}
        closedDrawerOffset={-3}
        tweenHandler={ratio => ({
-         main: {
-           opacity: (2 - ratio) / 2
+         mainOverlay: {
+           backgroundColor: Colors.Black,
+           opacity: ratio - 0.1
          }
        })}>
         <Router getSceneStyle={(props, computed) => ({
@@ -167,10 +167,10 @@ const styles = StyleSheet.create({
   },
 
   navText: {
-    color: Colors.AlternateText
+    color: Colors.Text
   },
 
   navButtons: {
-    tintColor: Colors.AlternateText
+    tintColor: Colors.Text
   }
 });

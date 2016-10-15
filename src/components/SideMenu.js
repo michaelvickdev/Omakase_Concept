@@ -160,19 +160,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: Colors.SideMenuBackground,
+    backgroundColor: Colors.Background,
     alignItems: 'flex-start'
   },
 
   subcontainer: {
     marginTop: 30
-  },
-
-  button: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
   },
 
   divider: {
