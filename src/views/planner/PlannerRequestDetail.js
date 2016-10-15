@@ -227,7 +227,7 @@ export default class PlannerRequestDetail extends Component {
                 this.state.booking.planner
                 === Firebase.auth().currentUser.uid
               ) {
-                this.setState({view: 3});
+                Actions.camera();
               } else {
                 this.notAllowed();
               }

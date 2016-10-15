@@ -20,6 +20,7 @@ import Login from './views/Login';
 import Tutorial from './views/Tutorial';
 import SideMenu from './components/SideMenu';
 import Profile from './views/Profile';
+import FirebaseCamera from './components/common/FirebaseCamera';
 
 // clients components
 import ClientMain from './views/client/ClientMain';
@@ -149,6 +150,10 @@ export default class Navigation extends Component {
               hideNavBar
               key="activity"
               component={Activity} />
+            <Scene
+              hideNavBar={false}
+              key="camera"
+              component={FirebaseCamera} />
           </Scene>
         </Router>
       </Drawer>
