@@ -11,13 +11,21 @@ export default class Photo extends Component {
     super(props);
     this.state = {
       source: null
-    }
+    };
 
     this.setNativeProps = this.setNativeProps.bind(this);
   }
 
+  componentDidMount() {
+    this.componentWillReceiveProps(this.props);
+  }
+
   componentWillReceiveProps(props) {
-    if (props.photoId) {
+    if (props.uri) {
+      this.setState({
+        source: props.uri
+      });
+    } else if (props.photoId) {
       this.ref = Database.ref(
         `photos/${props.photoId}/url`
       )
