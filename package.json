@@ -10,6 +10,7 @@
     "geofire": "^4.1.1",
     "react": "15.3.2",
     "react-native": "0.34.0",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-checkbox": "^1.0.15",
     "react-native-drawer": "^2.2.6",
     "react-native-fbsdk": "^0.3.0",

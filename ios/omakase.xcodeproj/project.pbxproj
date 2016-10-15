@@ -32,6 +32,7 @@
 		792ABB41ECA8498181EB6874 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B1B200E9FFE47F2B3D34F10 /* FontAwesome.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		95E9FBBD5CFB4019AE095019 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12333066F8E147458CD9C993 /* libAirMaps.a */; };
+		9DEDA8DCFDB9409F85705FBC /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6E6A33760F4DC4A89AA715 /* libRCTCamera.a */; };
 		BE989B091D6AB36D00F61925 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE989B061D6AB36D00F61925 /* FBSDKCoreKit.framework */; };
 		BE989B0A1D6AB36D00F61925 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE989B071D6AB36D00F61925 /* FBSDKLoginKit.framework */; };
 		BE989B0B1D6AB36D00F61925 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE989B081D6AB36D00F61925 /* FBSDKShareKit.framework */; };
@@ -126,6 +127,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = BVLinearGradient;
 		};
+		BE424EED1DB1B978005A602E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6C9BC7BE47C4C628E2C49C8 /* RCTCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RCTCamera;
+		};
 		BE989AEE1D6AACF300F61925 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C8C34CE2CE14E6C934FEC0F /* RCTFBSDK.xcodeproj */;
@@ -159,6 +167,7 @@
 		00E356EE1AD99517003FC87E /* omakaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = omakaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* omakaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = omakaseTests.m; sourceTree = "<group>"; };
+		0B6E6A33760F4DC4A89AA715 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		12333066F8E147458CD9C993 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		12C308B0BD6F471984933098 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
@@ -184,6 +193,7 @@
 		BE989B061D6AB36D00F61925 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		BE989B071D6AB36D00F61925 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		BE989B081D6AB36D00F61925 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		C6C9BC7BE47C4C628E2C49C8 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		C762F0E60D744E9C8A16E7E1 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		D9A64B37C8C24FA89F1D5CDA /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		DC974F6D1D9636D10060104E /* omakase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = omakase.entitlements; path = omakase/omakase.entitlements; sourceTree = "<group>"; };
@@ -224,6 +234,7 @@
 				95E9FBBD5CFB4019AE095019 /* libAirMaps.a in Frameworks */,
 				24EE063CE29C46F2AD669DC5 /* libRNVectorIcons.a in Frameworks */,
 				72AB2D15A5C54647ACB29CFA /* libBVLinearGradient.a in Frameworks */,
+				9DEDA8DCFDB9409F85705FBC /* libRCTCamera.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +363,7 @@
 				492B468907044B3086910A24 /* AirMaps.xcodeproj */,
 				F08C558BFF864E4683A67BC8 /* RNVectorIcons.xcodeproj */,
 				FB634BFCC4B043CE8F740346 /* BVLinearGradient.xcodeproj */,
+				C6C9BC7BE47C4C628E2C49C8 /* RCTCamera.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -406,6 +418,14 @@
 			isa = PBXGroup;
 			children = (
 				BE30FFBD1DB02F5C00B0FD6F /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE424EE71DB1B978005A602E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE424EEE1DB1B978005A602E /* libRCTCamera.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -541,6 +561,10 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
+					ProductGroup = BE424EE71DB1B978005A602E /* Products */;
+					ProjectRef = C6C9BC7BE47C4C628E2C49C8 /* RCTCamera.xcodeproj */;
+				},
+				{
 					ProductGroup = BE989AEA1D6AACF300F61925 /* Products */;
 					ProjectRef = 5C8C34CE2CE14E6C934FEC0F /* RCTFBSDK.xcodeproj */;
 				},
@@ -671,6 +695,13 @@
 			remoteRef = BE30FFBC1DB02F5C00B0FD6F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		BE424EEE1DB1B978005A602E /* libRCTCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCamera.a;
+			remoteRef = BE424EED1DB1B978005A602E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BE989AEF1D6AACF300F61925 /* libRCTFBSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -798,6 +829,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/omakase.app/omakase";
@@ -815,6 +847,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -841,6 +874,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				INFOPLIST_FILE = omakase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -868,6 +902,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				INFOPLIST_FILE = omakase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -922,6 +957,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -966,6 +1002,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
