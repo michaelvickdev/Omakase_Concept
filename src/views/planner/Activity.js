@@ -264,6 +264,7 @@ const styles = StyleSheet.create({
   },
 
   grid: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: Sizes.InnerFrame
   }
 });
