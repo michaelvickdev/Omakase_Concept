@@ -28,7 +28,6 @@ import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 import ClientConfirm from './views/client/ClientConfirm';
 import ClientPay from './views/client/ClientPay';
-import ClientChoosePlanner from './views/client/ClientChoosePlanner';
 
 // planners components
 import PlannerMain from './views/planner/PlannerMain';
