@@ -20,6 +20,14 @@ import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 import BookingCard from '../../components/client/BookingCard';
+import BookingCardHeader from '../../components/client/BookingCardHeader';
+
+let lvClosures = {
+  getSectionData: (data, section) => data[section],
+  getRowData: (data, section, row) => data[`${section}:${row}`],
+  rowHasChanged: (r1, r2) => r1 !== r2,
+  sectionHeaderHasChanged: (r1, r2) => r1 !== r2
+}
 
 /**
  * Main screen for general users (Client)
@@ -29,9 +37,7 @@ export default class ClientMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      })
+      data: new ListView.DataSource(lvClosures)
     };
   }
 
@@ -59,22 +65,48 @@ export default class ClientMain extends Component {
     // and listener
     this.listener = this.db.on('value', data => {
       if (data.exists()) {
-        let bookings = [];
+        let rows = [];
+        let blob = {};
+        let sections = [];
 
         data.forEach(booking => {
-          booking.child('city').exists
+
+          // put in blob
+          if (booking.child('city').exists
             && booking.child('city').val()
-            && booking.child('city').val().name
-            && bookings.push(booking)
-          // headers are by statuses: 0 - selected, 1 - interested, 2 - general
+            && booking.child('city').val().placeId){
+
+            let placeId = booking.child('city').val().placeId;
+            let bookingId = booking.key;
+            if (sections.indexOf(placeId) < 0){
+              console.log("new section,", placeId);
+              sections.push(placeId);
+              rows.push([]);
+              blob[placeId] = booking.child('city').val();
+            }
+            console.log("sections.indexOf(placeId),", sections.indexOf(placeId));
+            console.log("bookingId,", bookingId);
+
+            rows[sections.indexOf(placeId)]
+              .push(bookingId);
+            blob[`${placeId}:${bookingId}`] = booking;
+          }
         });
+
 
         // and finally, clone into DataSource
         this.setState({
-          data: this.state.data.cloneWithRows(bookings)
+    //      data: this.state.data.cloneWithRows(bookings)
+          data: this.state.data.cloneWithRowsAndSections(blob, sections, rows)
         });
       }
     });
+  }
+
+  renderSectionHeader(city) {
+    return (
+      <BookingCardHeader city={city} />
+    );
   }
 
 
@@ -93,6 +125,7 @@ export default class ClientMain extends Component {
           scrollRenderAheadDistance={10}
           dataSource={this.state.data}
           renderRow={this.renderRow}
+          renderSectionHeader={this.renderSectionHeader}
           scrollEnabled={true}
           removeClippedSubviews={true} />
       </View>

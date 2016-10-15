@@ -36,22 +36,6 @@ export default class BookingCard extends Component {
     if (this.props.booking) {
       let booking = this.props.booking;
 
-      if (booking.city.placeId){
-        fetch(Strings.googlePlaceURL + 'details/json?placeid='
-          + booking.city.placeId + '&key='
-          + Strings.googleApiKey)
-        .then(response => response.json())
-        .then((json) => {
-          let photoReference = json.result.photos[Math.floor(this.state.random
-            *(json.result.photos.length))].photo_reference;
-          if (!this.isUnmounted){
-            this.setState({
-              photoReference: photoReference
-            });
-          }
-        });
-      }
-
       if (booking.requestedTime){
         booking.date = Lists.Days[new Date(booking.requestedTime).getDay()]
           + ", " + DateFormat(new Date(booking.requestedTime),
@@ -69,40 +53,14 @@ export default class BookingCard extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.isUnmounted = true;
-  }
-
   render() {
     return (
       <View style={styles.cardWrapper}>
-        {this.state.photoReference ?
-        <Image style={styles.primaryPhoto}
-          source={{uri:
-            Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
-            this.state.photoReference +
-            '&key=' + Strings.googleApiKey}}/>
-        : <View/> }
         <View style={styles.cardContent}>
-          <View style={styles.cardIntro}>
-            <View style={styles.rowWrapper}>
-              <Icon style={styles.icon}
-                name='place'
-                size={Sizes.H1}
-                color={Colors.Secondary} />
-              <Text style={[styles.cardText, styles.cardTitleText]}>
-                {
-                  this.state.booking.city && this.state.booking.city.name
-                    ? this.state.booking.city.name
-                    : 'Trip'
-                }
-              </Text>
-            </View>
+          <View style={styles.cardBody}>
             <Text style={styles.cardText}>
               {this.state.booking.date}
             </Text>
-          </View>
-          <View style={styles.cardBody}>
             <Text style={styles.cardText}>
               {
                 this.state.booking.address
@@ -146,37 +104,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Overlay,
   },
 
-  primaryPhoto: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: Sizes.width,
-    height: 250,
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
-
   rowWrapper: {
     flex: 0.8,
     flexDirection: 'row',
   },
 
-  icon: {
-    marginTop: 10,
-    marginRight: 5,
-    marginLeft: -5
-  },
-
-  cardIntro: {
-    margin: Sizes.InnerFrame,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: Colors.Transparent
-  },
-
   cardBody: {
     margin: Sizes.InnerFrame,
-    marginTop: Sizes.InnerFrame*2,
+    marginTop: 0,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: Colors.Transparent
