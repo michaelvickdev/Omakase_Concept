@@ -102,7 +102,7 @@ export default class BookingCardExpandedAvailable extends Component {
             paddingBottom: Sizes.InnerFrame
           }}
           color={Colors.Green}
-          fontColor={Colors.AlternateText}
+          fontColor={Colors.Text}
           icon="move-to-inbox"
           onPress={this.join}
           label="Request to Join" />

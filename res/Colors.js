@@ -11,7 +11,7 @@ export const Colors = {
   Background: '#222222',
   Foreground: '#252525',
   Divider: 'rgba(255, 255, 255, 0.15)',
-  Outline: '#FFFFFF',
+  Outline: '#222222',
   Text: '#FFFFFF',
   LightText: '#333333',
   AlternateText: '#222222',
