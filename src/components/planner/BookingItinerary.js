@@ -19,13 +19,15 @@ import Activity from './Activity';
 import BlankActivity from './BlankActivity';
 import Swipeout from 'react-native-swipeout';
 
+let lvClosures = {
+  rowHasChanged: (r1, r2) => r1 !== r2
+};
+
 export default class BookingSummary extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      })
+      data: new ListView.DataSource(lvClosures)
     };
 
     this.ref = Database.ref(
@@ -39,7 +41,9 @@ export default class BookingSummary extends Component {
     this.listener = this.ref.on('value', data => {
       data.exists()
       && this.setState({
-        data: this.state.data.cloneWithRows(
+        data: (
+          new ListView.DataSource(lvClosures)
+        ).cloneWithRows(
           Object.keys(data.val())
         )
       });
@@ -96,8 +100,13 @@ export default class BookingSummary extends Component {
               && this.props.booking.city
               && this.props.booking.city.placeId
             ),
+
+            // behavior triggered when an activity is
+            // selected by the planner
             select: activityId => {
-              console.log(activityId)
+              this.ref.update({
+                [activityId]: true
+              });
             }
           })}>
           <BlankActivity

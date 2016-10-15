@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, ListView, Text
+  StyleSheet, View, ListView, Text, TouchableOpacity
 } from 'react-native';
 import Database, {
   Firebase
@@ -10,6 +10,9 @@ import Database, {
 import {
   Colors
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux'
 
 // components
 import Activity from '../../components/planner/Activity';
@@ -24,18 +27,20 @@ export default class Activities extends Component {
     };
 
     this.ref = Database.ref(
-      `cities/${
-        this.props.city
-      }/activities/${
-        this.props.excitement
-      }`
+      `categories/${
+        this.props.categoryId
+      }/activities`
     );
+
+    this.renderRow = this.renderRow.bind(this);
   }
 
   componentDidMount() {
     this.listener = this.ref.on('value', data => {
       data.exists() && this.setState({
-        data: this.state.data.cloneWithRows(data.val())
+        data: this.state.data.cloneWithRows(
+          Object.keys(data.val())
+        )
       })
     });
   }
@@ -46,7 +51,13 @@ export default class Activities extends Component {
 
   renderRow(activityId) {
     return (
-      <Activity activityId={activityId} />
+      <TouchableOpacity
+        onPress={() => Actions.activity({
+          activityId: activityId,
+          select: this.props.select
+        })}>
+        <Activity activityId={activityId} />
+      </TouchableOpacity>
     )
   }
 
@@ -69,6 +80,6 @@ export default class Activities extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.NearBlack
   }
 });

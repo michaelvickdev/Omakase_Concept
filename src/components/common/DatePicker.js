@@ -6,16 +6,18 @@ import {
   DatePickerAndroid, TimePickerAndroid, TouchableHighlight, Dimensions
 } from 'react-native';
 import {
-  Colors, Sizes
+  Colors, Sizes, Lists
 } from '../../../res/Constants';
 
 // components
 import InputField from './InputField';
+import DateFormat from 'dateformat';
+
 
 /**
  * Platform agnostic DatePicker wrapped inside InputField.
  *
- * @param {Date} [startDate] - The start date/time for this DatePicker.
+ * @param {number} [delta] - delta of initial date and now
  * @param {Date} [minDate] - The minimum allowable Date.
  * @param {Date} [maxDate] - The maximum allowable Date.
  * @param {string} [type] - Either `time` or `date`.
@@ -23,7 +25,9 @@ import InputField from './InputField';
 export default class DatePicker extends Component {
   constructor(props) {
     super(props);
-    let startDate = this.props.date || new Date();
+    let delta = this.props.delta || 0;
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate()+delta);
     this.state = {
       date: startDate,
       tempDate: startDate,
@@ -91,7 +95,8 @@ export default class DatePicker extends Component {
                   + (this.state.date.getMinutes() > 9 ? '' : '0')
                   + this.state.date.getMinutes()
                   + (this.state.date.getHours() > 11 ? ' PM' : ' AM')
-                  : this.state.date.toDateString()
+                  : Lists.Days[new Date(this.state.date).getDay()]
+                  + ", " + DateFormat(this.state.date, 'mmmm dS yyyy')
                 }
               </Text>
             </TouchableHighlight>

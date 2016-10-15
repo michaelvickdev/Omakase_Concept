@@ -76,10 +76,10 @@ export default class ClientCreate extends Component {
                 )).valueOf(),
                 excitement: this._excitement.val(),
                 space: this._space.val(),
-            //    city: {
-            //      name: this._city.val(),
-          //        placeId: this._city.detail().place_id
-          //      },
+                city: {
+                  name: this._city.val(),
+                  placeId: this._city.detail().place_id
+                },
                 address: this._address.val(),
                 contributions: {
                   [Firebase.auth().currentUser.uid]: {
@@ -232,6 +232,7 @@ export default class ClientCreate extends Component {
             )}
             <DatePicker
               isBottom
+              delta = {1}
               ref={ref => this._date = ref}
               label="Date" />
 
