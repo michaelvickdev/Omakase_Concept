@@ -27,7 +27,7 @@ import SwitchInput from '../../components/common/SwitchInput';
 import PickerField from '../../components/common/PickerField';
 import SliderInput from '../../components/common/SliderInput';
 import AutoCompleteInput from '../../components/common/AutoCompleteInput';
-
+import MultiPicker from '../../components/common/MultiPicker';
 /**
  * First screen of creating an event
  * client to enter basic info:
@@ -109,6 +109,13 @@ export default class ClientCreate extends Component {
                     party: this._party.val(),
                   }
                 }
+              }, error => Actions.clientPlannerChoice());
+              let geoFire = new GeoFire(Database.ref('locations'));
+              geoFire.set(bookingRef.key, [
+                  this._address.detail().geometry.location.lat,
+                  this._address.detail().geometry.location.lng
+                ]).then(() => {
+                console.log("Provided keys have been added to GeoFire");
               }, error => {
                 if (!error){
                   let geoFire = new GeoFire(Database.ref('locations'));
@@ -228,39 +235,27 @@ export default class ClientCreate extends Component {
               delta = {1}
               ref={ref => this._date = ref}
               label="Date" />
-
             <InputSectionHeader
               label="Party Details" />
             <NumberPicker
-              isTop
-              number={2}
-              min={1}
-              ref={ref => this._party = ref}
-              label="# of People" />
-            <NumberPicker
               number={100}
+              leftNoun={"$"}
+              rightNoun={"CAD per person"}
               min={50}
               interval={10}
-              label="Budget"
-              ref={ref => this._price = ref}
-              subtitle="For the party (in USD$)" />
-            <PickerField
+              ref={ref => this._price = ref} />
+            <NumberPicker
+              isTop
+              number={2}
+              rightNoun={"person"}
+              min={1}
+              ref={ref => this._party = ref} />
+            <MultiPicker
               label="Language"
+              defaultVal="English"
               ref={ref => this._language = ref}
               subtitle="Tell us what you are comfortable with"
-              defaultVal="English">
-              <Picker.Item label="English" value="English" />
-              <Picker.Item label="French" value="French" />
-              <Picker.Item label="Italian" value="Italian" />
-              <Picker.Item label="Cantonese" value="Cantonese" />
-              <Picker.Item label="Latin" value="Latin" />
-            </PickerField>
-            <NumberPicker
-              number={2}
-              min={1}
-              ref={ref => this._space = ref}
-              label="# of Guides"
-              subtitle="How many guides are you expecting" />
+              options={["French", "Cantonese", "English", "Italian"]}/>
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'

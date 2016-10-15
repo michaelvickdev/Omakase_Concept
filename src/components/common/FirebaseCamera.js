@@ -16,7 +16,7 @@ export default class FirebaseCamera extends Component {
     super(props);
     this.shutter = this.shutter.bind(this);
   }
-  
+
   shutter() {
     this.camera.capture().then(data => {
       Alert.alert('hi');

@@ -11,9 +11,8 @@ import {
 
 // components
 import InputField from './InputField';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import CircleCheck from '../../components/common/CircleCheck';
-
+import Divider from '../../components/common/Divider';
 
 /** Generic Picker
   * @param {defaultVal} - The default value for the picker.
@@ -25,10 +24,8 @@ export default class MultiPicker extends Component {
     this.state = {
       showModal: false,
       options: this.props.options,
-      save: [],
-      tempsave: [],
-      visible: {},
-      tempvisible: {}
+      visible: this.start(),
+      tempvisible: this.start()
     };
 
     // bind methods
@@ -37,8 +34,25 @@ export default class MultiPicker extends Component {
   }
 
   val() {
-    return this.state.save;
+    return this.state.visible;
   };
+
+  start() {
+    var temp = {}
+    var get = this.props.defaultVal + ""
+    temp[get] = true
+    return temp
+  }
+
+  // return true if array has same values
+  sameValue(array) {
+    for (i=1;i<array.length;i++) {
+      if (array[i] == array[0]) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   // toggle the visibility of each option
   toggle(option) {
@@ -53,32 +67,14 @@ export default class MultiPicker extends Component {
     return this.state.visible;
   };
 
-  // tune the list of options
-  tuneOption(option) {
-    if (!this.state.tempsave.includes(option)) {
-        this.state.tempsave.push(option);
-    } else {
-      var index = this.state.tempsave.indexOf(option);
-      this.state.tempsave.splice(index, 1);
-    }
-    return this.state.tempsave;
-  };
-
-  // return a list of options, need to change later
-  // to be compatibable with not only text inputs
-  // It is only for testing purpose to use text outputs
+  // return selected option(s)
   returnOption() {
     var text = "";
-    var len = this.state.save.length;
-    for (i=0;i<len;i++) {
-        if (i===(len-1)) {
-          text += this.state.save[i];
-        } else {
-          text += this.state.save[i] + ", ";
-        }
-    }
-    if (text==="") {
-      text = "select";
+    var temp = Object.keys(this.state.visible);
+    for (i in temp) {
+      if (this.state.visible[temp[i]] == true) {
+        text += temp[i] + " ";
+      }
     }
     return text;
   };
@@ -102,10 +98,9 @@ export default class MultiPicker extends Component {
                       underlayColor={Colors.Transparent}
                       onPress={() => this.setState({
                         showModal: false,
-                        tempsave: this.state.save.map(i => i),
                         visible: Object.assign({}, this.state.tempvisible)
                       })}>
-                      <Text style={styles.text}>
+                      <Text style={styles.buttonText}>
                         {this.props.cancelLabel || 'Cancel'}
                       </Text>
                     </TouchableHighlight>
@@ -113,15 +108,15 @@ export default class MultiPicker extends Component {
                       underlayColor={Colors.Transparent}
                       onPress={() => this.setState({
                         showModal: false,
-                        save: this.state.tempsave.map(i => i),
                         tempvisible: Object.assign({}, this.state.visible)
                       })}>
-                      <Text style={styles.text}>
+                      <Text style={styles.buttonText}>
                         {this.props.doneLabel || 'Done'}
                       </Text>
                     </TouchableHighlight>
                 </View>
                 <View style={styles.optionsContainer}>
+                  <Divider style={styles.divider} />
                   <ScrollView>
                     {
                       this.state.options.map(lang => (
@@ -129,9 +124,8 @@ export default class MultiPicker extends Component {
                           style={styles.singleOptionContainer}
                           key={lang}>
                           <TouchableHighlight
-                          underlayColor={Colors.Transparent}
+                          underlayColor={Colors.LightGrey}
                           onPress={() => this.setState({
-                            tempsave: this.tuneOption(lang),
                             visible: this.toggle(lang)
                           })}>
                             <View style={styles.optionTextContainer}>
@@ -158,6 +152,7 @@ export default class MultiPicker extends Component {
                   showModal: true
                 })}>
                 <Text style={styles.text}>
+                  {console.log(this.state.visible)}
                   {this.returnOption()}
                 </Text>
               </TouchableHighlight>
@@ -172,6 +167,19 @@ export default class MultiPicker extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1
+  },
+
+  divider: {
+    width: Sizes.width,
+    height: 0.6,
+    marginTop: Sizes.InnerFrame,
+    marginLeft: Sizes.OuterFrame
+  },
+
+  buttonText: {
+    textAlign: 'center',
+    fontSize: Sizes.text,
+    color: Colors.Primary
   },
 
   text: {
@@ -203,7 +211,7 @@ const styles = StyleSheet.create({
     paddingLeft: Sizes.InnerFrame,
     paddingRight: Sizes.InnerFrame,
     paddingBottom: Sizes.InnerFrame,
-    backgroundColor: Colors.Secondary,
+    backgroundColor: Colors.Background,
     alignItems: 'stretch',
     justifyContent: 'space-between'
   },

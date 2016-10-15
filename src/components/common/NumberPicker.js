@@ -24,6 +24,8 @@ export default class Dropdown extends Component {
     super(props);
     this.state = {
       number: this.props.number || this.props.min || 0,
+      leftNoun: this.props.leftNoun || "",
+      rightNoun: this.props.rightNoun  || "",
       min: this.props.min || null,
       max: this.props.max || null
     };
@@ -53,12 +55,28 @@ export default class Dropdown extends Component {
                         (this.props.interval || 1)});
                     }
                   }}>
-                  <Text style={styles.buttonText}>
-                    -
-                  </Text>
+                  <View style={[
+                      styles.circleContainer,
+                      {
+                      borderRadius: 90,
+                      backgroundColor:
+                      this.state.number===this.state.min
+                      ?
+                      Colors.Disabled
+                      :
+                      Colors.Primary
+                    },
+                    this.props.style
+                    ]}>
+                    <Text style={styles.buttonText}>
+                      -
+                    </Text>
+                  </View>
                 </TouchableHighlight>
                 <Text style={styles.text}>
-                  {this.state.number}
+                  {this.state.leftNoun
+                    + " " + this.state.number + " "
+                    + this.state.rightNoun}
                 </Text>
                 <TouchableHighlight
                   underlayColor={Colors.Transparent}
@@ -70,9 +88,23 @@ export default class Dropdown extends Component {
                         (this.props.interval || 1)});
                      }
                   }}>
-                  <Text style={styles.buttonText}>
-                    +
-                  </Text>
+                  <View style={[
+                      styles.circleContainer,
+                      {
+                      borderRadius: 90,
+                      backgroundColor:
+                      this.state.number===this.state.max
+                      ?
+                      Colors.Disabled
+                      :
+                      Colors.Primary
+                    },
+                    this.props.style
+                    ]}>
+                    <Text style={styles.buttonText}>
+                      +
+                    </Text>
+                  </View>
                 </TouchableHighlight>
             </View>
           </View>}/>
@@ -86,9 +118,19 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
+  circleContainer: {
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden'
+  },
+
   textContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
   },
 
   text: {
@@ -106,7 +148,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: Sizes.text,
     fontWeight: '500',
-    color: Colors.Primary,
+    color: Colors.White,
   }
 
 });
