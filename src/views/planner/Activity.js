@@ -19,6 +19,7 @@ import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import Photo from '../../components/common/Photo';
 import MapView from 'react-native-maps';
 import GroupAvatar from '../../components/profile/GroupAvatar';
+import PhotoGrid from '../../components/common/PhotoGrid';
 
 export default class Activity extends Component {
   constructor(props) {
@@ -139,6 +140,20 @@ export default class Activity extends Component {
                 pinColor={Colors.Primary}
               />
             </MapView>
+            <View style={styles.grid}>
+              <PhotoGrid
+                photoIds={[
+                  'sushi_1',
+                  'sushi_2',
+                  'sushi_3',
+                  'sushi_4',
+                  'sushi_5',
+                  'sushi_6',
+                  'sushi_7'
+                ]}
+                eachRow={3}
+                width={Sizes.width - Sizes.InnerFrame * 2 + 5} />
+              </View>
           </View>
         </ParallaxScrollView>
         <Button
@@ -244,6 +259,11 @@ const styles = StyleSheet.create({
 
   map: {
     height: 200,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    marginBottom: Sizes.InnerFrame
+  },
+
+  grid: {
+    alignItems: 'center'
   }
 });
