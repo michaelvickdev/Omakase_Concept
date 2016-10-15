@@ -87,21 +87,13 @@ export default class BookingCard extends Component {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    flex: 1,
+    flex: 0.8,
     width: Dimensions.get('window').width - 20,
     backgroundColor: Colors.Background,
-    shadowColor: Colors.Shadow,
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-    shadowOffset: {
-      height: 1,
-      width: 2,
-    },
     marginTop: 10,
   },
 
   cardContent: {
-    backgroundColor: Colors.Overlay,
   },
 
   rowWrapper: {
@@ -128,7 +120,7 @@ const styles = StyleSheet.create({
 
   cardText: {
     marginTop: Sizes.InnerFrame/2,
-    color: Colors.Secondary,
+    color: Colors.Primary,
     fontSize: Sizes.H2,
     fontWeight: '500'
   },

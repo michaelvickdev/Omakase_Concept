@@ -57,14 +57,14 @@ export default class BookingCardHeader extends Component {
   render() {
     return (
       <View style={styles.cardWrapper}>
-        {this.state.photoReference ?
-        <Image style={styles.primaryPhoto}
-          source={{uri:
-            Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
-            this.state.photoReference +
-            '&key=' + Strings.googleApiKey}}/>
-        : <View/> }
         <View style={styles.cardContent}>
+        {this.state.photoReference ?
+          <Image style={styles.primaryPhoto}
+            source={{uri:
+              Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
+              this.state.photoReference +
+              '&key=' + Strings.googleApiKey}}/>
+          : <View/> }
           <View style={styles.cardIntro}>
             <View style={styles.rowWrapper}>
               <Icon style={styles.icon}
@@ -89,18 +89,11 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get('window').width - 20,
     backgroundColor: Colors.Background,
-    shadowColor: Colors.Shadow,
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-    shadowOffset: {
-      height: 1,
-      width: 2,
-    },
     marginTop: 10,
   },
 
   cardContent: {
-    backgroundColor: Colors.Overlay,
+  //  backgroundColor: Colors.Overlay
   },
 
   primaryPhoto: {

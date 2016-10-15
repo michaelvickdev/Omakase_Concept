@@ -105,6 +105,7 @@ export default class ClientMain extends Component {
 
   renderSectionHeader(city) {
     return (
+    //  <View/>
       <BookingCardHeader city={city} />
     );
   }
