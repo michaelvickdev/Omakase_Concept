@@ -12,6 +12,7 @@ import {
 // components
 import Avatar from '../components/profile/Avatar';
 import InformationField from '../components/common/InformationField';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -65,12 +66,10 @@ export default class Profile extends Component {
           <InformationField
             isTop
             label="Region"
-            color={Colors.Transparent}
             info="Toronto, ON" />
           <InformationField
             isBottom
             label="Age"
-            color={Colors.Transparent}
             info="18-29" />
         </View>
       </View>
@@ -80,12 +79,13 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: Colors.Background
   },
 
   header: {
     height: 150,
-    width: Sizes.width
+    alignSelf: 'stretch'
   },
 
   body: {

@@ -88,7 +88,7 @@ export default class Navigation extends Component {
               drawerImage = {require("../res/img/menu.png")}>
               <Scene key="profile"
                 component={Profile}
-                hideNavBar={false} />
+                hideNavBar />
               <Scene key="loader"
                 initial={true}
                 component={Loader}
