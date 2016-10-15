@@ -52,20 +52,21 @@ export default class Activity extends Component {
         ]}>
           <Photo
             style={styles.image}
-            photoId={this.state.photoId} />
+            photoId={this.state.photoId}>
+            {!this.props.thin && (
+              <View style={styles.overlay} />
+            )}
+          </Photo>
         </View>
-        <View style={styles.content}>
+        <View style={[
+          styles.content,
+          this.props.thin && styles.thinContent
+        ]}>
           <Text style={styles.title}>
             {this.state.activity.name}
           </Text>
           <View style={styles.footer}>
             <View style={styles.detailContainer}>
-              <Text style={[
-                styles.details,
-                this.props.thin && styles.thinDetails
-              ]}>
-                {this.state.activity.description}
-              </Text>
               <Text style={[
                 styles.details,
                 styles.subtitle
@@ -100,9 +101,15 @@ export default class Activity extends Component {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Transparent,
+    margin: 5,
+    marginLeft: Sizes.InnerFrame,
+    marginRight: Sizes.InnerFrame
   },
 
   thinContainer: {
+    margin: 0,
+    marginLeft: 0,
+    marginRight: 0,
     backgroundColor: Colors.Transparent,
     flexDirection: 'row'
   },
@@ -126,11 +133,20 @@ export const styles = StyleSheet.create({
     height: 200
   },
 
+  overlay: {
+    flex: 1,
+    backgroundColor: Colors.PrimaryOverlay
+  },
+
   content: {
-    backgroundColor: Colors.Foreground,
+    backgroundColor: Colors.Primary,
     padding: Sizes.InnerFrame,
     flex: 1,
     justifyContent: 'space-between'
+  },
+
+  thinContent: {
+    backgroundColor: Colors.Foreground
   },
 
   footer: {
@@ -164,33 +180,19 @@ export const styles = StyleSheet.create({
 
   priceContainer: {
     borderRadius: 10,
-    padding: 10,
+    padding: 2,
     marginLeft: Sizes.InnerFrame,
-    backgroundColor: Colors.Primary,
     alignItems: 'flex-end',
     justifyContent: 'flex-end'
   },
 
-  thinPriceContainer: {
-    padding: 2,
-    backgroundColor: Colors.Transparent
-  },
-
   price: {
     fontSize: Sizes.H1,
-    color: Colors.AlternateText
-  },
-
-  thinPrice: {
-    color: Colors.Primary
+    color: Colors.Text
   },
 
   pricePerPerson: {
     fontSize: Sizes.SmallText,
-    color: Colors.AlternateText
-  },
-
-  thinPricePerPerson: {
-    color: Colors.Primary
+    color: Colors.Text
   }
 });
