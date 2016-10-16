@@ -20,7 +20,7 @@ export default class TabButton extends Component {
             this.props.color
             || Colors.Text
           }
-          size={15}
+          size={20}
           name={this.props.icon} />
         <Text style={[
           styles.label,
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: Sizes.OuterFrame,
     paddingRight: Sizes.OuterFrame,
+    paddingTop: Sizes.InnerFrame,
+    paddingBottom: Sizes.InnerFrame,
     alignItems: 'center',
     justifyContent: 'center'
   },

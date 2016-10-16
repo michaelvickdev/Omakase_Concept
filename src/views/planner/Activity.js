@@ -142,15 +142,11 @@ export default class Activity extends Component {
             </MapView>
             <View style={styles.grid}>
               <PhotoGrid
-                photoIds={[
-                  'sushi_1',
-                  'sushi_2',
-                  'sushi_3',
-                  'sushi_4',
-                  'sushi_5',
-                  'sushi_6',
-                  'sushi_7'
-                ]}
+                photoIds={
+                  this.state.activity.photos
+                  && Object.keys(this.state.activity.photos)
+                  || []
+                }
                 eachRow={3}
                 width={Sizes.width - Sizes.InnerFrame * 2 + 5} />
               </View>

@@ -320,7 +320,6 @@ const styles = StyleSheet.create({
   tabs: {
     backgroundColor: Colors.Primary,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: Sizes.InnerFrame
+    justifyContent: 'space-around'
   }
 });
