@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Image, TouchableOpacity, Alert, NativeModules
+  StyleSheet, View, Image, TouchableOpacity, Alert
 } from 'react-native';
 import {
   Sizes, Colors
@@ -10,6 +10,9 @@ import {
 import Database, {
   Firebase
 } from '../../utils/Firebase';
+import RNFetchBlob from 'react-native-fetch-blob';
+
+const Blob = RNFetchBlob.polyfill.Blob;
 
 // components
 import {
@@ -24,6 +27,11 @@ export default class CameraPreview extends Component {
     this.state = {
       progress: 0
     };
+  }
+
+  revert(blob, xml) {
+    window.Blob = blob;
+    window.XMLHttpRequest = xml;
   }
 
   render() {
@@ -48,34 +56,50 @@ export default class CameraPreview extends Component {
             <TouchableOpacity
               onPress={() => {
 
-                // start upload of photo
-                NativeModules.RNImageToBase64.getBase64String(
-                  this.props.path, (err, base64) => {
-                    if (!err) {
-                      let task = Firebase.storage().ref().child(
-                        `images/${
-                          this.props.path.split('/').pop()
-                        }`
-                      ).putString(base64);
+                // hijack Blob and XMLHttpRequest temporarily
+                let realBlob = window.Blob;
+                let realXML = window.XMLHttpRequest;
+                window.Blob = Blob;
+                window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 
-                      // keep track of upload
-                      task.on('state_changed', snapshot => {
-                        this.setState({
-                          progress: (
-                            snapshot.bytesTransferred
-                            / snapshot.totalByes
-                          )
-                        });
-                      }, err => {
-
-                      }, () => {
-
-                        // successful, close window
-                        Alert.alert(task.snapshot.downloadURL);
-                      })
-                    }
+                Blob.build(
+                  RNFetchBlob.wrap(
+                    this.props.path
+                  ), {
+                    type: 'image/jpg;'
                   }
-                );
+                ).then(blob => {
+                  console.log(blob);
+                  let task = Firebase.storage().ref().child(
+                    `images/${
+                      this.props.path.split('/').pop()
+                    }`
+                  ).put(blob, {
+                    contentType: 'image/jpg'
+                  });
+
+                  // keep track of upload
+                  task.on('state_changed', snapshot => {
+                    console.log('change');
+                    this.setState({
+                      progress: (
+                        snapshot.bytesTransferred
+                        / snapshot.totalBytes
+                      )
+                    });
+                  }, err => {
+                    console.log(err);
+                    this.revert(realBlob, realXML);
+                  }, () => {
+
+                    // successful, close window
+                    console.log('complete');
+                    this.revert(realBlob, realXML);
+                  });
+                }).catch(err => {
+                  console.log(err);
+                  this.revert(realBlob, realXML);
+                });
               }}>
               <CircleCheck
                 style={styles.accept}

@@ -15,7 +15,7 @@
     "react-native-checkbox": "^1.0.15",
     "react-native-drawer": "^2.2.6",
     "react-native-fbsdk": "^0.3.0",
-    "react-native-fetch-blob": "^0.9.6",
+    "react-native-fetch-blob": "^0.10.0-beta.3",
     "react-native-google-places-autocomplete": "^1.2.3",
     "react-native-linear-gradient": "^1.5.13",
     "react-native-maps": "^0.8.2",
