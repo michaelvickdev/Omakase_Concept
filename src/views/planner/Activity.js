@@ -52,12 +52,12 @@ export default class Activity extends Component {
       <View style={styles.container}>
         <ParallaxScrollView
           parallaxHeaderHeight={200}
-          contentBackgroundColor={Colors.NearBlack}
+          contentBackgroundColor={Colors.Background}
           renderBackground={() => (
             <Photo
               photoId={
                 this.state.activity.photos
-                && this.state.activity.photos[0]
+                && Object.keys(this.state.activity.photos)[0]
               }
               style={styles.photo} />
           )}
@@ -66,7 +66,7 @@ export default class Activity extends Component {
               colors={[
                 Colors.Transparent,
                 Colors.Transparent,
-                Colors.NearBlack
+                Colors.Background
               ]}
               style={styles.photoOverlay}>
               <View style={styles.coverForeground}>
@@ -175,7 +175,7 @@ export default class Activity extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.NearBlack
+    backgroundColor: Colors.Background
   },
 
   photo: {

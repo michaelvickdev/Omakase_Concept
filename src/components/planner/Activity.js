@@ -30,7 +30,10 @@ export default class Activity extends Component {
         let activity = data.val();
         this.setState({
           activity: activity,
-          photoId: activity.photos && activity.photos[0]
+          photoId: (
+            activity.photos
+            && Object.keys(activity.photos)[0]
+          )
         });
       }
     });
