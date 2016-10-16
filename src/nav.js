@@ -153,6 +153,10 @@ export default class Navigation extends Component {
                 key="activity"
                 component={Activity} />
               <Scene
+                hideNavBar={false}
+                key="camera"
+                component={FirebaseCamera} />
+              <Scene
                 hideNavBar
                 key="tripCamera"
                 component={TripCamera} />
