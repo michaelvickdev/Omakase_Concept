@@ -151,7 +151,7 @@ export default class ClientMain extends Component {
             <Button
               label={"New Event"}
               color={Colors.Primary}
-              fontColor={Colors.AlternateText}
+              fontColor={Colors.Text}
               onPress={Actions.clientCreate} />
           </View>
         </ScrollView>

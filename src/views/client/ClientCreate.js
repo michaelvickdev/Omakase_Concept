@@ -280,7 +280,7 @@ export default class ClientCreate extends Component {
               label=" " />
             <Button
               color={Colors.Primary}
-              fontColor={Colors.AlternateText}
+              fontColor={Colors.Text}
               onPress={this.submit}
               label="Book & View Planners" />
           </View>
