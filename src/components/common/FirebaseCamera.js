@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Image, Alert, TouchableOpacity
+  StyleSheet, View, Image, Alert, TouchableOpacity, Modal
 } from 'react-native';
 import {
   Sizes, Colors
@@ -10,25 +10,46 @@ import {
 
 // components
 import Camera from 'react-native-camera';
+import CameraPreview from './CameraPreview';
 
 export default class FirebaseCamera extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      preview: null
+    };
+
     this.shutter = this.shutter.bind(this);
   }
 
   shutter() {
     this.camera.capture().then(data => {
-      Alert.alert('hi');
+      this.setState({
+        preview: data.path
+      });
     });
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Modal
+          transparent
+          animationType='slide'
+          visible={!!this.state.preview}>
+          <CameraPreview
+            cancel={() => {
+              this.setState({
+                preview: null
+              });
+            }}
+            accept={this.props.onUploaded}
+            path={this.state.preview} />
+        </Modal>
         <Camera
           ref={cam => this.camera = cam}
           style={styles.camera}
+          captureTarget={Camera.constants.CaptureTarget.temp}
           aspect={Camera.constants.Aspect.fill}>
           <View style={styles.upperContainer}></View>
           <View style={styles.lowerContainer}>
