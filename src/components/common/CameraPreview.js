@@ -20,12 +20,14 @@ import {
 } from 'react-native-blur';
 import CircleCheck from './CircleCheck';
 import * as Progress from 'react-native-progress';
+import * as Animatable from 'react-native-animatable';
 
 export default class CameraPreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0
+      progress: 0,
+      uploading: false
     };
   }
 
@@ -46,67 +48,84 @@ export default class CameraPreview extends Component {
               uri: this.props.path,
               isStatic: true
             }}>
-            <TouchableOpacity
-              onPress={this.props.cancel}>
-              <CircleCheck
-                icon='delete'
-                color={Colors.Foreground}
-                size={40} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
+            <Animatable.View ref='cancel'>
+              <TouchableOpacity
+                onPress={this.props.cancel}>
+                <CircleCheck
+                  icon='delete'
+                  color={Colors.Foreground}
+                  size={40} />
+              </TouchableOpacity>
+            </Animatable.View>
+            <Animatable.View ref='accept'>
+              <TouchableOpacity
+                onPress={() => {
 
-                // hijack Blob and XMLHttpRequest temporarily
-                let realBlob = window.Blob;
-                let realXML = window.XMLHttpRequest;
-                window.Blob = Blob;
-                window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+                  // hide buttons
+                  this.refs.accept.bounceOutDown(1000);
+                  this.refs.cancel.bounceOutDown(1000);
 
-                Blob.build(
-                  RNFetchBlob.wrap(
-                    this.props.path
-                  ), {
-                    type: 'image/jpg;'
-                  }
-                ).then(blob => {
-                  console.log(blob);
-                  let task = Firebase.storage().ref().child(
-                    `images/${
-                      this.props.path.split('/').pop()
-                    }`
-                  ).put(blob, {
-                    contentType: 'image/jpg'
-                  });
+                  // hijack Blob and XMLHttpRequest temporarily
+                  let realBlob = window.Blob;
+                  let realXML = window.XMLHttpRequest;
+                  window.Blob = Blob;
+                  window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 
-                  // keep track of upload
-                  task.on('state_changed', snapshot => {
-                    console.log('change');
-                    this.setState({
-                      progress: (
-                        snapshot.bytesTransferred
-                        / snapshot.totalBytes
-                      )
+                  Blob.build(
+                    RNFetchBlob.wrap(
+                      this.props.path
+                    ), {
+                      type: 'image/jpg;'
+                    }
+                  ).then(blob => {
+                    let task = Firebase.storage().ref().child(
+                      `images/${
+                        this.props.path.split('/').pop()
+                      }`
+                    ).put(blob, {
+                      contentType: 'image/jpg'
                     });
-                  }, err => {
-                    console.log(err);
-                    this.revert(realBlob, realXML);
-                  }, () => {
 
-                    // successful, close window
-                    console.log('complete');
+                    // keep track of upload
+                    task.on('state_changed', snapshot => {
+                      this.setState({
+                        progress: (
+                          snapshot.bytesTransferred
+                          / snapshot.totalBytes
+                        )
+                      });
+                    }, err => {
+                      console.error(err);
+                      this.revert(realBlob, realXML);
+                    }, () => {
+
+                      // successful, create photos item ref
+                      let photoId = Database.ref(`photos`).push().key;
+                      Database.ref(
+                        `photos/${photoId}`
+                      ).set({
+                        createdBy: Firebase.auth().currentUser.uid,
+                        url: task.snapshot.downloadURL
+                      });
+
+                      // and now finalize by callback from parent
+                      this.revert(realBlob, realXML);
+                      this.props.accept
+                      && this.props.accept(photoId);
+                    });
+                  }).catch(err => {
+                    console.error(err);
                     this.revert(realBlob, realXML);
                   });
-                }).catch(err => {
-                  console.log(err);
-                  this.revert(realBlob, realXML);
-                });
-              }}>
-              <CircleCheck
-                style={styles.accept}
-                size={60} />
-            </TouchableOpacity>
+                }}>
+                <CircleCheck
+                  style={styles.accept}
+                  size={60} />
+              </TouchableOpacity>
+            </Animatable.View>
           </Image>
           <Progress.Bar
+            style={styles.progress}
             borderWidth={0}
             borderRadius={0}
             color={Colors.Primary}
@@ -146,15 +165,7 @@ const styles = StyleSheet.create({
     marginLeft: Sizes.InnerFrame
   },
 
-  progressFill: {
-    backgroundColor: Colors.Primary
-  },
-
-  progressBackground: {
-    backgroundColor: Colors.Background
-  },
-
   progress: {
-    width: Sizes.width
+    top: -1
   }
 });

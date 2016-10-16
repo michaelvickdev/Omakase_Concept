@@ -13,12 +13,13 @@ import {
 import Avatar from '../components/profile/Avatar';
 import InformationField from '../components/common/InformationField';
 import LinearGradient from 'react-native-linear-gradient';
+import PhotoGrid from '../components/common/PhotoGrid';
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: null
+      profile: {}
     };
 
     this.ref = Database.ref(`profiles/${this.props.uid}`);
@@ -54,7 +55,7 @@ export default class Profile extends Component {
               Styles.Header,
               styles.name
             ]}>
-            {this.state.profile && this.state.profile.displayName}
+            {this.state.profile.displayName}
           </Text>
           <Text
             style={[
@@ -71,6 +72,16 @@ export default class Profile extends Component {
             isBottom
             label="Age"
             info="18-29" />
+        </View>
+        <View style={styles.grid}>
+          <PhotoGrid
+            photoIds={
+              this.state.profile.photos
+              && Object.keys(this.state.profile.photos)
+              || []
+            }
+            eachRow={3}
+            width={Sizes.width - Sizes.InnerFrame * 2 + 5} />
         </View>
       </View>
     );
@@ -108,5 +119,10 @@ const styles = StyleSheet.create({
   since: {
     textAlign: 'center',
     marginBottom: Sizes.OuterFrame
+  },
+
+  grid: {
+    alignItems: 'center',
+    marginBottom: Sizes.InnerFrame
   }
 });

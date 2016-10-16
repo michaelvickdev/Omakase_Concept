@@ -7,6 +7,9 @@ import {
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import {
+  Actions
+} from 'react-native-router-flux';
 
 // components
 import Camera from 'react-native-camera';
@@ -43,7 +46,13 @@ export default class FirebaseCamera extends Component {
                 preview: null
               });
             }}
-            accept={this.props.onUploaded}
+            accept={photoId => {
+
+              // parent callback
+              this.props.onUploaded
+              && this.props.onUploaded(photoId);
+              Actions.pop();
+            }}
             path={this.state.preview} />
         </Modal>
         <Camera

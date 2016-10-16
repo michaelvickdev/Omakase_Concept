@@ -231,7 +231,27 @@ export default class PlannerRequestDetail extends Component {
                 this.state.booking.planner
                 === Firebase.auth().currentUser.uid
               ) {
-                Actions.camera();
+                Actions.camera({
+                  onUploaded: photoId => {
+
+                    // handle linking photoId to:
+                    // Photographer,
+                    Database.ref(
+                      `profiles/${
+                        Firebase.auth().currentUser.uid
+                      }/photos/${
+                        photoId
+                      }`
+                    ).set(true);
+
+                    // Booking,
+                    this.ref.child(
+                      `photos/${photoId}`
+                    ).set(true);
+
+                    // TODO: and Activity
+                  }
+                });
               } else {
                 this.notAllowed();
               }
