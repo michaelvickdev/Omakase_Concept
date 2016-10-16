@@ -45,14 +45,14 @@ export default class FirebaseCamera extends Component {
             }}
             accept={photoId => {
 
+              // and close the modal
+              this.setState({
+                preview: null
+              });
+
               // parent callback
               this.props.onUploaded
               && this.props.onUploaded(photoId);
-
-              // and close the modal
-              this.setState({
-                path: null
-              });
             }}
             path={this.state.preview} />
         </Modal>
