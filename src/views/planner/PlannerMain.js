@@ -2,121 +2,90 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, ListView
+  StyleSheet, View, Text
 } from 'react-native';
 import {
-  Sizes, Colors, Styles
+  Sizes, Colors
 } from '../../../res/Constants';
 import Database, {
   Firebase
 } from '../../utils/Firebase';
-import DateFormat from 'dateformat';
 
 // components
-import BookingDayList from '../../components/planner/BookingDayList';
-import Button from '../../components/common/Button';
+import Video from 'react-native-video';
+import LinearGradient from 'react-native-linear-gradient';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Avatar from '../../components/profile/Avatar';
+import OutlineText from '../../components/common/OutlineText';
 
-let days = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-];
-
-/**
- * Shows all kinds of request for planners including
- * Accepted, Unfinished and Finished
- */
-export default class PlannerRequestMain extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date()
-    };
-  }
-
+export default class PlannerMain extends Component {
   render() {
     return (
-      <View style={styles.wrapper}>
-        <View style={styles.body}>
-          <Text style={Styles.Header}>
-            {
-              `${DateFormat(
-                this.state.date,
-                'dddd, mmmm dS'
-              )} in Toronto`
-            }
-          </Text>
-          <Text style={Styles.BodyText}>
-            Seems like a busy day.
-          </Text>
-        </View>
-        <BookingDayList date={this.state.date} />
-        <View style={styles.buttons}>
-          <Button
-            color={Colors.Foreground}
-            fontColor={Colors.Text}
-            icon="arrow-back"
-            onPress={() => this.setState({
-              date: new Date(
-                this.state.date.getFullYear(),
-                this.state.date.getMonth(),
-                this.state.date.getDate() - 1
-              )
-            })}
-            label={`${
-              days[
-                new Date(
-                  this.state.date.getFullYear(),
-                  this.state.date.getMonth(),
-                  this.state.date.getDate() - 1
-                ).getDay()
-              ]
-            }`} />
-          <Button
-            color={Colors.Foreground}
-            fontColor={Colors.Text}
-            rightIcon="arrow-forward"
-            onPress={() => this.setState({
-              date: new Date(
-                this.state.date.getFullYear(),
-                this.state.date.getMonth(),
-                this.state.date.getDate() + 1
-              )
-            })}
-            label={`${
-              days[
-                new Date(
-                  this.state.date.getFullYear(),
-                  this.state.date.getMonth(),
-                  this.state.date.getDate() + 1
-                ).getDay()
-              ]
-            }`} />
-        </View>
+      <View style={styles.container}>
+        <ParallaxScrollView
+          parallaxHeaderHeight={Sizes.height * 0.4}
+          contentBackgroundColor={Colors.Background}
+          renderBackground={() => (
+            <Video
+              repeat
+              muted
+              resizeMode='cover'
+              source={require('../../../res/img/header.mp4')}
+              style={styles.cover} />
+          )}
+          renderForeground={() => (
+            <LinearGradient
+              colors={[
+                Colors.Transparent,
+                Colors.Transparent,
+                Colors.NearBlack,
+              ]}
+              style={styles.headerContainer}>
+              <Avatar
+
+                size={30}
+                uid={Firebase.auth().currentUser.uid} />
+              <Text style={styles.welcomeTitle}>
+                Good afternoon, Kenneth.
+              </Text>
+              <OutlineText
+                style={styles.location}
+                text='Toronto, ON, Canada' />
+            </LinearGradient>
+          )} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     flex: 1,
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Background
   },
 
-  body: {
-    paddingTop: Sizes.InnerFrame,
+  cover: {
+    flex: 1,
+    minHeight: Sizes.height * 0.4,
+    alignSelf: 'stretch'
+  },
+
+  headerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingBottom: Sizes.InnerFrame
   },
 
-  buttons: {
-    padding: Sizes.InnerFrame,
-    flexDirection: 'row',
-    alignSelf: 'stretch',
-    justifyContent: 'space-between'
+  welcomeTitle: {
+    width: Sizes.width * 0.7,
+    fontSize: 32,
+    fontWeight: '700',
+    color: Colors.Text,
+    textAlign: 'center'
+  },
+
+  location: {
+    marginTop: Sizes.OuterFrame
   }
 });

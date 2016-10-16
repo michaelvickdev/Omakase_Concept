@@ -32,6 +32,7 @@ import BookingItinerary from '../../components/planner/BookingItinerary';
 import BookingSummary from '../../components/planner/BookingSummary';
 import BookingPlaces from '../../components/planner/BookingPlaces';
 import TabButton from '../../components/common/TabButton';
+import CloseFullscreenButton from '../../components/common/CloseFullscreenButton';
 
 export default class PlannerRequestDetail extends Component {
   constructor(props) {
@@ -232,11 +233,7 @@ export default class PlannerRequestDetail extends Component {
                 === Firebase.auth().currentUser.uid
               ) {
                 Actions.tripCamera({
-                  photos: (
-                    this.state.booking.photos
-                    && Object.keys(this.state.booking.photos)
-                    || []
-                  ),
+                  bookingId: this.props.bookingId,
                   onUploaded: photoId => {
 
                     // handle linking photoId to:
@@ -266,6 +263,7 @@ export default class PlannerRequestDetail extends Component {
               label='Camera' />
           </TouchableOpacity>
         </View>
+        <CloseFullscreenButton />
       </View>
     );
   }

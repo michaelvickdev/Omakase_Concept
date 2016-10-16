@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
 
   shutter: {
     height: 80,
-    width: 80
+    width: 80,
+    tintColor: Colors.Primary
   }
 });

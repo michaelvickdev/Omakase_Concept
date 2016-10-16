@@ -31,6 +31,7 @@ import ClientPay from './views/client/ClientPay';
 
 // planners components
 import PlannerMain from './views/planner/PlannerMain';
+import PlannerDayList from './views/planner/PlannerDayList';
 import PlannerBalance from './views/planner/PlannerBalance';
 import PlannerRequestDetail from './views/planner/PlannerRequestDetail';
 import PlannerRequestPlan from './views/planner/PlannerRequestPlan';
@@ -134,7 +135,9 @@ export default class Navigation extends Component {
               <Scene key="plannerMain"
                 component={PlannerMain}
                 type='reset'
-                hideNavBar={false} />
+                hideNavBar />
+              <Scene key="plannerDayList"
+                component={PlannerDayList} />
               <Scene
                 hideNavBar
                 key="plannerRequestDetail"

@@ -7,6 +7,7 @@ import {
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import Database from '../../utils/Firebase';
 
 // components
 import FirebaseCamera from '../../components/common/FirebaseCamera';
@@ -14,6 +15,31 @@ import PhotoGrid from '../../components/common/PhotoGrid';
 import CloseFullscreenButton from '../../components/common/CloseFullscreenButton';
 
 export default class TripCamera extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      photos: []
+    };
+
+    this.ref = Database.ref(
+      `bookings/${
+        this.props.bookingId
+      }/photos`
+    );
+  }
+
+  componentDidMount() {
+    this.listener = this.ref.on('value', data => {
+      data.exists() && this.setState({
+        photos: Object.keys(data.val())
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.ref.off('value', this.listener);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -26,7 +52,7 @@ export default class TripCamera extends Component {
           <PhotoGrid
             eachRow={4}
             width={Sizes.width - Sizes.InnerFrame * 2 + 5}
-            photoIds={this.props.photos} />
+            photoIds={this.state.photos} />
         </ScrollView>
         <CloseFullscreenButton />
       </View>
