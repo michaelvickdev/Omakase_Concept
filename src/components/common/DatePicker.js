@@ -163,6 +163,7 @@ let styles = StyleSheet.create({
   text: {
     textAlign: 'right',
     fontSize: Sizes.Text,
+    color: Colors.Text,
     paddingRight: Sizes.OuterFrame
   },
 

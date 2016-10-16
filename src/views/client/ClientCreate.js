@@ -160,7 +160,7 @@ export default class ClientCreate extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.wrapper}>
         <View style={styles.container}>
           <View style={styles.input}>
             <View style={styles.body}>
@@ -291,11 +291,14 @@ export default class ClientCreate extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: Colors.Background
+  },
+
   container: {
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    backgroundColor: Colors.Secondary
   },
 
   input: {

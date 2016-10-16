@@ -58,11 +58,11 @@ export default class BookingCard extends Component {
       <View style={styles.cardWrapper}>
         <View style={styles.cardContent}>
           <View style={styles.cardBody}>
-            <Text style={styles.cardText}>
-              {this.state.status}
+            <Text style={[styles.cardText, styles.cardTitleText]}>
+              {this.state.booking.date}
             </Text>
             <Text style={styles.cardText}>
-              {this.state.booking.date}
+              {this.state.status}
             </Text>
             <Text style={styles.cardText}>
               {
@@ -87,9 +87,10 @@ const styles = StyleSheet.create({
   cardWrapper: {
     flex: 0.9,
     width: Sizes.width,
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Foreground,
     justifyContent: 'flex-start',
     alignSelf: 'auto',
+    marginBottom: Sizes.ItemSpacer
   },
 
   cardContent: {
@@ -119,14 +120,13 @@ const styles = StyleSheet.create({
 
   cardText: {
     marginTop: Sizes.InnerFrame/2,
-    color: Colors.Primary,
-    fontSize: Sizes.H2,
-    fontWeight: '500'
+    color: Colors.Text,
+    fontSize: Sizes.Text,
   },
 
   cardTitleText: {
-    fontSize: Sizes.H1,
-    fontWeight: '600'
+    fontSize: Sizes.H2,
+    fontWeight: '500'
   },
 
 

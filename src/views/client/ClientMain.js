@@ -164,14 +164,13 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Colors.Secondary
+    backgroundColor: Colors.Background
   },
 
   container: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     // padding: Sizes.outerFrame,
-    backgroundColor: Colors.Secondary
   },
 
   titleContainer: {
@@ -189,6 +188,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.Secondary
+    backgroundColor: Colors.Background
   },
 });
