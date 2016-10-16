@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: Sizes.text,
-    color: Colors.EmphasizedText,
+    color: Colors.Text,
   },
 
   button: {

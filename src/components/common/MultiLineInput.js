@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
 
   text: {
     textAlign: 'right',
-    fontSize: Sizes.Text
+    fontSize: Sizes.Text,
+    color: Colors.Text
   },
 
   inputstyle: {
