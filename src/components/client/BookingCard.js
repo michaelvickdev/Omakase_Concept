@@ -50,7 +50,7 @@ export default class BookingCard extends Component {
         budget: budget,
         party: party,
         size: party.length,
-        status: 'Hang tight!! We\'re looking for a planner'
+        status: 'Pending'
       });
     }
   }
@@ -60,9 +60,11 @@ export default class BookingCard extends Component {
       <View style={styles.cardWrapper}>
         <View style={styles.cardContent}>
             <Text style={[styles.cardText, styles.cardTitleText]}>
+              {this.state.status}
+            </Text>
+            <Text style={[styles.cardText, styles.cardTitleText]}>
               {this.state.booking.date}
             </Text>
-
             <View style={styles.cardBody}>
               <GroupAvatar
                 limit={6}
@@ -108,9 +110,7 @@ export default class BookingCard extends Component {
                 </Text>
               </View>
             </View>
-            <Text style={[styles.cardText, styles.cardTitleText]}>
-              {this.state.status}
-            </Text>
+
           </View>
       </View>
     );
