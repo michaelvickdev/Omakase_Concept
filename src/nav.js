@@ -38,6 +38,7 @@ import PlannerRating from './views/planner/PlannerRating';
 import Activities from './views/planner/Activities';
 import Categories from './views/planner/Categories';
 import Activity from './views/planner/Activity';
+import TripCamera from './views/planner/TripCamera';
 
 /**
  * Registers Views for the global Router, where `loader` is always
@@ -155,6 +156,10 @@ export default class Navigation extends Component {
                 hideNavBar={false}
                 key="camera"
                 component={FirebaseCamera} />
+              <Scene
+                hideNavBar
+                key="tripCamera"
+                component={TripCamera} />
             </Scene>
           </Router>
         </Drawer>

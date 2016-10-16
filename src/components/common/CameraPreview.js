@@ -26,14 +26,20 @@ export default class CameraPreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0,
-      uploading: false
+      progress: 0
     };
+
+    this.revert = this.revert.bind(this);
   }
 
   revert(blob, xml) {
     window.Blob = blob;
     window.XMLHttpRequest = xml;
+
+    // reset progress
+    this.setState({
+      progress: 0
+    });
   }
 
   render() {
@@ -52,7 +58,7 @@ export default class CameraPreview extends Component {
               <TouchableOpacity
                 onPress={this.props.cancel}>
                 <CircleCheck
-                  icon='delete'
+                  icon='close'
                   color={Colors.Foreground}
                   size={40} />
               </TouchableOpacity>

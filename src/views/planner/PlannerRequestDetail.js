@@ -231,7 +231,12 @@ export default class PlannerRequestDetail extends Component {
                 this.state.booking.planner
                 === Firebase.auth().currentUser.uid
               ) {
-                Actions.camera({
+                Actions.tripCamera({
+                  photos: (
+                    this.state.booking.photos
+                    && Object.keys(this.state.booking.photos)
+                    || []
+                  ),
                   onUploaded: photoId => {
 
                     // handle linking photoId to:
