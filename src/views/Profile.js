@@ -67,10 +67,15 @@ export default class Profile extends Component {
             </Photo>
           )}
           renderForeground={() => (
-            <View />
+            <View style={styles.foreground}>
+              <OutlineText text='Toronto, ON, Canada' />
+            </View>
           )}>
           <View style={styles.body}>
-            <View style={styles.avatarContainer}>
+            <View style={styles.topContainer}>
+              <Text style={styles.name}>
+                Kenneth Ma
+              </Text>
               <Avatar
                 outline
                 size={100}
@@ -133,12 +138,24 @@ const styles = StyleSheet.create({
     minHeight: Sizes.height * 0.3
   },
 
-  avatarContainer: {
+  foreground: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    paddingLeft: Sizes.OuterFrame,
+    paddingBottom: Sizes.InnerFrame
+  },
+
+  topContainer: {
+    flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-    marginTop: -60,
-    marginRight: Sizes.InnerFrame
+    justifyContent: 'space-between',
+    marginTop: Sizes.InnerFrame * -4.5,
+    marginRight: Sizes.OuterFrame,
+    marginLeft: Sizes.OuterFrame,
+    marginBottom: Sizes.InnerFrame
   },
 
   body: {
@@ -146,8 +163,10 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    marginTop: Sizes.InnerFrame,
-    textAlign: 'center'
+    marginBottom: Sizes.InnerFrame / 2,
+    fontSize: 28,
+    fontWeight: '600',
+    color: Colors.Text
   },
 
   since: {
