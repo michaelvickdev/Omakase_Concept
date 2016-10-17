@@ -51,7 +51,7 @@ export default class TripCamera extends Component {
           contentContainerStyle={styles.grid}>
           <PhotoGrid
             eachRow={4}
-            width={Sizes.width - Sizes.InnerFrame * 2 + 5}
+            width={Sizes.width - 2}
             photoIds={this.state.photos} />
         </ScrollView>
         <CloseFullscreenButton />
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
 
   grid: {
     alignItems: 'center',
-    paddingTop: Sizes.InnerFrame,
-    paddingBottom: Sizes.InnerFrame
+    paddingLeft: 2,
+    paddingTop: 2,
+    paddingBottom: 2
   }
 });
