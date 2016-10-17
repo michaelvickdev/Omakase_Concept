@@ -31,6 +31,7 @@ export default class PlannerMain extends Component {
       <View style={styles.container}>
         <ParallaxScrollView
           parallaxHeaderHeight={Sizes.height * 0.4}
+          fadeOutForeground={false}
           contentBackgroundColor={Colors.Background}
           renderBackground={() => (
             <Video

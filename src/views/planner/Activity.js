@@ -53,6 +53,7 @@ export default class Activity extends Component {
         <ParallaxScrollView
           parallaxHeaderHeight={200}
           contentBackgroundColor={Colors.Background}
+          fadeOutForeground={false}
           renderBackground={() => (
             <Photo
               photoId={
