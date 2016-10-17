@@ -15,6 +15,7 @@ import PhotoGrid from '../components/common/PhotoGrid';
 import LinearGradient from 'react-native-linear-gradient';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import Photo from '../components/common/Photo';
+import Avatar from '../components/profile/Avatar';
 import OutlineText from '../components/common/OutlineText';
 import CloseFullscreenButton from '../components/common/CloseFullscreenButton';
 import {
@@ -55,18 +56,26 @@ export default class Profile extends Component {
             <Photo
               photoId={this.state.profile.photo}
               style={styles.cover}>
+              <BlurView
+                blurType='light'
+                style={styles.blur}>
+                <View style={[
+                  styles.blur,
+                  styles.blurTint
+                ]} />
+              </BlurView>
             </Photo>
           )}
           renderForeground={() => (
-            <LinearGradient
-              colors={[
-                Colors.Transparent,
-                Colors.Transparent,
-                Colors.Background,
-              ]}
-              style={styles.headerContainer} />
+            <View />
           )}>
           <View style={styles.body}>
+            <View style={styles.avatarContainer}>
+              <Avatar
+                outline
+                size={100}
+                uid={this.props.uid} />
+            </View>
             <InformationField
               isTop
               label="Region"
@@ -96,7 +105,7 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Black
+    backgroundColor: Colors.Background
   },
 
   headerContainer: {
@@ -106,9 +115,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
+  blur: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: Sizes.height * 0.3
+  },
+
+  blurTint: {
+    backgroundColor: Colors.PrimaryOverlay
+  },
+
   cover: {
     flex: 1,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    minHeight: Sizes.height * 0.3
+  },
+
+  avatarContainer: {
+    alignSelf: 'stretch',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    marginTop: -60,
+    marginRight: Sizes.InnerFrame
   },
 
   body: {
