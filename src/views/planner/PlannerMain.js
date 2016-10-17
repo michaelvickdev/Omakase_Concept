@@ -18,6 +18,8 @@ import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import Avatar from '../../components/profile/Avatar';
 import OutlineText from '../../components/common/OutlineText';
 
+import PlannerDayList from './PlannerDayList';
+
 export default class PlannerMain extends Component {
   render() {
     return (
@@ -52,7 +54,9 @@ export default class PlannerMain extends Component {
                 style={styles.location}
                 text='Toronto, ON, Canada' />
             </LinearGradient>
-          )} />
+          )}>
+          <PlannerDayList />
+        </ParallaxScrollView>
       </View>
     );
   }
