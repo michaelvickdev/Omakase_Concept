@@ -196,6 +196,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: Sizes.Text,
     color: Colors.Text,
-    fontWeight: '500'
+    fontWeight: '600'
   }
 });
