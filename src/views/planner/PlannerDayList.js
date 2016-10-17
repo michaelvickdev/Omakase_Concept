@@ -21,7 +21,7 @@ import CircleCheck from '../../components/common/CircleCheck';
  * Shows all kinds of request for planners including
  * Accepted, Unfinished and Finished
  */
-export default class PlannerRequestMain extends Component {
+export default class PlannerDayList extends Component {
   constructor(props) {
     super(props);
     this.state = {

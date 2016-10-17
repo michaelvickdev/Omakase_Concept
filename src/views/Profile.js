@@ -74,7 +74,7 @@ export default class Profile extends Component {
           <View style={styles.body}>
             <View style={styles.topContainer}>
               <Text style={styles.name}>
-                Kenneth Ma
+                {this.state.profile.displayName}
               </Text>
               <Avatar
                 outline
