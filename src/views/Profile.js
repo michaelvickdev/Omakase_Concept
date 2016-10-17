@@ -10,10 +10,16 @@ import {
 } from '../../res/Constants';
 
 // components
-import Avatar from '../components/profile/Avatar';
 import InformationField from '../components/common/InformationField';
-import LinearGradient from 'react-native-linear-gradient';
 import PhotoGrid from '../components/common/PhotoGrid';
+import LinearGradient from 'react-native-linear-gradient';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Photo from '../components/common/Photo';
+import OutlineText from '../components/common/OutlineText';
+import CloseFullscreenButton from '../components/common/CloseFullscreenButton';
+import {
+  BlurView
+} from 'react-native-blur';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -38,51 +44,50 @@ export default class Profile extends Component {
   }
 
   render() {
+    console.log(this.state.profile.photo);
     return (
       <View style={styles.container}>
-        <Image
-          style={styles.header}
-          source={require('../../res/img/profile_bg.jpg')} />
-        <View style={styles.body}>
-          <View style={styles.avatar}>
-            <Avatar
-              outline
-              uid={this.props.uid}
-              size={120} />
+        <ParallaxScrollView
+          parallaxHeaderHeight={Sizes.height * 0.3}
+          contentBackgroundColor={Colors.Background}
+          fadeOutForeground={false}
+          renderBackground={() => (
+            <Photo
+              photoId={this.state.profile.photo}
+              style={styles.cover}>
+            </Photo>
+          )}
+          renderForeground={() => (
+            <LinearGradient
+              colors={[
+                Colors.Transparent,
+                Colors.Transparent,
+                Colors.Background,
+              ]}
+              style={styles.headerContainer} />
+          )}>
+          <View style={styles.body}>
+            <InformationField
+              isTop
+              label="Region"
+              info="Toronto, ON" />
+            <InformationField
+              isBottom
+              label="Age"
+              info="18-29" />
           </View>
-          <Text
-            style={[
-              Styles.Header,
-              styles.name
-            ]}>
-            {this.state.profile.displayName}
-          </Text>
-          <Text
-            style={[
-              Styles.BodyText,
-              styles.since
-            ]}>
-            Since Sept 2016
-          </Text>
-          <InformationField
-            isTop
-            label="Region"
-            info="Toronto, ON" />
-          <InformationField
-            isBottom
-            label="Age"
-            info="18-29" />
-        </View>
-        <View style={styles.grid}>
-          <PhotoGrid
-            photoIds={
-              this.state.profile.photos
-              && Object.keys(this.state.profile.photos)
-              || []
-            }
-            eachRow={3}
-            width={Sizes.width - Sizes.InnerFrame * 2 + 5} />
-        </View>
+          <View style={styles.grid}>
+            <PhotoGrid
+              photoIds={
+                this.state.profile.photos
+                && Object.keys(this.state.profile.photos)
+                || []
+              }
+              eachRow={3}
+              width={Sizes.width - Sizes.InnerFrame * 2 + 5} />
+          </View>
+        </ParallaxScrollView>
+        <CloseFullscreenButton />
       </View>
     );
   }
@@ -91,24 +96,23 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Black
   },
 
-  header: {
-    height: 150,
+  headerContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  cover: {
+    flex: 1,
     alignSelf: 'stretch'
   },
 
   body: {
-
-    // to make the avatar appear in between the header image
-    marginTop: -60
-  },
-
-  avatar: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center'
+    marginTop: Sizes.InnerFrame
   },
 
   name: {

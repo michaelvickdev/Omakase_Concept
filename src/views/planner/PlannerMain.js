@@ -45,7 +45,7 @@ export default class PlannerMain extends Component {
               colors={[
                 Colors.Transparent,
                 Colors.Transparent,
-                Colors.NearBlack,
+                Colors.Background,
               ]}
               style={styles.headerContainer}>
               <Avatar
