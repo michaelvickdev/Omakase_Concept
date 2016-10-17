@@ -117,7 +117,7 @@ export default class SideMenu extends Component {
   testRequestMain() {
     let {closeDrawer} = this.props
     closeDrawer();
-    Actions.plannerDayList();
+    Actions.plannerMain();
   }
   testRating() {
     let {closeDrawer} = this.props
