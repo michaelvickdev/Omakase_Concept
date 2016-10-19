@@ -16,6 +16,7 @@ import DateFormat from 'dateformat';
 import Button from '../common/Button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Excitement from '../common/Excitement';
+import OutlineText from '../common/OutlineText';
 
 
 /**
@@ -59,59 +60,60 @@ export default class BookingCard extends Component {
     return (
       <View style={styles.cardWrapper}>
         <View style={styles.cardContent}>
-            <Text style={[styles.cardText, styles.cardTitleText]}>
-              {this.state.status}
-            </Text>
-            <Text style={[styles.cardText, styles.cardTitleText]}>
+          <View style={styles.cardBody}>
+            <Text style={[styles.cardText, styles.cardTitleText, styles.date]}>
               {this.state.booking.date}
             </Text>
-            <View style={styles.cardBody}>
-              <GroupAvatar
-                limit={6}
-                uids={
-                  this.state.party
-                } />
-              <View>
-                <View style={styles.detailsContainer}>
-                  <Text style={[
-                    Styles.Header,
-                    styles.right
-                  ]}>
-                    {`$${(
-                      this.state.budget / (
-                        this.state.size
-                      )
-                    ).toFixed(0)}`}
-                  </Text>
-                  <Text style={[
-                    styles.details,
-                    styles.right
-                  ]}>
-                    per person
-                  </Text>
-                  <Excitement
-                    level={
-                      this.state.booking
-                      && this.state.booking.excitement
-                      || 0
-                    }
-                    style={styles.excitement} />
-                </View>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <Icon style={styles.icon}
-                name='gps-fixed'
-                size={Sizes.Text}
-                color={Colors.Text} />
-              <View style={styles.column}>
-                <Text style={styles.cardText}>
-                  {this.state.booking.address}
-                </Text>
-              </View>
-            </View>
-
+            <OutlineText
+              style={styles.status}
+              text={this.state.status} />
           </View>
+          <View style={styles.cardBody}>
+            <GroupAvatar
+              limit={6}
+              uids={
+                this.state.party
+              } />
+            <View>
+              <View style={styles.detailsContainer}>
+                <Text style={[
+                  Styles.Header,
+                  styles.right
+                ]}>
+                  {`$${(
+                    this.state.budget / (
+                      this.state.size
+                    )
+                  ).toFixed(0)}`}
+                </Text>
+                <Text style={[
+                  styles.details,
+                  styles.right
+                ]}>
+                  per person
+                </Text>
+                <Excitement
+                  level={
+                    this.state.booking
+                    && this.state.booking.excitement
+                    || 0
+                  }
+                  style={styles.excitement} />
+              </View>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <Icon style={styles.icon}
+              name='gps-fixed'
+              size={Sizes.Text}
+              color={Colors.Text} />
+            <View style={styles.column}>
+              <Text style={styles.cardText}>
+                {this.state.booking.address}
+              </Text>
+            </View>
+          </View>
+        </View>
       </View>
     );
   }
@@ -170,6 +172,16 @@ const styles = StyleSheet.create({
   cardTitleText: {
     fontSize: Sizes.H2,
     fontWeight: '500'
+  },
+
+  date: {
+    marginTop: 5
+  },
+
+  status: {
+    alignSelf: 'flex-start',
+    marginTop: 10,
+    marginBottom: 5
   },
 
   icon: {
