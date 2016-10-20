@@ -109,7 +109,7 @@ export default class Navigation extends Component {
               <Scene key="clientCreate"
                 title={Strings.CreateEventTitle}
                 component={ClientCreate}
-                hideNavBar={false} />
+                hideNavBar />
               <Scene key="clientPlannerChoice"
                 title={Strings.CreateEventTitle}
                 component={ClientPlannerChoice} />

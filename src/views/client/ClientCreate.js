@@ -240,11 +240,15 @@ export default class ClientCreate extends Component {
               interval={10}
               ref={ref => this._price = ref} />
             <NumberPicker
-              isTop
               number={2}
               rightNoun={"person"}
               min={1}
               ref={ref => this._party = ref} />
+            <NumberPicker
+              number={1}
+              rightNoun={"guides"}
+              min={1}
+              ref={ref => this._space = ref} />
             <MultiPicker
               label="Language"
               defaultVal="English"

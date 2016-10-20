@@ -2,7 +2,8 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet, StatusBar, Platform, ScrollView, ListView
+  View, Text, StyleSheet, StatusBar, Platform, ScrollView,
+  ListView, ActivityIndicator
 } from 'react-native';
 import {
   Actions
@@ -102,7 +103,8 @@ export default class ClientMain extends Component {
         // and finally, clone into DataSource
         this.setState({
     //      data: this.state.data.cloneWithRows(bookings)
-          data: this.state.data.cloneWithRowsAndSections(blob, sections, rows)
+          data: this.state.data.cloneWithRowsAndSections(blob, sections, rows),
+          initialized: true
         });
       }
     });
@@ -143,11 +145,16 @@ export default class ClientMain extends Component {
       <View style={styles.wrapper}>
         <ScrollView>
           <View style={styles.container}>
-            { this.state.data
+            { this.state.data.getRowCount()
               ? this.renderBookings()
-              : <Text style={styles.text}>
+              : this.state.initialized ?
+                <Text style={styles.text}>
                   You have no pending events
                 </Text>
+              : <ActivityIndicator
+                size={'small'}
+                color={Colors.Primary}
+                animating={true} />
             }
           </View>
           <View style={styles.buttonContainer}>
@@ -206,12 +213,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: Colors.Background,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'stretch'
   },
 
   container: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     // padding: Sizes.outerFrame,
   },
 
