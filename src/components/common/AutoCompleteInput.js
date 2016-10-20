@@ -66,9 +66,11 @@ export default class AutoCompleteInput extends Component {
                 this.setState({
                   defaultText: this._modal.val()
                 });
-                this.props.onSelect();
+                this.props.onSelect && this.props.onSelect();
               }}
-              placeholder={this.props.defaultText}
+              placeholder={this.props.placeholder}
+              type={this.props.type}
+              location={this.props.location}
             />
             <View style={styles.contentContainer}>
               <TouchableHighlight

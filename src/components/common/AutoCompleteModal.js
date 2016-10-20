@@ -60,83 +60,83 @@ export default class AutoCompleteModal extends Component {
 
   render() {
     return (
-          <View style={styles.wrapper}>
-            <Modal
-              animationType="slide"
-              onRequestClose={() => this.setState({
+      <Modal
+        style={styles.wrapper}
+        animationType="slide"
+        onRequestClose={() => this.setState({
+          value: this.state.previousVal,
+          showModal: false
+        })}
+        transparent={true}
+        visible={this.state.showModal}
+        onShow={() => this.setState({
+          previousVal: this.state.value
+        })}>
+        <View style={styles.modalContainer}>
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight
+              underlayColor={Colors.Transparent}
+              onPress={() => this.setState({
                 value: this.state.previousVal,
                 showModal: false
-              })}
-              transparent={true}
-              visible={this.state.showModal}
-              onShow={() => this.setState({
-                previousVal: this.state.value
               })}>
-              <View style={styles.modalContainer}>
-                <View style={styles.buttonContainer}>
-                  <TouchableHighlight
-                    underlayColor={Colors.Transparent}
-                    onPress={() => this.setState({
-                      value: this.state.previousVal,
-                      showModal: false
-                    })}>
-                    <Text style={styles.text}>
-                      {this.props.cancelLabel || 'Cancel'}
-                    </Text>
-                  </TouchableHighlight>
-                </View>
-                <View style={styles.inputContainer}>
-                <GooglePlacesAutocomplete
-                   placeholder={
-                     this.props.placeholder || 'Search'
-                   }
-                   minLength={2}
-                   autoFocus={this.state.description ? false : true}
-                   fetchDetails={true}
-                   onPress={(data, details = null) => {
-                     console.log(data);
-                     console.log(details);
-                     this.setState({
-                       value: details,
-                       description: data.description,
-                       showModal: false
-                     })
-                     this.props.onSelect ? this.props.onSelect() : null ;
-                   }}
-                   getDefaultValue={() => {
-                      return this.state.description || '';
-                   }}
-
-                   enablePoweredByContainer={false}
-                   query={{
-                     key: Strings.googleApiKey,
-                     language: 'en',
-                     location: this.props.location || '',
-                     radius: this.props.radius || 10000,
-                     types: this.props.type || 'geocode',
-                   }}
-                   styles={{
-                     description: {
-                       fontWeight: '500',
-                       color: Colors.Text,
-                       fontSize: Sizes.H2,
-                       alignSelf: 'flex-start',
-                     },
-                     row:{
-                       alignSelf: 'stretch',
-                     },
-
-                   }}
-                   currentLocation={false}
-                   nearbyPlacesAPI='GooglePlacesSearch'
-                   GooglePlacesSearchQuery={{
-                     rankby: 'distance',
-                   }}/>
-                </View>
-              </View>
-            </Modal>
+              <Text style={styles.text}>
+                {this.props.cancelLabel || 'Cancel'}
+              </Text>
+            </TouchableHighlight>
           </View>
-        );}
+          <View style={styles.inputContainer}>
+          <GooglePlacesAutocomplete
+             placeholder={
+               this.props.placeholder || 'Search'
+             }
+             minLength={2}
+             autoFocus={this.state.description ? false : true}
+             fetchDetails={true}
+             onPress={(data, details = null) => {
+               console.log(data);
+               console.log(details);
+               this.setState({
+                 value: details,
+                 description: data.description,
+                 showModal: false
+               })
+               this.props.onSelect ? this.props.onSelect() : null ;
+             }}
+             getDefaultValue={() => {
+                return this.state.description || '';
+             }}
+
+             enablePoweredByContainer={false}
+             query={{
+               key: Strings.googleApiKey,
+               language: 'en',
+               location: this.props.location || '',
+               radius: this.props.radius || 10000,
+               types: this.props.type || 'geocode',
+             }}
+             styles={{
+               description: {
+                 fontWeight: '500',
+                 color: Colors.Text,
+                 fontSize: Sizes.H2,
+                 alignSelf: 'flex-start',
+               },
+               row:{
+                 alignSelf: 'stretch',
+               },
+
+             }}
+             currentLocation={false}
+             nearbyPlacesAPI='GooglePlacesSearch'
+             GooglePlacesSearchQuery={{
+               rankby: 'distance',
+             }}/>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
 
 
 }

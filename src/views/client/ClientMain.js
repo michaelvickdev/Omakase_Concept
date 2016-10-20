@@ -22,6 +22,8 @@ import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
 import BookingCard from '../../components/client/BookingCard';
 import BookingCardHeader from '../../components/client/BookingCardHeader';
+import AutoCompleteModal from '../../components/common/AutoCompleteModal';
+
 
 // a collection of closures to build a new ListView
 let lvClosures = {
@@ -153,7 +155,10 @@ export default class ClientMain extends Component {
               label={"Plan a new experience"}
               color={Colors.Primary}
               fontColor={Colors.Text}
-              onPress={Actions.clientCreate} />
+              onPress={() => {
+                Actions.clientCreate()
+          //      this._modal && this._modal.show()
+              }} />
           </View>
           <Photo
             style={styles.upsell}
@@ -177,6 +182,16 @@ export default class ClientMain extends Component {
               fontColor={Colors.Text} />
           </Photo>
         </ScrollView>
+        <AutoCompleteModal
+          ref={ref => this._modal = ref}
+          onSelect={() => {
+            this.setState({
+              defaultText: this._modal.val()
+            });
+          }}
+          placeholder="Search City"
+          type="(cities)"
+        />
       </View>
     );
   }
@@ -186,7 +201,9 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Background,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   container: {
