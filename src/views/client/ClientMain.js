@@ -16,6 +16,7 @@ import Database, {
 
 // components
 import Button from '../../components/common/Button';
+import Photo from '../../components/common/Photo';
 import SingleLineInput from '../../components/common/SingleLineInput';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import DatePicker from '../../components/common/DatePicker';
@@ -149,11 +150,32 @@ export default class ClientMain extends Component {
           </View>
           <View style={styles.buttonContainer}>
             <Button
-              label={"New Event"}
+              label={"Plan a new experience"}
               color={Colors.Primary}
               fontColor={Colors.Text}
               onPress={Actions.clientCreate} />
           </View>
+          <Photo
+            style={styles.upsell}
+            photoId='upsell'>
+            <View style={styles.upsellContainer}>
+              <View>
+                <Text style={styles.upsellTitle}>
+                  Try the other side
+                </Text>
+                <Text style={styles.upsellText}>
+                  Be a great host for your city and plan for someone's adventure
+                </Text>
+              </View>
+            </View>
+            <Button
+              onPress={Actions.plannerMain}
+              style={styles.upsellButton}
+              size={14}
+              label='Become a host'
+              color={Colors.Primary}
+              fontColor={Colors.Text} />
+          </Photo>
         </ScrollView>
       </View>
     );
@@ -184,10 +206,45 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    margin: Sizes.InnerFrame,
-    alignSelf: 'center',
+    marginTop: Sizes.InnerFrame,
+    padding: 5,
+    alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Primary
   },
+
+  upsell: {
+    padding: Sizes.OuterFrame,
+    marginTop: Sizes.OuterFrame,
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    height: 200
+  },
+
+  upsellContainer: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between'
+  },
+
+  upsellTitle: {
+    backgroundColor: Colors.Transparent,
+    color: Colors.Text,
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: Sizes.InnerFrame / 3
+  },
+
+  upsellText: {
+    width: 200,
+    backgroundColor: Colors.Transparent,
+    color: Colors.Text
+  },
+
+  upsellButton: {
+    alignSelf: 'stretch'
+  }
 });

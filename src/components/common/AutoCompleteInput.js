@@ -96,7 +96,6 @@ export default class AutoCompleteInput extends Component {
                 </View>
                 <View style={styles.inputContainer}>
                 <GooglePlacesAutocomplete
-                   contentContainerStyle={styles.inputContainer}
                    placeholder={
                      this.props.placeholder || 'Search'
                    }
@@ -130,11 +129,14 @@ export default class AutoCompleteInput extends Component {
                      description: {
                        fontWeight: '500',
                        color: Colors.Text,
-                       fontSize: Sizes.Text,
-                       alignSelf: 'center',
+                       fontSize: Sizes.H2,
+                       alignSelf: 'flex-start',
                      },
-                   }}
+                     row:{
+                       alignSelf: 'stretch',
+                     },
 
+                   }}
                    currentLocation={false}
                    nearbyPlacesAPI='GooglePlacesSearch'
                    GooglePlacesSearchQuery={{
@@ -225,6 +227,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   }
 })
