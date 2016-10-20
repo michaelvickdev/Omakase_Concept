@@ -15,6 +15,7 @@ import {
 } from 'react-native-google-places-autocomplete';
 import InputField from './InputField';
 import Divider from './Divider';
+import AutoCompleteModal from './AutoCompleteModal';
 
 /**
   * AutoCompleteInput allows client to search for an establishment,
@@ -46,11 +47,11 @@ export default class AutoCompleteInput extends Component {
   }
 
   detail() {
-    return this.state.value;
+    return this._modal.detail();
   }
 
   val() {
-    return this.state.description;
+    return this._modal.val();
   }
 
   render() {
@@ -59,100 +60,20 @@ export default class AutoCompleteInput extends Component {
         {...this.props}
         field={(
           <View style={styles.wrapper}>
-            <Modal
-              animationType="slide"
-              onRequestClose={() => this.setState({
-                value: this.state.previousVal,
-                showModal: false
+            <AutoCompleteModal
+              ref={ref => this._modal = ref}
+              onSelect={() => this.setState({
+                defaultText: this._modal.val()
               })}
-              transparent={true}
-              visible={this.state.showModal}
-              onShow={() => this.setState({
-                previousVal: this.state.value
-              })}>
-              <View style={styles.modalContainer}>
-                <View style={styles.buttonContainer}>
-                  <TouchableHighlight
-                    underlayColor={Colors.Transparent}
-                    onPress={() => this.setState({
-                      value: this.state.previousVal,
-                      showModal: false
-                    })}>
-                    <Text style={styles.text}>
-                      {this.props.cancelLabel || 'Cancel'}
-                    </Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight
-                    underlayColor={Colors.Transparent}
-                    onPress={() => this.setState({
-                      defaultText:
-                        this.state.description || this.state.defaultText,
-                      showModal: false
-                    })}>
-                    <Text style={styles.text}>
-                      {this.props.doneLabel || 'Done'}
-                    </Text>
-                  </TouchableHighlight>
-                </View>
-                <View style={styles.inputContainer}>
-                <GooglePlacesAutocomplete
-                   placeholder={
-                     this.props.placeholder || 'Search'
-                   }
-                   minLength={2}
-                   autoFocus={this.state.description ? false : true}
-                   fetchDetails={true}
-                   onPress={(data, details = null) => {
-                     console.log(data);
-                     console.log(details);
-                     this.setState({
-                       value: details,
-                       description: data.description,
-                       defaultText: data.description,
-                       showModal: false
-                     })
-                     this.props.onSelect ? this.props.onSelect() : null ;
-                   }}
-                   getDefaultValue={() => {
-                      return this.state.description || '';
-                   }}
-
-                   enablePoweredByContainer={false}
-                   query={{
-                     key: Strings.googleApiKey,
-                     language: 'en',
-                     location: this.props.location || '',
-                     radius: this.props.radius || 10000,
-                     types: this.props.type || 'geocode',
-                   }}
-                   styles={{
-                     description: {
-                       fontWeight: '500',
-                       color: Colors.Text,
-                       fontSize: Sizes.H2,
-                       alignSelf: 'flex-start',
-                     },
-                     row:{
-                       alignSelf: 'stretch',
-                     },
-
-                   }}
-                   currentLocation={false}
-                   nearbyPlacesAPI='GooglePlacesSearch'
-                   GooglePlacesSearchQuery={{
-                     rankby: 'distance',
-                   }}/>
-                </View>
-              </View>
-            </Modal>
+              placeholder={this.props.defaultText}
+            />
             <View style={styles.contentContainer}>
               <TouchableHighlight
                 style={styles.wrapper}
                 underlayColor={Colors.Transparent}
                 onPress={() => {
-                  !this.props.failCondition ? this.setState({
-                    showModal: true
-                  }) : Alert.alert('Oops!', this.props.conditionMsg
+                  !this.props.failCondition ? this._modal && this._modal.show()
+                  : Alert.alert('Oops!', this.props.conditionMsg
                     || 'Something is wrong')
                 }} >
                 <Text style={styles.text}>
