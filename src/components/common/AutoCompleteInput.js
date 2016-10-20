@@ -62,9 +62,12 @@ export default class AutoCompleteInput extends Component {
           <View style={styles.wrapper}>
             <AutoCompleteModal
               ref={ref => this._modal = ref}
-              onSelect={() => this.setState({
-                defaultText: this._modal.val()
-              })}
+              onSelect={() => {
+                this.setState({
+                  defaultText: this._modal.val()
+                });
+                this.props.onSelect();
+              }}
               placeholder={this.props.defaultText}
             />
             <View style={styles.contentContainer}>
