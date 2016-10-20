@@ -148,45 +148,62 @@ export default class ClientMain extends Component {
             { this.state.data.getRowCount()
               ? this.renderBookings()
               : this.state.initialized ?
-                <Text style={styles.text}>
-                  You have no pending events
-                </Text>
-              : <ActivityIndicator
-                size={'small'}
-                color={Colors.Primary}
-                animating={true} />
+                <Photo
+                  style={styles.explore}
+                  photoId='explore'>
+                  <View style={styles.upsellContainer}>
+                    <View>
+                      <Text style={styles.upsellTitle}>
+                        You have no events
+                      </Text>
+                      <Text style={styles.exploreText}>
+                        Explore a destination with a Frrand. Start by clicking the button below
+                      </Text>
+                    </View>
+                  </View>
+                </Photo>
+              : <View style={styles.loading}>
+                  <ActivityIndicator
+                    size={'small'}
+                    color={Colors.Primary}
+                    animating={true} />
+                </View>
             }
           </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              label={"Plan a new experience"}
-              color={Colors.Primary}
-              fontColor={Colors.Text}
-              onPress={() => {
-                this._modal && this._modal.show()
-              }} />
-          </View>
-          <Photo
-            style={styles.upsell}
-            photoId='upsell'>
-            <View style={styles.upsellContainer}>
-              <View>
-                <Text style={styles.upsellTitle}>
-                  Try the other side
-                </Text>
-                <Text style={styles.upsellText}>
-                  Be a great host for your city and plan for someone's adventure
-                </Text>
-              </View>
+          {this.state.initialized ?
+          <View>
+            <View style={styles.buttonContainer}>
+              <Button
+                label={"Plan a new experience"}
+                color={Colors.Primary}
+                fontColor={Colors.Text}
+                onPress={() => {
+                  this._modal && this._modal.show()
+                }} />
             </View>
-            <Button
-              onPress={Actions.plannerMain}
-              style={styles.upsellButton}
-              size={14}
-              label='Become a host'
-              color={Colors.Primary}
-              fontColor={Colors.Text} />
-          </Photo>
+            <Photo
+              style={styles.upsell}
+              photoId='upsell'>
+              <View style={styles.upsellContainer}>
+                <View>
+                  <Text style={styles.upsellTitle}>
+                    Try the other side
+                  </Text>
+                  <Text style={styles.upsellText}>
+                    Be a great host for your city and plan for someone's adventure
+                  </Text>
+                </View>
+              </View>
+              <Button
+                onPress={Actions.plannerMain}
+                style={styles.upsellButton}
+                size={14}
+                label='Become a host'
+                color={Colors.Primary}
+                fontColor={Colors.Text} />
+            </Photo>
+          </View>
+          : <View/>}
         </ScrollView>
         <AutoCompleteModal
           ref={ref => this._modal = ref}
@@ -233,7 +250,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    marginTop: Sizes.InnerFrame,
+    marginTop: 20,
     padding: 5,
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -241,10 +258,28 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Primary
   },
 
+  loading: {
+    padding: Sizes.OuterFrame,
+    marginTop: Sizes.OuterFrame,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    height: 250
+  },
+
+  explore: {
+    padding: Sizes.OuterFrame,
+    marginTop: Sizes.OuterFrame,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    alignSelf: 'stretch',
+    height: 250
+  },
+
   upsell: {
     padding: Sizes.OuterFrame,
     marginTop: Sizes.OuterFrame,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
     alignSelf: 'stretch',
     height: 200
@@ -267,6 +302,12 @@ const styles = StyleSheet.create({
 
   upsellText: {
     width: 200,
+    backgroundColor: Colors.Transparent,
+    color: Colors.Text
+  },
+
+  exploreText: {
+    width: 250,
     backgroundColor: Colors.Transparent,
     color: Colors.Text
   },
