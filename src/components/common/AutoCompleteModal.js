@@ -14,21 +14,17 @@ import {
   GooglePlacesAutocomplete
 } from 'react-native-google-places-autocomplete';
 import InputField from './InputField';
-import Divider from './Divider';
 
 /**
   * AutoCompleteInput allows client to search for an establishment,
   * address, cities, region, or geocode using google autocomplete
   * @param {type} - The type of results, allowed values are:
   *   address, establishment, geocode, (cities) or (regions)
-  * @param {defaultText} - The text button to open the modal
-  * @param {maxLength} - The max chars before result is truncated
   * @param {placeholder} - The placeholder text for the autocomplete
   * @param {location} - Optional search from location, format: 'lat,lng'
   * @param {radius} - The search radius if 'location' is specified
   * @param {onSelect} - Pass in function on selection of a place item
-  * @param {failCondition} - optional condition to block search
-  * @param {conditionMsg} - error msg if above is satisfied
+  * @param {alwaysClear} - whether past result should be sticky
   */
 export default class AutoCompleteModal extends Component {
 
@@ -46,7 +42,9 @@ export default class AutoCompleteModal extends Component {
 
   show() {
     this.setState({
-      showModal: true
+      showModal: true,
+      value: this.props.alwaysClear ? null : this.state.value,
+      description: this.props.alwaysClear ?  null : this.state.description
     });
   }
 
@@ -146,28 +144,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  divider: {
-    marginLeft: Sizes.OuterFrame
-  },
-
   text: {
     textAlign: 'right',
     fontSize: Sizes.Text,
     color: Colors.Text
-  },
-
-  inputstyle: {
-    fontSize: Sizes.Text,
-    textAlign: 'left',
-    paddingLeft: Sizes.InnerFrame,
-  },
-
-  contentContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'stretch',
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    paddingRight: Sizes.OuterFrame
   },
 
   buttonContainer: {

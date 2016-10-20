@@ -156,8 +156,7 @@ export default class ClientMain extends Component {
               color={Colors.Primary}
               fontColor={Colors.Text}
               onPress={() => {
-                Actions.clientCreate()
-          //      this._modal && this._modal.show()
+                this._modal && this._modal.show()
               }} />
           </View>
           <Photo
@@ -185,12 +184,16 @@ export default class ClientMain extends Component {
         <AutoCompleteModal
           ref={ref => this._modal = ref}
           onSelect={() => {
-            this.setState({
-              defaultText: this._modal.val()
-            });
+            Actions.clientCreate({
+              city: {
+                name: this._modal.val(),
+                detail: this._modal.detail()
+              }
+            })
           }}
-          placeholder="Search City"
+          placeholder="Which city are you heading to?"
           type="(cities)"
+          alwaysClear
         />
       </View>
     );

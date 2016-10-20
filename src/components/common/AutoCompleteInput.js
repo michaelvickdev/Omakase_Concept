@@ -110,11 +110,6 @@ const styles = StyleSheet.create({
     color: Colors.Text
   },
 
-  inputstyle: {
-    fontSize: Sizes.Text,
-    textAlign: 'left',
-    paddingLeft: Sizes.InnerFrame,
-  },
 
   contentContainer: {
     justifyContent: 'flex-end',
@@ -124,35 +119,5 @@ const styles = StyleSheet.create({
     paddingRight: Sizes.OuterFrame
   },
 
-  buttonContainer: {
-    width: Dimensions.get('window').width,
-    backgroundColor: Colors.Background,
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingLeft: Sizes.InnerFrame,
-    paddingRight: Sizes.InnerFrame,
-    paddingTop: Sizes.InnerFrame,
-    paddingBottom: Sizes.InnerFrame,
-    borderTopWidth: 1,
-    borderColor: Colors.Text
-  },
 
-  inputContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - Sizes.NavHeight,
-    backgroundColor: Colors.Background,
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-  },
-
-  modalContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  }
 })

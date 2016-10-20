@@ -38,6 +38,7 @@ export default class ClientCreate extends Component {
     super(props);
     this.state = {
       random: Math.random() ,
+      city: props.city
     };
     // bind methods
     this.submit = this.submit.bind(this);
@@ -57,7 +58,7 @@ export default class ClientCreate extends Component {
         'Please confirm this Booking',
         `You are authorizing $${this._price.val()} USD `
         + `on your credit card for your experience in `
-        + `${this._city.val()} on ${this._date.val().toDateString()} `
+        + `${this.state.city.name} on ${this._date.val().toDateString()} `
         + `for a party of ${this._party.val()}. Your pick up location is `
         + `${this._address.val()}`,
         [
@@ -77,8 +78,8 @@ export default class ClientCreate extends Component {
                 excitement: this._excitement.val(),
                 space: this._space.val(),
                 city: {
-                  name: this._city.val(),
-                  placeId: this._city.detail().place_id
+                  name: this.state.city.name,
+                  placeId: this.state.city.detail.place_id
                 },
                 address: this._address.val(),
                 contributions: {
@@ -99,8 +100,8 @@ export default class ClientCreate extends Component {
                 excitement: this._excitement.val(),
                 space: this._space.val(),
                 city: {
-                  name: this._city.val(),
-                  placeId: this._city.detail().place_id
+                  name: this.state.city.name,
+                  placeId: this.state.city.detail.place_id
                 },
                 address: this._address.val(),
                 contributions: {
@@ -176,38 +177,32 @@ export default class ClientCreate extends Component {
             <InputSectionHeader
               label="Itinerary" />
             {/*sample code to get city picture*/}
-            {this._city && this._city.detail()
-              && this._city.detail().photos ?
+            {this.state.city && this.state.city.detail
+              && this.state.city.detail.photos ?
             <Image style={styles.primaryPhoto}
               source={{uri:
                 Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
-                this._city.detail().photos[
+                this.state.city.detail.photos[
                   Math.floor(this.state.random
-                  *(this._city.detail().photos.length))
+                  *(this.state.city.detail.photos.length))
                 ].photo_reference +
                 '&key=' + Strings.googleApiKey}}/>
             :
             <View/>}
+
             <AutoCompleteInput
               isTop
-              ref={ref => this._city = ref}
-              label="Destination"
-              type="(cities)"
-              maxLength={30}
-              onSelect={() => this.forceUpdate()}
-              placeholder="Search City"/>
-            <AutoCompleteInput
               ref={ref => this._address = ref}
               label="Pickup Address"
               defaultText="Enter"
               type="address"
               maxLength={25}
               onSelect={() => this.forceUpdate()}
-              failCondition={!this._city || !this._city.detail()}
+              failCondition={!this.state.city || !this.state.city.detail}
               conditionMsg={'Select your destination'}
-              location={this._city && this._city.detail() ?
-                this._city.detail().geometry.location.lat + ','
-                + this._city.detail().geometry.location.lng : ''}
+              location={this.state.city && this.state.city.detail ?
+                this.state.city.detail.geometry.location.lat + ','
+                + this.state.city.detail.geometry.location.lng : ''}
               placeholder="Enter the pickup address"/>
 
             {this._address && this._address.detail() && (
