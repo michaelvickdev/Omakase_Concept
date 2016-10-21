@@ -14,6 +14,7 @@ import {
 import DateFormat from 'dateformat';
 import Button from '../common/Button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 /**
@@ -63,7 +64,15 @@ export default class BookingCardHeader extends Component {
             source={{uri:
               Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
               this.state.photoReference +
-              '&key=' + Strings.googleApiKey}}/>
+              '&key=' + Strings.googleApiKey}}>
+            <LinearGradient
+              colors={[
+                Colors.Transparent,
+                Colors.Transparent,
+                Colors.Background,
+              ]}
+              style={styles.overlay}/>
+          </Image>
           : <View/> }
           <View style={styles.header}>
             <View style={styles.locationContainer}>
@@ -138,6 +147,13 @@ const styles = StyleSheet.create({
 
   header: {
     alignItems: 'flex-start',
+  },
+
+  overlay:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: Sizes.InnerFrame
   },
 
   locationContainer: {
