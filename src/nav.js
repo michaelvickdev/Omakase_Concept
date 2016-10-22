@@ -110,6 +110,7 @@ export default class Navigation extends Component {
                 title={Strings.CreateEventTitle}
                 component={ClientCreate}
                 direction="vertical"
+                type='reset'
                 hideNavBar />
               <Scene key="clientPlannerChoice"
                 title={Strings.CreateEventTitle}

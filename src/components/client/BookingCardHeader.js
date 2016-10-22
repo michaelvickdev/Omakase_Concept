@@ -69,7 +69,7 @@ export default class BookingCardHeader extends Component {
               colors={[
                 Colors.Transparent,
                 Colors.Transparent,
-                Colors.Background,
+                Colors.Foreground,
               ]}
               style={styles.overlay}/>
           </Image>
@@ -153,7 +153,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: Sizes.InnerFrame
   },
 
   locationContainer: {

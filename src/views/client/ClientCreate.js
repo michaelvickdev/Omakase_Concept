@@ -17,6 +17,8 @@ import GeoFire from 'geofire';
 import MapView from 'react-native-maps';
 
 // components
+import LinearGradient from 'react-native-linear-gradient';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import Button from '../../components/common/Button';
 import DatePicker from '../../components/common/DatePicker';
 import SingleLineInput from '../../components/common/SingleLineInput';
@@ -28,6 +30,9 @@ import PickerField from '../../components/common/PickerField';
 import SliderInput from '../../components/common/SliderInput';
 import AutoCompleteInput from '../../components/common/AutoCompleteInput';
 import MultiPicker from '../../components/common/MultiPicker';
+import OutlineText from '../../components/common/OutlineText';
+
+
 /**
  * First screen of creating an event
  * client to enter basic info:
@@ -161,7 +166,38 @@ export default class ClientCreate extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.wrapper}>
+      <View style={styles.wrapper}>
+      <ParallaxScrollView
+        parallaxHeaderHeight={Sizes.height * 0.4}
+        fadeOutForeground={false}
+        contentBackgroundColor={Colors.Background}
+        renderBackground={() => (
+          this.state.city && this.state.city.detail
+            && this.state.city.detail.photos ?
+          <Image style={styles.primaryPhoto}
+            source={{uri:
+              Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
+              this.state.city.detail.photos[
+                Math.floor(this.state.random
+                *(this.state.city.detail.photos.length))
+              ].photo_reference +
+              '&key=' + Strings.googleApiKey}}/>
+          :
+          <View/>
+        )}
+        renderForeground={() => (
+          <LinearGradient
+            colors={[
+              Colors.Transparent,
+              Colors.Transparent,
+              Colors.Background,
+            ]}
+            style={styles.primaryPhoto}>
+            <OutlineText
+              style={styles.location}
+              text='Toronto, ON, Canada' />
+          </LinearGradient>
+        )}>
         <View style={styles.container}>
           <View style={styles.input}>
             <View style={styles.body}>
@@ -177,18 +213,7 @@ export default class ClientCreate extends Component {
             <InputSectionHeader
               label="Itinerary" />
             {/*sample code to get city picture*/}
-            {this.state.city && this.state.city.detail
-              && this.state.city.detail.photos ?
-            <Image style={styles.primaryPhoto}
-              source={{uri:
-                Strings.googlePlaceURL + 'photo?maxwidth=800&photoreference=' +
-                this.state.city.detail.photos[
-                  Math.floor(this.state.random
-                  *(this.state.city.detail.photos.length))
-                ].photo_reference +
-                '&key=' + Strings.googleApiKey}}/>
-            :
-            <View/>}
+
 
             <AutoCompleteInput
               isTop
@@ -284,13 +309,15 @@ export default class ClientCreate extends Component {
               label="Book & View Planners" />
           </View>
         </View>
-      </ScrollView>
+      </ParallaxScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   wrapper: {
+    flex: 1,
     backgroundColor: Colors.Background
   },
 
