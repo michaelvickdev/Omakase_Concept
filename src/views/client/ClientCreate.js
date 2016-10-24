@@ -31,6 +31,7 @@ import SliderInput from '../../components/common/SliderInput';
 import AutoCompleteInput from '../../components/common/AutoCompleteInput';
 import MultiPicker from '../../components/common/MultiPicker';
 import OutlineText from '../../components/common/OutlineText';
+import CloseFullscreenButton from '../../components/common/CloseFullscreenButton';
 
 
 /**
@@ -43,7 +44,8 @@ export default class ClientCreate extends Component {
     super(props);
     this.state = {
       random: Math.random() ,
-      city: props.city
+      city: props.city,
+      destination: props.city.detail
     };
     // bind methods
     this.submit = this.submit.bind(this);
@@ -192,10 +194,10 @@ export default class ClientCreate extends Component {
               Colors.Transparent,
               Colors.Background,
             ]}
-            style={styles.primaryPhoto}>
+            style={styles.overlay}>
             <OutlineText
               style={styles.location}
-              text='Toronto, ON, Canada' />
+              text={this.state.city.name} />
           </LinearGradient>
         )}>
         <View style={styles.container}>
@@ -205,7 +207,7 @@ export default class ClientCreate extends Component {
                 Book a New Experience
               </Text>
               <Text style={Styles.BodyText}>
-                Let us know where you are heading and the dates and
+                Let us know when and where to pick you up,
                 we'll pair you up with a local planner to figure
                 out the rest.
               </Text>
@@ -214,6 +216,28 @@ export default class ClientCreate extends Component {
               label="Itinerary" />
             {/*sample code to get city picture*/}
 
+            <MapView
+              style={styles.map}
+              scrollEnabled={false}
+              region={{
+                latitude: this.state.destination.geometry.location.lat,
+                longitude: this.state.destination.geometry.location.lng,
+                latitudeDelta: this._address && this._address.detail()
+                  ? 0.01 : 0.1,
+                longitudeDelta: this._address && this._address.detail()
+                  ? 0.01 : 0.1
+              }}>
+              {this._address && this._address.detail() && (
+              <MapView.Marker
+                coordinate={{
+                  latitude: this.state.destination.geometry.location.lat,
+                  longitude: this.state.destination.geometry.location.lng,
+                }}
+                title={this._address.detail().name}
+                pinColor={Colors.Primary}
+              />
+              )}
+            </MapView>
 
             <AutoCompleteInput
               isTop
@@ -222,34 +246,18 @@ export default class ClientCreate extends Component {
               defaultText="Enter"
               type="address"
               maxLength={25}
-              onSelect={() => this.forceUpdate()}
+              onSelect={() => {
+                this.setState({
+                  destination: this._address.detail(),
+                })
+            //    this.forceUpdate()
+              }}
               failCondition={!this.state.city || !this.state.city.detail}
               conditionMsg={'Select your destination'}
               location={this.state.city && this.state.city.detail ?
                 this.state.city.detail.geometry.location.lat + ','
                 + this.state.city.detail.geometry.location.lng : ''}
               placeholder="Enter the pickup address"/>
-
-            {this._address && this._address.detail() && (
-            <MapView
-              style={styles.map}
-              scrollEnabled={false}
-              region={{
-                latitude: this._address.detail().geometry.location.lat,
-                longitude: this._address.detail().geometry.location.lng,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01
-              }}>
-              <MapView.Marker
-                coordinate={{
-                  latitude: this._address.detail().geometry.location.lat,
-                  longitude: this._address.detail().geometry.location.lng,
-                }}
-                title={this._address.detail().name}
-                pinColor={Colors.Primary}
-              />
-            </MapView>
-            )}
             <DatePicker
               isBottom
               delta = {1}
@@ -310,6 +318,7 @@ export default class ClientCreate extends Component {
           </View>
         </View>
       </ParallaxScrollView>
+      <CloseFullscreenButton />
       </View>
     );
   }
@@ -352,8 +361,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  overlay:{
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+  },
+
   map: {
     width: Sizes.width,
     height: 200
+  },
+
+  location: {
+    margin: Sizes.InnerFrame,
+    alignSelf: 'flex-start'
   }
 });
