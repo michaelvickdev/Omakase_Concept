@@ -15,15 +15,17 @@ import CircleCheck from '../../components/common/CircleCheck';
 import Divider from '../../components/common/Divider';
 
 /** Generic Picker
-  * @param {defaultVal} - The default value for the picker.
-  * @param {pickerLabel} - The button name for the picker
+  * @param {text} [defaultVal] - The default value for the picker.
+  * @param {list} [options] - List of available selections
+  * @param {number} [max] - optional: max selections shown before '...'
   */
 export default class MultiPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      options: this.props.options,
+      options: props.options,
+      max: props.max || 3,
       visible: this.start(),
       tempvisible: this.start()
     };
@@ -71,12 +73,19 @@ export default class MultiPicker extends Component {
   returnOption() {
     var text = "";
     var temp = Object.keys(this.state.visible);
+    var count = 0;
     for (i in temp) {
       if (this.state.visible[temp[i]] == true) {
-        text += temp[i] + " ";
+        if (count < this.state.max){
+          if (text.length != 0){
+            text += ", ";
+          }
+          count == this.state.max-1 ? text += '...' : text += temp[i] ;
+          count++;
+        }
       }
     }
-    return text;
+    return text.length == 0 ? 'Select' : text;
   };
 
   render() {

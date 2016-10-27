@@ -18,16 +18,21 @@ import InputField from './InputField';
  * @param {number} [min] - The minimum allowable number.
  * @param {number} [max] - The maximum allowable number.
  * @param {number} [interval] - The incremental for each click.
+ * @param {text} [prefix] - optional: Prefix for the number
+ * @param {text} [suffix] - optional: Suffix for the number
+ * @param {text} [suffix] - optional: Suffix for a singular number
+
  */
 export default class Dropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: this.props.number || this.props.min || 0,
-      leftNoun: this.props.leftNoun || "",
-      rightNoun: this.props.rightNoun  || "",
-      min: this.props.min || null,
-      max: this.props.max || null,
+      number: props.number || props.min || 0,
+      prefix: props.prefix || "",
+      suffix: props.suffix || "",
+      suffixSingular: props.suffixSingular || props.suffix || "",
+      min: props.min || null,
+      max: props.max || null,
     };
 
     // bind methods
@@ -74,9 +79,10 @@ export default class Dropdown extends Component {
                   </View>
                 </TouchableHighlight>
                 <Text style={styles.text}>
-                  {this.state.leftNoun
+                  {this.state.prefix
                     + " " + this.state.number + " "
-                    + this.state.rightNoun}
+                    + (this.state.number == 1
+                    ? this.state.suffixSingular : this.state.suffix)}
                 </Text>
                 <TouchableHighlight
                   underlayColor={Colors.Transparent}

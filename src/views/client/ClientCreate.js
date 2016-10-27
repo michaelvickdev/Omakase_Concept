@@ -8,7 +8,7 @@ import {
   Actions
 } from 'react-native-router-flux';
 import {
-  Colors, Sizes, Styles, Strings
+  Colors, Sizes, Styles, Strings, Lists
 } from '../../../res/Constants';
 import Database, {
   Firebase
@@ -268,29 +268,31 @@ export default class ClientCreate extends Component {
             <NumberPicker
               label="Budget per person"
               number={100}
-              leftNoun={"$"}
-              rightNoun={"USD"}
+              prefix={"$"}
+              suffix={"USD"}
               min={50}
               interval={10}
               ref={ref => this._price = ref} />
             <NumberPicker
               label="# of participants"
               number={2}
-              rightNoun={"Persons"}
+              suffix={"Persons"}
+              suffixSingular={"Person"}
               min={1}
               ref={ref => this._party = ref} />
             <NumberPicker
               label="# of guides"
               number={1}
-              rightNoun={"Frrands"}
+              suffix={"Frrands"}
+              suffixSingular={"Frrand"}
               min={1}
               ref={ref => this._space = ref} />
             <MultiPicker
               label="Language"
               defaultVal="English"
               ref={ref => this._language = ref}
-              subtitle="Tell us what you are comfortable with"
-              options={["French", "Cantonese", "English", "Italian"]}/>
+              subtitle="You are comfortable with"
+              options={Lists.Language}/>
             <SliderInput
               ref={ref => this._excitement = ref}
               values={['Peacful','Leisurely','Moderate'
