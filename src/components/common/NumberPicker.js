@@ -27,7 +27,7 @@ export default class Dropdown extends Component {
       leftNoun: this.props.leftNoun || "",
       rightNoun: this.props.rightNoun  || "",
       min: this.props.min || null,
-      max: this.props.max || null
+      max: this.props.max || null,
     };
 
     // bind methods
@@ -115,7 +115,8 @@ export default class Dropdown extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: 'flex-end',
   },
 
   circleContainer: {
@@ -129,19 +130,20 @@ const styles = StyleSheet.create({
 
   textContainer: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    alignItems: 'flex-start'
   },
 
   text: {
     textAlign: 'center',
     fontSize: Sizes.text,
     color: Colors.Text,
+    alignSelf: 'center',
+    width: 80
   },
 
   button: {
-    paddingLeft: Sizes.OuterFrame,
-    paddingRight: Sizes.OuterFrame
+    padding: Sizes.InnerFrame,
   },
 
   buttonText: {

@@ -266,20 +266,23 @@ export default class ClientCreate extends Component {
             <InputSectionHeader
               label="Party Details" />
             <NumberPicker
+              label="Budget per person"
               number={100}
               leftNoun={"$"}
-              rightNoun={"CAD per person"}
+              rightNoun={"USD"}
               min={50}
               interval={10}
               ref={ref => this._price = ref} />
             <NumberPicker
+              label="# of participants"
               number={2}
-              rightNoun={"person"}
+              rightNoun={"Persons"}
               min={1}
               ref={ref => this._party = ref} />
             <NumberPicker
+              label="# of guides"
               number={1}
-              rightNoun={"guides"}
+              rightNoun={"Frrands"}
               min={1}
               ref={ref => this._space = ref} />
             <MultiPicker
