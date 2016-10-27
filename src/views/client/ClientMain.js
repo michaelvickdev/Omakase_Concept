@@ -120,7 +120,7 @@ export default class ClientMain extends Component {
 
   renderRow(booking) {
     return (
-      <BookingCard booking={booking.val()} />
+      <BookingCard booking={booking.val()} bookingId={booking.key} />
     );
   }
 

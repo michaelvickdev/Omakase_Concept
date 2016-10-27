@@ -2,8 +2,11 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View, Text, Dimensions, TouchableHighlight, Image
+  StyleSheet, View, Text, Dimensions, TouchableOpacity, Image
 } from 'react-native';
+import {
+  Actions
+} from 'react-native-router-flux';
 import {
   Colors, Sizes, Strings, Lists, Styles
 } from '../../../res/Constants';
@@ -27,14 +30,13 @@ export default class BookingCard extends Component {
     super(props);
     this.state = {
       booking: this.props.booking,
+      bookingId: this.props.bookingId,
       random: Math.random()
     };
   }
 
   componentDidMount() {
     // Compute display values
-    console.log("mount " + this.props.booking.address);
-
 
     if (this.props.booking) {
       let booking = this.props.booking;
@@ -58,7 +60,12 @@ export default class BookingCard extends Component {
 
   render() {
     return (
-      <View style={styles.cardWrapper}>
+      <TouchableOpacity
+        style={styles.cardWrapper}
+        onPress={() => {
+          Actions.clientDetail({
+            bookingId: this.state.bookingId
+          })}}>
         <View style={styles.cardContent}>
           <View style={styles.cardBody}>
             <Text style={[styles.cardText, styles.cardTitleText, styles.date]}>
@@ -114,7 +121,7 @@ export default class BookingCard extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

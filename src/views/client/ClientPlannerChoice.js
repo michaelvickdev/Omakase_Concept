@@ -52,8 +52,8 @@ export default class ClientPlannerChoice extends Component {
               </Text>
               <Button
                 label="View Booking Details"
-                color={Colors.Green}
-                fontColor={Colors.AlternateText}
+                color={Colors.Primary}
+                fontColor={Colors.Text}
                 onPress={Actions.clientMain} />
             </View>
             <Image
@@ -96,8 +96,8 @@ export default class ClientPlannerChoice extends Component {
             styles.body, styles.rollContainer
           ]}>
             <Button
-              fontColor={Colors.AlternateText}
-              color={Colors.Green}
+              fontColor={Colors.Text}
+              color={Colors.Primary}
               label="Roll Again (+$10)"
               icon="cached" />
             <Text style={[
@@ -113,7 +113,7 @@ export default class ClientPlannerChoice extends Component {
             label=" " />
           <Button
             color={Colors.Primary}
-            fontColor={Colors.AlternateText}
+            fontColor={Colors.Text}
             onPress={() => this.setState({
               showModal: true
             })}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    backgroundColor: Colors.Secondary
+    backgroundColor: Colors.Background
   },
 
   input: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 
   plannerContainer: {
     alignSelf: 'stretch',
-    backgroundColor: Colors.Background
+    backgroundColor: Colors.Foreground
   },
 
   planners: {

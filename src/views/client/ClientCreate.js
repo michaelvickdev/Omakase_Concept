@@ -233,7 +233,6 @@ export default class ClientCreate extends Component {
                   latitude: this.state.destination.geometry.location.lat,
                   longitude: this.state.destination.geometry.location.lng,
                 }}
-                title={this._address.detail().name}
                 pinColor={Colors.Primary}
               />
               )}
@@ -291,7 +290,7 @@ export default class ClientCreate extends Component {
               label="Language"
               defaultVal="English"
               ref={ref => this._language = ref}
-              subtitle="You are comfortable with"
+              subtitle="What do you prefer?"
               options={Lists.Language}/>
             <SliderInput
               ref={ref => this._excitement = ref}

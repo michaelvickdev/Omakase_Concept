@@ -28,6 +28,7 @@ import ClientExclusion from './views/client/ClientExclusion';
 import ClientBudget from './views/client/ClientBudget';
 import ClientConfirm from './views/client/ClientConfirm';
 import ClientPay from './views/client/ClientPay';
+import ClientDetail from './views/client/ClientDetail';
 
 // planners components
 import PlannerMain from './views/planner/PlannerMain';
@@ -129,6 +130,10 @@ export default class Navigation extends Component {
                 title='Payment'
                 component={ClientPay}
                 hidNavBar={false} />
+              <Scene
+                hideNavBar
+                key="clientDetail"
+                component={ClientDetail} />
 
               {/* Scenes for planner */}
               <Scene key="plannerMain"
