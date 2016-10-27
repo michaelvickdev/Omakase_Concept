@@ -110,18 +110,18 @@ export default class ClientDetail extends Component {
           fadeOutForeground={false}
           contentBackgroundColor={Colors.Background}
           renderBackground={() => (
+            this.state.photo ?
             <Image
-              source={
-                this.state.photo
-                ? {uri: (
+              source={{uri: (
                   Strings.googlePlaceURL
                   + 'photo?maxwidth=800&photoreference='
                   + this.state.photo
                   + '&key='
                   + Strings.googleApiKey
-                )}: require('../../../res/img/profile_bg.jpg')
+                )}
               }
               style={styles.cover} />
+            : <View/>
           )}
           renderForeground={() => (
             <LinearGradient
