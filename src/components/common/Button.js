@@ -8,6 +8,7 @@ import {
   Colors, Sizes
 } from '../../../res/Constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * Displays a Button.
@@ -105,14 +106,26 @@ export default class Button extends Component {
                 // icon
                 this.props.icon
                 && (
-                  <Icon
-                    name={this.props.icon}
-                    size={this.props.size || Sizes.Text}
-                    color={
-                      (this.props.isDisabled && this.props.disabledFontColor)
-                      || this.props.fontColor
-                      || Sizes.Text
-                    } />
+                  this.props.fontAwesome
+                  && (
+                    <FontAwesomeIcon
+                      name={this.props.icon}
+                      size={this.props.size || Sizes.Text}
+                      color={
+                        (this.props.isDisabled && this.props.disabledFontColor)
+                        || this.props.fontColor
+                        || Sizes.Text
+                      } />
+                  ) || (
+                    <Icon
+                      name={this.props.icon}
+                      size={this.props.size || Sizes.Text}
+                      color={
+                        (this.props.isDisabled && this.props.disabledFontColor)
+                        || this.props.fontColor
+                        || Sizes.Text
+                      } />
+                  )
                 )
               }
               {
@@ -155,14 +168,26 @@ export default class Button extends Component {
                 // icon
                 this.props.rightIcon
                 && (
-                  <Icon
-                    name={this.props.rightIcon}
-                    size={this.props.size || Sizes.Text}
-                    color={
-                      (this.props.isDisabled && this.props.disabledFontColor)
-                      || this.props.fontColor
-                      || Sizes.Text
-                    } />
+                  this.props.fontAwesome
+                  && (
+                    <FontAwesomeIcon
+                      name={this.props.rightIcon}
+                      size={this.props.size || Sizes.Text}
+                      color={
+                        (this.props.isDisabled && this.props.disabledFontColor)
+                        || this.props.fontColor
+                        || Sizes.Text
+                      } />
+                  ) || (
+                    <Icon
+                      name={this.props.rightIcon}
+                      size={this.props.size || Sizes.Text}
+                      color={
+                        (this.props.isDisabled && this.props.disabledFontColor)
+                        || this.props.fontColor
+                        || Sizes.Text
+                      } />
+                  )
                 )
               }
             </View>
