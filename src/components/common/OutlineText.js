@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.Text,
     alignItems: 'center',
-    alignSelf: 'center',
     justifyContent: 'center',
     paddingTop: Sizes.InnerFrame / 4,
     paddingBottom: Sizes.InnerFrame / 4,
