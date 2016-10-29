@@ -44,7 +44,7 @@ export default class Loader extends Component {
       <View style={styles.container}>
         <ActivityIndicator
           size={'large'}
-          color={Colors.AlternateText}
+          color={Colors.Text}
           animating={true} />
       </View>
     );
