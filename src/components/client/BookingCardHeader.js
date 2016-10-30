@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
-    backgroundColor: Colors.Primary,
+    backgroundColor: Colors.Foreground,
   },
 
   primaryPhoto: {

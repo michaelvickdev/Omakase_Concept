@@ -125,7 +125,8 @@ export default class BookingCard extends Component {
               color={Colors.Text} />
             <View style={styles.column}>
               <Text style={styles.cardText}>
-                {this.state.booking.address}
+                {this.state.booking.address && this.state.booking.address.name
+                ? this.state.booking.address.name : this.state.booking.address}
               </Text>
             </View>
           </View>

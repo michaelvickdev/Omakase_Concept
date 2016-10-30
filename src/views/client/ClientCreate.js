@@ -75,28 +75,6 @@ export default class ClientCreate extends Component {
           {
             text: 'Confirm Booking',
             onPress: () => {
-              let msg = {
-                createdBy: Firebase.auth().currentUser.uid,
-                requestedTime: (new Date(
-                  this._date.val().getUTCFullYear(),
-                  this._date.val().getUTCMonth(),
-                  this._date.val().getUTCDate()
-                )).valueOf(),
-                excitement: this._excitement.val(),
-                space: this._space.val(),
-                city: {
-                  name: this.state.city.name,
-                  placeId: this.state.city.detail.place_id
-                },
-                address: this._address.val(),
-                contributions: {
-                  [Firebase.auth().currentUser.uid]: {
-                    budget: this._price.val() * this._party.val(),
-                    party: this._party.val(),
-                  }
-                }
-              }
-              console.log(JSON.stringify(msg));
               let bookingRef = Database.ref('bookings').push({
                 createdBy: Firebase.auth().currentUser.uid,
                 requestedTime: (new Date(
@@ -110,7 +88,10 @@ export default class ClientCreate extends Component {
                   name: this.state.city.name,
                   placeId: this.state.city.detail.place_id
                 },
-                address: this._address.val(),
+                address: {
+                  name: this._address.val(),
+                  placeId: this._address.detail().place_id
+                },
                 contributions: {
                   [Firebase.auth().currentUser.uid]: {
                     budget: this._price.val() * this._party.val(),
@@ -258,13 +239,28 @@ export default class ClientCreate extends Component {
                 + this.state.city.detail.geometry.location.lng : ''}
               placeholder="Enter the pickup address"/>
             <DatePicker
-              isBottom
               delta = {1}
               ref={ref => this._date = ref}
               label="Adventure Date" />
+            <SliderInput
+              ref={ref => this._excitement = ref}
+              values={['Peacful','Leisurely','Moderate'
+                ,'Adventurous','Thrilled']}
+              label="Excitement" />
+            <NumberPicker
+              isBottom
+              label="# of guides"
+              number={1}
+              suffix={"Frrands"}
+              suffixSingular={"Frrand"}
+              min={1}
+              ref={ref => this._space = ref} />
+
+
             <InputSectionHeader
               label="Party Details" />
             <NumberPicker
+              isTop
               label="Budget per person"
               number={100}
               prefix={"$"}
@@ -279,24 +275,12 @@ export default class ClientCreate extends Component {
               suffixSingular={"Person"}
               min={1}
               ref={ref => this._party = ref} />
-            <NumberPicker
-              label="# of guides"
-              number={1}
-              suffix={"Frrands"}
-              suffixSingular={"Frrand"}
-              min={1}
-              ref={ref => this._space = ref} />
             <MultiPicker
               label="Language"
               defaultVal="English"
               ref={ref => this._language = ref}
               subtitle="What do you prefer?"
               options={Lists.Language}/>
-            <SliderInput
-              ref={ref => this._excitement = ref}
-              values={['Peacful','Leisurely','Moderate'
-                ,'Adventurous','Thrilled']}
-              label="Excitement" />
             <MultiLineInput
               isBottom
               ref={ref => this._comments = ref}

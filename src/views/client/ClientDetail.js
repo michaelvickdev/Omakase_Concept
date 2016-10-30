@@ -23,6 +23,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GroupAvatar from '../../components/profile/GroupAvatar';
 import InformationField from '../../components/common/InformationField';
+import PlaceInfoField from '../../components/common/PlaceInfoField';
 import InputField from '../../components/common/InputField';
 import InputSectionHeader from '../../components/common/InputSectionHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -92,6 +93,7 @@ export default class ClientDetail extends Component {
           size: party.size,
           status: status
         });
+        console.log("booking, ", booking)
       }
     });
   }
@@ -200,16 +202,14 @@ export default class ClientDetail extends Component {
             </View>
             <InputSectionHeader
               label="Adventure Criteria" />
-            <InformationField
+            <PlaceInfoField
               isTop
-              label="Adventure Date"
-              info={DateFormat(
-                this.state.booking
-                && this.state.booking.requestedTime
-                && new Date(this.state.booking.requestedTime)
-                || new Date(),
-                'mmmm dS, yyyy'
-              )} />
+              label="Pick up"
+              maxLength={25}
+              name={this.state.booking.address
+                && this.state.booking.address.name
+                ? this.state.booking.address.name
+                : this.state.booking.address} />
             <InputField
               isBottom
               label="Excitement Level"

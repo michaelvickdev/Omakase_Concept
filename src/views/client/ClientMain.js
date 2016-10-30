@@ -85,13 +85,10 @@ export default class ClientMain extends Component {
             let placeId = booking.child('city').val().placeId;
             let bookingId = booking.key;
             if (sections.indexOf(placeId) < 0){
-              console.log("new section,", placeId);
               sections.push(placeId);
               rows.push([]);
               blob[placeId] = booking.child('city').val();
             }
-            console.log("sections.indexOf(placeId),", sections.indexOf(placeId));
-            console.log("bookingId,", bookingId);
 
             rows[sections.indexOf(placeId)]
               .push(bookingId);
