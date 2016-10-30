@@ -76,7 +76,8 @@ export default class FacebookButton extends Component {
             error => this.props.onLogoutFailed
               && this.props.onLogoutFailed(error)
           )
-        }} />
+        }}
+        style={this.props.style} />
     );
   }
 }
