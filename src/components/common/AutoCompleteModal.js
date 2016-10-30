@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, StyleSheet, TextInput, Modal, TouchableHighlight, Dimensions,
+  View, StyleSheet, TextInput, Modal, TouchableHighlight,
   Alert, Text
 } from 'react-native';
 import {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    width: Dimensions.get('window').width,
+    width: Sizes.width,
     backgroundColor: Colors.Background,
     alignItems: 'flex-end',
     justifyContent: 'space-between',
@@ -165,16 +165,16 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - Sizes.NavHeight,
+    width: Sizes.width,
+    height: Sizes.height - Sizes.NavHeight,
     backgroundColor: Colors.Background,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
   },
 
   modalContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Sizes.width,
+    height: Sizes.height,
     position: 'absolute',
     top: 0,
     left: 0,

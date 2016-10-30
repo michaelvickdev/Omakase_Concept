@@ -205,7 +205,7 @@ export default class ClientDetail extends Component {
             <PlaceInfoField
               isTop
               label="Pick up"
-              maxLength={25}
+              maxLength={30}
               name={this.state.booking.address
                 && this.state.booking.address.name
                 ? this.state.booking.address.name
