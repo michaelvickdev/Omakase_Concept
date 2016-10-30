@@ -230,12 +230,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: Colors.Background,
     flexDirection: 'row',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
   },
 
   container: {
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'stretch',
     // padding: Sizes.outerFrame,
   },
 

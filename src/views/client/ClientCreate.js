@@ -213,7 +213,7 @@ export default class ClientCreate extends Component {
               </Text>
             </View>
             <InputSectionHeader
-              label="Itinerary" />
+              label="Adventure Criteria" />
             {/*sample code to get city picture*/}
 
             <MapView
@@ -261,7 +261,7 @@ export default class ClientCreate extends Component {
               isBottom
               delta = {1}
               ref={ref => this._date = ref}
-              label="Date" />
+              label="Adventure Date" />
             <InputSectionHeader
               label="Party Details" />
             <NumberPicker
@@ -359,9 +359,8 @@ const styles = StyleSheet.create({
   },
 
   primaryPhoto: {
-    width: Sizes.width,
-    height: 250,
-    alignSelf: 'center',
+    height: Sizes.height * 0.4,
+    alignSelf: 'stretch',
     justifyContent: 'center',
   },
 
@@ -372,8 +371,8 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    width: Sizes.width,
-    height: 200
+    alignSelf: 'stretch',
+    height: Sizes.height * 0.35
   },
 
   location: {

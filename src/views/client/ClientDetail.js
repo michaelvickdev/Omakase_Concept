@@ -32,7 +32,9 @@ import BookingItinerary from '../../components/planner/BookingItinerary';
 import BookingSummary from '../../components/planner/BookingSummary';
 import BookingPlaces from '../../components/planner/BookingPlaces';
 import TabButton from '../../components/common/TabButton';
+import Excitement from '../../components/common/Excitement';
 import CloseFullscreenButton from '../../components/common/CloseFullscreenButton';
+
 
 export default class ClientDetail extends Component {
   constructor(props) {
@@ -54,6 +56,15 @@ export default class ClientDetail extends Component {
       if (data.exists()) {
         let booking = data.val();
         let [party, budget] = expandOnParty(booking);
+
+        let status = "Submitted";
+        if (booking.itinerary && booking.itinerary.length > 0) {
+          status = "Planned"
+        } else if (booking.planner) {
+          status = "Matched";
+        } else if (booking.interested && booking.interested.length > 0){
+          status = "Pending"
+        }
 
         // obtain photo
         if (booking.city.placeId){
@@ -78,7 +89,8 @@ export default class ClientDetail extends Component {
           booking: booking,
           party: party,
           budget: budget,
-          size: party.size
+          size: party.size,
+          status: status
         });
       }
     });
@@ -103,6 +115,12 @@ export default class ClientDetail extends Component {
   }
 
   render() {
+    let a = (
+      this.state.booking
+      && this.state.booking.languages
+      || []
+    );
+
     return (
       <View style={styles.container}>
         <ParallaxScrollView
@@ -159,111 +177,69 @@ export default class ClientDetail extends Component {
                     )}
                   </Text>
                 </View>
-                <GroupAvatar
+                {this.state.booking.planner ?
+                <Avatar
                   style={styles.group}
-                  limit={3}
-                  uids={
-                    this.state.party
-                  } />
+                  uids={this.state.booking.planner} />
+                : <View/>
+                }
               </View>
             </LinearGradient>
           )}>
-          {(() => {
-            switch(this.state.view) {
-              case 1: return (
-                <BookingItinerary
-                  bookingId={this.props.bookingId}
-                  booking={this.state.booking} />
-              );
-              case 2: return (
-                <BookingPlaces
-                  bookingId={this.props.bookingId}
-                  booking={this.state.booking} />
-              );
-              default: return (
-                <BookingSummary
-                  bookingId={this.props.bookingId}
-                  booking={this.state.booking} />
-              );
-            }
-          })()}
+          <View>
+            <View style={[
+              styles.status, styles.active
+            ]}>
+              <Text style={styles.statusText}>
+                You've been selected to go and plan this adventure!
+              </Text>
+              <CircleCheck
+                color={Colors.Green}
+                checkColor={Colors.Text}
+                size={30} />
+            </View>
+            <InputSectionHeader
+              label="Adventure Criteria" />
+            <InformationField
+              isTop
+              label="Adventure Date"
+              info={DateFormat(
+                this.state.booking
+                && this.state.booking.requestedTime
+                && new Date(this.state.booking.requestedTime)
+                || new Date(),
+                'mmmm dS, yyyy'
+              )} />
+            <InputField
+              isBottom
+              label="Excitement Level"
+              field={
+                <Excitement
+                  style={styles.excitement}
+                  level={this.state.booking.excitement || 0} />
+              } />
+
+            <InputSectionHeader label="Sponsor Profile" />
+            <TouchableOpacity
+              onPress={() => Actions.profile({
+                uid: this.state.booking.createdBy
+              })}>
+              <InformationField
+                isTop
+                label="Name"
+                info="Kenneth Ma" />
+            </TouchableOpacity>
+            <InformationField
+              isBottom
+              label="Languages Spoken"
+              info={
+                a.join(', ').replace(/,([^,]+)$/,`${a[2] ? ',': ''} and$1`)
+
+                // default english
+                || 'English'
+              } />
+          </View>
         </ParallaxScrollView>
-        <View style={styles.tabs}>
-          <TouchableOpacity
-            onPress={() => this.setState({
-              view: 0
-            })}>
-            <TabButton
-              icon='info'
-              label='Summary' />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              if (
-                this.state.booking.planner
-                === Firebase.auth().currentUser.uid
-              ) {
-                this.setState({view: 1});
-              } else {
-                this.notAllowed();
-              }
-            }}>
-            <TabButton
-              icon='assignment'
-              label='Itinerary' />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              if (
-                this.state.booking.planner
-                === Firebase.auth().currentUser.uid
-              ) {
-                this.setState({view: 2});
-              } else {
-                this.notAllowed();
-              }
-            }}>
-            <TabButton
-              icon='directions'
-              label='Places' />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              if (
-                this.state.booking.planner
-                === Firebase.auth().currentUser.uid
-              ) {
-                Actions.tripCamera({
-                  bookingId: this.props.bookingId,
-                  onUploaded: photoId => {
-
-                    // handle linking photoId to:
-                    // Photographer,
-                    Database.ref(
-                      `profiles/${
-                        Firebase.auth().currentUser.uid
-                      }/photos/${
-                        photoId
-                      }`
-                    ).set(true);
-
-                    // Booking,
-                    this.ref.child(
-                      `photos/${photoId}`
-                    ).set(true);
-
-                    // TODO: and Activity
-                  }
-                });
-              } else {
-                this.notAllowed();
-              }
-            }}>
-            <TabButton
-              icon='photo-camera'
-              label='Camera' />
-          </TouchableOpacity>
-        </View>
         <CloseFullscreenButton />
       </View>
     );
@@ -321,9 +297,30 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
 
-  tabs: {
-    backgroundColor: Colors.Primary,
+  status: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: Sizes.InnerFrame,
+    padding: Sizes.InnerFrame
+  },
+
+  statusText: {
+    color: Colors.Text,
+    flex: 1
+  },
+
+  pending: {
+    backgroundColor: Colors.Foreground
+  },
+
+  active: {
+    backgroundColor: Colors.Foreground
+  },
+
+  excitement: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingRight: Sizes.OuterFrame
   }
 });

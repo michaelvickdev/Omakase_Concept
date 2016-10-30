@@ -47,13 +47,22 @@ export default class BookingCard extends Component {
           'mmmm dS yyyy');
       }
 
+      let status = "Submitted";
+      if (booking.itinerary && booking.itinerary.length > 0) {
+        status = "Planned"
+      } else if (booking.planner) {
+        status = "Matched";
+      } else if (booking.interested && booking.interested.length > 0){
+        status = "Pending"
+      }
+
       let [party, budget] = expandOnParty(booking);
       this.setState({
         booking: booking,
         budget: budget,
         party: party,
         size: party.length,
-        status: 'Pending'
+        status: status
       });
     }
   }
@@ -128,12 +137,10 @@ export default class BookingCard extends Component {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    flex: 0.9,
-    width: Sizes.width,
     backgroundColor: Colors.Foreground,
     justifyContent: 'flex-start',
     alignSelf: 'auto',
-    marginBottom: Sizes.ItemSpacer
+    marginBottom: Sizes.ItemSpacer,
   },
 
   cardContent: {

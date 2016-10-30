@@ -93,7 +93,6 @@ export default class BookingCardHeader extends Component {
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    width: Sizes.width,
     backgroundColor: Colors.Background,
     height: 250,
   },
@@ -103,15 +102,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
+    backgroundColor: Colors.Primary,
   },
 
   primaryPhoto: {
     position: 'absolute',
-    left: 0,
     top: 0,
-    width: Sizes.width,
+    left: 0,
+    bottom: 0,
+    right: 0,
     height: 250,
-    alignSelf: 'center',
     justifyContent: 'center',
   },
 
