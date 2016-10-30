@@ -6,7 +6,7 @@ import Database from '../../utils/Firebase';
 
 // components
 import {
-  LoginButton, AccessToken, GraphRequest, GraphRequestManager
+  LoginButton, AccessToken
 } from 'react-native-fbsdk';
 
 /**
