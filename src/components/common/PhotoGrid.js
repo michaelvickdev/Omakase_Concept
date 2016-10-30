@@ -2,16 +2,38 @@ import React, {
   Component
 } from 'react';
 import {
-  StyleSheet, View
+  StyleSheet, View, Modal
 } from 'react-native';
 import {
   Sizes, Colors
 } from '../../../res/Constants';
+import Database from '../../utils/Firebase';
 
 // components
 import Photo from './Photo';
 
 export default class PhotoGrid extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      photos: [],
+      initialPage: 0,
+      visible: false
+    };
+  }
+
+  componentWillReceiveProps(props) {
+    for (let photo of props.photoIds) {
+      Database.ref(
+        `photos/${photo}/url`
+      ).once('value', data => {
+        data.exists() && this.setState({
+          photos: [...this.state.photos, data.val()]
+        });
+      });
+    }
+  }
+
   render() {
     return (
       <View style={[
@@ -20,7 +42,7 @@ export default class PhotoGrid extends Component {
           width: this.props.width
         }
       ]}>
-        {this.props.photoIds.map(photoId => {
+        {this.state.photos.map((photoUri, i) => {
           return (
             <Photo
               key={Math.random()}
@@ -35,8 +57,8 @@ export default class PhotoGrid extends Component {
                   )
                 }
               ]}
-              photoId={photoId} />
-            );
+              uri={photoUri} />
+          );
         })}
       </View>
     );

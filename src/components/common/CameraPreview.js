@@ -136,7 +136,7 @@ export default class CameraPreview extends Component {
             borderRadius={0}
             color={Colors.Primary}
             progress={this.state.progress}
-            height={1}
+            height={3}
             width={Sizes.width * 0.9 - 8} />
         </BlurView>
       </View>
@@ -172,6 +172,6 @@ const styles = StyleSheet.create({
   },
 
   progress: {
-    top: -1
+    top: -3
   }
 });

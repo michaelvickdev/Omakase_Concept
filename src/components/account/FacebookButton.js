@@ -6,7 +6,7 @@ import Database from '../../utils/Firebase';
 
 // components
 import {
-  LoginButton, AccessToken, GraphRequest, GraphRequestManager
+  LoginButton, AccessToken
 } from 'react-native-fbsdk';
 
 /**
@@ -76,7 +76,8 @@ export default class FacebookButton extends Component {
             error => this.props.onLogoutFailed
               && this.props.onLogoutFailed(error)
           )
-        }} />
+        }}
+        style={this.props.style} />
     );
   }
 }

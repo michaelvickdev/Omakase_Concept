@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet, Image
 } from 'react-native';
 import {
   Actions
@@ -10,9 +10,15 @@ import {
 import {
   Colors, Sizes
 } from '../../res/Constants';
+import {
+  LoginManager, AccessToken
+} from 'react-native-fbsdk';
+import * as firebase from 'firebase';
+import Database from '../utils/Firebase';
 
 // components
-import FacebookButton from '../components/account/FacebookButton';
+import Photo from '../components/common/Photo';
+import Button from '../components/common/Button';
 
 /**
  * If fetching user is unsuccessful, allow logging with existing acct
@@ -25,17 +31,77 @@ export default class Login extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Photo
+        photoId='login'
+        style={styles.container}>
         <View style={styles.header}>
-          <Text style={[styles.text, styles.title]}>
-            Omakase
-          </Text>
-          <Text style={styles.text}>
-            planning your ultimate experience
-          </Text>
+          <View style={styles.headerContainer}>
+            <View style={styles.logoContainer}>
+              <Image
+                source={require('../../res/img/logo.png')}
+                style={styles.logo} />
+            </View>
+            <Text style={[styles.text, styles.title]}>
+              A better way to travel
+            </Text>
+            <Text style={styles.text}>
+              Explore the world for free by using your smartphone's camera
+            </Text>
+          </View>
         </View>
-        <FacebookButton onLoginFinished={Actions.tutorial}/>
-      </View>
+        <Button
+          squareBorders
+          style={{
+            paddingTop: Sizes.InnerFrame,
+            paddingBottom: Sizes.InnerFrame
+          }}
+          color={Colors.Facebook}
+          fontColor={Colors.Text}
+          fontAwesome
+          icon='facebook'
+          label='Login with Facebook'
+          onPress={() => {
+            LoginManager.logInWithReadPermissions([
+              'public_profile',
+              'email'
+            ]).then(result => {
+              if (!result.isCancelled) {
+                AccessToken.getCurrentAccessToken().then(
+                  data => {
+                    firebase.auth().signInWithCredential(
+                      firebase.auth.FacebookAuthProvider.credential(
+                        data.accessToken.toString()
+                      )
+                    ).then(user => {
+
+                      // update profile
+                      Database.ref(
+                        `profiles/${user.uid}`
+                      ).set({
+                        displayName: user.displayName,
+                        email: user.email,
+                      }).then(result => {
+
+                        // now store the photo
+                        let photoId = Database.ref(`photos`).push().key;
+                        Database.ref().update({
+                          [`photos/${photoId}`]: {
+                            createdBy: user.uid,
+                            url: user.photoURL
+                          }, [`profiles/${user.uid}/photo`]: photoId
+                        });
+                      });
+
+                      // user logged in, ready for use
+                      Actions.tutorial();
+                    }).catch(error => {});
+                  }
+                );
+              }
+            }, error => {
+            });
+          }} />
+      </Photo>
     );
   }
 }
@@ -43,23 +109,46 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'stretch',
     backgroundColor: Colors.Background
   },
 
   header: {
-    backgroundColor: Colors.Background,
-    paddingBottom: 100
+    flex: 1,
+    padding: Sizes.InnerFrame,
+    backgroundColor: Colors.Overlay
+  },
+
+  headerContainer: {
+    alignSelf: 'stretch',
+    borderRadius: 10
+  },
+
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: Colors.LightWhiteOverlay,
+    overflow: 'hidden',
+    marginBottom: Sizes.InnerFrame * 3
+  },
+
+  logo: {
+    width: 25,
+    height: 25
   },
 
   text: {
-    textAlign: 'center',
-    fontSize: 14,
-    color: Colors.Primary
+    fontSize: Sizes.H1 * 2,
+    color: Colors.Text,
+    backgroundColor: Colors.Transparent,
+    fontWeight: '100'
   },
 
   title: {
-    fontSize: Sizes.H1
+    fontSize: Sizes.H1 * 2.5,
+    fontWeight: '200'
   }
 });

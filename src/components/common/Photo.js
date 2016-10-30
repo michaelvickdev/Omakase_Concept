@@ -2,9 +2,12 @@ import React, {
   Component
 } from 'react';
 import {
-  Image, View
+  Image, View, ActivityIndicator, StyleSheet
 } from 'react-native';
 import Database from '../../utils/Firebase';
+import {
+  Colors
+} from '../../../res/Constants';
 
 export default class Photo extends Component {
   constructor(props) {
@@ -51,11 +54,30 @@ export default class Photo extends Component {
       <Image
         ref={c => this.c = c}
         {...this.props}
+        style={[
+          styles.container,
+          this.props.style
+        ]}
         source={{uri: this.state.source}} />
     ): (
       <View
         ref={c => this.c = c}
-        {...this.props} />
+        {...this.props}
+        style={[
+          styles.container,
+          this.props.style
+        ]} />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.Foreground
+  },
+
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
