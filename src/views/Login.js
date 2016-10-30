@@ -10,9 +10,13 @@ import {
 import {
   Colors, Sizes
 } from '../../res/Constants';
+import {
+  LoginManager, AccessToken
+} from 'react-native-fbsdk';
+import * as firebase from 'firebase';
+import Database from '../utils/Firebase';
 
 // components
-import FacebookButton from '../components/account/FacebookButton';
 import Photo from '../components/common/Photo';
 import Button from '../components/common/Button';
 
@@ -55,7 +59,48 @@ export default class Login extends Component {
           fontColor={Colors.Text}
           fontAwesome
           icon='facebook'
-          label='Login with Facebook' />
+          label='Login with Facebook'
+          onPress={() => {
+            LoginManager.logInWithReadPermissions([
+              'public_profile',
+              'email'
+            ]).then(result => {
+              if (!result.isCancelled) {
+                AccessToken.getCurrentAccessToken().then(
+                  data => {
+                    firebase.auth().signInWithCredential(
+                      firebase.auth.FacebookAuthProvider.credential(
+                        data.accessToken.toString()
+                      )
+                    ).then(user => {
+
+                      // update profile
+                      Database.ref(
+                        `profiles/${user.uid}`
+                      ).set({
+                        displayName: user.displayName,
+                        email: user.email,
+                      }).then(result => {
+
+                        // now store the photo
+                        let photoId = Database.ref(`photos`).push().key;
+                        Database.ref().update({
+                          [`photos/${photoId}`]: {
+                            createdBy: user.uid,
+                            url: user.photoURL
+                          }, [`profiles/${user.uid}/photo`]: photoId
+                        });
+                      });
+
+                      // user logged in, ready for use
+                      Actions.tutorial();
+                    }).catch(error => {});
+                  }
+                );
+              }
+            }, error => {
+            });
+          }} />
       </Photo>
     );
   }
