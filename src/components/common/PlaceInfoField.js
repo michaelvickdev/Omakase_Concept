@@ -9,6 +9,7 @@ import {
 } from '../../../res/Constants';
 
 // components
+import MapView from 'react-native-maps';
 import InputField from './InputField';
 
 /**
@@ -16,7 +17,7 @@ import InputField from './InputField';
  *
  * @param {number} maxLength - The information.
  * @param {place} name - The name of the place.
- * @param {string} placeId - The googleplaceId.
+ * @param {object} location - The latLng obj of the place.
  */
 export default class PlaceInfoField extends Component {
 
@@ -27,6 +28,7 @@ export default class PlaceInfoField extends Component {
       showModal: false
     };
   }
+
 
   render() {
     return (
@@ -71,9 +73,37 @@ export default class PlaceInfoField extends Component {
                     showModal: false
                   })}>
                   <Text style={styles.text}>
-                    {this.props.cancelLabel || 'Cancel'}
+                    {this.props.closeLabel || 'Close'}
                   </Text>
                 </TouchableHighlight>
+              </View>
+              <View style={styles.inputContainer}>
+                <View style={styles.title}>
+                  <Text style={styles.modalText}>
+                    {this.props.name}
+                  </Text>
+                </View>
+                <View style={styles.mapContainer}>
+                  {this.props.location ?
+                  <MapView
+                    style={styles.map}
+                    scrollEnabled={false}
+                    region={{
+                      latitude: this.props.location.lat,
+                      longitude: this.props.location.lng,
+                      latitudeDelta: 0.01,
+                      longitudeDelta: 0.01
+                    }}>
+                    <MapView.Marker
+                      coordinate={{
+                        latitude: this.props.location.lat,
+                        longitude: this.props.location.lng,
+                      }}
+                      pinColor={Colors.Primary}
+                    />
+                  </MapView>
+                  : <View/>}
+                </View>
               </View>
             </View>
           </Modal>
@@ -94,6 +124,12 @@ const styles = StyleSheet.create({
     fontSize: Sizes.Text,
     color: Colors.Text,
     textAlign: 'right',
+  },
+
+  modalText: {
+    fontSize: Sizes.Text,
+    color: Colors.Text,
+    textAlign: 'left',
   },
 
   modalContainer: {
@@ -119,4 +155,28 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: Colors.Text
   },
+
+  inputContainer: {
+    backgroundColor: Colors.Background,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+  },
+
+  title: {
+    alignSelf: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingLeft: Sizes.InnerFrame,
+    paddingRight: Sizes.InnerFrame,
+  },
+
+  mapContainer: {
+    width: Sizes.width,
+    justifyContent: 'flex-end'
+  },
+
+  map: {
+    alignSelf: 'stretch',
+    margin: Sizes.InnerFrame,
+    height: Sizes.height*0.45,
+  }
 });

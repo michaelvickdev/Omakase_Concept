@@ -86,6 +86,19 @@ export default class ClientDetail extends Component {
           });
         }
 
+        if (booking.address.placeId){
+          fetch(Strings.googlePlaceURL + 'details/json?placeid='
+            + booking.address.placeId + '&key='
+            + Strings.googleApiKey)
+          .then(response => response.json())
+          .then(json => {
+            console.log("addressdetail,", json.result.geometry.location)
+            this.setState({
+              addressLocation: json.result.geometry.location
+            })
+          });
+        }
+
         this.setState({
           booking: booking,
           party: party,
@@ -209,7 +222,8 @@ export default class ClientDetail extends Component {
               name={this.state.booking.address
                 && this.state.booking.address.name
                 ? this.state.booking.address.name
-                : this.state.booking.address} />
+                : this.state.booking.address}
+              location={this.state.addressLocation} />
             <InputField
               isBottom
               label="Excitement Level"

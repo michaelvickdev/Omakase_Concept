@@ -84,52 +84,52 @@ export default class AutoCompleteModal extends Component {
             </TouchableHighlight>
           </View>
           <View style={styles.inputContainer}>
-          <GooglePlacesAutocomplete
-             placeholder={
-               this.props.placeholder || 'Search'
-             }
-             minLength={2}
-             autoFocus={this.state.description ? false : true}
-             fetchDetails={true}
-             onPress={(data, details = null) => {
-               console.log(data);
-               console.log(details);
-               this.setState({
-                 value: details,
-                 description: data.description,
-                 showModal: false
-               })
-               this.props.onSelect ? this.props.onSelect() : null ;
-             }}
-             getDefaultValue={() => {
-                return this.state.description || '';
-             }}
+            <GooglePlacesAutocomplete
+               placeholder={
+                 this.props.placeholder || 'Search'
+               }
+               minLength={2}
+               autoFocus={this.state.description ? false : true}
+               fetchDetails={true}
+               onPress={(data, details = null) => {
+                 console.log(data);
+                 console.log(details);
+                 this.setState({
+                   value: details,
+                   description: data.description,
+                   showModal: false
+                 })
+                 this.props.onSelect ? this.props.onSelect() : null ;
+               }}
+               getDefaultValue={() => {
+                  return this.state.description || '';
+               }}
 
-             enablePoweredByContainer={false}
-             query={{
-               key: Strings.googleApiKey,
-               language: 'en',
-               location: this.props.location || '',
-               radius: this.props.radius || 10000,
-               types: this.props.type || 'geocode',
-             }}
-             styles={{
-               description: {
-                 fontWeight: '500',
-                 color: Colors.Text,
-                 fontSize: Sizes.H2,
-                 alignSelf: 'flex-start',
-               },
-               row:{
-                 alignSelf: 'stretch',
-               },
+               enablePoweredByContainer={false}
+               query={{
+                 key: Strings.googleApiKey,
+                 language: 'en',
+                 location: this.props.location || '',
+                 radius: this.props.radius || 10000,
+                 types: this.props.type || 'geocode',
+               }}
+               styles={{
+                 description: {
+                   fontWeight: '500',
+                   color: Colors.Text,
+                   fontSize: Sizes.H2,
+                   alignSelf: 'flex-start',
+                 },
+                 row:{
+                   alignSelf: 'stretch',
+                 },
 
-             }}
-             currentLocation={false}
-             nearbyPlacesAPI='GooglePlacesSearch'
-             GooglePlacesSearchQuery={{
-               rankby: 'distance',
-             }}/>
+               }}
+               currentLocation={false}
+               nearbyPlacesAPI='GooglePlacesSearch'
+               GooglePlacesSearchQuery={{
+                 rankby: 'distance',
+               }}/>
           </View>
         </View>
       </Modal>
