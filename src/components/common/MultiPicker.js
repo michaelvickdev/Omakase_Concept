@@ -36,8 +36,15 @@ export default class MultiPicker extends Component {
   }
 
   val() {
-    return this.state.visible;
-  };
+    var result = [];
+    var temp = Object.keys(this.state.visible);
+    for (i in temp) {
+      if (this.state.visible[temp[i]] == true) {
+        result.push(temp[i]);
+      }
+    }
+    return result;
+  }
 
   start() {
     var temp = {}
@@ -71,21 +78,10 @@ export default class MultiPicker extends Component {
 
   // return selected option(s)
   returnOption() {
-    var text = "";
-    var temp = Object.keys(this.state.visible);
-    var count = 0;
-    for (i in temp) {
-      if (this.state.visible[temp[i]] == true) {
-        if (count < this.state.max){
-          if (text.length != 0){
-            text += ", ";
-          }
-          count == this.state.max-1 ? text += '...' : text += temp[i] ;
-          count++;
-        }
-      }
-    }
-    return text.length == 0 ? 'Select' : text;
+    let a = this.val();
+
+    return a.length == 0 ? 'Select'
+      : a.join(', ').replace(/,([^,]+)$/,`${a[2] ? ',': ''} and$1`);
   };
 
   render() {

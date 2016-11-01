@@ -247,7 +247,6 @@ export default class ClientDetail extends Component {
                 this.state.budget
               ).toFixed(0)}` + " USD"} />
             <InformationField
-              isTop
               label="Party Size"
               info={this.state.size} />
             <InformationField

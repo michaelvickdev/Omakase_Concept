@@ -92,6 +92,7 @@ export default class ClientCreate extends Component {
                   name: this._address.val(),
                   placeId: this._address.detail().place_id
                 },
+                languages: this._language.val(),
                 contributions: {
                   [Firebase.auth().currentUser.uid]: {
                     budget: this._price.val() * this._party.val(),
