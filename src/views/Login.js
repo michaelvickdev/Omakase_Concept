@@ -45,16 +45,13 @@ export default class Login extends Component {
             <Text style={[styles.text, styles.title]}>
               A better way to travel
             </Text>
+            <Divider style={styles.divider} />
             <Text style={styles.text}>
               Explore the world for free by using your smartphone's camera
             </Text>
           </View>
         </View>
         <View style={styles.footer}>
-          <Divider />
-          <Text style={styles.footerText}>
-            We don't post anything to Facebook
-          </Text>
           <Text style={styles.footerText}>
             By signing in, you agree to our Terms of Service and Privacy Policy
           </Text>
@@ -142,8 +139,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     backgroundColor: Colors.LightWhiteOverlay,
-    overflow: 'hidden',
-    marginBottom: Sizes.InnerFrame
+    overflow: 'hidden'
   },
 
   logo: {
@@ -152,28 +148,36 @@ const styles = StyleSheet.create({
   },
 
   text: {
+    fontFamily: 'Baskerville',
     fontSize: Sizes.H1 * 2,
     color: Colors.Text,
     backgroundColor: Colors.Transparent,
-    fontWeight: '100'
+    fontWeight: '100',
+    marginTop: Sizes.InnerFrame,
+    marginBottom: Sizes.InnerFrame
+  },
+
+  divider: {
+    height: 2,
+    width: Sizes.InnerFrame * 4,
+    backgroundColor: Colors.Text
   },
 
   title: {
     fontSize: Sizes.H1 * 2.5,
-    fontWeight: '200',
-    marginBottom: Sizes.InnerFrame
+    fontWeight: '300'
   },
 
   footer: {
-    padding: Sizes.InnerFrame,
     alignItems: 'center',
-    backgroundColor: Colors.Overlay
+    backgroundColor: Colors.Overlay,
+    padding: Sizes.InnerFrame / 2
   },
 
   footerText: {
-    paddingTop: Sizes.InnerFrame,
+    textAlign: 'center',
+    padding: Sizes.InnerFrame / 3,
     fontSize: Sizes.SmallText,
-    color: Colors.Text,
-    backgroundColor: Colors.Transparent
+    color: Colors.Text
   }
 });
