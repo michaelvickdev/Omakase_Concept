@@ -19,6 +19,7 @@ import Database from '../utils/Firebase';
 // components
 import Photo from '../components/common/Photo';
 import Button from '../components/common/Button';
+import Divider from '../components/common/Divider';
 
 /**
  * If fetching user is unsuccessful, allow logging with existing acct
@@ -48,6 +49,15 @@ export default class Login extends Component {
               Explore the world for free by using your smartphone's camera
             </Text>
           </View>
+        </View>
+        <View style={styles.footer}>
+          <Divider />
+          <Text style={styles.footerText}>
+            We don't post anything to Facebook
+          </Text>
+          <Text style={styles.footerText}>
+            By signing in, you agree to our Terms of Service and Privacy Policy
+          </Text>
         </View>
         <Button
           squareBorders
@@ -116,6 +126,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     padding: Sizes.InnerFrame,
+    paddingTop: Sizes.InnerFrame * 2,
     backgroundColor: Colors.Overlay
   },
 
@@ -132,7 +143,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: Colors.LightWhiteOverlay,
     overflow: 'hidden',
-    marginBottom: Sizes.InnerFrame * 3
+    marginBottom: Sizes.InnerFrame
   },
 
   logo: {
@@ -149,6 +160,20 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: Sizes.H1 * 2.5,
-    fontWeight: '200'
+    fontWeight: '200',
+    marginBottom: Sizes.InnerFrame
+  },
+
+  footer: {
+    padding: Sizes.InnerFrame,
+    alignItems: 'center',
+    backgroundColor: Colors.Overlay
+  },
+
+  footerText: {
+    paddingTop: Sizes.InnerFrame,
+    fontSize: Sizes.SmallText,
+    color: Colors.Text,
+    backgroundColor: Colors.Transparent
   }
 });
