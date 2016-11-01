@@ -102,7 +102,10 @@ export default class PlaceInfoField extends Component {
                       pinColor={Colors.Primary}
                     />
                   </MapView>
-                  : <View/>}
+                  :
+                  <View style={styles.textContainer}>
+                    <Text style={styles.bigText}>Map not available</Text>
+                  </View>}
                 </View>
               </View>
             </View>
@@ -178,5 +181,19 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     margin: Sizes.InnerFrame,
     height: Sizes.height*0.45,
+  },
+
+  textContainer: {
+    alignSelf: 'stretch',
+    margin: Sizes.InnerFrame,
+    height: Sizes.height*0.45,
+    justifyContent: 'center'
+  },
+
+  bigText: {
+    fontSize: Sizes.H2,
+    color: Colors.Text,
+    textAlign: 'center',
   }
+
 });

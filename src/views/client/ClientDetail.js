@@ -44,7 +44,8 @@ export default class ClientDetail extends Component {
       view: 0,
       booking: {},
       photo: null,
-      random: Math.random()
+      random: Math.random(),
+      budget: 0,
     };
 
     this.ref = Database.ref(
@@ -103,7 +104,7 @@ export default class ClientDetail extends Component {
           booking: booking,
           party: party,
           budget: budget,
-          size: party.size,
+          size: party.length,
           status: status
         });
         console.log("booking, ", booking)
@@ -225,24 +226,30 @@ export default class ClientDetail extends Component {
                 : this.state.booking.address}
               location={this.state.addressLocation} />
             <InputField
-              isBottom
               label="Excitement Level"
               field={
                 <Excitement
                   style={styles.excitement}
                   level={this.state.booking.excitement || 0} />
               } />
+            <InformationField
+              isBottom
+              label="# guides required"
+              info={this.state.booking.space && this.state.booking.space == 1 ?
+                this.state.booking.space + " Frrand"
+                : this.state.booking.space + " Frrands"} />
 
-            <InputSectionHeader label="Sponsor Profile" />
-            <TouchableOpacity
-              onPress={() => Actions.profile({
-                uid: this.state.booking.createdBy
-              })}>
-              <InformationField
-                isTop
-                label="Name"
-                info="Kenneth Ma" />
-            </TouchableOpacity>
+            <InputSectionHeader label="Party Details" />
+            <InformationField
+              isTop
+              label="Total Budget"
+              info={`$${(
+                this.state.budget
+              ).toFixed(0)}` + " USD"} />
+            <InformationField
+              isTop
+              label="Party Size"
+              info={this.state.size} />
             <InformationField
               isBottom
               label="Languages Spoken"
