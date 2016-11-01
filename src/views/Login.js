@@ -45,7 +45,6 @@ export default class Login extends Component {
             <Text style={[styles.text, styles.title]}>
               A better way to travel
             </Text>
-            <Divider style={styles.divider} />
             <Text style={styles.text}>
               Explore the world for free by using your smartphone's camera
             </Text>
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     padding: Sizes.InnerFrame,
-    paddingTop: Sizes.InnerFrame * 2,
+    paddingTop: Sizes.InnerFrame * 3,
     backgroundColor: Colors.Overlay
   },
 
@@ -148,23 +147,15 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontFamily: 'Baskerville',
-    fontSize: Sizes.H1 * 2,
+    fontSize: Sizes.H1 * 1.5,
     color: Colors.Text,
     backgroundColor: Colors.Transparent,
-    fontWeight: '100',
-    marginTop: Sizes.InnerFrame,
-    marginBottom: Sizes.InnerFrame
-  },
-
-  divider: {
-    height: 2,
-    width: Sizes.InnerFrame * 4,
-    backgroundColor: Colors.Text
+    fontWeight: '100'
   },
 
   title: {
-    fontSize: Sizes.H1 * 2.5,
+    marginTop: Sizes.InnerFrame,
+    fontSize: Sizes.H1 * 2.2,
     fontWeight: '300'
   },
 
