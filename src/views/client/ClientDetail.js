@@ -36,6 +36,11 @@ import TabButton from '../../components/common/TabButton';
 import Excitement from '../../components/common/Excitement';
 import CloseFullscreenButton from '../../components/common/CloseFullscreenButton';
 
+// Status mapping
+// 0 - Submitted
+// 1 - Planned
+// 2 - Matched
+// 3 - Pending
 
 export default class ClientDetail extends Component {
   constructor(props) {
@@ -46,6 +51,7 @@ export default class ClientDetail extends Component {
       photo: null,
       random: Math.random(),
       budget: 0,
+      status: 0,
     };
 
     this.ref = Database.ref(
@@ -59,13 +65,13 @@ export default class ClientDetail extends Component {
         let booking = data.val();
         let [party, budget] = expandOnParty(booking);
 
-        let status = "Submitted";
+        let status = 0;
         if (booking.itinerary && booking.itinerary.length > 0) {
-          status = "Planned"
+          status = 1;
         } else if (booking.planner) {
-          status = "Matched";
+          status = 2;
         } else if (booking.interested && booking.interested.length > 0){
-          status = "Pending"
+          status = 3;
         }
 
         // obtain photo
@@ -203,17 +209,68 @@ export default class ClientDetail extends Component {
             </LinearGradient>
           )}>
           <View>
+
+            {this.state.status == 0 ?
             <View style={[
               styles.status, styles.active
             ]}>
               <Text style={styles.statusText}>
-                You've been selected to go and plan this adventure!
+                {"We are looking for Frrands to plan your adventure in "
+                + (this.state.booking
+                && this.state.booking.city
+                && this.state.booking.city.name)
+                + " !!"}
+              </Text>
+            </View>
+            : this.state.status == 1 ?
+            <View style={[
+              styles.status, styles.active
+            ]}>
+              <Text style={styles.statusText}>
+                {this.state.booking
+                && this.state.booking.planner + " have made plans for your in "
+                + (this.state.booking
+                && this.state.booking.city
+                && this.state.booking.city.name) + ". Enjoy your adventure!!"}
               </Text>
               <CircleCheck
                 color={Colors.Green}
                 checkColor={Colors.Text}
                 size={30} />
             </View>
+            : this.state.status == 2 ?
+            <View style={[
+              styles.status, styles.active
+            ]}>
+              <Text style={styles.statusText}>
+                {this.state.booking
+                && this.state.booking.planner + " will be your planner for "
+                + "your adventure in "
+                + (this.state.booking
+                && this.state.booking.city
+                && this.state.booking.city.name), " sit back and we will "
+                + "let you know when you are all set !!"}
+              </Text>
+              <CircleCheck
+                color={Colors.Green}
+                checkColor={Colors.Text}
+                size={30} />
+            </View>
+            :
+            <View style={[
+              styles.status, styles.active
+            ]}>
+              <Text style={styles.statusText}>
+                {"Kenneth is interested in becoming your planner, "
+                + "let us know if you would like to proceed"}
+              </Text>
+              <CircleCheck
+                color={Colors.Green}
+                checkColor={Colors.Text}
+                size={30} />
+            </View>
+            }
+
             <InputSectionHeader
               label="Adventure Criteria" />
             <PlaceInfoField
