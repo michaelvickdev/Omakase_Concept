@@ -1,5 +1,5 @@
-# Omakase Client
-React Native client for Project Omakase.
+# Omakase Concept
+A React Native concept exercise that was never completed or launched with good aesthetic. I've left our internal style guide below.
 
 ## Build Instructions after a Fresh Clone
 As always, `npm install` and the following manual steps:
