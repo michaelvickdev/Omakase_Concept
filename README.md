@@ -3,8 +3,6 @@ A React Native concept exercise that was never completed or launched with good a
 
 The idea was to basically just specify a price, time, and location—where we'll match you up to an expert that will pick you up and plan your entire evening: from the choice of restaurant to even the food and drink selected. Simply pay and we'll handle the rest based on your budget.
 
-Interested in realizing this project? The backend is in a separate repo. Chat with me: ken@kenma.ca
-
 ## Build Instructions after a Fresh Clone
 As always, `npm install` and the following manual steps:
 
